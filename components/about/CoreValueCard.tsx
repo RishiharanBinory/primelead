@@ -1,54 +1,72 @@
 // components/about/CoreValueCard.tsx
-// Sits on dark #292929 background so title is white, description is light gray
+
+import { LucideIcon } from "lucide-react";
 
 interface CoreValueCardProps {
-  icon: string;
+  // LucideIcon is the TypeScript type for any Lucide icon component
+  icon: LucideIcon;
   title: string;
   description: string;
+  showLeftBorder?: boolean;
+  showRightBorder?: boolean;
 }
 
-export default function CoreValueCard({ icon, title, description }: CoreValueCardProps) {
+export default function CoreValueCard({
+  // Renaming 'icon' to 'Icon' with a capital I is CRITICAL here.
+  // React only treats <SomeName /> as a component if the name starts uppercase.
+  // If you left it as 'icon' and wrote <icon />, React would look for an HTML
+  // element called "icon" and fail — just like it failed with <📋 />.
+  icon: Icon,
+  title,
+  description,
+  showLeftBorder = false,
+  showRightBorder = false,
+}: CoreValueCardProps) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-
-      {/* Icon container — slightly lighter background so it stands out on dark */}
+    <div
+      style={{
+        padding: "0 40px",
+        borderLeft: showLeftBorder ? "1px solid #e0e0e0" : "none",
+        borderRight: showRightBorder ? "1px solid #e0e0e0" : "none",
+      }}
+    >
+      {/* Icon + Title row */}
       <div
         style={{
-          width: "56px",
-          height: "56px",
-          backgroundColor: "#383838",  // slightly lighter than #292929
-          borderRadius: "8px",
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
-          fontSize: "24px",
+          gap: "14px",
           marginBottom: "20px",
         }}
       >
-        {icon}
+        {/* 
+          This works because 'Icon' starts with uppercase.
+          React now knows to call it as a component, not look for an HTML tag.
+        */}
+        <Icon size={36} strokeWidth={1.5} color="#333333" />
+
+        <h3
+          style={{
+            fontFamily: "'Work Sans', sans-serif",
+            fontSize: "20px",
+            fontWeight: "700",
+            color: "#1a1a1a",
+            margin: 0,
+          }}
+        >
+          {title}
+        </h3>
       </div>
 
-      {/* Title — Work Sans, white */}
-      <h3
-        style={{
-          fontFamily: "'Work Sans', sans-serif",
-          fontSize: "18px",
-          fontWeight: "700",
-          color: "#ffffff",
-          marginBottom: "12px",
-        }}
-      >
-        {title}
-      </h3>
-
-      {/* Description — Inter, light gray */}
       <p
         style={{
           fontFamily: "'Inter', sans-serif",
-          fontSize: "16px",
+          fontSize: "15px",
           fontWeight: "400",
-          lineHeight: "1.6em",
-          color: "#b0b0b0",
+          lineHeight: "1.7em",
+          color: "#545454",
+          margin: 0,
+          textAlign: "justify",
         }}
       >
         {description}

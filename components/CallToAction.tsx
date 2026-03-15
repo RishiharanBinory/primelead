@@ -8,7 +8,7 @@ export default function CallToAction() {
   return (
     <section
       style={{
-        backgroundColor: "#FFC501",  // exact yellow
+        backgroundColor: "#FFC501", // exact yellow
         padding: "80px 20px",
         textAlign: "center",
       }}
@@ -22,9 +22,11 @@ export default function CallToAction() {
           color: "#292929",
           maxWidth: "400px",
           margin: "0 auto 32px auto",
+          marginTop: "-225px",
+          marginLeft: "550px", // pulls the element upward by 60px — adjust to taste
         }}
       >
-        FORM 
+        FORM
       </h2>
       {/* h5 style: Work Sans 24px 600 weight */}
       <h2
