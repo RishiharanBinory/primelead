@@ -12,12 +12,13 @@ export const metadata: Metadata = {
   description: "Start your journey in higher education & pursue your passion with Prime Leed.",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Navbar />
-        {/* pt-[70px] offsets the fixed navbar height */}
         <main className="pt-17.5">
           {children}
         </main>

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Button from "./Button";
 
 export default function ApplyToday() {
   return (
@@ -31,27 +31,7 @@ export default function ApplyToday() {
 
         {/* Right: CTA button */}
         <div className="shrink-0 md:w-[26%] w-full">
-          <Link
-            href="/admission"
-            className="flex items-center justify-between w-full px-8 py-5
-                       font-semibold text-white transition-opacity hover:opacity-90"
-            style={{
-              backgroundColor: "#1a2e3b",
-              fontSize: "16px",
-              letterSpacing: "0.01em",
-            }}
-          >
-            Admission
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <path
-                d="M3 9h12M10 4l5 5-5 5"
-                stroke="white"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </Link>
+          <Button href="/admission" label="Admission" />
         </div>
       </div>
     </section>

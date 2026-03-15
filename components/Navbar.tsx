@@ -168,7 +168,7 @@ export default function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#e6eaed] shadow-[0_1px_10px_rgba(0,0,0,0.07)] font-sans transition-transform duration-300"
       style={{ transform: visible ? "translateY(0)" : "translateY(-100%)" }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-7 h-[70px] flex items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-7 h-17.5 flex items-center">
         <Link
           href="/"
           aria-label="Primeleed home"
@@ -187,7 +187,7 @@ export default function Navbar() {
         <ul
           role="menubar"
           aria-label="Main navigation"
-          className="hidden lg:flex items-stretch h-[70px] list-none m-0 p-0 ml-auto"
+          className="hidden lg:flex items-stretch h-17.5 list-none m-0 p-0 ml-auto"
         >
           {NAV_ITEMS.map((item) => {
             const active = isActive(item);

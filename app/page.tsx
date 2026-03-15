@@ -26,8 +26,9 @@ export default function Home() {
       <HowToApply />
       <ApplyToday />
       <AdmissionContent />
-      <StudentLife/>
-      <CTABanner/>
+      <StudentLife />
+      <div className="h-40 bg-white" />
+      <CTABanner />
     </>
   );
 }
