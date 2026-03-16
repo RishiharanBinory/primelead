@@ -6,7 +6,7 @@ import LogoCarousel from "@/components/LogoCarousel";
 import StatsSection from "@/components/StatsSection";
 import FundingSupport from "@/components/Fundingsupport";
 import StudentFinance from "@/components/Studentfinacehome";
-import HowToApply from "@/components/Howtoapply";
+
 import ApplyToday from "@/components/Applytoday";
 import AdmissionContent from "@/components/Admission";
 import StudentLife from "@/components/Studenlife";
@@ -24,7 +24,6 @@ export default function Home() {
       <FundingSupport />
       <div className="h-20 bg-white" />
       <StudentFinance />
-      <HowToApply />
       <ApplyToday />
       <AdmissionContent />
       <StudentLife />

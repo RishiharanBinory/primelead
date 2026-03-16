@@ -46,18 +46,23 @@ const REVIEWS: Review[] = [
   },
 ];
 
-const CARD_WIDTH = 344; // 320px card + 24px gap (mx-3 = 12px each side)
+const CARD_WIDTH_DESKTOP = 344;
+const CARD_WIDTH_MOBILE = 280;
 
 export default function ReviewsCarousel() {
   const trackRef = useRef<HTMLDivElement>(null);
   const posRef = useRef(0);
 
   const scroll = useCallback((dir: "left" | "right") => {
-    const maxScroll = CARD_WIDTH * (REVIEWS.length - 3);
+    const isMobile = window.innerWidth < 768;
+    const cardWidth = isMobile ? CARD_WIDTH_MOBILE : CARD_WIDTH_DESKTOP;
+    const visibleCards = isMobile ? 1 : 3;
+    const maxScroll = cardWidth * (REVIEWS.length - visibleCards);
+
     if (dir === "right") {
-      posRef.current = Math.min(posRef.current + CARD_WIDTH, maxScroll);
+      posRef.current = Math.min(posRef.current + cardWidth, maxScroll);
     } else {
-      posRef.current = Math.max(posRef.current - CARD_WIDTH, 0);
+      posRef.current = Math.max(posRef.current - cardWidth, 0);
     }
     if (trackRef.current) {
       trackRef.current.style.transition = "transform 0.35s ease";
@@ -66,19 +71,101 @@ export default function ReviewsCarousel() {
   }, []);
 
   return (
-    <section className="py-14 bg-white">
-      <div className="max-w-7xl mx-auto px-7">
-        <div className="flex items-center gap-8">
+    <section className="py-10 md:py-14 bg-white">
+      <div className="max-w-7xl mx-auto px-5 md:px-7">
+        {/* ── Mobile: stacked layout ── */}
+        <div className="flex flex-col gap-6 md:hidden">
+          {/* Excellent + stars + facebook */}
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-black tracking-widest text-[#1a2e3b] uppercase">
+                Excellent
+              </p>
+              <div className="flex gap-0.5 my-1.5">
+                {[...Array(5)].map((_, i) => (
+                  <svg
+                    key={i}
+                    width="20"
+                    height="20"
+                    viewBox="0 0 16 16"
+                    fill="#1877F2"
+                  >
+                    <path d="M8 1l1.854 3.754L14 5.469l-3 2.922.708 4.129L8 10.354l-3.708 2.166L5 8.391 2 5.469l4.146-.715z" />
+                  </svg>
+                ))}
+              </div>
+              <p className="text-xs text-gray-500">
+                Based on <strong>58 reviews</strong>
+              </p>
+            </div>
+            <p className="text-[#1877F2] font-black text-2xl tracking-tight">
+              facebook
+            </p>
+          </div>
 
-          {/* Left panel — EXCELLENT + stars + facebook */}
+          {/* Cards + arrows */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => scroll("left")}
+              className="shrink-0 w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-100 transition-colors"
+              aria-label="Previous"
+            >
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M10 12L6 8l4-4"
+                  stroke="#374151"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+
+            <div className="overflow-hidden flex-1">
+              <div ref={trackRef} className="flex">
+                {REVIEWS.map((review, i) => (
+                  <div key={i} className="shrink-0 w-[256px] mx-3">
+                    <ReviewCard review={review} />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <button
+              onClick={() => scroll("right")}
+              className="shrink-0 w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-100 transition-colors"
+              aria-label="Next"
+            >
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M6 4l4 4-4 4"
+                  stroke="#374151"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* ── Desktop: original side-by-side layout ── */}
+        <div className="hidden md:flex items-center gap-8">
+          {/* Left panel */}
           <div className="shrink-0 w-44">
             <p className="text-base font-black tracking-widest text-[#1a2e3b] uppercase">
               Excellent
             </p>
             <div className="flex gap-0.5 my-2">
               {[...Array(5)].map((_, i) => (
-                <svg key={i} width="24" height="24" viewBox="0 0 16 16" fill="#1877F2">
-                  <path d="M8 1l1.854 3.754L14 5.469l-3 2.922.708 4.129L8 10.354l-3.708 2.166L5 8.391 2 5.469l4.146-.715z"/>
+                <svg
+                  key={i}
+                  width="24"
+                  height="24"
+                  viewBox="0 0 16 16"
+                  fill="#1877F2"
+                >
+                  <path d="M8 1l1.854 3.754L14 5.469l-3 2.922.708 4.129L8 10.354l-3.708 2.166L5 8.391 2 5.469l4.146-.715z" />
                 </svg>
               ))}
             </div>
@@ -92,18 +179,22 @@ export default function ReviewsCarousel() {
 
           {/* Cards track + arrows */}
           <div className="flex items-center gap-3 flex-1 min-w-0">
-            {/* Prev arrow */}
             <button
               onClick={() => scroll("left")}
               className="shrink-0 w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-100 transition-colors"
               aria-label="Previous"
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M10 12L6 8l4-4" stroke="#374151" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                <path
+                  d="M10 12L6 8l4-4"
+                  stroke="#374151"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
 
-            {/* Overflow mask */}
             <div className="overflow-hidden flex-1">
               <div ref={trackRef} className="flex">
                 {REVIEWS.map((review, i) => (
@@ -112,18 +203,22 @@ export default function ReviewsCarousel() {
               </div>
             </div>
 
-            {/* Next arrow */}
             <button
               onClick={() => scroll("right")}
               className="shrink-0 w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-100 transition-colors"
               aria-label="Next"
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M6 4l4 4-4 4" stroke="#374151" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                <path
+                  d="M6 4l4 4-4 4"
+                  stroke="#374151"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
           </div>
-
         </div>
       </div>
     </section>

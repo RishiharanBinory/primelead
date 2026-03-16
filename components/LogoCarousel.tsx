@@ -79,16 +79,23 @@ const LOGOS = [
   },
 ];
 
-const ITEMS_PER_VIEW = 4;
-const TOTAL_SLIDES = LOGOS.length - ITEMS_PER_VIEW + 1; // 9
 const AUTO_INTERVAL = 3000;
 const DRAG_THRESHOLD = 50;
 
+// Responsive items per view based on screen width
+function getItemsPerView(): number {
+  if (typeof window === "undefined") return 4;
+  if (window.innerWidth < 480) return 1;
+  if (window.innerWidth < 768) return 2;
+  if (window.innerWidth < 1024) return 3;
+  return 4;
+}
+
 export default function LogoCarousel() {
+  const [itemsPerView, setItemsPerView] = useState(4);
   const [current, setCurrent] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
-  // Fix 1: store trackWidth in state, updated via ResizeObserver — never read ref during render
   const [trackWidth, setTrackWidth] = useState(0);
 
   const timerRef = useRef<ReturnType<typeof setInterval> | undefined>(
@@ -98,7 +105,21 @@ export default function LogoCarousel() {
   const dragStart = useRef<number>(0);
   const dragged = useRef<boolean>(false);
 
-  // ── Measure track width via ResizeObserver (not during render) ──
+  // ── Update itemsPerView on resize ──
+  useEffect(() => {
+    const update = () => {
+      const next = getItemsPerView();
+      setItemsPerView(next);
+      setCurrent(0); // reset position on resize to avoid out-of-bounds
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  const totalSlides = LOGOS.length - itemsPerView + 1;
+
+  // ── Measure track width ──
   useEffect(() => {
     const el = trackRef.current;
     if (!el) return;
@@ -112,31 +133,30 @@ export default function LogoCarousel() {
   const startTimer = useCallback(() => {
     clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
-      setCurrent((c) => (c >= TOTAL_SLIDES - 1 ? 0 : c + 1));
+      setCurrent((c) => (c >= totalSlides - 1 ? 0 : c + 1));
     }, AUTO_INTERVAL);
-  }, []);
+  }, [totalSlides]);
 
   useEffect(() => {
     startTimer();
     return () => clearInterval(timerRef.current);
   }, [startTimer]);
 
-  // Fix 2: proper named functions, no unused expressions
   const goTo = useCallback(
     (index: number) => {
-      setCurrent(Math.max(0, Math.min(TOTAL_SLIDES - 1, index)));
+      setCurrent(Math.max(0, Math.min(totalSlides - 1, index)));
       startTimer();
     },
-    [startTimer],
+    [startTimer, totalSlides],
   );
 
   const prev = useCallback(() => {
-    goTo(current === 0 ? TOTAL_SLIDES - 1 : current - 1);
-  }, [current, goTo]);
+    goTo(current === 0 ? totalSlides - 1 : current - 1);
+  }, [current, goTo, totalSlides]);
 
   const next = useCallback(() => {
-    goTo(current >= TOTAL_SLIDES - 1 ? 0 : current + 1);
-  }, [current, goTo]);
+    goTo(current >= totalSlides - 1 ? 0 : current + 1);
+  }, [current, goTo, totalSlides]);
 
   // ── Drag handlers ──
   const onDragStart = useCallback((clientX: number) => {
@@ -167,11 +187,11 @@ export default function LogoCarousel() {
           setCurrent((c) => {
             const next =
               delta < 0
-                ? c >= TOTAL_SLIDES - 1
+                ? c >= totalSlides - 1
                   ? 0
                   : c + 1
                 : c === 0
-                  ? TOTAL_SLIDES - 1
+                  ? totalSlides - 1
                   : c - 1;
             return next;
           });
@@ -180,10 +200,9 @@ export default function LogoCarousel() {
         return false;
       });
     },
-    [startTimer],
+    [startTimer, totalSlides],
   );
 
-  // Mouse events
   const onMouseDown = (e: React.MouseEvent) => onDragStart(e.clientX);
   const onMouseMove = (e: React.MouseEvent) => onDragMove(e.clientX);
   const onMouseUp = (e: React.MouseEvent) => onDragEnd(e.clientX);
@@ -195,7 +214,6 @@ export default function LogoCarousel() {
     }
   };
 
-  // Touch events
   const onTouchStart = (e: React.TouchEvent) =>
     onDragStart(e.touches[0].clientX);
   const onTouchMove = (e: React.TouchEvent) => onDragMove(e.touches[0].clientX);
@@ -206,23 +224,19 @@ export default function LogoCarousel() {
     if (dragged.current) e.preventDefault();
   };
 
-  // ── Offset calculation — uses trackWidth STATE, not ref ──
-  const slotPx = trackWidth / ITEMS_PER_VIEW;
+  const slotPx = trackWidth / itemsPerView;
   const baseOffset = -(current * slotPx);
   const totalOffset = baseOffset + (isDragging ? dragOffset : 0);
 
   return (
-    <section
-      className="w-full bg-white"
-      style={{ paddingTop: "52px", paddingBottom: "52px" }}
-    >
-      <div className="max-w-7xl mx-auto px-7">
+    <section className="w-full bg-white py-10 md:py-13">
+      <div className="max-w-7xl mx-auto px-4 md:px-7">
         <div
           className="flex items-center"
           style={{ gap: "5px" }}
           onMouseLeave={onMouseLeave}
         >
-          {/* Left arrow — Fix 3: shrink-0 not flex-shrink-0 */}
+          {/* Left arrow */}
           <button
             onClick={prev}
             aria-label="Previous"
@@ -267,8 +281,8 @@ export default function LogoCarousel() {
               {LOGOS.map((logo) => (
                 <div
                   key={logo.id}
-                  style={{ width: `${100 / ITEMS_PER_VIEW}%`, flexShrink: 0 }}
-                  className="flex items-center justify-center px-2"
+                  style={{ width: `${100 / itemsPerView}%`, flexShrink: 0 }}
+                  className="flex items-center justify-center px-2 md:px-3"
                 >
                   <Link
                     href={logo.href}
@@ -278,7 +292,7 @@ export default function LogoCarousel() {
                     className="flex items-center justify-center w-full
                                opacity-80 hover:opacity-100 transition-opacity duration-200"
                     style={{
-                      height: "100px",
+                      height: "80px",
                       pointerEvents: isDragging ? "none" : "auto",
                     }}
                   >
@@ -289,7 +303,7 @@ export default function LogoCarousel() {
                       height={120}
                       draggable={false}
                       className="object-contain w-auto select-none"
-                      style={{ maxHeight: "120px" }}
+                      style={{ maxHeight: "80px" }}
                     />
                   </Link>
                 </div>
@@ -318,11 +332,8 @@ export default function LogoCarousel() {
         </div>
 
         {/* Dots */}
-        <div
-          className="flex items-center justify-center gap-2"
-          style={{ marginTop: "28px" }}
-        >
-          {Array.from({ length: TOTAL_SLIDES }).map((_, i) => (
+        <div className="flex items-center justify-center gap-2 mt-6 md:mt-7">
+          {Array.from({ length: totalSlides }).map((_, i) => (
             <button
               key={i}
               onClick={() => goTo(i)}

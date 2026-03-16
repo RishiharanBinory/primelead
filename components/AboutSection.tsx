@@ -2,27 +2,27 @@ import Image from "next/image";
 
 export default function AboutSection() {
   return (
-    <section className="py-10 bg-white">
-      <div className="max-w-7xl mx-auto px-7">
-        <div className="flex items-center gap-10 justify-center">
-          {/* Left — logo */}
-          <div className="shrink-0 w-80 flex items-center justify-center">
+    <section className="py-8 md:py-10 bg-white">
+      <div className="max-w-7xl mx-auto px-5 md:px-7">
+        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-10 justify-center">
+          {/* Logo — centered on mobile, left on desktop */}
+          <div className="shrink-0 w-48 md:w-80 flex items-center justify-center">
             <Image
               src="/logo2.png"
               alt="Primeleed"
               width={320}
               height={280}
-              className="object-contain"
+              className="object-contain w-full h-auto"
             />
           </div>
 
-          {/* Right — text */}
-          <div className="flex-1 max-w-2xl">
-            <h2 className="text-4xl font-black text-[#1a2e3b] mb-6 leading-tight">
+          {/* Text — full width on mobile, flex-1 on desktop */}
+          <div className="flex-1 max-w-2xl w-full">
+            <h2 className="text-2xl md:text-4xl font-black text-[#1a2e3b] mb-4 md:mb-6 leading-tight text-center md:text-left">
               Secure a UK University Placement
             </h2>
 
-            <p className="text-base text-[#374151] leading-relaxed text-justify mb-4">
+            <p className="text-sm md:text-base text-[#374151] leading-relaxed text-justify mb-3 md:mb-4">
               <strong>
                 Prime Leed is a trusted resource for students seeking to apply
                 for higher education.
@@ -33,7 +33,7 @@ export default function AboutSection() {
               institutions.
             </p>
 
-            <p className="text-base text-[#374151] leading-relaxed text-justify">
+            <p className="text-sm md:text-base text-[#374151] leading-relaxed text-justify">
               Our platform offers comprehensive support, including guidance on
               the application process, access to valuable resources, and
               personalised assistance from experienced advisors. We are

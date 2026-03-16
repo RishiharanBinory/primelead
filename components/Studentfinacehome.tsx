@@ -1,7 +1,7 @@
 export default function StudentFinance() {
   return (
     <section
-      className="relative w-full h-35 overflow-hidden"
+      className="relative w-full overflow-hidden"
       style={{ minHeight: "520px" }}
     >
       {/* Background image */}
@@ -19,19 +19,27 @@ export default function StudentFinance() {
 
       {/* Content row */}
       <div
-        className="relative z-10 max-w-7xl mx-auto px-7
+        className="relative z-10 max-w-7xl mx-auto
+                   px-5 md:px-7
+                   py-12 md:py-0
                    flex flex-col md:flex-row items-center
-                   py-16 md:py-0"
+                   gap-8 md:gap-0"
         style={{ minHeight: "520px" }}
       >
         {/* Left: Text */}
         <div
-          className="w-full flex flex-col gap-7"
-          style={{ maxWidth: "580px", paddingRight: "48px" }}
+          className="w-full flex flex-col gap-5 md:gap-7"
+          style={{
+            maxWidth: "580px",
+            paddingRight: "0px",
+          }}
         >
           <h2
             className="text-white leading-[1.05] tracking-tight"
-            style={{ fontSize: "clamp(42px, 4.5vw, 68px)", fontWeight: 900 }}
+            style={{
+              fontSize: "clamp(30px, 4.5vw, 68px)",
+              fontWeight: 900,
+            }}
           >
             Student Finance
             <br />
@@ -40,7 +48,7 @@ export default function StudentFinance() {
 
           <p
             className="text-white/90 leading-[1.7]"
-            style={{ fontSize: "clamp(14px, 1.15vw, 16px)" }}
+            style={{ fontSize: "clamp(13px, 1.15vw, 16px)" }}
           >
             Student loans and grants in the United Kingdom are primarily
             provided by the government through the Student Loans Company (SLC),
@@ -49,7 +57,7 @@ export default function StudentFinance() {
 
           <p
             className="text-white/90 leading-[1.7]"
-            style={{ fontSize: "clamp(14px, 1.15vw, 16px)" }}
+            style={{ fontSize: "clamp(13px, 1.15vw, 16px)" }}
           >
             The SLC is responsible for Student Finance England and Student
             Finance Wales, and is a delivery partner of Student Finance NI and
@@ -57,11 +65,11 @@ export default function StudentFinance() {
           </p>
         </div>
 
-        {/* Right: Real video */}
-        <div
-          className="w-full md:flex-1 overflow-hidden mt-10 md:mt-0
-                     shadow-[0_8px_40px_rgba(0,0,0,0.4)]"
-        >
+        {/* Spacer — only on desktop to replicate original paddingRight: 48px */}
+        <div className="hidden md:block md:w-12 shrink-0" />
+
+        {/* Right: Video */}
+        <div className="w-full md:flex-1 overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.4)]">
           <video
             src="/Student-Finance-Explained-2022-to-2023.mp4"
             controls

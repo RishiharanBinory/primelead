@@ -4,10 +4,9 @@ export default function AdmissionContent() {
   return (
     <section
       className="w-full bg-white"
-      style={{ paddingTop: "64px", paddingBottom: "64px" }}
+      style={{ paddingTop: "40px", paddingBottom: "40px" }}
     >
-      <div className="max-w-7xl mx-auto px-7 flex flex-col gap-0">
-        {/* Block 1 */}
+      <div className="max-w-7xl mx-auto px-5 md:px-7 flex flex-col gap-0">
         <ImageTextBlock
           imageSrc="/hands.jpg"
           imageAlt="Graduation caps"
@@ -15,8 +14,6 @@ export default function AdmissionContent() {
           linkLabel="Process Overview"
           linkHref="/admission/overview"
         />
-
-        {/* Block 2 */}
         <ImageTextBlock
           imageSrc="/Vission.jpeg"
           imageAlt="Student on campus"

@@ -3,21 +3,25 @@ import Link from "next/link";
 export default function Hero() {
   return (
     <section
-      className="relative w-full overflow-hidden"
+      className="relative w-full overflow-hidden flex items-center"
       style={{
+        height: "calc(100vh - 70px)",
         minHeight: "500px",
+        maxHeight: "750px",
         backgroundImage: "url('/Home_img.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center center",
       }}
     >
+      <div className="absolute inset-0 bg-black/30" />
+
       <div
-        className="max-w-7xl mx-auto px-7 flex flex-col justify-center"
-        style={{ paddingTop: "96px", paddingBottom: "96px" }}
+        className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-7 flex flex-col justify-start"
+        style={{ paddingTop: "50px", paddingBottom: "300px" }}
       >
         <h1
-          className="font-black text-[#dce1e5] leading-tight mb-6"
-          style={{ fontSize: "clamp(40px, 5.5vw, 72px)" }}
+          className="text-white leading-tight mb-6 font-black"
+          style={{ fontSize: "clamp(28px, 5.5vw, 50px)", fontWeight: 900 }}
         >
           Start your journey
           <br />
@@ -29,7 +33,7 @@ export default function Hero() {
         <Link
           href="/admission/form"
           className="inline-flex items-center gap-2 font-semibold hover:opacity-75 transition-opacity w-fit"
-          style={{ color: "#fafafa", fontSize: "16px" }}
+          style={{ color: "#ffffff", fontSize: "clamp(14px, 2vw, 16px)" }}
         >
           <svg
             width="18"
@@ -40,7 +44,7 @@ export default function Hero() {
           >
             <path
               d="M3 9h12M10 4l5 5-5 5"
-              stroke="#fafafa"
+              stroke="#ffffff"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
