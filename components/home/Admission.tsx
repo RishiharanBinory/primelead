@@ -6,7 +6,7 @@ export default function AdmissionContent() {
       className="w-full bg-white"
       style={{ paddingTop: "40px", paddingBottom: "40px" }}
     >
-      <div className="max-w-7xl mx-auto px-5 md:px-7 flex flex-col gap-0">
+      <div className="max-w-7xl mx-auto px-5 md:px-7 flex flex-col">
         <ImageTextBlock
           imageSrc="/hands.jpg"
           imageAlt="Graduation caps"

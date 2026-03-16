@@ -37,19 +37,19 @@ export default function MainHero({
 
       {/* Teal content box */}
       <div
-        className="absolute text-white"
+        className="absolute text-white w-[90vw] sm:w-[70vw] md:w-[60vw] lg:w-auto"
         style={{
           backgroundColor: "#149AB5",
-          padding: "90px 70px 100px 70px",
+          padding: "clamp(32px, 6vw, 90px) clamp(24px, 5vw, 70px) clamp(40px, 7vw, 100px) clamp(24px, 5vw, 70px)",
           maxWidth: "700px",
           bottom: "-100px",
-          left: "280px",
+          left: "clamp(16px, 5vw, 280px)",
         }}
       >
         <h1
           style={{
             fontFamily: "'Work Sans', sans-serif",
-            fontSize: "60px",
+            fontSize: "clamp(28px, 5vw, 60px)",
             fontWeight: "800",
             lineHeight: "1.1em",
             color: "#ffffff",
@@ -62,7 +62,7 @@ export default function MainHero({
         <p
           style={{
             fontFamily: "'Inter', sans-serif",
-            fontSize: "20px",
+            fontSize: "clamp(14px, 2vw, 20px)",
             fontWeight: "400",
             lineHeight: "1.6em",
             color: "#ffffff",

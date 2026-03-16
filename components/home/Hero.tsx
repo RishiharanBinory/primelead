@@ -1,6 +1,16 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Hero() {
+  const [animated, setAnimated] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setAnimated(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section
       className="relative w-full overflow-hidden flex items-center"
@@ -19,12 +29,17 @@ export default function Hero() {
         className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-7 flex flex-col justify-start"
         style={{ paddingTop: "50px", paddingBottom: "300px" }}
       >
+        {/* H1 — slides up from bottom */}
         <h1
           className="text-white leading-tight mb-6 font-black"
           style={{
             fontSize: "clamp(28px, 5.5vw, 50px)",
             fontWeight: 900,
             color: "#ffffff",
+            transform: animated ? "translateY(0)" : "translateY(60px)",
+            opacity: animated ? 1 : 0,
+            transition:
+              "transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.9s ease",
           }}
         >
           Start your journey
@@ -34,10 +49,18 @@ export default function Hero() {
           pursue your passion
         </h1>
 
+        {/* Link — slides up slightly after h1 */}
         <Link
           href="/admission/form"
           className="inline-flex items-center gap-2 font-semibold hover:opacity-75 transition-opacity w-fit"
-          style={{ color: "#ffffff", fontSize: "clamp(14px, 2vw, 16px)" }}
+          style={{
+            color: "#ffffff",
+            fontSize: "clamp(14px, 2vw, 16px)",
+            transform: animated ? "translateY(0)" : "translateY(60px)",
+            opacity: animated ? 1 : 0,
+            transition:
+              "transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s, opacity 0.9s ease 0.3s",
+          }}
         >
           <svg
             width="18"

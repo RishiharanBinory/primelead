@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import VideoSection from "./VideoSection";
 
 const NAV_LINKS = [
@@ -25,6 +25,12 @@ const CARDS = [
 
 export default function VisionMission() {
   const [hovered, setHovered] = useState<"vision" | "mission" | null>(null);
+  const [animated, setAnimated] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setAnimated(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <>
@@ -39,13 +45,18 @@ export default function VisionMission() {
         <div className="absolute inset-0 bg-black/15 pointer-events-none" />
 
         {/* ── Mobile layout (< md) ── */}
-        <div className="relative z-10 flex flex-col justify-end md:hidden px-5 pb-0 min-h-120">
-          <div className="flex flex-col gap-4 mb-5">
-            {NAV_LINKS.map((link) => (
+        <div className="relative z-10 flex flex-col md:hidden">
+          {/* Nav links — centered over background image */}
+          <div className="flex flex-col items-center gap-6 py-16 px-5">
+            {NAV_LINKS.map((link, index) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="flex items-center gap-2 text-white text-[15px] font-semibold hover:opacity-70 transition-opacity w-fit"
+                className="flex items-center gap-2 text-white text-[18px] font-semibold hover:opacity-70 w-fit"
+                style={{
+                  opacity: animated ? 1 : 0,
+                  transition: `opacity 0.8s ease ${index * 0.2}s`,
+                }}
               >
                 {link.label}
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
@@ -61,16 +72,17 @@ export default function VisionMission() {
             ))}
           </div>
 
-          <div className="flex gap-3">
+          {/* Cards — inside section with background showing */}
+          <div className="flex flex-col px-5 pb-8 gap-4">
             {CARDS.map((card) => (
               <div
                 key={card.id}
-                className="flex-1 flex flex-col justify-center px-4 py-6 shadow-[0_4px_20px_rgba(0,0,0,0.12)] bg-white"
+                className="flex flex-col justify-center px-6 py-8 bg-white shadow-[0_4px_20px_rgba(0,0,0,0.12)]"
               >
-                <h3 className="text-[14px] font-black mb-2 text-[#1a2e3b]">
+                <h3 className="text-[20px] font-black mb-3 text-[#1a2e3b]">
                   {card.title}
                 </h3>
-                <p className="text-[11px] leading-[1.7] text-[#4b5563]">
+                <p className="text-[14px] leading-[1.7] text-[#4b5563]">
                   {card.text}
                 </p>
               </div>
@@ -81,11 +93,15 @@ export default function VisionMission() {
         {/* ── Tablet layout (md to lg) ── */}
         <div className="relative z-10 hidden md:flex lg:hidden flex-col justify-end min-h-125 mx-auto px-6 pb-0">
           <div className="flex gap-6 mb-6">
-            {NAV_LINKS.map((link) => (
+            {NAV_LINKS.map((link, index) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="flex items-center gap-2 text-white text-[16px] font-semibold hover:opacity-70 transition-opacity w-fit"
+                className="flex items-center gap-2 text-white text-[16px] font-semibold hover:opacity-70 w-fit"
+                style={{
+                  opacity: animated ? 1 : 0,
+                  transition: `opacity 0.8s ease ${index * 0.2}s`,
+                }}
               >
                 {link.label}
                 <svg width="17" height="17" viewBox="0 0 20 20" fill="none">
@@ -118,12 +134,12 @@ export default function VisionMission() {
           </div>
         </div>
 
-        {/* ── Desktop layout (lg+) — original code untouched ── */}
+        {/* ── Desktop layout (lg+) ── */}
         <div
           className="relative z-10 max-w-7xl mx-auto px-7 hidden lg:flex items-end"
           style={{ height: "540px" }}
         >
-          {/* Cards wrapper — touches bottom */}
+          {/* Cards wrapper */}
           <div
             className="flex items-stretch"
             style={{
@@ -168,7 +184,7 @@ export default function VisionMission() {
             ))}
           </div>
 
-          {/* Nav links — absolutely centered vertically against the cards */}
+          {/* Nav links */}
           <div
             className="absolute flex flex-col gap-8"
             style={{
@@ -180,11 +196,15 @@ export default function VisionMission() {
               justifyContent: "center",
             }}
           >
-            {NAV_LINKS.map((link) => (
+            {NAV_LINKS.map((link, index) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="flex items-center gap-3 text-white text-[18px] font-semibold hover:opacity-70 transition-opacity group w-fit"
+                className="flex items-center gap-3 text-white text-[18px] font-semibold hover:opacity-70 group w-fit"
+                style={{
+                  opacity: animated ? 1 : 0,
+                  transition: `opacity 0.8s ease ${index * 0.2}s`,
+                }}
               >
                 {link.label}
                 <svg

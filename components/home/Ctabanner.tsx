@@ -1,10 +1,39 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import Button from "./Button";
+import Button from "../mainComponents/Button";
+import { useEffect, useRef, useState } from "react";
 
 export default function CTABanner() {
+  const [offset, setOffset] = useState(80);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+
+      const rect = sectionRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // How far the section has scrolled into view (0 to 1)
+      const progress = 1 - rect.bottom / (windowHeight + rect.height);
+      const clamped = Math.min(Math.max(progress, 0), 1);
+
+      // Map progress to translateX: starts at 30%, ends at -50%
+      const translateX = 80 - clamped * 80;
+      setOffset(translateX);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // run once on mount
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       className="w-full relative overflow-visible"
       style={{ backgroundColor: "#F5C400", minHeight: "340px" }}
     >
@@ -22,15 +51,16 @@ export default function CTABanner() {
           </h2>
         </div>
 
-        {/* Center: Floating student image */}
+        {/* Center: Floating student image — moves with scroll */}
         <div
           className="hidden md:block absolute"
           style={{
             width: "320px",
             height: "480px",
             bottom: "40%",
-            left: "60%",
-            transform: "translateX(-50%)",
+            left: "40%",
+            transform: `translateX(${offset}%)`,
+            transition: "transform 0.05s linear", // very short — feels tied to scroll
           }}
         >
           <Image
@@ -44,7 +74,7 @@ export default function CTABanner() {
         {/* Right: CTA buttons */}
         <div className="flex-1 flex flex-col items-end gap-4 pb-12 md:pb-0 z-10">
           <div className="w-full max-w-[320px]">
-            <Button href="/admission/form" label="Application Form"  />
+            <Button href="/admission/form" label="Application Form" />
           </div>
 
           <div className="flex items-center gap-2 w-full max-w-[320px] justify-end">

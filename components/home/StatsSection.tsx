@@ -1,4 +1,29 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
 export default function StatsSection() {
+  const [animated, setAnimated] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setAnimated(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 },
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   const stats = [
     { number: "2500+", label: "Registered Students" },
     { number: "500+", label: "Courses Available" },
@@ -7,7 +32,11 @@ export default function StatsSection() {
   ];
 
   return (
-    <section className="w-full" style={{ backgroundColor: "#fAfAfA" }}>
+    <section
+      ref={sectionRef}
+      className="w-full"
+      style={{ backgroundColor: "#fAfAfA" }}
+    >
       <div className="max-w-7xl mx-auto px-5 sm:px-7 py-10 sm:py-12 md:py-16">
         <div className="grid grid-cols-2 md:grid-cols-4">
           {stats.map((stat, index) => (
@@ -22,6 +51,11 @@ export default function StatsSection() {
                 last:border-r-0
                 px-4 sm:px-6 md:px-8
               `}
+              style={{
+                opacity: animated ? 1 : 0,
+                transform: animated ? "translateY(0)" : "translateY(30px)",
+                transition: `opacity 0.7s ease ${index * 0.15}s, transform 0.7s ease ${index * 0.15}s`,
+              }}
             >
               {/* Number */}
               <span

@@ -1,16 +1,16 @@
-import Hero from "@/components/Hero";
-import ReviewsCarousel from "@/components/Reviewscarousel";
-import AboutSection from "@/components/AboutSection";
-import VisionMission from "@/components/VisionMission";
+import Hero from "@/components/home/Hero";
+import ReviewsCarousel from "@/components/home/Reviewscarousel";
+import AboutSection from "@/components/home/AboutSection";
+import VisionMission from "@/components/home/VisionMission";
 import LogoCarousel from "@/components/mainComponents/LogoCarousel";
-import StatsSection from "@/components/StatsSection";
-import FundingSupport from "@/components/Fundingsupport";
-import StudentFinance from "@/components/Studentfinacehome";
+import StatsSection from "@/components/home/StatsSection";
+import FundingSupport from "@/components/home/Fundingsupport";
+import StudentFinance from "@/components/home/Studentfinacehome";
 
-import ApplyToday from "@/components/Applytoday";
-import AdmissionContent from "@/components/Admission";
-import StudentLife from "@/components/Studenlife";
-import CTABanner from "@/components/Ctabanner";
+import ApplyToday from "@/components/home/Applytoday";
+import AdmissionContent from "@/components/home/Admission";
+import StudentLife from "@/components/home/Studenlife";
+import CTABanner from "@/components/home/Ctabanner";
 import CoreValues from "@/components/about/CoreValues";
 
 export default function Home() {
@@ -25,7 +25,7 @@ export default function Home() {
       <FundingSupport />
       <div className="h-20 bg-white" />
       <StudentFinance />
-      <CoreValues/>
+      <CoreValues />
       <ApplyToday />
       <AdmissionContent />
       <StudentLife />

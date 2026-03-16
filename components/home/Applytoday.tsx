@@ -1,4 +1,4 @@
-import Button from "./Button";
+import Button from "../mainComponents/Button";
 
 export default function ApplyToday() {
   return (

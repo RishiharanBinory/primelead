@@ -2,7 +2,7 @@ import MainHero from "@/components/mainComponents/Mainhero";
 import StatHero from "@/components/mainComponents/StatHero";
 import LogoCarousel from "@/components/mainComponents/LogoCarousel";
 import GraduateAreas from "@/components/mainComponents/GraduateAreas";
-import CallToAction from "@/components/CallToAction";
+import CallToAction from "@/components/home/CallToAction";
 import ScatteredImages from "@/components/academics/ScatteredImages";
 
 export default function Overview() {

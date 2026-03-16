@@ -2,7 +2,7 @@ import MainHero from "@/components/mainComponents/Mainhero";
 import StatHero from "@/components/mainComponents/StatHero";
 import LogoCarousel from "@/components/mainComponents/LogoCarousel";
 import GraduateAreas from "@/components/mainComponents/GraduateAreas";
-import CallToAction from "@/components/CallToAction";
+import CallToAction from "@/components/home/CallToAction";
 import ScatteredImages from "@/components/academics/ScatteredImages";
 import CoreValues from "@/components/about/CoreValues";
 
@@ -15,10 +15,10 @@ export default function Postgraduate() {
         title="Postgraduate"
         paragraph={
           <>
-            A graduate degree in the UK is the advance level of higher
-            education after secondary school. It typically takes three years and
-            is known as a Bachelor&#39;s degree. It provides a strong foundation in
-            a specific field of study and is valuable for future education or
+            A graduate degree in the UK is the advance level of higher education
+            after secondary school. It typically takes three years and is known
+            as a Bachelor&#39;s degree. It provides a strong foundation in a
+            specific field of study and is valuable for future education or
             employment
           </>
         }

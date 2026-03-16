@@ -1,9 +1,6 @@
 import MainHero from "@/components/mainComponents/Mainhero";
 import StatHero from "@/components/mainComponents/StatHero";
-import LogoCarousel from "@/components/mainComponents/LogoCarousel";
-import GraduateAreas from "@/components/mainComponents/GraduateAreas";
-import CallToAction from "@/components/CallToAction";
-import ScatteredImages from "@/components/academics/ScatteredImages";
+import CallToAction from "@/components/home/CallToAction";
 import CoreValues from "@/components/about/CoreValues";
 
 export default function Undergraduate() {
@@ -17,8 +14,8 @@ export default function Undergraduate() {
           <>
             An undergraduate degree in the UK is the first level of higher
             education after secondary school. It typically takes three years and
-            is known as a Bachelor&#39;s degree. It provides a strong foundation in
-            a specific field of study and is valuable for future education or
+            is known as a Bachelor&#39;s degree. It provides a strong foundation
+            in a specific field of study and is valuable for future education or
             employment
           </>
         }

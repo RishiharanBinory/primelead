@@ -1,20 +1,48 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 
 export default function FundingSupport() {
+  const [animated, setAnimated] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setAnimated(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="w-full bg-white">
+    <section ref={sectionRef} className="w-full bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-stretch">
-          {/* ── Image — top on mobile, right on desktop ── */}
-          {/* Rendered first in DOM but shown second on desktop via order */}
-          <div className="relative w-full md:w-[55%] min-h-65 sm:min-h-80 md:min-h-0 order-first md:order-last">
+
+          {/* ── Image — zoom in effect ── */}
+          <div className="relative w-full md:w-[55%] min-h-65 sm:min-h-80 md:min-h-0 order-first md:order-last overflow-hidden">
             <Image
               src="/Vission.jpeg"
               alt="Student applying for funding"
               fill
               className="object-cover object-center"
               priority
+              style={{
+                transform: animated ? "scale(1)" : "scale(1.15)",
+                transition: "transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+              }}
             />
           </div>
 
@@ -27,7 +55,14 @@ export default function FundingSupport() {
                        order-last md:order-first"
           >
             {/* Icon */}
-            <div className="mb-5 md:mb-6">
+            <div
+              className="mb-5 md:mb-6"
+              style={{
+                opacity: animated ? 1 : 0,
+                transform: animated ? "translateY(0)" : "translateY(40px)",
+                transition: "opacity 0.7s ease 0s, transform 0.7s ease 0s",
+              }}
+            >
               <svg
                 width="44"
                 height="44"
@@ -73,6 +108,9 @@ export default function FundingSupport() {
                 fontSize: "clamp(24px, 3.5vw, 42px)",
                 fontWeight: 900,
                 color: "#0d1b2a",
+                opacity: animated ? 1 : 0,
+                transform: animated ? "translateY(0)" : "translateY(40px)",
+                transition: "opacity 0.7s ease 0.15s, transform 0.7s ease 0.15s",
               }}
             >
               Get Funding Support
@@ -85,6 +123,9 @@ export default function FundingSupport() {
                 fontSize: "clamp(14px, 1.4vw, 17px)",
                 fontWeight: 700,
                 color: "#0d1b2a",
+                opacity: animated ? 1 : 0,
+                transform: animated ? "translateY(0)" : "translateY(40px)",
+                transition: "opacity 0.7s ease 0.3s, transform 0.7s ease 0.3s",
               }}
             >
               Secure Your University Placement Funding
@@ -100,6 +141,9 @@ export default function FundingSupport() {
                 fontWeight: 400,
                 color: "#3d4f5e",
                 maxWidth: "480px",
+                opacity: animated ? 1 : 0,
+                transform: animated ? "translateY(0)" : "translateY(40px)",
+                transition: "opacity 0.7s ease 0.45s, transform 0.7s ease 0.45s",
               }}
             >
               Prime Leed supports students in their pursuit of higher education
@@ -112,10 +156,14 @@ export default function FundingSupport() {
             {/* Apply Now link */}
             <Link
               href="/admission/financial-aid"
-              className="inline-flex items-center gap-2 font-semibold
-                         underline underline-offset-2 w-fit
-                         transition-opacity duration-200 hover:opacity-75"
-              style={{ color: "#2ab4c0", fontSize: "clamp(14px, 1.2vw, 16px)" }}
+              className="inline-flex items-center gap-2 font-semibold underline underline-offset-2 w-fit transition-opacity duration-200 hover:opacity-75"
+              style={{
+                color: "#2ab4c0",
+                fontSize: "clamp(14px, 1.2vw, 16px)",
+                opacity: animated ? 1 : 0,
+                transform: animated ? "translateY(0)" : "translateY(40px)",
+                transition: "opacity 0.7s ease 0.6s, transform 0.7s ease 0.6s",
+              }}
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path
