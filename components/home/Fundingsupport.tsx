@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { Handshake } from "lucide-react";
 
 export default function FundingSupport() {
   const [animated, setAnimated] = useState(false);
@@ -63,42 +64,7 @@ export default function FundingSupport() {
                 transition: "opacity 0.7s ease 0s, transform 0.7s ease 0s",
               }}
             >
-              <svg
-                width="44"
-                height="44"
-                viewBox="0 0 64 64"
-                fill="none"
-                className="md:w-13 md:h-13"
-              >
-                <path
-                  d="M20 36c0 0 4-4 8-4s6 2 10 2 8-4 8-4"
-                  stroke="#111"
-                  strokeWidth="3.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M8 28l8 8 6-4 6 4 6-4 6 4 8-8"
-                  stroke="#111"
-                  strokeWidth="3.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M12 24l4-8h32l4 8"
-                  stroke="#111"
-                  strokeWidth="3.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M16 44l-4 8h40l-4-8"
-                  stroke="#111"
-                  strokeWidth="3.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <Handshake size={44} stroke="#111" strokeWidth={1.8} />
             </div>
 
             {/* Main heading */}
