@@ -29,7 +29,7 @@ export default function Hero() {
         className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-7 flex flex-col justify-start"
         style={{ paddingTop: "50px", paddingBottom: "300px" }}
       >
-        {/* H1 — slides up from bottom */}
+        
         <h1
           className="text-white leading-tight mb-6 font-black"
           style={{
