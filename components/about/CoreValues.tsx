@@ -48,6 +48,7 @@ export default function CoreValues() {
             color: "#1a1a1a",
             maxWidth: "100%",
             margin: "0 auto 80px auto",
+            marginTop: "-180px",
           }}
         >
           Aligned with global shifts in the economy, society, and environment,

@@ -5,13 +5,14 @@
 
 export default function AboutMissionVision() {
   return (
-    <section className="bg-white" style={{ padding: "80px 20px", backgroundColor: "#FAFAFA", }}>
+    <section className="bg-white" style={{ padding: "180px 20px", backgroundColor: "#FAFAFA",}}>
       <div
         className="mx-auto grid items-center"
         style={{
           maxWidth: "1000px",
           gridTemplateColumns: "1fr 1fr",
           gap: "80px",
+          marginTop: "-170px",
         }}
       >
         {/* Left — text content */}
@@ -69,8 +70,8 @@ export default function AboutMissionVision() {
             src="https://www.primeleed.com/wp-content/uploads/2020/12/wonderlane-6zlgM-GUd6I-unsplash-Copy-2.jpg"
             alt="University campus"
             style={{
-              width: "100%",
-              height: "360px",
+              width: "500px",
+              height: "500px",
               objectFit: "cover",
               display: "block",
             }}
