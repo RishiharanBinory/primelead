@@ -24,15 +24,15 @@ export default function MainHero({
       <AnimatedNextImage src={imageSrc} alt={imageAlt} priority />
 
       {/* Dark overlay */}
-      <div
+      {/* <div
         className="absolute inset-0"
-        style={{ backgroundColor: "rgba(0,0,0,0.55)" }}
-      />
+        style={{ backgroundColor: "rgba(0,0,0,0.40)" }}
+      /> */}
 
       {/* Teal content box — fixed consistent size */}
       <AnimateOnScroll
         delay="0.3s"
-        className="absolute text-white w-[90vw] sm:w-[70vw] md:w-[60vw] lg:w-175"
+        className="absolute text-white w-[90vw] sm:w-[70vw] md:w-[60vw] lg:w-175 lg:translate-x-40"
         style={{
           backgroundColor: "#149AB5",
           padding:

@@ -1,41 +1,79 @@
+// components/mainComponents/Button.tsx
 "use client";
 
 import Link from "next/link";
 
-interface ButtonProps {
+interface LinkButtonProps {
   href: string;
   label: string;
+  type?: "link";
 }
 
-export default function Button({ href, label }: ButtonProps) {
+interface SubmitButtonProps {
+  type: "submit";
+  label: string;
+  loading?: boolean;
+}
+
+type ButtonProps = LinkButtonProps | SubmitButtonProps;
+
+const buttonStyle = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  width: "240px",
+  backgroundColor: "#292929",
+  color: "#ffffff",
+  padding: "14px 32px",
+  fontFamily: "'Work Sans', sans-serif",
+  fontSize: "16px",
+  fontWeight: "600",
+  textDecoration: "none",
+  letterSpacing: "0.02em",
+  transition: "background-color 0.2s ease",
+  border: "none",
+  cursor: "pointer",
+};
+
+export default function Button(props: ButtonProps) {
+  if (props.type === "submit") {
+    return (
+      <button
+        type="submit"
+        disabled={props.loading}
+        style={{
+          ...buttonStyle,
+          backgroundColor: props.loading ? "#9ca3af" : "#292929",
+          cursor: props.loading ? "not-allowed" : "pointer",
+          width: "240px",
+        }}
+        onMouseEnter={(e) => {
+          if (!props.loading)
+            (e.currentTarget as HTMLElement).style.backgroundColor = "#2ab4c0";
+        }}
+        onMouseLeave={(e) => {
+          if (!props.loading)
+            (e.currentTarget as HTMLElement).style.backgroundColor = "#292929";
+        }}
+      >
+        {props.loading ? "Submitting..." : props.label}
+        <span>→</span>
+      </button>
+    );
+  }
+
   return (
     <Link
-      href={href}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        width: "100%",
-        backgroundColor: "#292929",
-        color: "#ffffff",
-        padding: "14px 32px",
-        fontFamily: "'Work Sans', sans-serif",
-        fontSize: "16px",
-        fontWeight: "600",
-        textDecoration: "none",
-        letterSpacing: "0.02em",
-        transition: "background-color 0.2s ease",
-      }}
+      href={props.href}
+      style={buttonStyle}
       onMouseEnter={(e) => {
-        // When cursor enters, change background to the teal hover color
         (e.currentTarget as HTMLElement).style.backgroundColor = "#2ab4c0";
       }}
       onMouseLeave={(e) => {
-        // When cursor leaves, restore the original dark background
         (e.currentTarget as HTMLElement).style.backgroundColor = "#292929";
       }}
     >
-      {label} →
+      {props.label} <span>→</span>
     </Link>
   );
 }

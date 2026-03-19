@@ -7,7 +7,7 @@ import MainHero from "@/components/mainComponents/Mainhero";
 export default function AboutHero() {
   return (
     <MainHero
-      imageSrc="https://images.unsplash.com/photo-1627556704302-624286467c65?w=1600&q=80"
+      imageSrc="/about_bg.jpg"
       imageAlt="Graduation ceremony"
       title="About"
       paragraph={

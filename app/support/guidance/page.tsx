@@ -8,7 +8,7 @@ const Guidance = () => {
   return (
     <main>
       <MainHero
-        imageSrc="https://images.unsplash.com/photo-1627556704302-624286467c65?w=1600&q=80"
+        imageSrc="/support_bg.jpg"
         imageAlt="Graduation ceremony"
         title="Support & Guidance"
         paragraph={<>Where to turn when you need a helping hand</>}
@@ -18,10 +18,10 @@ const Guidance = () => {
         paragraph={
           <>
             We offer assistance on various topics. Discover the guidance and
-            support available to you when studying with us, whether it&apos;s related
-            to academic life or general life matters. If you require immediate
-            support with university applications or student finance, we are here
-            to help. See our guides on{" "}
+            support available to you when studying with us, whether it&apos;s
+            related to academic life or general life matters. If you require
+            immediate support with university applications or student finance,
+            we are here to help. See our guides on{" "}
             <Link
               href="/admission/how-to-apply"
               style={{ color: "#2ab4c0", textDecoration: "underline" }}
@@ -46,15 +46,15 @@ const Guidance = () => {
                 }}
               >
                 We understand this new challenge could affect your mental
-                health, physical health and wellbeing, so you&apos;ll find lots of
-                support when you get here. See our guides on how to apply and
+                health, physical health and wellbeing, so you&apos;ll find lots
+                of support when you get here. See our guides on how to apply and
                 fees and finance or our information for international students.
                 Everyone needs a little help with their studies from time to
-                time, whether you&apos;re a fresher taking your first steps into uni
-                life or a seasoned student who knows your way around university.
-                Going to university is exciting, but it can be daunting too. And
-                if you&apos;ve spent time in care, you might find it more difficult
-                to enter higher education.
+                time, whether you&apos;re a fresher taking your first steps into
+                uni life or a seasoned student who knows your way around
+                university. Going to university is exciting, but it can be
+                daunting too. And if you&apos;ve spent time in care, you might
+                find it more difficult to enter higher education.
               </p>
             ),
           },
@@ -70,15 +70,16 @@ const Guidance = () => {
                   }}
                 >
                   We understand this new challenge could affect your mental
-                  health, physical health and wellbeing, so you&apos;ll find lots of
-                  support when you get here. See our guides on how to apply and
-                  fees and finance or our information for international
-                  students. Everyone needs a little help with their studies from
-                  time to time, whether you&apos;re a fresher taking your first steps
-                  into uni life or a seasoned student who knows your way around
-                  university. Going to university is exciting, but it can be
-                  daunting too. And if you&apos;ve spent time in care, you might find
-                  it more difficult to enter higher education.
+                  health, physical health and wellbeing, so you&apos;ll find
+                  lots of support when you get here. See our guides on how to
+                  apply and fees and finance or our information for
+                  international students. Everyone needs a little help with
+                  their studies from time to time, whether you&apos;re a fresher
+                  taking your first steps into uni life or a seasoned student
+                  who knows your way around university. Going to university is
+                  exciting, but it can be daunting too. And if you&apos;ve spent
+                  time in care, you might find it more difficult to enter higher
+                  education.
                 </p>
                 <p
                   style={{
@@ -88,15 +89,16 @@ const Guidance = () => {
                   }}
                 >
                   We understand this new challenge could affect your mental
-                  health, physical health and wellbeing, so you&apos;ll find lots of
-                  support when you get here. See our guides on how to apply and
-                  fees and finance or our information for international
-                  students. Everyone needs a little help with their studies from
-                  time to time, whether you&apos;re a fresher taking your first steps
-                  into uni life or a seasoned student who knows your way around
-                  university. Going to university is exciting, but it can be
-                  daunting too. And if you&apos;ve spent time in care, you might find
-                  it more difficult to enter higher education.
+                  health, physical health and wellbeing, so you&apos;ll find
+                  lots of support when you get here. See our guides on how to
+                  apply and fees and finance or our information for
+                  international students. Everyone needs a little help with
+                  their studies from time to time, whether you&apos;re a fresher
+                  taking your first steps into uni life or a seasoned student
+                  who knows your way around university. Going to university is
+                  exciting, but it can be daunting too. And if you&apos;ve spent
+                  time in care, you might find it more difficult to enter higher
+                  education.
                 </p>
               </div>
             ),
@@ -128,8 +130,8 @@ const Guidance = () => {
                   lineHeight: "1.7em",
                 }}
               >
-                Don&apos;t be shy. Reach out and we&apos;ll answer any questions you might
-                have.
+                Don&apos;t be shy. Reach out and we&apos;ll answer any questions
+                you might have.
               </p>
             ),
           },
