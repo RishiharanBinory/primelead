@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import { AnimatedNextImage } from "../animation/Image"; 
-import { AnimateOnScroll } from "../animation/AnimateOnScroll"; 
+import { AnimatedNextImage } from "../animation/Image";
+import { AnimateOnScroll } from "../animation/AnimateOnScroll";
 
 type Props = {
   imageSrc: string;
@@ -29,22 +29,28 @@ export default function MainHero({
         style={{ backgroundColor: "rgba(0,0,0,0.55)" }}
       />
 
-      {/* Teal content box */}
+      {/* Teal content box — fixed consistent size */}
       <AnimateOnScroll
         delay="0.3s"
-        className="absolute text-white w-[90vw] sm:w-[70vw] md:w-[60vw] lg:w-auto"
+        className="absolute text-white w-[90vw] sm:w-[70vw] md:w-[60vw] lg:w-175"
         style={{
           backgroundColor: "#149AB5",
           padding:
             "clamp(32px, 6vw, 90px) clamp(24px, 5vw, 70px) clamp(40px, 7vw, 100px) clamp(24px, 5vw, 70px)",
           maxWidth: "700px",
+          minWidth: "clamp(280px, 50vw, 700px)", // ← never shrinks below this
+          minHeight: "clamp(200px, 30vw, 380px)", // ← consistent height always
           bottom: "-100px",
           left: "clamp(16px, 5vw, 280px)",
-          transition:
-            "opacity 0.9s ease 0.3s, transform 0.9s ease 0.3s",
+          transition: "opacity 0.9s ease 0.3s, transform 0.9s ease 0.3s",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center", // ← centers content vertically
         }}
       >
-        <AnimateOnScroll delay="0.5s" as="h1"
+        <AnimateOnScroll
+          delay="0.5s"
+          as="h1"
           style={{
             fontFamily: "'Work Sans', sans-serif",
             fontSize: "clamp(28px, 5vw, 60px)",
@@ -58,7 +64,9 @@ export default function MainHero({
           {title}
         </AnimateOnScroll>
 
-        <AnimateOnScroll delay="0.7s" as="p"
+        <AnimateOnScroll
+          delay="0.7s"
+          as="p"
           style={{
             fontFamily: "'Inter', sans-serif",
             fontSize: "clamp(14px, 2vw, 20px)",
