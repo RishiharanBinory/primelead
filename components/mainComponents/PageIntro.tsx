@@ -33,7 +33,7 @@ export default function PageIntro({ title, paragraph }: Props) {
           <div
             style={{
               fontFamily: "'Inter', sans-serif",
-              fontSize: "clamp(14px, 1.2vw, 16px)",
+              fontSize: "clamp(16px, 1.4vw, 18px)",
               color: "#374151",
               lineHeight: "1.75em",
             }}
