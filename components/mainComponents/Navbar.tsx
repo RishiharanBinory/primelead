@@ -48,10 +48,10 @@ const BLOG_POSTS = [
 ];
 
 const DIRECTORY_LINKS = [
-  { label: "News Directory", href: "/directory/news" },
-  { label: "Events Directory", href: "/directory/events" },
-  { label: "Faculty Directory", href: "/directory/faculty" },
-  { label: "Detailed Plans", href: "/directory/plans" },
+  { label: "News Directory", href: "/news" },
+  { label: "Events Directory", href: "/events" },
+  { label: "Faculty Directory", href: "/faculty" },
+  { label: "Detailed Plans", href: "/plans" },
 ];
 
 const CTA_BUTTONS = [
