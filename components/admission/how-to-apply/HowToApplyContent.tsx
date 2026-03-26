@@ -1,26 +1,18 @@
 // components/admission/HowToApplyContent.tsx
 //
-// This is the middle content section of the How To Apply page.
-// It matches the original primeleed.com/how-to-apply/ layout exactly:
+// Matches primeleed.com/how-to-apply/ EXACTLY as seen in the screenshots:
 //
-// LEFT COLUMN:
-//   - Intro paragraph
-//   - Requirements heading with shield icon
-//   - Undergraduate & Graduate Diploma Requirements list
-//
-// RIGHT COLUMN:
-//   - Six numbered steps (01–06), each with a number, title, description
-//
-// The two-column layout uses CSS Grid with a 40/60 split,
-// matching the original's proportions where the steps column
-// is wider than the requirements column.
+// LAYOUT (single centered column, max-width ~820px):
+//   1. Intro paragraph (centered, bold, large)
+//   2. Requirements section — centered heading with document icon, centered subheading,
+//      centered requirement lines (each prefixed with –)
+//   3. Six numbered steps — number (left ~120px col) + title + description (right col)
+//   4. Application Form button (centered, dark background)
 "use client";
 
 import Link from "next/link";
 
 // ── STEP DATA ──
-// Keeping content outside the component makes it easy to update
-// without touching any layout or styling code.
 const steps = [
   {
     number: "01",
@@ -60,7 +52,7 @@ const steps = [
   },
 ];
 
-// ── REQUIREMENTS LIST ──
+// ── REQUIREMENTS DATA ──
 const requirements = [
   "Students who are 18 years and above at the start of the course are eligible to apply.",
   "If English is not your first language, you will need to demonstrate English language proficiency equivalent to IELTS (Academic) 6.0 overall, with a minimum of 5.5 in each band and 6.0 in speaking.",
@@ -68,237 +60,266 @@ const requirements = [
   "Applicants who do not meet the specified entry criteria may undergo individual consideration by the Academic Director. In such cases, evaluation will take into account relevant factors such as previous academic achievements, work experience, and life skills experience, as supported by evidence.",
 ];
 
-// ── SHIELD ICON ──
-// This matches the shield/protection icon used in the original site's
-// custom icon font (vamtam-theme-icons). Since we can't use their
-// proprietary font, this SVG is a faithful visual equivalent —
-// a shield outline with a checkmark inside, which conveys the same
-// "verified requirements" meaning.
-function ShieldCheckIcon() {
+// ── DOCUMENT ICON ──
+// Matches the "lined document" icon shown next to "Requirements" heading
+// in screenshots 1 & 2 — two horizontal lines inside a document shape.
+function DocumentIcon() {
   return (
     <svg
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
+      width="32"
+      height="36"
+      viewBox="0 0 32 36"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
+      style={{ display: "inline-block", verticalAlign: "middle" }}
     >
-      <path
-        d="M12 2L4 6V12C4 16.4 7.4 20.5 12 22C16.6 20.5 20 16.4 20 12V6L12 2Z"
-        stroke="#149AB5"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+      {/* Document outline */}
+      <rect
+        x="1.5"
+        y="1.5"
+        width="29"
+        height="33"
+        rx="2"
+        stroke="#333"
+        strokeWidth="2"
+        fill="none"
       />
-      <path
-        d="M9 12L11 14L15 10"
-        stroke="#149AB5"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      {/* Three horizontal lines representing text */}
+      <line x1="7" y1="11" x2="25" y2="11" stroke="#333" strokeWidth="2" strokeLinecap="round" />
+      <line x1="7" y1="17" x2="25" y2="17" stroke="#333" strokeWidth="2" strokeLinecap="round" />
+      <line x1="7" y1="23" x2="19" y2="23" stroke="#333" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
 }
 
 export default function HowToApplyContent() {
   return (
-    <section className="bg-white py-16 px-6">
-      <div
-        style={{ maxWidth: "1000px" }}
-        className="mx-auto"
-      >
+    <section
+      style={{
+        backgroundColor: "#ffffff",
+        paddingTop: "60px",
+        paddingBottom: "80px",
+        paddingLeft: "20px",
+        paddingRight: "20px",
+      }}
+    >
+      {/* ── OUTER WRAPPER — centered, max 820px ── */}
+      <div style={{ maxWidth: "820px", margin: "0 auto" }}>
 
-        {/* ── TWO-COLUMN GRID ──
-            Left column (40%): intro text + requirements
-            Right column (60%): six numbered steps
-            On mobile they stack vertically (grid-cols-1),
-            on medium+ screens they go side by side (md:grid-cols-[2fr_3fr]) */}
-        <div className="grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-16 items-start">
+        {/* ══════════════════════════════════════
+            INTRO PARAGRAPH
+            Centered, bold, large — matches screenshot 2 top text
+            ══════════════════════════════════════ */}
+        <p
+          style={{
+            fontFamily: "'Work Sans', sans-serif",
+            fontSize: "20px",
+            fontWeight: "700",
+            color: "#1a1a1a",
+            lineHeight: "1.6",
+            textAlign: "center",
+            marginBottom: "60px",
+          }}
+        >
+          To ensure you are well-prepared when filling out the application
+          online, we have provided a comprehensive list of all the things
+          that will be covered throughout the application. This will help
+          you anticipate and navigate through the application process with ease.
+        </p>
 
-          {/* ════════ LEFT COLUMN ════════ */}
-          <div>
+        {/* ══════════════════════════════════════
+            REQUIREMENTS SECTION
+            Centered document icon + "Requirements" heading
+            Centered subheading + centered requirement lines
+            ══════════════════════════════════════ */}
+        <div style={{ textAlign: "center", marginBottom: "70px" }}>
 
-            {/* Intro paragraph — normal weight, body text color */}
-            <p
-              className="text-sm leading-7 mb-10"
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                color: "#545454",
-              }}
-            >
-              To ensure you are well-prepared when filling out the application
-              online, we have provided a comprehensive list of all the things
-              that will be covered throughout the application. This will help
-              you anticipate and navigate through the application process with
-              ease.
-            </p>
-
-            {/* Requirements heading with shield icon.
-                The icon sits inline with the heading text using flexbox.
-                This matches the original where a shield icon precedes
-                the "Requirements" h2 heading. */}
-            <div className="flex items-center gap-3 mb-5">
-              <ShieldCheckIcon />
-              <h2
-                style={{
-                  fontFamily: "'Work Sans', sans-serif",
-                  fontSize: "22px",
-                  fontWeight: "700",
-                  color: "#292929",
-                  margin: 0,
-                }}
-              >
-                Requirements
-              </h2>
-            </div>
-
-            {/* Undergraduate subheading — bold in original */}
-            <h3
-              className="mb-5"
+          {/* Heading: icon + "Requirements" side by side, centered */}
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "14px",
+              marginBottom: "28px",
+            }}
+          >
+            <DocumentIcon />
+            <h2
               style={{
                 fontFamily: "'Work Sans', sans-serif",
-                fontSize: "15px",
-                fontWeight: "700",
-                color: "#292929",
+                fontSize: "38px",
+                fontWeight: "800",
+                color: "#1a1a1a",
+                margin: 0,
+                lineHeight: "1.1",
               }}
             >
-              Undergraduate & Graduate Diploma Requirements:
-            </h3>
-
-            {/* Requirements list — each item prefixed with an em dash
-                exactly as shown on the original site */}
-            <ul className="flex flex-col gap-4">
-              {requirements.map((req, i) => (
-                <li
-                  key={i}
-                  className="flex gap-3 items-start"
-                >
-                  {/* Em dash prefix matching original "–" style */}
-                  <span
-                    style={{
-                      color: "#149AB5",
-                      fontWeight: "700",
-                      flexShrink: 0,
-                      lineHeight: "1.6em",
-                      fontSize: "14px",
-                    }}
-                  >
-                    –
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: "14px",
-                      color: "#545454",
-                      lineHeight: "1.7em",
-                    }}
-                  >
-                    {req}
-                  </span>
-                </li>
-              ))}
-            </ul>
-
+              Requirements
+            </h2>
           </div>
 
-          {/* ════════ RIGHT COLUMN ════════ */}
-          {/* Six numbered steps — each step has a large number,
-              a bold title, and a description paragraph.
-              The original uses h4 for both the number and the title,
-              displayed as block elements stacked vertically. */}
-          <div className="flex flex-col gap-0">
-            {steps.map((step, index) => (
-              <div
-                key={step.number}
-                className="flex gap-6 items-start py-8"
+          {/* Subheading */}
+          <h3
+            style={{
+              fontFamily: "'Work Sans', sans-serif",
+              fontSize: "16px",
+              fontWeight: "700",
+              color: "#1a1a1a",
+              marginBottom: "28px",
+              marginTop: 0,
+            }}
+          >
+            Undergraduate &amp; Graduate Diploma Requirements:
+          </h3>
+
+          {/* Requirements list — centered, each line prefixed with – */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "16px",
+            }}
+          >
+            {requirements.map((req, i) => (
+              <p
+                key={i}
                 style={{
-                  // Subtle top border between steps except the first
-                  borderTop: index > 0 ? "1px solid #f0f0f0" : "none",
-                }}
-              >
-                {/* Step number — large, teal colored, Work Sans heavy weight.
-                    This matches the original's large "01", "02" etc. displayed
-                    as a heading above each step title. */}
-                <div
-                  className="flex-shrink-0"
-                  style={{
-                    fontFamily: "'Work Sans', sans-serif",
-                    fontSize: "28px",
-                    fontWeight: "800",
-                    color: "#149AB5",
-                    lineHeight: "1em",
-                    minWidth: "48px",
-                  }}
-                >
-                  {step.number}
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  {/* Step title — bold, dark, Work Sans */}
-                  <h3
-                    style={{
-                      fontFamily: "'Work Sans', sans-serif",
-                      fontSize: "16px",
-                      fontWeight: "700",
-                      color: "#292929",
-                      margin: 0,
-                      lineHeight: "1.3em",
-                    }}
-                  >
-                    {step.title}
-                  </h3>
-
-                  {/* Step description — regular weight, body text color */}
-                  <p
-                    style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: "14px",
-                      color: "#545454",
-                      lineHeight: "1.7em",
-                      margin: 0,
-                    }}
-                  >
-                    {step.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-
-            {/* Application Form button — matches the link at the bottom
-                of the steps section on the original page */}
-            <div className="mt-4 pt-8 border-t border-[#f0f0f0]">
-              <Link
-                href="/admission/admission-form"
-                className="inline-flex items-center gap-3 px-8 py-4 text-white text-sm font-semibold transition-colors duration-200"
-                style={{
-                  backgroundColor: "#292929",
                   fontFamily: "'Work Sans', sans-serif",
-                  letterSpacing: "0.02em",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.backgroundColor = "#149AB5";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.backgroundColor = "#292929";
+                  fontSize: "15px",
+                  color: "#333333",
+                  lineHeight: "1.7",
+                  margin: 0,
+                  textAlign: "center",
                 }}
               >
-                Application Form
-                <svg width="16" height="12" viewBox="0 0 18 14" fill="none">
-                  <path
-                    d="M1 7H17M11 1L17 7L11 13"
-                    stroke="white"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </Link>
-            </div>
-
+                – {req}
+              </p>
+            ))}
           </div>
         </div>
+
+        {/* ══════════════════════════════════════
+            SIX NUMBERED STEPS
+            Each row: large bold number (fixed ~90px) | title + description
+            Separated by subtle top borders (except first)
+            ══════════════════════════════════════ */}
+        <div>
+          {steps.map((step, index) => (
+            <div
+              key={step.number}
+              style={{
+                display: "grid",
+                // Number column ~90px, content fills the rest
+                gridTemplateColumns: "90px 1fr",
+                gap: "20px",
+                alignItems: "start",
+                paddingTop: index === 0 ? "0" : "40px",
+                paddingBottom: "40px",
+                borderTop: index > 0 ? "1px solid #e0e0e0" : "none",
+              }}
+            >
+              {/* Step number — large, bold, dark, matches screenshot font exactly */}
+              <div
+                style={{
+                  fontFamily: "'Work Sans', sans-serif",
+                  fontSize: "32px",
+                  fontWeight: "800",
+                  color: "#1a1a1a",
+                  lineHeight: "1",
+                  paddingTop: "2px",
+                }}
+              >
+                {step.number}
+              </div>
+
+              {/* Step content */}
+              <div>
+                <h3
+                  style={{
+                    fontFamily: "'Work Sans', sans-serif",
+                    fontSize: "18px",
+                    fontWeight: "700",
+                    color: "#1a1a1a",
+                    margin: "0 0 10px 0",
+                    lineHeight: "1.3",
+                  }}
+                >
+                  {step.title}
+                </h3>
+                <p
+                  style={{
+                    fontFamily: "'Work Sans', sans-serif",
+                    fontSize: "15px",
+                    color: "#444444",
+                    lineHeight: "1.75",
+                    margin: 0,
+                  }}
+                >
+                  {step.description}
+                </p>
+              </div>
+            </div>
+          ))}
+
+          {/* Final border line after last step */}
+          <div style={{ borderTop: "1px solid #e0e0e0" }} />
+        </div>
+
+        {/* ══════════════════════════════════════
+            APPLICATION FORM BUTTON
+            Centered, dark background, arrow icon
+            Matches screenshot 4 bottom button exactly
+            ══════════════════════════════════════ */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "48px",
+          }}
+        >
+          <Link
+            href="/admission/admission-form"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "16px",
+              backgroundColor: "#1a1a1a",
+              color: "#ffffff",
+              fontFamily: "'Work Sans', sans-serif",
+              fontSize: "15px",
+              fontWeight: "600",
+              letterSpacing: "0.03em",
+              padding: "18px 40px",
+              textDecoration: "none",
+              transition: "background-color 0.2s ease",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.backgroundColor = "#333333";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.backgroundColor = "#1a1a1a";
+            }}
+          >
+            Application Form
+            <svg
+              width="18"
+              height="14"
+              viewBox="0 0 18 14"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M1 7H17M11 1L17 7L11 13"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </Link>
+        </div>
+
       </div>
     </section>
   );

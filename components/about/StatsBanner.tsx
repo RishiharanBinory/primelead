@@ -1,48 +1,62 @@
 // components/about/StatsBanner.tsx
-// The 97% uses the typography variable: 200px, Work Sans, weight 700
-// But we scale it responsively. Background is #FAFAFA from accent_4.
+// FULLY RESPONSIVE — content centered on ALL screen sizes (mobile / tablet / laptop / TV)
+
+const STYLES = `
+  .sb-section {
+    background-color: #FAFAFA;
+    padding: 60px 20px;
+    box-sizing: border-box;
+  }
+  @media (min-width: 640px)  { .sb-section { padding: 72px 32px; } }
+  @media (min-width: 1024px) { .sb-section { padding: 80px 48px; } }
+  @media (min-width: 1440px) { .sb-section { padding: 100px 64px; } }
+
+  .sb-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;      /* horizontally centers children */
+    justify-content: center;  /* vertically centers children */
+    text-align: center;       /* centers text at all breakpoints */
+    gap: 16px;
+    margin-top: -150px;
+  }
+  @media (min-width: 1440px) { .sb-container { max-width: 1200px; } }
+
+  .sb-number {
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 800;
+    color: #292929;
+    line-height: 1em;
+    margin: 0;
+    font-size: clamp(72px, 18vw, 200px);
+  }
+
+  .sb-text {
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 800;
+    line-height: 1.3em;
+    color: #292929;
+    margin: 0;
+    max-width: 680px;
+    font-size: clamp(16px, 3vw, 26px);
+  }
+`;
 
 export default function StatsBanner() {
   return (
-    <section
-      style={{
-        backgroundColor: "#FAFAFA", // exact --e-global-color-vamtam_accent_4
-        padding: "80px 20px",
-      }}
-    >
-      <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
-        {/* Giant number — Work Sans 700, scaled from the 200px variable */}
-        <p
-          style={{
-            fontFamily: "'Work Sans', sans-serif",
-            fontSize: "clamp(100px, 15vw, 200px)", // responsive scaling
-            fontWeight: "800",
-            color: "#292929", // exact --vamtam_h1_color
-            lineHeight: "1em",
-            marginBottom: "20px",
-            marginLeft: "375px",
-            marginTop: "-170px",
-          }}
-        >
-          97%
-        </p>
-
-        {/* Supporting text — h4 style: Work Sans 26px 800 weight */}
-        <p
-          style={{
-            fontFamily: "'Work Sans', sans-serif",
-            fontSize: "26px", // exact h4 font size
-            fontWeight: "800", // exact h4 font weight
-            lineHeight: "1.2em", // exact h4 line height
-            color: "#292929",
-            maxWidth: "850px",
-            marginLeft: "190px",
-          }}
-        >
-          of our students successfully have been admitted to their first choice
-          of higher education through Prime Leed.
-        </p>
-      </div>
-    </section>
+    <>
+      <style>{STYLES}</style>
+      <section className="sb-section">
+        <div className="sb-container">
+          <p className="sb-number">97%</p>
+          <p className="sb-text">
+            of our students successfully have been admitted to their first choice
+            of higher education through Prime Leed.
+          </p>
+        </div>
+      </section>
+    </>
   );
 }

@@ -910,14 +910,28 @@
 // Rebuilt to exactly match primeleed.com/apply-form/ UI
 
 import { useState, useRef } from "react";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 interface FormData {
-  firstName: string; lastName: string; email: string; phone: string;
-  dateOfBirth: string; studentType: string; address: string;
-  school: string; yearOfCompletion: string; highestQualification: string;
-  currentStatus: string; areaOfStudy: string; degreeLevel: string;
-  passportFile: File | null; cvFile: File | null; howDidYouFindUs: string;
-  fullName: string; additionalInfo: string; privacyAccepted: boolean;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  dateOfBirth: string;
+  studentType: string;
+  address: string;
+  school: string;
+  yearOfCompletion: string;
+  highestQualification: string;
+  currentStatus: string;
+  areaOfStudy: string;
+  degreeLevel: string;
+  passportFile: File | null;
+  cvFile: File | null;
+  howDidYouFindUs: string;
+  fullName: string;
+  additionalInfo: string;
+  privacyAccepted: boolean;
 }
 
 const STEPS = [
@@ -998,20 +1012,40 @@ export default function ApplicationForm() {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const [form, setForm] = useState<FormData>({
-    firstName: "", lastName: "", email: "", phone: "",
-    dateOfBirth: "", studentType: "", address: "",
-    school: "", yearOfCompletion: "", highestQualification: "", currentStatus: "",
-    areaOfStudy: "", degreeLevel: "",
-    passportFile: null, cvFile: null, howDidYouFindUs: "",
-    fullName: "", additionalInfo: "", privacyAccepted: false,
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    dateOfBirth: "",
+    studentType: "",
+    address: "",
+    school: "",
+    yearOfCompletion: "",
+    highestQualification: "",
+    currentStatus: "",
+    areaOfStudy: "",
+    degreeLevel: "",
+    passportFile: null,
+    cvFile: null,
+    howDidYouFindUs: "",
+    fullName: "",
+    additionalInfo: "",
+    privacyAccepted: false,
   });
 
   const passportRef = useRef<HTMLInputElement>(null);
   const cvRef = useRef<HTMLInputElement>(null);
 
-  const set = (field: keyof FormData, value: string | boolean | File | null) => {
-    setForm(p => ({ ...p, [field]: value }));
-    setErrors(p => { const n = { ...p }; delete n[field]; return n; });
+  const set = (
+    field: keyof FormData,
+    value: string | boolean | File | null,
+  ) => {
+    setForm((p) => ({ ...p, [field]: value }));
+    setErrors((p) => {
+      const n = { ...p };
+      delete n[field];
+      return n;
+    });
   };
 
   const validate = () => {
@@ -1019,8 +1053,16 @@ export default function ApplicationForm() {
     if (step === 1) {
       if (!form.firstName.trim()) e.firstName = "Required";
       if (!form.lastName.trim()) e.lastName = "Required";
-      if (!form.email.trim() || !/\S+@\S+\.\S+/.test(form.email)) e.email = "Valid email required";
-      if (!form.phone.trim()) e.phone = "Required";
+      if (!form.email.trim() || !/\S+@\S+\.\S+/.test(form.email))
+        e.email = "Valid email required";
+      if (!form.phone.trim()) {
+        e.phone = "Phone number is required";
+      } else {
+        const parsed = parsePhoneNumberFromString(form.phone);
+        if (!parsed || !parsed.isValid()) {
+          e.phone = "Please enter a valid phone number (e.g. +44 7700 900000)";
+        }
+      }
       if (!form.dateOfBirth) e.dateOfBirth = "Required";
       if (!form.studentType) e.studentType = "Please select";
       if (!form.address.trim()) e.address = "Required";
@@ -1028,7 +1070,8 @@ export default function ApplicationForm() {
     if (step === 2) {
       if (!form.school.trim()) e.school = "Required";
       if (!form.yearOfCompletion.trim()) e.yearOfCompletion = "Required";
-      if (!form.highestQualification.trim()) e.highestQualification = "Required";
+      if (!form.highestQualification.trim())
+        e.highestQualification = "Required";
       if (!form.currentStatus) e.currentStatus = "Please select";
     }
     if (step === 3) {
@@ -1042,19 +1085,33 @@ export default function ApplicationForm() {
     }
     if (step === 5) {
       if (!form.fullName.trim()) e.fullName = "Required";
-      if (!form.privacyAccepted) e.privacyAccepted = "You must accept the privacy policy";
+      if (!form.privacyAccepted)
+        e.privacyAccepted = "You must accept the privacy policy";
     }
     setErrors(e);
     return Object.keys(e).length === 0;
   };
 
-  const next = () => { if (validate()) { setStep(s => s + 1); window.scrollTo({ top: 0, behavior: "smooth" }); } };
-  const prev = () => { setStep(s => s - 1); window.scrollTo({ top: 0, behavior: "smooth" }); };
-  const submit = () => { if (validate()) setSubmitted(true); };
+  const next = () => {
+    if (validate()) {
+      setStep((s) => s + 1);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+  const prev = () => {
+    setStep((s) => s - 1);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+  const submit = () => {
+    if (validate()) setSubmitted(true);
+  };
 
   // ── SELECT with custom arrow (matching original dropdown style) ──
   const Select = ({
-    value, onChange, children, error
+    value,
+    onChange,
+    children,
+    error,
   }: {
     value: string;
     onChange: (v: string) => void;
@@ -1064,18 +1121,28 @@ export default function ApplicationForm() {
     <div style={{ position: "relative" }}>
       <select
         value={value}
-        onChange={e => onChange(e.target.value)}
+        onChange={(e) => onChange(e.target.value)}
         style={{ ...inputSt, paddingRight: "40px", cursor: "pointer" }}
       >
         {children}
       </select>
       {/* Custom chevron arrow matching original */}
-      <div style={{
-        position: "absolute", right: "14px", top: "50%",
-        transform: "translateY(-50%)", pointerEvents: "none",
-      }}>
+      <div
+        style={{
+          position: "absolute",
+          right: "14px",
+          top: "50%",
+          transform: "translateY(-50%)",
+          pointerEvents: "none",
+        }}
+      >
         <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
-          <path d="M1 1L6 6L11 1" stroke="#292929" strokeWidth="1.5" strokeLinecap="round"/>
+          <path
+            d="M1 1L6 6L11 1"
+            stroke="#292929"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
         </svg>
       </div>
       {error && <span style={errSt}>{error}</span>}
@@ -1085,81 +1152,111 @@ export default function ApplicationForm() {
   return (
     <section style={{ backgroundColor: "#ffffff", padding: "40px 20px 80px" }}>
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-
         {/* ── INTRO TEXT — matches original exactly ── */}
-        <p style={{
-          fontFamily: "'Inter', sans-serif",
-          fontSize: "16px",
-          color: "#545454",
-          lineHeight: "1.7em",
-          textAlign: "center",
-          marginBottom: "40px",
-        }}>
-          Seeking guidance on your higher education, or looking to secure your Masters at<br />
-          a top university? Start your application today.
+        <p
+          style={{
+            fontFamily: "'Inter', sans-serif",
+            fontSize: "16px",
+            color: "#545454",
+            lineHeight: "1.7em",
+            textAlign: "center",
+            marginBottom: "40px",
+          }}
+        >
+          Seeking guidance on your higher education, or looking to secure your
+          Masters at
+          <br />a top university? Start your application today.
         </p>
 
         {/* ── PROGRESS BAR — green circles + connecting line ── */}
         <div style={{ position: "relative", marginBottom: "48px" }}>
-
           {/* Connecting line behind the circles */}
-          <div style={{
-            position: "absolute",
-            top: "18px",
-            left: "18px",
-            right: "18px",
-            height: "2px",
-            backgroundColor: "#e0e0e0",
-            zIndex: 0,
-          }} />
+          <div
+            style={{
+              position: "absolute",
+              top: "18px",
+              left: "18px",
+              right: "18px",
+              height: "2px",
+              backgroundColor: "#e0e0e0",
+              zIndex: 0,
+            }}
+          />
 
           {/* Filled line for completed portion */}
-          <div style={{
-            position: "absolute",
-            top: "18px",
-            left: "18px",
-            width: `${((step - 1) / 4) * 100}%`,
-            height: "2px",
-            backgroundColor: "#22c55e",
-            zIndex: 1,
-            transition: "width 0.4s ease",
-          }} />
+          <div
+            style={{
+              position: "absolute",
+              top: "18px",
+              left: "18px",
+              width: `${((step - 1) / 4) * 100}%`,
+              height: "2px",
+              backgroundColor: "#22c55e",
+              zIndex: 1,
+              transition: "width 0.4s ease",
+            }}
+          />
 
           {/* Step circles */}
-          <div style={{
-            display: "flex",
-            justifyContent: "space-between",
-            position: "relative",
-            zIndex: 2,
-          }}>
-            {STEPS.map(s => {
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              position: "relative",
+              zIndex: 2,
+            }}
+          >
+            {STEPS.map((s) => {
               const done = s.number < step;
               const current = s.number === step;
               return (
-                <div key={s.number} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
-                  <div style={{
-                    width: "36px",
-                    height: "36px",
-                    borderRadius: "50%",
-                    backgroundColor: done || current ? "#22c55e" : "#ffffff",
-                    border: `2px solid ${done || current ? "#22c55e" : "#d0d0d0"}`,
+                <div
+                  key={s.number}
+                  style={{
                     display: "flex",
+                    flexDirection: "column",
                     alignItems: "center",
-                    justifyContent: "center",
-                    transition: "all 0.3s ease",
-                  }}>
+                    gap: "8px",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "36px",
+                      height: "36px",
+                      borderRadius: "50%",
+                      backgroundColor: done || current ? "#22c55e" : "#ffffff",
+                      border: `2px solid ${done || current ? "#22c55e" : "#d0d0d0"}`,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      transition: "all 0.3s ease",
+                    }}
+                  >
                     {done ? (
                       // Checkmark for completed
-                      <svg width="14" height="11" viewBox="0 0 14 11" fill="none">
-                        <path d="M1.5 5.5L5 9L12.5 1.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <svg
+                        width="14"
+                        height="11"
+                        viewBox="0 0 14 11"
+                        fill="none"
+                      >
+                        <path
+                          d="M1.5 5.5L5 9L12.5 1.5"
+                          stroke="white"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
                       </svg>
                     ) : (
-                      <span style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: "13px",
-                        fontWeight: "600",
-                        color: current ? "#ffffff" : "#aaaaaa",
-                      }}>
+                      <span
+                        style={{
+                          fontFamily: "'Inter', sans-serif",
+                          fontSize: "13px",
+                          fontWeight: "600",
+                          color: current ? "#ffffff" : "#aaaaaa",
+                        }}
+                      >
                         {s.number}
                       </span>
                     )}
@@ -1171,47 +1268,74 @@ export default function ApplicationForm() {
         </div>
 
         {/* ── STEP HEADING ── */}
-        <h2 style={{
-          fontFamily: "'Work Sans', sans-serif",
-          fontSize: "22px",
-          fontWeight: "700",
-          color: "#292929",
-          marginBottom: "32px",
-          letterSpacing: "-0.01em",
-        }}>
+        <h2
+          style={{
+            fontFamily: "'Work Sans', sans-serif",
+            fontSize: "22px",
+            fontWeight: "700",
+            color: "#292929",
+            marginBottom: "32px",
+            letterSpacing: "-0.01em",
+          }}
+        >
           {STEPS[step - 1].title}
         </h2>
 
         {/* ════════════ STEP 1 — Applicant Details ════════════ */}
         {step === 1 && (
-          <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "20px" }}
+          >
             <div style={rowSt}>
               <div style={fieldWrap}>
                 <label style={labelSt}>First name</label>
-                <input style={inputSt} type="text" placeholder="Enter here"
-                  value={form.firstName} onChange={e => set("firstName", e.target.value)} />
-                {errors.firstName && <span style={errSt}>{errors.firstName}</span>}
+                <input
+                  style={inputSt}
+                  type="text"
+                  placeholder="Enter here"
+                  value={form.firstName}
+                  onChange={(e) => set("firstName", e.target.value)}
+                />
+                {errors.firstName && (
+                  <span style={errSt}>{errors.firstName}</span>
+                )}
               </div>
               <div style={fieldWrap}>
                 <label style={labelSt}>Last name</label>
-                <input style={inputSt} type="text" placeholder="Enter here"
-                  value={form.lastName} onChange={e => set("lastName", e.target.value)} />
-                {errors.lastName && <span style={errSt}>{errors.lastName}</span>}
+                <input
+                  style={inputSt}
+                  type="text"
+                  placeholder="Enter here"
+                  value={form.lastName}
+                  onChange={(e) => set("lastName", e.target.value)}
+                />
+                {errors.lastName && (
+                  <span style={errSt}>{errors.lastName}</span>
+                )}
               </div>
             </div>
 
             <div style={rowSt}>
               <div style={fieldWrap}>
                 <label style={labelSt}>Email address</label>
-                <input style={inputSt} type="email" placeholder="Enter here"
-                  value={form.email} onChange={e => set("email", e.target.value)} />
+                <input
+                  style={inputSt}
+                  type="email"
+                  placeholder="Enter here"
+                  value={form.email}
+                  onChange={(e) => set("email", e.target.value)}
+                />
                 {errors.email && <span style={errSt}>{errors.email}</span>}
               </div>
               <div style={fieldWrap}>
                 <label style={labelSt}>Phone number</label>
-                <input style={inputSt} type="tel" placeholder="Enter here"
-                  value={form.phone} onChange={e => set("phone", e.target.value)} />
+                <input
+                  style={inputSt}
+                  type="tel"
+                  placeholder="+44 7700 900000" // ← was "Enter here"
+                  value={form.phone}
+                  onChange={(e) => set("phone", e.target.value)}
+                />
                 {errors.phone && <span style={errSt}>{errors.phone}</span>}
               </div>
             </div>
@@ -1219,63 +1343,101 @@ export default function ApplicationForm() {
             <div style={rowSt}>
               <div style={fieldWrap}>
                 <label style={labelSt}>Date of birth</label>
-                <input style={inputSt} type="date"
-                  value={form.dateOfBirth} onChange={e => set("dateOfBirth", e.target.value)} />
-                {errors.dateOfBirth && <span style={errSt}>{errors.dateOfBirth}</span>}
+                <input
+                  style={inputSt}
+                  type="date"
+                  value={form.dateOfBirth}
+                  onChange={(e) => set("dateOfBirth", e.target.value)}
+                />
+                {errors.dateOfBirth && (
+                  <span style={errSt}>{errors.dateOfBirth}</span>
+                )}
               </div>
               <div style={fieldWrap}>
                 <label style={labelSt}>Student type</label>
-                <Select value={form.studentType} onChange={v => set("studentType", v)} error={errors.studentType}>
+                <Select
+                  value={form.studentType}
+                  onChange={(v) => set("studentType", v)}
+                  error={errors.studentType}
+                >
                   <option value="">Please select</option>
                   <option>UK Citizen</option>
                   <option>EU Citizen</option>
                   <option>International / Foreign Student</option>
                   <option>U.S. Permanent Resident (Green Card Holder)</option>
-                  <option>International Student Transferring Within UK/EU</option>
+                  <option>
+                    International Student Transferring Within UK/EU
+                  </option>
                 </Select>
               </div>
             </div>
 
             <div style={fieldWrap}>
               <label style={labelSt}>Address</label>
-              <textarea style={{ ...inputSt, minHeight: "80px", resize: "vertical" }}
+              <textarea
+                style={{ ...inputSt, minHeight: "80px", resize: "vertical" }}
                 placeholder="Enter here"
-                value={form.address} onChange={e => set("address", e.target.value)} />
+                value={form.address}
+                onChange={(e) => set("address", e.target.value)}
+              />
               {errors.address && <span style={errSt}>{errors.address}</span>}
             </div>
-
           </div>
         )}
 
         {/* ════════════ STEP 2 — Education Records ════════════ */}
         {step === 2 && (
-          <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "20px" }}
+          >
             <div style={rowSt}>
               <div style={fieldWrap}>
                 <label style={labelSt}>School</label>
-                <input style={inputSt} type="text" placeholder="Enter here"
-                  value={form.school} onChange={e => set("school", e.target.value)} />
+                <input
+                  style={inputSt}
+                  type="text"
+                  placeholder="Enter here"
+                  value={form.school}
+                  onChange={(e) => set("school", e.target.value)}
+                />
                 {errors.school && <span style={errSt}>{errors.school}</span>}
               </div>
               <div style={fieldWrap}>
                 <label style={labelSt}>Year of completion</label>
-                <input style={inputSt} type="text" placeholder="Enter here"
-                  value={form.yearOfCompletion} onChange={e => set("yearOfCompletion", e.target.value)} />
-                {errors.yearOfCompletion && <span style={errSt}>{errors.yearOfCompletion}</span>}
+                <input
+                  style={inputSt}
+                  type="text"
+                  placeholder="Enter here"
+                  value={form.yearOfCompletion}
+                  onChange={(e) => set("yearOfCompletion", e.target.value)}
+                />
+                {errors.yearOfCompletion && (
+                  <span style={errSt}>{errors.yearOfCompletion}</span>
+                )}
               </div>
             </div>
 
             <div style={rowSt}>
               <div style={fieldWrap}>
                 <label style={labelSt}>Highest qualification</label>
-                <input style={inputSt} type="text" placeholder="Highest qualification achieved or currently completing?"
-                  value={form.highestQualification} onChange={e => set("highestQualification", e.target.value)} />
-                {errors.highestQualification && <span style={errSt}>{errors.highestQualification}</span>}
+                <input
+                  style={inputSt}
+                  type="text"
+                  placeholder="Highest qualification achieved or currently completing?"
+                  value={form.highestQualification}
+                  onChange={(e) => set("highestQualification", e.target.value)}
+                />
+                {errors.highestQualification && (
+                  <span style={errSt}>{errors.highestQualification}</span>
+                )}
               </div>
               <div style={fieldWrap}>
                 <label style={labelSt}>Current status</label>
-                <Select value={form.currentStatus} onChange={v => set("currentStatus", v)} error={errors.currentStatus}>
+                <Select
+                  value={form.currentStatus}
+                  onChange={(v) => set("currentStatus", v)}
+                  error={errors.currentStatus}
+                >
                   <option value="">Please select</option>
                   <option>Studying</option>
                   <option>Working</option>
@@ -1283,18 +1445,22 @@ export default function ApplicationForm() {
                 </Select>
               </div>
             </div>
-
           </div>
         )}
 
         {/* ════════════ STEP 3 — Education Details ════════════ */}
         {step === 3 && (
-          <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "20px" }}
+          >
             <div style={rowSt}>
               <div style={fieldWrap}>
                 <label style={labelSt}>Select area of study</label>
-                <Select value={form.areaOfStudy} onChange={v => set("areaOfStudy", v)} error={errors.areaOfStudy}>
+                <Select
+                  value={form.areaOfStudy}
+                  onChange={(v) => set("areaOfStudy", v)}
+                  error={errors.areaOfStudy}
+                >
                   <option value="">Please select</option>
                   <option>Business & Administration</option>
                   <option>Computer Science & A.I.</option>
@@ -1306,7 +1472,11 @@ export default function ApplicationForm() {
               </div>
               <div style={fieldWrap}>
                 <label style={labelSt}>Degree level</label>
-                <Select value={form.degreeLevel} onChange={v => set("degreeLevel", v)} error={errors.degreeLevel}>
+                <Select
+                  value={form.degreeLevel}
+                  onChange={(v) => set("degreeLevel", v)}
+                  error={errors.degreeLevel}
+                >
                   <option value="">Please select</option>
                   <option>Bachelor's Degrees</option>
                   <option>Master's Degrees</option>
@@ -1314,19 +1484,28 @@ export default function ApplicationForm() {
                 </Select>
               </div>
             </div>
-
           </div>
         )}
 
         {/* ════════════ STEP 4 — Documentation ════════════ */}
         {step === 4 && (
-          <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "24px" }}
+          >
             <div style={rowSt}>
               {/* Passport upload — matches original "Choose File" button style */}
               <div style={fieldWrap}>
-                <label style={labelSt}>Upload passport or birth documentation</label>
-                <div style={{ display: "flex", alignItems: "center", border: "1px solid #e0e0e0", backgroundColor: "#f5f7fa" }}>
+                <label style={labelSt}>
+                  Upload passport or birth documentation
+                </label>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    border: "1px solid #e0e0e0",
+                    backgroundColor: "#f5f7fa",
+                  }}
+                >
                   <input
                     style={{
                       flex: 1,
@@ -1358,20 +1537,47 @@ export default function ApplicationForm() {
                   >
                     Choose File
                   </button>
-                  <input ref={passportRef} type="file" accept=".pdf"
+                  <input
+                    ref={passportRef}
+                    type="file"
+                    accept=".pdf"
                     style={{ display: "none" }}
-                    onChange={e => set("passportFile", e.target.files?.[0] || null)} />
+                    onChange={(e) =>
+                      set("passportFile", e.target.files?.[0] || null)
+                    }
+                  />
                 </div>
-                <p style={{ fontSize: "12px", color: "#545454", fontFamily: "'Inter', sans-serif", lineHeight: "1.5em", marginTop: "6px" }}>
-                  Please upload a VERIFIED copy of your Passport or Birth Certificate. VERIFIED means the original document has been sighted & the copy dated and signed by an authorised person.
+                <p
+                  style={{
+                    fontSize: "12px",
+                    color: "#545454",
+                    fontFamily: "'Inter', sans-serif",
+                    lineHeight: "1.5em",
+                    marginTop: "6px",
+                  }}
+                >
+                  Please upload a VERIFIED copy of your Passport or Birth
+                  Certificate. VERIFIED means the original document has been
+                  sighted & the copy dated and signed by an authorised person.
                 </p>
-                {errors.passportFile && <span style={errSt}>{errors.passportFile}</span>}
+                {errors.passportFile && (
+                  <span style={errSt}>{errors.passportFile}</span>
+                )}
               </div>
 
               {/* CV upload */}
               <div style={fieldWrap}>
-                <label style={labelSt}>Upload Curriculum Vitae (CV) or Resume</label>
-                <div style={{ display: "flex", alignItems: "center", border: "1px solid #e0e0e0", backgroundColor: "#f5f7fa" }}>
+                <label style={labelSt}>
+                  Upload Curriculum Vitae (CV) or Resume
+                </label>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    border: "1px solid #e0e0e0",
+                    backgroundColor: "#f5f7fa",
+                  }}
+                >
                   <input
                     style={{
                       flex: 1,
@@ -1403,11 +1609,23 @@ export default function ApplicationForm() {
                   >
                     Choose File
                   </button>
-                  <input ref={cvRef} type="file" accept=".pdf"
+                  <input
+                    ref={cvRef}
+                    type="file"
+                    accept=".pdf"
                     style={{ display: "none" }}
-                    onChange={e => set("cvFile", e.target.files?.[0] || null)} />
+                    onChange={(e) => set("cvFile", e.target.files?.[0] || null)}
+                  />
                 </div>
-                <p style={{ fontSize: "12px", color: "#545454", fontFamily: "'Inter', sans-serif", lineHeight: "1.5em", marginTop: "6px" }}>
+                <p
+                  style={{
+                    fontSize: "12px",
+                    color: "#545454",
+                    fontFamily: "'Inter', sans-serif",
+                    lineHeight: "1.5em",
+                    marginTop: "6px",
+                  }}
+                >
                   Upload Curriculum Vitae (CV) or Resume
                 </p>
                 {errors.cvFile && <span style={errSt}>{errors.cvFile}</span>}
@@ -1417,7 +1635,11 @@ export default function ApplicationForm() {
             {/* How did you find us — half width matching original */}
             <div style={{ maxWidth: "calc(50% - 10px)" }}>
               <label style={labelSt}>How did you find us?</label>
-              <Select value={form.howDidYouFindUs} onChange={v => set("howDidYouFindUs", v)} error={errors.howDidYouFindUs}>
+              <Select
+                value={form.howDidYouFindUs}
+                onChange={(v) => set("howDidYouFindUs", v)}
+                error={errors.howDidYouFindUs}
+              >
                 <option value="">- Select -</option>
                 <option>Google</option>
                 <option>Facebook</option>
@@ -1426,60 +1648,87 @@ export default function ApplicationForm() {
                 <option>Other</option>
               </Select>
             </div>
-
           </div>
         )}
 
         {/* ════════════ STEP 5 — Declaration ════════════ */}
         {step === 5 && (
-          <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "24px" }}
+          >
             <div style={fieldWrap}>
               <label style={labelSt}>Application full name</label>
-              <input style={{ ...inputSt, backgroundColor: "#eef2f7" }} type="text"
+              <input
+                style={{ ...inputSt, backgroundColor: "#eef2f7" }}
+                type="text"
                 placeholder=""
-                value={form.fullName} onChange={e => set("fullName", e.target.value)} />
+                value={form.fullName}
+                onChange={(e) => set("fullName", e.target.value)}
+              />
               {errors.fullName && <span style={errSt}>{errors.fullName}</span>}
             </div>
 
             <div style={fieldWrap}>
               <label style={labelSt}>Additional information</label>
               <textarea
-                style={{ ...inputSt, minHeight: "120px", resize: "vertical", backgroundColor: "#eef2f7" }}
+                style={{
+                  ...inputSt,
+                  minHeight: "120px",
+                  resize: "vertical",
+                  backgroundColor: "#eef2f7",
+                }}
                 placeholder=""
                 value={form.additionalInfo}
-                onChange={e => set("additionalInfo", e.target.value)}
+                onChange={(e) => set("additionalInfo", e.target.value)}
               />
             </div>
 
             {/* Privacy policy checkbox — matches original exactly */}
             <div>
-              <p style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: "14px",
-                color: "#292929",
-                marginBottom: "8px",
-              }}>
+              <p
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "14px",
+                  color: "#292929",
+                  marginBottom: "8px",
+                }}
+              >
                 Privacy Policy Acceptance*
               </p>
-              <label style={{ display: "flex", alignItems: "center", gap: "10px", cursor: "pointer" }}>
+              <label
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  cursor: "pointer",
+                }}
+              >
                 <input
                   type="checkbox"
                   checked={form.privacyAccepted}
-                  onChange={e => set("privacyAccepted", e.target.checked)}
-                  style={{ width: "16px", height: "16px", accentColor: "#149AB5", cursor: "pointer" }}
+                  onChange={(e) => set("privacyAccepted", e.target.checked)}
+                  style={{
+                    width: "16px",
+                    height: "16px",
+                    accentColor: "#149AB5",
+                    cursor: "pointer",
+                  }}
                 />
-                <span style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: "14px",
-                  color: "#545454",
-                }}>
-                  By submitting this form, you agree to Prime Leed privacy notice.
+                <span
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: "14px",
+                    color: "#545454",
+                  }}
+                >
+                  By submitting this form, you agree to Prime Leed privacy
+                  notice.
                 </span>
               </label>
-              {errors.privacyAccepted && <span style={errSt}>{errors.privacyAccepted}</span>}
+              {errors.privacyAccepted && (
+                <span style={errSt}>{errors.privacyAccepted}</span>
+              )}
             </div>
-
           </div>
         )}
 
@@ -1506,74 +1755,135 @@ export default function ApplicationForm() {
             >
               Submit Aplication
               <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
-                <path d="M1 7H17M11 1L17 7L11 13" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                <path
+                  d="M1 7H17M11 1L17 7L11 13"
+                  stroke="white"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
           )}
         </div>
-
       </div>
 
       {/* ── SUCCESS MODAL ── */}
       {submitted && (
-        <div style={{
-          position: "fixed", inset: 0,
-          backgroundColor: "rgba(0,0,0,0.55)",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          zIndex: 1000, padding: "20px",
-        }}>
-          <div style={{
-            backgroundColor: "#ffffff",
-            padding: "56px 48px",
-            maxWidth: "460px", width: "100%",
-            textAlign: "center",
-            borderTop: "4px solid #149AB5",
-            boxShadow: "0 24px 80px rgba(0,0,0,0.2)",
-          }}>
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            backgroundColor: "rgba(0,0,0,0.55)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 1000,
+            padding: "20px",
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: "#ffffff",
+              padding: "56px 48px",
+              maxWidth: "460px",
+              width: "100%",
+              textAlign: "center",
+              borderTop: "4px solid #149AB5",
+              boxShadow: "0 24px 80px rgba(0,0,0,0.2)",
+            }}
+          >
             {/* Green check circle */}
-            <div style={{
-              width: "68px", height: "68px", borderRadius: "50%",
-              backgroundColor: "#f0fdf4",
-              border: "2px solid #22c55e",
-              margin: "0 auto 24px",
-              display: "flex", alignItems: "center", justifyContent: "center",
-            }}>
+            <div
+              style={{
+                width: "68px",
+                height: "68px",
+                borderRadius: "50%",
+                backgroundColor: "#f0fdf4",
+                border: "2px solid #22c55e",
+                margin: "0 auto 24px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <svg width="28" height="22" viewBox="0 0 28 22" fill="none">
-                <path d="M2 11L10 19L26 2" stroke="#22c55e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path
+                  d="M2 11L10 19L26 2"
+                  stroke="#22c55e"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </div>
 
-            <h2 style={{
-              fontFamily: "'Work Sans', sans-serif",
-              fontSize: "24px", fontWeight: "800",
-              color: "#292929", marginBottom: "12px",
-            }}>
+            <h2
+              style={{
+                fontFamily: "'Work Sans', sans-serif",
+                fontSize: "24px",
+                fontWeight: "800",
+                color: "#292929",
+                marginBottom: "12px",
+              }}
+            >
               Application Submitted!
             </h2>
 
-            <p style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: "14px", color: "#545454",
-              lineHeight: "1.7em", marginBottom: "28px",
-            }}>
-              Thank you, <strong>{form.firstName} {form.lastName}</strong>.<br />
-              Your application has been received. Our admissions team will get back to you within <strong>2 working days</strong>.
+            <p
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: "14px",
+                color: "#545454",
+                lineHeight: "1.7em",
+                marginBottom: "28px",
+              }}
+            >
+              Thank you,{" "}
+              <strong>
+                {form.firstName} {form.lastName}
+              </strong>
+              .<br />
+              Your application has been received. Our admissions team will get
+              back to you within <strong>2 working days</strong>.
             </p>
 
-            <div style={{
-              backgroundColor: "#f5f7fa",
-              padding: "14px 20px", marginBottom: "28px",
-            }}>
-              <p style={{ fontSize: "11px", color: "#888", fontFamily: "'Inter', sans-serif", marginBottom: "4px", letterSpacing: "1px", textTransform: "uppercase" }}>
+            <div
+              style={{
+                backgroundColor: "#f5f7fa",
+                padding: "14px 20px",
+                marginBottom: "28px",
+              }}
+            >
+              <p
+                style={{
+                  fontSize: "11px",
+                  color: "#888",
+                  fontFamily: "'Inter', sans-serif",
+                  marginBottom: "4px",
+                  letterSpacing: "1px",
+                  textTransform: "uppercase",
+                }}
+              >
                 Reference Number
               </p>
-              <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "18px", fontWeight: "700", color: "#149AB5" }}>
+              <p
+                style={{
+                  fontFamily: "'Work Sans', sans-serif",
+                  fontSize: "18px",
+                  fontWeight: "700",
+                  color: "#149AB5",
+                }}
+              >
                 PL-{Date.now().toString().slice(-6)}
               </p>
             </div>
 
             <button
-              onClick={() => { setSubmitted(false); setStep(1); }}
+              onClick={() => {
+                setSubmitted(false);
+                setStep(1);
+              }}
               style={{ ...nextBtn, width: "100%", padding: "14px" }}
             >
               Close
