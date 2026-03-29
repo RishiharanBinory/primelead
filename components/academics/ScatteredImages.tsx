@@ -33,18 +33,18 @@ export default function ScatteredImages({
           observer.disconnect();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
   const positions = [
-    { z: 200,  x: 0,    scale: 1,    opacity: 1,    zIndex: 5 },
-    { z: 60,   x: 300,  scale: 0.82, opacity: 0.75, zIndex: 4 },
-    { z: -160, x: 180,  scale: 0.65, opacity: 0.5,  zIndex: 3 },
-    { z: -160, x: -180, scale: 0.65, opacity: 0.5,  zIndex: 3 },
-    { z: 60,   x: -300, scale: 0.82, opacity: 0.75, zIndex: 4 },
+    { z: 200, x: 0, scale: 1, opacity: 1, zIndex: 5 },
+    { z: 60, x: 300, scale: 0.82, opacity: 0.75, zIndex: 4 },
+    { z: -160, x: 180, scale: 0.65, opacity: 0.5, zIndex: 3 },
+    { z: -160, x: -180, scale: 0.65, opacity: 0.5, zIndex: 3 },
+    { z: 60, x: -300, scale: 0.82, opacity: 0.75, zIndex: 4 },
   ];
 
   const getPosition = (imageIndex: number) => {
@@ -124,9 +124,10 @@ export default function ScatteredImages({
                   left: "50%",
                   borderRadius: "16px",
                   overflow: "hidden",
-                  boxShadow: pos.zIndex === 5
-                    ? "0 30px 80px rgba(0,0,0,0.35)"
-                    : "0 10px 30px rgba(0,0,0,0.2)",
+                  boxShadow:
+                    pos.zIndex === 5
+                      ? "0 30px 80px rgba(0,0,0,0.35)"
+                      : "0 10px 30px rgba(0,0,0,0.2)",
                   transform: `
                     translate(-50%, -50%)
                     translateX(${animated ? pos.x : 0}px)
@@ -161,12 +162,23 @@ export default function ScatteredImages({
 
         {/* Left arrow */}
         <button
-          onClick={() => setActiveIndex((prev) => (prev - 1 + images.length) % images.length)}
+          onClick={() =>
+            setActiveIndex((prev) => (prev - 1 + images.length) % images.length)
+          }
           className="absolute left-[10%] z-20 w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors"
-          style={{ opacity: animated ? 1 : 0, transition: "opacity 0.8s ease 0.5s" }}
+          style={{
+            opacity: animated ? 1 : 0,
+            transition: "opacity 0.8s ease 0.5s",
+          }}
         >
           <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
-            <path d="M10 12L6 8l4-4" stroke="#1a2e3b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path
+              d="M10 12L6 8l4-4"
+              stroke="#1a2e3b"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </button>
 
@@ -174,10 +186,19 @@ export default function ScatteredImages({
         <button
           onClick={() => setActiveIndex((prev) => (prev + 1) % images.length)}
           className="absolute right-[10%] z-20 w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors"
-          style={{ opacity: animated ? 1 : 0, transition: "opacity 0.8s ease 0.5s" }}
+          style={{
+            opacity: animated ? 1 : 0,
+            transition: "opacity 0.8s ease 0.5s",
+          }}
         >
           <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
-            <path d="M6 4l4 4-4 4" stroke="#1a2e3b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path
+              d="M6 4l4 4-4 4"
+              stroke="#1a2e3b"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </button>
       </div>
@@ -204,3 +225,4 @@ export default function ScatteredImages({
     </section>
   );
 }
+//release1.0
