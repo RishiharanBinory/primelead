@@ -47,7 +47,7 @@ export default function StudentFinance() {
           <AnimateOnScroll delay="0.2s">
             <p
               className="text-white/90 leading-[1.7]"
-              style={{ fontSize: "clamp(13px, 1.15vw, 16px)" }}
+              style={{ fontSize: "clamp(18px, 1.15vw, 21px)" }}
             >
               Student loans and grants in the United Kingdom are primarily
               provided by the government through the Student Loans Company (SLC),
@@ -59,7 +59,7 @@ export default function StudentFinance() {
           <AnimateOnScroll delay="0.4s">
             <p
               className="text-white/90 leading-[1.7]"
-              style={{ fontSize: "clamp(13px, 1.15vw, 16px)" }}
+              style={{ fontSize: "clamp(18px, 1.15vw, 21px)" }}
             >
               The SLC is responsible for Student Finance England and Student
               Finance Wales, and is a delivery partner of Student Finance NI and

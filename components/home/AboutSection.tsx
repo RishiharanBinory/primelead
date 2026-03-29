@@ -41,7 +41,7 @@ export default function AboutSection() {
             </AnimateOnScroll>
 
             <AnimateOnScroll delay="0.5s">
-              <p className="text-sm md:text-base text-[#374151] leading-relaxed text-justify">
+              <p className="text-[18px] md:text-base text-[#374151] leading-relaxed text-justify">
                 Our platform offers comprehensive support, including guidance on
                 the application process, access to valuable resources, and
                 personalised assistance from experienced advisors. We are

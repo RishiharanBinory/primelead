@@ -46,7 +46,7 @@ export function VisionMissionCard({
         {title}
       </h3>
       <p
-        className="text-[15px] leading-[1.8]"
+        className="text-[18px] leading-[1.8]"
         style={{
           color: hovered ? "rgba(255,255,255,0.92)" : "#4b5563",
           transition: "color 0.3s",

@@ -209,7 +209,7 @@ export default function Footer() {
       <div className="w-full h-24 py-10" style={{ backgroundColor: "#ffffff" }}>
         <div className="max-w-7xl mx-auto px-7 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p style={{ fontSize: "13px", color: "#7a8a96" }}>
-            Copyright © 2026 Prime Leed. All rights reserved. 
+            Copyright © 2026 Prime Leed. All rights reserved.
           </p>
           <div className="flex items-center gap-8 ml-auto">
             {[

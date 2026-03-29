@@ -80,7 +80,7 @@ export default function VisionMission() {
               <AnimateFadeIn key={link.href} delay={`${index * 0.2}s`}>
                 <Link
                   href={link.href}
-                  className="flex items-center gap-2 text-white text-[16px] font-semibold hover:opacity-70 w-fit"
+                  className="flex items-center gap-2 text-white text-[18px] font-semibold hover:opacity-70 w-fit"
                 >
                   {link.label}
                   <ArrowIcon size={17} />
@@ -104,7 +104,7 @@ export default function VisionMission() {
 
         {/* ── Desktop layout (lg+) ── */}
         <div
-          className="relative z-10 max-w-7xl mx-auto px-7 hidden lg:flex items-end"
+          className="relative z-10 max-w-7xl mx-auto px-7 hidden lg:flex items-end mb-5"
           style={{ height: "540px" }}
         >
           {/* Cards wrapper */}

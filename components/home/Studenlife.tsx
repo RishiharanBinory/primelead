@@ -128,7 +128,7 @@ export default function StudentLife() {
           <DiagonalLines />
           <p
             className="font-bold leading-snug text-center relative z-10"
-            style={{ fontSize: "16px", color: "#0d1b2a" }}
+            style={{ fontSize: "18px", color: "#0d1b2a",fontWeight:"bold" }}
           >
             Empower your life through higher education by applying to our
             partnered institutions.
@@ -197,7 +197,7 @@ export default function StudentLife() {
             <DiagonalLines />
             <p
               className="font-bold leading-snug relative z-10"
-              style={{ fontSize: "clamp(12px, 1.2vw, 16px)", color: "#0d1b2a" }}
+              style={{ fontSize: "clamp(18px, 1.2vw, 20px)", color: "#0d1b2a",fontWeight:'bold' }}
             >
               Empower your life through higher education by applying to our
               partnered institutions.

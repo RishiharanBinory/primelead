@@ -77,7 +77,7 @@ export default function CTABanner() {
             <Button href="/admission/form" label="Application Form" />
           </div>
 
-          <div className="flex items-center gap-2 w-full max-w-[320px] justify-end">
+          <div className="flex items-center gap-5 w-full max-w-[320px] justify-center">
             <Link
               href="/support/request-info"
               className="font-semibold transition-colors duration-200 hover:text-[#2ab4c0]"

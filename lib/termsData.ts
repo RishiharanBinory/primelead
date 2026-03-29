@@ -1,0 +1,158 @@
+import { TermsSection } from "@/app/types/terms"; 
+
+export const termsSections: TermsSection[] = [
+  {
+    id: 1,
+    title: '(1) Introduction',
+    paragraphs: [
+      'These terms of use govern your use of our website; by using our website, you agree to these terms of use in full. If you disagree with these terms of use or any part of these terms of use, you must not use our website.',
+      'Our website uses cookies. By using our website and agreeing to these terms of use, you consent to our use of cookies in accordance with the terms of our privacy policy.',
+    ],
+  },
+  {
+    id: 2,
+    title: '(2) Licence to use website',
+    paragraphs: [
+      'Unless otherwise stated, we or our licensors own the intellectual property rights in the website and material on the website. Subject to the licence below, all these intellectual property rights are reserved.',
+      'You may view, download for caching purposes only, and print pages or other content from the website for your own personal use, subject to the restrictions set out below and elsewhere in these terms of use.',
+      'You must not:',
+    ],
+    listItems: [
+      '(a) republish material from this website (including republication on another website);',
+      '(b) sell, rent or sub-license material from the website;',
+      '(c) show any material from the website in public;',
+      '(d) reproduce, duplicate, copy or otherwise exploit material on our website for a commercial purpose;',
+      '(e) edit or otherwise modify any material on the website; or',
+      '(f) redistribute material from this website except for content specifically and expressly made available for redistribution (such as our newsletter).',
+    ],
+    listPosition: 'after',
+  },
+  {
+    id: 3,
+    title: '(3) Acceptable use',
+    paragraphs: [
+      'You must not use our website in any way that causes, or may cause, damage to the website or impairment of the availability or accessibility of the website; or in any way which is unlawful, illegal, fraudulent or harmful, or in connection with any unlawful, illegal, fraudulent or harmful purpose or activity.',
+      'You must not use our website to copy, store, host, transmit, send, use, publish or distribute any material which consists of (or is linked to) any spyware, computer virus, Trojan horse, worm, keystroke logger, rootkit or other malicious computer software.',
+      'You must not conduct any systematic or automated data collection activities (including, without limitation, scraping, data mining, data extraction and data harvesting) on or in relation to our website without our express written consent.',
+      'You must not use our website to transmit or send unsolicited commercial communications.',
+    ],
+  },
+  {
+    id: 4,
+    title: '(4) Restricted access',
+    paragraphs: [
+      'Access to certain areas of our website is restricted. We reserve the right to restrict access to other areas of our website, or indeed our whole website, at our discretion.',
+      'If we provide you with / you generate a user ID and password to enable you to access restricted areas of our website or other content or services, you must ensure that the password is kept confidential.',
+      'You must notify us in writing immediately if you become aware of any unauthorised use of your account or password.',
+      'You are responsible for any activity on our website arising out of any failure to keep your password confidential and may be held liable for any losses arising out of such a failure.',
+      "You must not use any other person's user ID and password to access our website, unless you have that person's express permission to do so.",
+      'We may disable your user ID and password at any time in our sole discretion with or without notice or explanation.',
+    ],
+  },
+  {
+    id: 5,
+    title: '(5) User content',
+    paragraphs: [
+      'In these terms of use, "your content" means material (including, without limitation, text, images, audio material, video material and audio-visual material) that you submit to our website, for whatever purpose.',
+      'You grant to us a worldwide, irrevocable, non-exclusive, royalty-free licence to use, reproduce, adapt, publish, translate and distribute your content in any existing or future media. You also grant to us the right to sub-license these rights and the right to bring an action for infringement of these rights.',
+      'You warrant and represent that your content will comply with these terms of use.',
+      "Your content must not be illegal or unlawful, must not infringe any third party's legal rights and must not be capable of giving rise to legal action whether against you or us or a third party (in each case under any applicable law).",
+      'You must not submit any content to the website that is or has ever been the subject of any threatened or actual legal proceedings or other similar complaint.',
+      'We reserve the right to edit or remove any material submitted to our website, or stored on our servers, or hosted or published upon our website.',
+      'Notwithstanding our rights under these terms of use in relation to your content, we do not undertake to monitor the submission of such content to, or the publication of such content on, our website.',
+    ],
+  },
+  {
+    id: 6,
+    title: '(6) Limited warranties',
+    paragraphs: [
+      'We do not warrant the completeness or accuracy of the information published on this website; nor do we commit to ensuring that the website remains available or that the material on the website is kept up to date.',
+      'To the maximum extent permitted by applicable law, we exclude all representations, warranties and conditions relating to this website and the use of this website (including, without limitation, any warranties implied by law in respect of satisfactory quality, fitness for purpose and/or the use of reasonable care and skill).',
+    ],
+  },
+  {
+    id: 7,
+    title: '(7) Limitations and exclusions of liability',
+    paragraphs: [
+      'Nothing in these terms of use will: (a) limit or exclude our or your liability for death or personal injury resulting from negligence; (b) limit or exclude our or your liability for fraud or fraudulent misrepresentation; (c) limit any of our or your liabilities in any way that is not permitted under applicable law; or (d) exclude any of our or your liabilities that may not be excluded under applicable law.',
+      'The limitations and exclusions of liability set out in this Section and elsewhere in these terms of use: (a) are subject to the preceding paragraph; and (b) govern all liabilities arising under these terms of use or in relation to the subject matter of these terms of use, including liabilities arising in contract, in tort (including negligence) and for breach of statutory duty.',
+      'To the extent that the website and the information and services on the website are provided free of charge, we will not be liable for any loss or damage of any nature.',
+      'We will not be liable to you in respect of any losses arising out of any event or events beyond our reasonable control.',
+      'We will not be liable to you in respect of any business losses, including (without limitation) loss of or damage to profits, income, revenue, use, production, anticipated savings, business, contracts, commercial opportunities or goodwill.',
+      'We will not be liable to you in respect of any loss or corruption of any data, database or software.',
+      'We will not be liable to you in respect of any special, indirect or consequential loss or damage.',
+    ],
+  },
+  {
+    id: 8,
+    title: '(8) Indemnity',
+    paragraphs: [
+      'You hereby indemnify us and undertake to keep us indemnified against any losses, damages, costs, liabilities and expenses (including, without limitation, legal expenses and any amounts paid by us to a third party in settlement of a claim or dispute on the advice of our legal advisers) incurred or suffered by us arising out of any breach by you of any provision of these terms of use, or arising out of any claim that you have breached any provision of these terms of use.',
+    ],
+  },
+  {
+    id: 9,
+    title: '(9) Breaches of these terms of use',
+    paragraphs: [
+      'Without prejudice to our other rights under these terms of use, if you breach these terms of use in any way, we may take such action as we deem appropriate to deal with the breach, including suspending your access to the website, prohibiting you from accessing the website, blocking computers using your IP address from accessing the website, contacting your internet service provider to request that they block your access to the website and/or bringing court proceedings against you.',
+    ],
+  },
+  {
+    id: 10,
+    title: '(10) Variation',
+    paragraphs: [
+      'We may revise these terms of use from time to time. Revised terms of use will apply to the use of our website from the date of publication of the revised terms of use on our website.',
+    ],
+  },
+  {
+    id: 11,
+    title: '(11) Assignment',
+    paragraphs: [
+      'We may transfer, sub-contract or otherwise deal with our rights and/or obligations under these terms of use without notifying you or obtaining your consent.',
+      'You may not transfer, sub-contract or otherwise deal with your rights and/or obligations under these terms of use.',
+    ],
+  },
+  {
+    id: 12,
+    title: '(12) Severability',
+    paragraphs: [
+      'If a provision of these terms of use is determined by any court or other competent authority to be unlawful and/or unenforceable, the other provisions will continue in effect. If any unlawful and/or unenforceable provision would be lawful or enforceable if part of it were deleted, that part will be deemed to be deleted, and the rest of the provision will continue in effect.',
+    ],
+  },
+  {
+    id: 13,
+    title: '(13) Exclusion of third party rights',
+    paragraphs: [
+      'These terms of use are for the benefit of you and us, and are not intended to benefit any third party or be enforceable by any third party. The exercise of our and your rights in relation to these terms of use is not subject to the consent of any third party.',
+    ],
+  },
+  {
+    id: 14,
+    title: '(14) Entire agreement',
+    paragraphs: [
+      'Subject to the first paragraph of Section [8], these terms of use, together with our privacy policy, constitute the entire agreement between you and us in relation to your use of our website and supersede all previous agreements in respect of your use of our website.',
+    ],
+  },
+  {
+    id: 15,
+    title: '(15) Law and jurisdiction',
+    paragraphs: [
+      'These terms of use will be governed by and construed in accordance with English law, and any disputes relating to these terms of use will be subject to the non-exclusive jurisdiction of the courts of England and Wales.',
+    ],
+  },
+  {
+    id: 16,
+    title: '(16) Our details',
+    paragraphs: [
+      'The full name of our organisation is Primeleed in 1 Buryside Close, Aldborough Road, North Ilford, Essex, England, IG2 7JF.',
+      'You can contact us:',
+    ],
+    listItems: [
+      '(a) by post, to the postal address given above;',
+      '(b) using our website contact form;',
+      '(c) by telephone, on the contact number published on our website from time to time; or',
+      '(d) by email to contact@primeleed.com or by using other email addresses published on our website.',
+    ],
+    listPosition: 'after',
+  },
+];

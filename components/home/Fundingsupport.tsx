@@ -50,7 +50,7 @@ export default function FundingSupport() {
               <p
                 className="mb-4 md:mb-5 leading-snug"
                 style={{
-                  fontSize: "clamp(14px, 1.4vw, 17px)",
+                  fontSize: "clamp(18px, 1.4vw, 18px)",
                   fontWeight: 700,
                   color: "#0d1b2a",
                 }}
@@ -66,7 +66,7 @@ export default function FundingSupport() {
               <p
                 className="mb-8 md:mb-10 leading-relaxed"
                 style={{
-                  fontSize: "clamp(13px, 1.2vw, 16px)",
+                  fontSize: "clamp(18px, 1.2vw, 16px)",
                   fontWeight: 400,
                   color: "#3d4f5e",
                   maxWidth: "480px",
