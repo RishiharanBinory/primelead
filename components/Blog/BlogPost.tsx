@@ -74,6 +74,7 @@ const STYLES = `
     font-family: 'Inter', sans-serif; font-weight: 400;
     color: #545454; line-height: 1.8em; margin: 0 0 18px 0;
     font-size: clamp(14px, 1.6vw, 16px);
+    text-align: justify;
   }
 
   .bp-video-wrap {
