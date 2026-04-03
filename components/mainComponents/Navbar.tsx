@@ -56,7 +56,6 @@ const BLOG_POSTS = [
 ];
 
 const DIRECTORY_LINKS = [
-  { label: "News Directory", href: "/news" },
   { label: "Events Directory", href: "/events" },
   { label: "Faculty Directory", href: "/faculty" },
   { label: "Detailed Plans", href: "/plans" },
@@ -90,14 +89,17 @@ function ChevronIcon({ open }: { open: boolean }) {
   );
 }
 
+// ── KEY CHANGE: Dropdown now receives pathname and highlights the active child ──
 function Dropdown({
   items,
   open,
   onClose,
+  pathname,
 }: {
   items: DropdownItem[];
   open: boolean;
   onClose: () => void;
+  pathname: string;
 }) {
   return (
     <ul
@@ -113,21 +115,48 @@ function Dropdown({
                       : "opacity-0 invisible -translate-y-2 pointer-events-none"
                   }`}
     >
-      {items.map((item) => (
-        <li key={item.href} role="none">
-          <Link
-            href={item.href}
-            role="menuitem"
-            tabIndex={open ? 0 : -1}
-            onClick={onClose}
-            className="block px-5 py-3 text-[14px] font-semibold text-[#2c3e50]
-                       border-b border-[#f3f5f7] last:border-0
-                       hover:bg-[#FFFBEC] hover:pl-6 transition-all duration-100"
-          >
-            {item.label}
-          </Link>
-        </li>
-      ))}
+      {items.map((item) => {
+        // Exact match for child pages — prevents /academics matching /academics/overview
+        const isActiveChild = pathname === item.href;
+
+        return (
+          <li key={item.href} role="none">
+            <Link
+              href={item.href}
+              role="menuitem"
+              tabIndex={open ? 0 : -1}
+              onClick={onClose}
+              className="block px-5 py-3 text-[14px] font-semibold
+                         border-b border-[#f3f5f7] last:border-0
+                         transition-all duration-100"
+              style={{
+                // Active child → #149AB5 bg + white text
+                // Inactive → normal styling with hover
+                backgroundColor: isActiveChild ? "#149AB5" : "transparent",
+                color: isActiveChild ? "#ffffff" : "#2c3e50",
+                paddingLeft: isActiveChild ? "20px" : undefined,
+              }}
+              onMouseEnter={(e) => {
+                if (!isActiveChild) {
+                  (e.currentTarget as HTMLElement).style.backgroundColor =
+                    "#FFFBEC";
+                  (e.currentTarget as HTMLElement).style.paddingLeft = "24px";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isActiveChild) {
+                  (e.currentTarget as HTMLElement).style.backgroundColor =
+                    "transparent";
+                  (e.currentTarget as HTMLElement).style.paddingLeft = "";
+                }
+              }}
+            >
+              {/* Active child gets a small indicator dot */}
+              <span className="flex items-center gap-2">{item.label}</span>
+            </Link>
+          </li>
+        );
+      })}
     </ul>
   );
 }
@@ -135,8 +164,7 @@ function Dropdown({
 function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
     <div
-      className="absolute top-full left-0 right-0 z-100 bg-white shadow-xl
-                 transition-all duration-300 ease-in-out"
+      className="absolute top-full left-0 right-0 z-100 bg-white shadow-xl transition-all duration-300 ease-in-out"
       style={{
         maxHeight: open ? "900px" : "0px",
         opacity: open ? 1 : 0,
@@ -144,14 +172,12 @@ function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
         pointerEvents: open ? "auto" : "none",
       }}
     >
-      {/* 4-col grid — Alumni col has no right padding so image bleeds to edge */}
       <div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_1fr_1fr_1.1fr] gap-0"
         style={{ minHeight: "500px" }}
       >
-        {/* Col 1 — Giving */}
-        <div className="pl-25 pr-25 pt-14  h-full">
-          <h3 className="font-black  text-[#1a2e3b] text-[26px] mb-13">
+        <div className="pl-25 pr-25 pt-14 h-full">
+          <h3 className="font-black text-[#1a2e3b] text-[26px] mb-13">
             Giving
           </h3>
           <p className="text-[18px] text-[#4b5563] leading-relaxed mb-6">
@@ -167,18 +193,15 @@ function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
           </Link>
         </div>
 
-        {/* Col 2 — Blog */}
-        <div className="pl-25 pr-25 pt-14  h-full">
-          <h3 className="font-black  text-[#1a2e3b] text-[26px] mb-13">
-            Blog
-          </h3>
+        <div className="pl-25 pr-25 pt-14 h-full">
+          <h3 className="font-black text-[#1a2e3b] text-[26px] mb-13">Blog</h3>
           <div className="flex flex-col gap-6">
             {BLOG_POSTS.map((post, i) => (
               <div key={i}>
                 <Link
                   href={post.href}
                   onClick={onClose}
-                  className="block  text-[18px] font-semibold text-[#1a2e3b] hover:text-[#2ab4c0] transition-colors mb-1 leading-snug"
+                  className="block text-[18px] font-semibold text-[#1a2e3b] hover:text-[#2ab4c0] transition-colors mb-1 leading-snug"
                 >
                   {post.title}
                 </Link>
@@ -198,9 +221,8 @@ function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
           </Link>
         </div>
 
-        {/* Col 3 — Directory */}
-        <div className="pl-25 pr-25 pt-14  h-full">
-          <h3 className="font-black mb-6 text-[#1a2e3b] text-[26px] ">
+        <div className="pl-25 pr-25 pt-14 h-full">
+          <h3 className="font-black mb-6 text-[#1a2e3b] text-[26px]">
             Directory
           </h3>
           <div className="flex flex-col mt-2">
@@ -221,12 +243,10 @@ function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
           </div>
         </div>
 
-        {/* Col 4 — Alumni: NO right padding, image fills to the edge */}
         <div
           className="relative overflow-hidden"
           style={{ backgroundColor: "rgb(170, 212, 236)", minHeight: "500px" }}
         >
-          {/* Text content with padding */}
           <div className="p-10 pr-0 relative z-10" style={{ maxWidth: "50%" }}>
             <h3 className="font-black mb-4 text-[#1a2e3b] text-[26px]">
               Alumni
@@ -255,8 +275,6 @@ function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
               Our Alumni →
             </Link>
           </div>
-
-          {/* Image bleeds to right edge — absolute, no right inset */}
           <div
             className="absolute top-0 right-0 bottom-0"
             style={{ width: "42%" }}
@@ -271,7 +289,6 @@ function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
         </div>
       </div>
 
-      {/* CTA row — 3 equal-width, equal-height buttons, full-width layout */}
       <div className="bg-[#fefefe] border-t border-[#dde0e4] py-12 px-0">
         <div
           className="grid grid-cols-3 gap-0 mx-auto pl-10px pr-10px"
@@ -282,9 +299,7 @@ function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
               key={btn.href}
               href={btn.href}
               onClick={onClose}
-              className="flex items-center justify-center bg-[#1a2e3b] text-white
-                         text-[19px] font-bold hover:bg-[#2ab4c0] transition-colors duration-200
-                         mx-2"
+              className="flex items-center justify-center bg-[#1a2e3b] text-white text-[19px] font-bold hover:bg-[#2ab4c0] transition-colors duration-200 mx-2"
               style={{ height: "60px", width: "300px" }}
             >
               {btn.label}
@@ -302,6 +317,30 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
   const [mobileAccordion, setMobileAccordion] = useState<string | null>(null);
+  const [navVisible, setNavVisible] = useState(true);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      if (currentY <= 0) {
+        setNavVisible(true);
+        lastScrollY.current = 0;
+        return;
+      }
+      if (currentY > lastScrollY.current) {
+        setNavVisible(false);
+        setOpenItem(null);
+        setMegaOpen(false);
+        setMobileOpen(false);
+      } else {
+        setNavVisible(true);
+      }
+      lastScrollY.current = currentY;
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const leaveTimer = useRef<ReturnType<typeof setTimeout> | undefined>(
     undefined,
@@ -343,12 +382,10 @@ export default function Navbar() {
     setMegaOpen(false);
     setMobileOpen(false);
   }, []);
-
   const enter = useCallback((label: string) => {
     clearTimeout(leaveTimer.current);
     setOpenItem(label);
   }, []);
-
   const leave = useCallback(() => {
     leaveTimer.current = setTimeout(() => setOpenItem(null), 140);
   }, []);
@@ -360,6 +397,10 @@ export default function Navbar() {
     <header
       ref={navRef}
       className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#e6eaed] font-sans"
+      style={{
+        transform: navVisible ? "translateY(0)" : "translateY(-100%)",
+        transition: "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+      }}
     >
       {/* ── Desktop bar ── */}
       <div
@@ -423,11 +464,14 @@ export default function Navbar() {
                     {item.label}
                     {item.children && <ChevronIcon open={expanded} />}
                   </Link>
+
+                  {/* ── Pass pathname so Dropdown can highlight active child ── */}
                   {item.children && (
                     <Dropdown
                       items={item.children}
                       open={expanded}
                       onClose={closeAll}
+                      pathname={pathname}
                     />
                   )}
                 </li>
@@ -439,9 +483,7 @@ export default function Navbar() {
         <div className="flex items-center gap-1 ml-3 z-200">
           <button
             onClick={() => setMegaOpen((v) => !v)}
-            className="flex items-center justify-center w-10 h-10 bg-transparent
-                       border-none rounded cursor-pointer text-[#1a2e3b]
-                       hover:bg-[#f0f3f5] transition-colors"
+            className="flex items-center justify-center w-10 h-10 bg-transparent border-none rounded cursor-pointer text-[#1a2e3b] hover:bg-[#f0f3f5] transition-colors"
             aria-label="Open mega menu"
             aria-expanded={megaOpen}
           >
@@ -493,9 +535,7 @@ export default function Navbar() {
             )}
           </button>
           <button
-            className="flex items-center justify-center w-10 h-10 bg-transparent
-                       border-none rounded cursor-pointer text-[#1a2e3b]
-                       hover:bg-[#f0f3f5] transition-colors"
+            className="flex items-center justify-center w-10 h-10 bg-transparent border-none rounded cursor-pointer text-[#1a2e3b] hover:bg-[#f0f3f5] transition-colors"
             aria-label="Search"
           >
             <svg
@@ -627,8 +667,7 @@ export default function Navbar() {
       <nav
         aria-label="Mobile navigation"
         aria-hidden={!mobileOpen}
-        className="lg:hidden bg-white border-t border-[#e6eaed]
-                   grid transition-[grid-template-rows] duration-300 ease-in-out"
+        className="lg:hidden bg-white border-t border-[#e6eaed] grid transition-[grid-template-rows] duration-300 ease-in-out"
         style={{ gridTemplateRows: mobileOpen ? "1fr" : "0fr" }}
       >
         <div className="overflow-hidden">
@@ -659,17 +698,30 @@ export default function Navbar() {
                       style={{ gridTemplateRows: subOpen ? "1fr" : "0fr" }}
                     >
                       <div className="overflow-hidden">
-                        {item.children.map((child) => (
-                          <Link
-                            key={child.href}
-                            href={child.href}
-                            onClick={() => setMobileOpen(false)}
-                            className="block px-9 py-4 text-[14px] font-semibold text-[#3d5166]
-                                       border-t border-[#eff1f4] hover:bg-[#FFF5C2] hover:text-[#1a2e3b] transition-colors"
-                          >
-                            {child.label}
-                          </Link>
-                        ))}
+                        {item.children.map((child) => {
+                          // ── Active child in mobile too ──
+                          const isActiveChild = pathname === child.href;
+                          return (
+                            <Link
+                              key={child.href}
+                              href={child.href}
+                              onClick={() => setMobileOpen(false)}
+                              className="flex items-center gap-2 px-9 py-4 text-[14px] font-semibold
+                                         border-t border-[#eff1f4] transition-colors"
+                              style={{
+                                backgroundColor: isActiveChild
+                                  ? "#149AB5"
+                                  : "transparent",
+                                color: isActiveChild ? "#ffffff" : "#3d5166",
+                              }}
+                            >
+                              {isActiveChild && (
+                                <span className="shrink-0 w-1.5 h-1.5 rounded-full bg-white" />
+                              )}
+                              {child.label}
+                            </Link>
+                          );
+                        })}
                       </div>
                     </div>
                   </>
@@ -689,15 +741,13 @@ export default function Navbar() {
             );
           })}
 
-          {/* CTA buttons — hidden on mobile (sm), visible on tablet+ (sm:flex) */}
           <div className="hidden sm:flex flex-col gap-3 px-6 py-6 bg-[#f0f2f4] border-t border-[#dde0e4]">
             {CTA_BUTTONS.map((btn) => (
               <Link
                 key={btn.href}
                 href={btn.href}
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-center bg-[#1a2e3b] text-white
-                           text-[15px] font-bold py-4 hover:bg-[#2ab4c0] transition-colors duration-200"
+                className="flex items-center justify-center bg-[#1a2e3b] text-white text-[15px] font-bold py-4 hover:bg-[#2ab4c0] transition-colors duration-200"
               >
                 {btn.label}
               </Link>

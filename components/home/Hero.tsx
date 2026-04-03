@@ -7,9 +7,9 @@ export default function Hero() {
     <section
       className="relative w-full overflow-hidden flex items-center"
       style={{
-        height: "calc(100vh - 70px)",
+        height: "calc(100vh - 80px)",
         minHeight: "500px",
-        maxHeight: "750px",
+        maxHeight: "900px",
       }}
     >
       {/* Background image — zoom effect */}
@@ -21,7 +21,7 @@ export default function Hero() {
         className="relative z-10 w-full max-w-7xl mx-auto flex flex-col justify-start"
         style={{
           paddingTop: "clamp(80px, 10vw, 50px)",
-          paddingBottom: "clamp(60px, 15vw, 300px)",
+          paddingBottom: "clamp(200px, 5vw, 80px)",
           paddingLeft: "clamp(20px, 4vw, 28px)",
           paddingRight: "clamp(20px, 4vw, 28px)",
         }}

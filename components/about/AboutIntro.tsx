@@ -71,7 +71,7 @@ export default function AboutIntro() {
           {/* Logo */}
           <div className="ai-logo-wrap">
             <Image
-              src="/Prime-Leed-SiteLogo-1536x512.png"
+              src="/Prime-Leed-Logo-Footer.png"
               alt="PrimeLeed Logo"
               width={400}
               height={134}

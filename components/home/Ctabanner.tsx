@@ -12,22 +12,14 @@ export default function CTABanner() {
   useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
-
       const rect = sectionRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-
-      // How far the section has scrolled into view (0 to 1)
       const progress = 1 - rect.bottom / (windowHeight + rect.height);
       const clamped = Math.min(Math.max(progress, 0), 1);
-
-      // Map progress to translateX: starts at 30%, ends at -50%
-      const translateX = 80 - clamped * 80;
-      setOffset(translateX);
+      setOffset(80 - clamped * 80);
     };
-
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // run once on mount
-
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -35,14 +27,32 @@ export default function CTABanner() {
     <section
       ref={sectionRef}
       className="w-full relative overflow-visible"
-      style={{ backgroundColor: "#F5C400", minHeight: "340px" }}
+      style={{ backgroundColor: "#F5C400", zIndex: 10 }}
     >
+      {/* Image directly inside section, NOT inside the inner div */}
       <div
-        className="max-w-7xl mx-auto px-7 flex flex-col md:flex-row items-center gap-8"
-        style={{ minHeight: "340px" }}
+        className="hidden md:block absolute"
+        style={{
+          width: "300px",
+          height: "400px",
+          top: "-210px",
+          left: "40%",
+          transform: `translateX(${offset}%)`,
+          transition: "transform 0.05s linear",
+          zIndex: 20,
+        }}
       >
+        <Image
+          src="/footer_girl.svg"
+          alt="Student studying"
+          fill
+          className="object-contain object-bottom"
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-7 py-16 md:py-20 flex flex-col md:flex-row items-center gap-8">
         {/* Left: Heading */}
-        <div className="w-full md:w-[42%] shrink-0 py-12 md:py-0">
+        <div className="w-full md:w-[42%] shrink-0">
           <h2
             className="font-black leading-tight tracking-tight"
             style={{ fontSize: "clamp(28px, 3.5vw, 52px)", color: "#0d1b2a" }}
@@ -51,32 +61,11 @@ export default function CTABanner() {
           </h2>
         </div>
 
-        {/* Center: Floating student image — moves with scroll */}
-        <div
-          className="hidden md:block absolute"
-          style={{
-            width: "320px",
-            height: "480px",
-            bottom: "40%",
-            left: "40%",
-            transform: `translateX(${offset}%)`,
-            transition: "transform 0.05s linear", // very short — feels tied to scroll
-          }}
-        >
-          <Image
-            src="/foot_girl.png"
-            alt="Student studying"
-            fill
-            className="object-contain object-bottom"
-          />
-        </div>
-
         {/* Right: CTA buttons */}
-        <div className="flex-1 flex flex-col items-end gap-4 pb-12 md:pb-0 z-10">
+        <div className="flex-1 flex flex-col items-end gap-4 z-10">
           <div className="w-full max-w-[320px]">
             <Button href="/admission/form" label="Application Form" />
           </div>
-
           <div className="flex items-center gap-5 w-full max-w-[320px] justify-center">
             <Link
               href="/support/request-info"

@@ -55,7 +55,7 @@ export default function ScatteredImages({
   return (
     <section
       ref={sectionRef}
-      className="w-full py-10 md:py-16 overflow-hidden mb-10 md:mb-20"
+      className="w-full py-1 md:py-1 overflow-hidden mb-10 md:mb-20"
     >
       {/* ── Mobile: single image centered ── */}
       <div className="flex flex-col items-center gap-6 md:hidden px-5">

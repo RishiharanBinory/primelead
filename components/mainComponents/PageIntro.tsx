@@ -11,8 +11,8 @@ export default function PageIntro({ title, paragraph }: Props) {
   if (!title && !paragraph) return null;
 
   return (
-    <section className="w-full bg-white py-10 md:py-14">
-      <div className="max-w-5xl mx-auto px-5 md:px-8">
+    <section className="w-full bg-white pt-40 pb-1 md:pt-50 md:pb-1">
+      <div className="max-w-365 mx-auto px-5 md:px-8">
 
         {/* Title — only renders if provided */}
         {title && (

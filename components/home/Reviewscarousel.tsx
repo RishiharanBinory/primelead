@@ -64,21 +64,27 @@ export default function ReviewsCarousel() {
   }, []);
 
   // Desktop scroll to index
-  const scrollDesktopTo = useCallback((index: number) => {
-    if (!trackRef.current) return;
-    const cardWidth = getCardWidth();
-    trackRef.current.style.transition = "transform 0.4s ease";
-    trackRef.current.style.transform = `translateX(-${index * cardWidth}px)`;
-  }, [getCardWidth]);
+  const scrollDesktopTo = useCallback(
+    (index: number) => {
+      if (!trackRef.current) return;
+      const cardWidth = getCardWidth();
+      trackRef.current.style.transition = "transform 0.4s ease";
+      trackRef.current.style.transform = `translateX(-${index * cardWidth}px)`;
+    },
+    [getCardWidth],
+  );
 
-  const scrollDesktop = useCallback((dir: "left" | "right") => {
-    const maxIndex = REVIEWS.length - VISIBLE_DESKTOP;
-    let next = desktopIndexRef.current + (dir === "right" ? 1 : -1);
-    if (next > maxIndex) next = 0;
-    if (next < 0) next = maxIndex;
-    desktopIndexRef.current = next;
-    scrollDesktopTo(next);
-  }, [scrollDesktopTo]);
+  const scrollDesktop = useCallback(
+    (dir: "left" | "right") => {
+      const maxIndex = REVIEWS.length - VISIBLE_DESKTOP;
+      let next = desktopIndexRef.current + (dir === "right" ? 1 : -1);
+      if (next > maxIndex) next = 0;
+      if (next < 0) next = maxIndex;
+      desktopIndexRef.current = next;
+      scrollDesktopTo(next);
+    },
+    [scrollDesktopTo],
+  );
 
   // Mobile scroll to index
   const scrollMobileTo = useCallback((index: number) => {
@@ -88,23 +94,30 @@ export default function ReviewsCarousel() {
     mobileTrackRef.current.style.transform = `translateX(-${index * cardWidth}px)`;
   }, []);
 
-  const mobileScroll = useCallback((dir: "left" | "right") => {
-    setMobileIndex((prev) => {
-      const next = dir === "right"
-        ? (prev >= REVIEWS.length - 1 ? 0 : prev + 1)
-        : (prev <= 0 ? REVIEWS.length - 1 : prev - 1);
-      scrollMobileTo(next);
-      return next;
-    });
-  }, [scrollMobileTo]);
+  const mobileScroll = useCallback(
+    (dir: "left" | "right") => {
+      setMobileIndex((prev) => {
+        const next =
+          dir === "right"
+            ? prev >= REVIEWS.length - 1
+              ? 0
+              : prev + 1
+            : prev <= 0
+              ? REVIEWS.length - 1
+              : prev - 1;
+        scrollMobileTo(next);
+        return next;
+      });
+    },
+    [scrollMobileTo],
+  );
 
   // Desktop auto-play
   useEffect(() => {
     desktopAutoPlayRef.current = setInterval(() => {
       const maxIndex = REVIEWS.length - VISIBLE_DESKTOP;
-      desktopIndexRef.current = desktopIndexRef.current >= maxIndex
-        ? 0
-        : desktopIndexRef.current + 1;
+      desktopIndexRef.current =
+        desktopIndexRef.current >= maxIndex ? 0 : desktopIndexRef.current + 1;
       scrollDesktopTo(desktopIndexRef.current);
     }, 3000);
 
@@ -133,22 +146,33 @@ export default function ReviewsCarousel() {
   }, []);
 
   return (
-    <section className="py-10 md:py-14 bg-white">
+    <section className="pt-12 pb-6 md:pt-30 md:pb-10 bg-white">
       <div className="max-w-7xl mx-auto px-5 md:px-7">
-
         {/* ── Mobile layout ── */}
         <div className="flex flex-col items-center gap-6 md:hidden">
           <div className="flex flex-col items-center text-center gap-1">
-            <p className="text-lg font-black tracking-widest text-[#1a2e3b] uppercase">Excellent</p>
+            <p className="text-lg font-black tracking-widest text-[#1a2e3b] uppercase">
+              Excellent
+            </p>
             <div className="flex gap-1 my-1">
               {[...Array(5)].map((_, i) => (
-                <svg key={i} width="28" height="28" viewBox="0 0 16 16" fill="#1877F2">
+                <svg
+                  key={i}
+                  width="28"
+                  height="28"
+                  viewBox="0 0 16 16"
+                  fill="#1877F2"
+                >
                   <path d="M8 1l1.854 3.754L14 5.469l-3 2.922.708 4.129L8 10.354l-3.708 2.166L5 8.391 2 5.469l4.146-.715z" />
                 </svg>
               ))}
             </div>
-            <p className="text-sm text-gray-500">Based on <strong>58 reviews</strong></p>
-            <p className="text-[#1877F2] font-black text-3xl tracking-tight mt-1">facebook</p>
+            <p className="text-sm text-gray-500">
+              Based on <strong>58 reviews</strong>
+            </p>
+            <p className="text-[#1877F2] font-black text-3xl tracking-tight mt-1">
+              facebook
+            </p>
           </div>
 
           <div className="flex items-center gap-3 w-full">
@@ -157,7 +181,13 @@ export default function ReviewsCarousel() {
               className="shrink-0 w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-100 transition-colors"
             >
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                <path d="M10 12L6 8l4-4" stroke="#374151" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M10 12L6 8l4-4"
+                  stroke="#374151"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
             <div className="overflow-hidden flex-1">
@@ -174,7 +204,13 @@ export default function ReviewsCarousel() {
               className="shrink-0 w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-100 transition-colors"
             >
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                <path d="M6 4l4 4-4 4" stroke="#374151" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M6 4l4 4-4 4"
+                  stroke="#374151"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
           </div>
@@ -183,9 +219,14 @@ export default function ReviewsCarousel() {
             {REVIEWS.map((_, i) => (
               <button
                 key={i}
-                onClick={() => { setMobileIndex(i); scrollMobileTo(i); }}
+                onClick={() => {
+                  setMobileIndex(i);
+                  scrollMobileTo(i);
+                }}
                 className="w-2 h-2 rounded-full transition-colors duration-200"
-                style={{ backgroundColor: i === mobileIndex ? "#1a2e3b" : "#d1d5db" }}
+                style={{
+                  backgroundColor: i === mobileIndex ? "#1a2e3b" : "#d1d5db",
+                }}
               />
             ))}
           </div>
@@ -194,16 +235,28 @@ export default function ReviewsCarousel() {
         {/* ── Desktop layout ── */}
         <div className="hidden md:flex items-center gap-8">
           <div className="shrink-0 w-44">
-            <p className="text-base font-black tracking-widest text-[#1a2e3b] uppercase">Excellent</p>
+            <p className="text-base font-black tracking-widest text-[#1a2e3b] uppercase">
+              Excellent
+            </p>
             <div className="flex gap-0.5 my-2">
               {[...Array(5)].map((_, i) => (
-                <svg key={i} width="24" height="24" viewBox="0 0 16 16" fill="#1877F2">
+                <svg
+                  key={i}
+                  width="24"
+                  height="24"
+                  viewBox="0 0 16 16"
+                  fill="#1877F2"
+                >
                   <path d="M8 1l1.854 3.754L14 5.469l-3 2.922.708 4.129L8 10.354l-3.708 2.166L5 8.391 2 5.469l4.146-.715z" />
                 </svg>
               ))}
             </div>
-            <p className="text-xs text-gray-500 mb-1">Based on <strong>58 reviews</strong></p>
-            <p className="text-[#1877F2] font-black text-2xl tracking-tight">facebook</p>
+            <p className="text-xs text-gray-500 mb-1">
+              Based on <strong>58 reviews</strong>
+            </p>
+            <p className="text-[#1877F2] font-black text-2xl tracking-tight">
+              facebook
+            </p>
           </div>
 
           <div className="flex items-center gap-3 flex-1 min-w-0">
@@ -212,7 +265,13 @@ export default function ReviewsCarousel() {
               className="shrink-0 w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-100 transition-colors"
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M10 12L6 8l4-4" stroke="#374151" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M10 12L6 8l4-4"
+                  stroke="#374151"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
 
@@ -229,12 +288,17 @@ export default function ReviewsCarousel() {
               className="shrink-0 w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-100 transition-colors"
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M6 4l4 4-4 4" stroke="#374151" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M6 4l4 4-4 4"
+                  stroke="#374151"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
           </div>
         </div>
-
       </div>
     </section>
   );

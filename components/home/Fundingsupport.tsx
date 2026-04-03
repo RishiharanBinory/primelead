@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Handshake } from "lucide-react";
-import { AnimatedNextImage } from "../animation/Image"; 
+import { AnimatedNextImage } from "../animation/Image";
 import { AnimateOnScroll } from "../animation/AnimateOnScroll";
 
 export default function FundingSupport() {
@@ -9,7 +9,7 @@ export default function FundingSupport() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-stretch">
 
-          {/* ── Image — zoom in effect ── */}
+          {/* Image — zoom in effect */}
           <div className="relative w-full md:w-[55%] min-h-65 sm:min-h-80 md:min-h-0 order-first md:order-last overflow-hidden">
             <AnimatedNextImage
               src="/Vission.jpeg"
@@ -18,20 +18,18 @@ export default function FundingSupport() {
             />
           </div>
 
-          {/* ── Left: Text content ── */}
+          {/* Left: Text content — padding lives here, not on the section */}
           <div
             className="flex flex-col justify-center
                        px-5 sm:px-10 lg:px-16
-                       py-10 sm:py-14 lg:py-20
+                       py-12 md:py-16 lg:py-20
                        w-full md:w-[45%] shrink-0
                        order-last md:order-first"
           >
-            {/* Icon */}
             <AnimateOnScroll delay="0s" className="mb-5 md:mb-6">
               <Handshake size={44} stroke="#111" strokeWidth={1.8} />
             </AnimateOnScroll>
 
-            {/* Main heading */}
             <AnimateOnScroll delay="0.15s">
               <h2
                 className="mb-4 md:mb-6 leading-tight tracking-tight"
@@ -45,7 +43,6 @@ export default function FundingSupport() {
               </h2>
             </AnimateOnScroll>
 
-            {/* Bold subtitle */}
             <AnimateOnScroll delay="0.3s">
               <p
                 className="mb-4 md:mb-5 leading-snug"
@@ -61,7 +58,6 @@ export default function FundingSupport() {
               </p>
             </AnimateOnScroll>
 
-            {/* Body text */}
             <AnimateOnScroll delay="0.45s">
               <p
                 className="mb-8 md:mb-10 leading-relaxed"
@@ -80,7 +76,6 @@ export default function FundingSupport() {
               </p>
             </AnimateOnScroll>
 
-            {/* Apply Now link */}
             <AnimateOnScroll delay="0.6s">
               <Link
                 href="/admission/financial-aid"

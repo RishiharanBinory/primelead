@@ -66,7 +66,7 @@ export default function CourseSection({ title, courses }: Props) {
   const rightCol = courses.slice(half);
 
   return (
-    <div className="w-full mb-16">
+    <div className="w-full mb-16 py-10">
       <div className="max-w-5xl mx-auto px-5 md:px-8">
 
         {/* Teal header */}

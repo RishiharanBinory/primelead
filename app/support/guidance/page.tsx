@@ -32,7 +32,7 @@ const Guidance = () => {
         }
       />
       <FAQSection
-        title="Support & Guidance"
+        title={false}
         defaultOpen={0}
         items={[
           {

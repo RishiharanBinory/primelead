@@ -18,7 +18,7 @@ export default function MainHero({
   return (
     <section
       className="relative w-full"
-      style={{ minHeight: "480px", marginBottom: "160px" }}
+      style={{ minHeight: "480px"}}
     >
       {/* Background image — zoom effect */}
       <AnimatedNextImage src={imageSrc} alt={imageAlt} priority />

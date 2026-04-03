@@ -36,7 +36,10 @@ export default function Home() {
       <ApplyToday />
       <AdmissionContent />
       <StudentLife />
-      <div className="h-50 bg-white" />
+      <div
+        className="hidden md:block h-50 bg-white relative"
+        style={{ zIndex: 1 }}
+      />
       <CTABanner />
     </>
   );

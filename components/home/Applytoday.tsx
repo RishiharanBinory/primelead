@@ -4,10 +4,9 @@ export default function ApplyToday() {
   return (
     <section className="w-full" style={{ backgroundColor: "#F5C400" }}>
       <div
-        className="max-w-7xl mx-auto px-5 md:px-7 py-10 md:py-14 lg:py-16
+        className="max-w-7xl mx-auto px-5 md:px-7 py-12 md:py-16
                    flex flex-col md:flex-row md:items-center gap-6 md:gap-10 lg:gap-12"
       >
-        {/* Left: heading */}
         <div className="shrink-0 md:w-[22%]">
           <h2
             className="font-black leading-tight tracking-tight"
@@ -17,7 +16,6 @@ export default function ApplyToday() {
           </h2>
         </div>
 
-        {/* Center: body text */}
         <div className="flex-1">
           <p
             className="leading-relaxed"
@@ -29,7 +27,6 @@ export default function ApplyToday() {
           </p>
         </div>
 
-        {/* Right: CTA button */}
         <div className="shrink-0 md:w-[26%] w-full md:flex md:justify-end">
           <Button href="/admission" label="Admission" />
         </div>

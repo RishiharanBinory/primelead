@@ -49,8 +49,8 @@ export default function ResourcesList({
   resources,
 }: Props) {
   return (
-    <section className="w-full bg-white py-10 md:py-16">
-      <div className="max-w-5xl mx-auto px-5 md:px-8">
+    <section className="w-full bg-white py-1 md:py-1">
+      <div className="max-w-365 mx-auto px-5 md:px-8">
         {/* Title */}
         <h2
           className="font-black mb-6"

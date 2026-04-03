@@ -21,10 +21,10 @@ export default function GraduateAreas({
   ],
 }: Props) {
   return (
-    <section className="w-full pt-8 pb-16 md:pb-24 px-5 md:px-8">
+    <section className="w-full py-1 md:py-10 px-5 md:px-8">
 
       {/* Heading + paragraph — centered */}
-      <div className="max-w-4xl mx-auto text-center mb-10">
+      <div className="max-w-5xl mx-auto text-center mb-10">
         <AnimateOnScroll delay="0s" as="h2"
           className="font-black mb-6"
           style={{
@@ -40,7 +40,7 @@ export default function GraduateAreas({
         <AnimateOnScroll delay="0.2s" as="p"
           style={{
             fontFamily: "'Inter', sans-serif",
-            fontSize: "clamp(14px, 1.2vw, 17px)",
+            fontSize: "clamp(15px, 1.2vw, 18px)",
             color: "#374151",
             lineHeight: "1.75em",
           }}

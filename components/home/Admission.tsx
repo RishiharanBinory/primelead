@@ -2,10 +2,7 @@ import ImageTextBlock from "./ImageTextBlock";
 
 export default function AdmissionContent() {
   return (
-    <section
-      className="w-full bg-white"
-      style={{ paddingTop: "40px", paddingBottom: "40px" }}
-    >
+    <section className="w-full bg-white py-4 md:py-6">
       <div className="max-w-7xl mx-auto px-5 md:px-7 flex flex-col">
         <ImageTextBlock
           imageSrc="/hands.jpg"

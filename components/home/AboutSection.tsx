@@ -4,7 +4,7 @@ import { AnimateOnScroll } from "@/components/animation/AnimateOnScroll";
 
 export default function AboutSection() {
   return (
-    <section className="py-8 md:py-10 bg-white">
+    <section className="-mt-3 md:mt-1 pt-0 pb-12 md:pb-16 bg-white">
       <div className="max-w-7xl mx-auto px-5 md:px-7">
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-10 justify-center">
           <AnimateOnScroll
