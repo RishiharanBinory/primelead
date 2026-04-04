@@ -11,7 +11,7 @@ type FAQItem = {
 type Props = {
   title?: string | false;
   items?: FAQItem[];
-  defaultOpen?: number;
+  defaultOpen?: number | null;
 };
 
 // Default FAQ data — override via props for different pages
@@ -161,7 +161,7 @@ const DEFAULT_FAQ: FAQItem[] = [
 export default function FAQSection({
   title = "FAQ",
   items = DEFAULT_FAQ,
-  defaultOpen = 0,
+  defaultOpen = null,
 }: Props) {
   return (
     <section className="w-full bg-white pt-4 pb-20 md:pt-15 md:pb-16">

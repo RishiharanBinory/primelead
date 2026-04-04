@@ -8,14 +8,16 @@ export default function FundingSupport() {
     <section className="w-full bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-stretch">
-
           {/* Image — zoom in effect */}
-          <div className="relative w-full md:w-[55%] min-h-65 sm:min-h-80 md:min-h-0 order-first md:order-last overflow-hidden">
-            <AnimatedNextImage
-              src="/Vission.jpeg"
-              alt="Student applying for funding"
-              priority
-            />
+          <div className="relative w-full md:w-[50%] min-h-65 sm:min-h-80 md:min-h-0 order-first md:order-last overflow-hidden">
+            <div className="absolute inset-0 scale-130 origin-right">
+              <AnimatedNextImage
+                src="/Vission.jpeg"
+                alt="Student applying for funding"
+                priority
+                objectPosition="90% center"
+              />
+            </div>
           </div>
 
           {/* Left: Text content — padding lives here, not on the section */}
@@ -68,11 +70,12 @@ export default function FundingSupport() {
                   maxWidth: "480px",
                 }}
               >
-                Prime Leed supports students in their pursuit of higher education
-                by partnering with universities across the UK to provide funding
-                assistance. Through these collaborations, we bridge the financial
-                gap, making higher education more accessible and empowering
-                students to achieve their academic aspirations.
+                Prime Leed supports students in their pursuit of higher
+                education by partnering with universities across the UK to
+                provide funding assistance. Through these collaborations, we
+                bridge the financial gap, making higher education more
+                accessible and empowering students to achieve their academic
+                aspirations.
               </p>
             </AnimateOnScroll>
 
@@ -105,7 +108,6 @@ export default function FundingSupport() {
               </Link>
             </AnimateOnScroll>
           </div>
-
         </div>
       </div>
     </section>

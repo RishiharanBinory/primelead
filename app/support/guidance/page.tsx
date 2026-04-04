@@ -33,7 +33,7 @@ const Guidance = () => {
       />
       <FAQSection
         title={false}
-        defaultOpen={0}
+        defaultOpen={null}
         items={[
           {
             question: "Health and wellbeing support",

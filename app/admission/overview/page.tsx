@@ -9,6 +9,7 @@ import FinancialAid from "@/components/admission/admissionOverview/FinancialAid"
 import FormOverlap from "@/components/FormOverlap";
 import CallToAction from "@/components/CallToAction";
 import AdmissionFacts from "@/components/admission/admissionOverview/AdmissionFacts";
+import ApplySectionReverse from "@/components/admission/admissionOverview/Financial";
 
 export default function AdmissionOverviewPage() {
   return (
@@ -17,7 +18,8 @@ export default function AdmissionOverviewPage() {
       <AdmissionIntro />
       <AdmissionFacts />
       <ApplySection />
-      <FinancialAid />
+      <ApplySectionReverse />
+      {/* <FinancialAid /> */}
       <FormOverlap />
       <CallToAction />
     </main>

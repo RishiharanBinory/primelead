@@ -46,12 +46,12 @@ const BLOG_POSTS = [
   {
     title: "How to Organise Your Studies for Success",
     date: "December 29, 2020",
-    href: "/blog/organise-studies",
+    href: "/blog/how-to-organise-your-studies-for-success",
   },
   {
     title: "4th Workshop Advanced Materials",
     date: "December 29, 2020",
-    href: "/blog/workshop-advanced-materials",
+    href: "/blog/4th-workshop-advanced-materials",
   },
 ];
 

@@ -1,12 +1,14 @@
 // components/admission/admissionOverview/AdmissionIntro.tsx
 // Remove bottom padding — FactsImage sits flush below this section.
 
+// components/admission/admissionOverview/AdmissionIntro.tsx
+
 export default function AdmissionIntro() {
   return (
     <section
       className="bg-white"
       style={{
-        padding: "80px 20px 0px 20px", // ← bottom padding = 0, image starts immediately
+        padding: "80px 20px 0px 20px",
       }}
     >
       <div
@@ -14,29 +16,30 @@ export default function AdmissionIntro() {
         style={{ maxWidth: "1000px", textAlign: "center" }}
       >
         <p
+          className="text-base md:text-2xl"
           style={{
             fontFamily: "'Inter', sans-serif",
-            fontSize: "24px",
             fontWeight: "900",
             lineHeight: "1.3em",
             color: "#000000",
             marginBottom: "24px",
+            marginTop: "100px",
           }}
         >
           By choosing to apply through Prime Leed, you open doors to a vast
-          array of courses spanning our university's various programs and
+          array of courses spanning our university&apos;s various programs and
           colleges. This allows you to venture across disciplines and carve out
           your own distinct academic journey.
         </p>
 
         <p
+          className="text-base md:text-2xl"
           style={{
             fontFamily: "'Inter', sans-serif",
-            fontSize: "24px",
             fontWeight: "900",
             lineHeight: "1.3em",
             color: "#000000",
-            marginBottom: "60px", // space between text and image below
+            marginBottom: "60px",
           }}
         >
           We understand that the application process can be daunting, especially

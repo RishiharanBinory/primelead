@@ -10,7 +10,7 @@ type FAQItem = {
 
 type Props = {
   items: FAQItem[];
-  defaultOpen?: number;
+  defaultOpen?: number |null;
 };
 
 function ChevronUp() {
@@ -29,7 +29,7 @@ function ChevronDown() {
   );
 }
 
-export function FAQAccordion({ items, defaultOpen = 0 }: Props) {
+export function FAQAccordion({ items, defaultOpen = null }: Props) {
   const [openIndex, setOpenIndex] = useState<number | null>(defaultOpen);
 
   return (
@@ -41,12 +41,12 @@ export function FAQAccordion({ items, defaultOpen = 0 }: Props) {
             {/* Question */}
             <button
               onClick={() => setOpenIndex((prev) => prev === index ? null : index)}
-              className="w-full flex items-center justify-between py-6 text-left gap-4 bg-transparent border-none cursor-pointer"
+              className="w-full flex items-center justify-between py-9 text-left gap-4 bg-transparent border-none cursor-pointer"
             >
               <h2
                 style={{
                   fontFamily: "'Work Sans', sans-serif",
-                  fontSize: "clamp(16px, 1.8vw, 22px)",
+                  fontSize: "clamp(16px, 1.8vw, 26px)",
                   fontWeight: 800,
                   color: "#0d1b2a",
                   lineHeight: "1.3em",
