@@ -1,5 +1,4 @@
-// components/admission/admissionOverview/ApplySection.tsx
-
+// import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { AnimatedNextImage } from "@/components/animation/Image";
 

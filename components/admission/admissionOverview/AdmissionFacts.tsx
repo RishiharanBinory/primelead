@@ -1,114 +1,149 @@
 "use client";
 
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-
 const stats = [
-  { number: 2500, suffix: "+", label: "REGISTERED", sub: "STUDENTS" },
-  { number: 500, suffix: "+", label: "COURSES", sub: "AVAILABLE" },
-  { number: 15, suffix: "+", label: "PARTNERED", sub: "INSTITUTIONS" },
-  { number: 2000, suffix: "+", label: "STUDENTS", sub: "ENROLLED" },
+  { number: "2500+", label: "REGISTERED\nSTUDENTS" },
+  { number: "500+",  label: "COURSES\nAVAILABLE" },
+  { number: "15+",   label: "PARTNERED\nINSTITUTIONS" },
+  { number: "2000+", label: "STUDENTS\nENROLLED" },
 ];
 
-function useCountUp(target: number, active: boolean) {
-  const [count, setCount] = useState(0);
-  useEffect(() => {
-    if (!active) return;
-    let start: number | null = null;
-    const step = (ts: number) => {
-      if (!start) start = ts;
-      const progress = Math.min((ts - start) / 1600, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(eased * target));
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }, [active, target]);
-  return count;
-}
+const STYLES = `
+  .af-outer {
+    position: relative;
+    /* White top 40%, dark bottom 60% — more dark area */
+    background: linear-gradient(
+      to bottom,
+      #ffffff 0%,
+      #ffffff 5%,
+      #2a2a2a 5%,
+      #2a2a2a 100%
+    );
+    padding-bottom: 120px;
+  }
 
-function StatItem({
-  stat,
-  active,
-  index,
-}: {
-  stat: (typeof stats)[0];
-  active: boolean;
-  index: number;
-}) {
-  const count = useCountUp(stat.number, active);
-  return (
-    <div className={`flex flex-col gap-3 ${index !== 0 ? "sm:pl-10" : ""}`}>
-      <p className="text-white font-extrabold text-6xl sm:text-6xl lg:text-7xl leading-none tabular-nums">
-        {count.toLocaleString()}
-        {stat.suffix}
-      </p>
-      <p className="text-white/55 font-semibold text-[15px] tracking-widest uppercase leading-relaxed">
-        {stat.label}
-        <br />
-        {stat.sub}
-      </p>
-    </div>
-  );
-}
+  .af-img-container {
+    position: relative;
+    /* Less side padding = wider image */
+    padding: 0 clamp(20px, 5vw, 100px);
+    z-index: 2;
+  }
+
+  .af-img {
+    display: block;
+    width: 100%;
+    /* Taller image */
+    height: clamp(320px, 40vw, 520px);
+    object-fit: cover;
+    object-position: center 30%;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* FACTS sits at 40% — the white/dark boundary */
+  .af-facts {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 57%;
+    transform: translateY(-50%);
+    z-index: 3;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 900;
+    color: #ffffff;
+    text-align: center;
+    line-height: 1em;
+    margin: 0;
+    letter-spacing: -0.02em;
+    font-size: clamp(80px, 16vw, 190px);
+  }
+
+  /* Stats row — more padding-top = more space below FACTS */
+  .af-stats {
+    position: relative;
+    z-index: 2;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: clamp(80px, 10vw, 140px) 20px 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 48px 24px;
+  }
+
+  @media (min-width: 640px) {
+    .af-stats {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+  }
+
+  .af-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  @media (min-width: 640px) {
+    .af-stat {
+      padding: 0 40px;
+      border-left: 1px solid rgba(255,255,255,0.15);
+    }
+    .af-stat:first-child {
+      border-left: none;
+      padding-left: 0;
+    }
+  }
+
+  .af-stat-num {
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 800;
+    color: #ffffff;
+    font-size: clamp(36px, 5vw, 68px);
+    line-height: 1em;
+    margin: 0;
+  }
+
+  .af-stat-lbl {
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 600;
+    color: rgba(255,255,255,0.6);
+    font-size: clamp(10px, 1.1vw, 12px);
+    letter-spacing: 0.1em;
+    line-height: 1.6em;
+    margin: 0;
+    text-transform: uppercase;
+    white-space: pre-line;
+  }
+`;
 
 export default function AdmissionFacts() {
-  const statsRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(false);
-
-  useEffect(() => {
-    const el = statsRef.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) {
-          setActive(true);
-          obs.disconnect();
-        }
-      },
-      { threshold: 0.25 },
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
   return (
-    <section className="bg-white">
-      {/* Wrapper: image + dark bg behind bottom half */}
-      <div className="relative">
-        {/* Dark bg — covers bottom half of this wrapper */}
-        <div className="bg-[#2a2a2a] absolute bottom-0 left-0 right-0 top-1/2" />
+    <>
+      <style>{STYLES}</style>
 
-        {/* Image wrapper */}
-        <div className="relative px-4 sm:px-8 lg:px-80 pt-8 sm:pt-12 lg:pt-16">
-          <div className="relative w-full h-[220px] sm:h-[340px] lg:h-[460px]">
-            <Image
-              src="https://www.primeleed.com/wp-content/uploads/2020/12/1544468-ID-1544468-little-groups-with-big-ideas.jpg"
-              alt="Students collaborating in a group session"
-              fill
-              className="object-cover object-[center_25%]"
-              priority
-            />
-
-            {/* FACTS — anchored to bottom of image, half overlapping dark section */}
-            <h2 className="absolute bottom-0 translate-y-1/2 inset-x-0 text-center !text-white font-black leading-none tracking-tight text-[clamp(56px,14vw,180px)] pointer-events-none select-none z-10">
-              FACTS
-            </h2>
-          </div>
+      <div className="af-outer">
+        {/* Image */}
+        <div className="af-img-container">
+          <img
+            src="https://www.primeleed.com/wp-content/uploads/2020/12/1544468-ID-1544468-little-groups-with-big-ideas.jpg"
+            alt="Students in a group meeting"
+            className="af-img"
+          />
         </div>
-      </div>
 
-      {/* Dark section — stats */}
-      <div className="bg-[#2a2a2a] pb-16 sm:pb-32 lg:pb-48">
-        <div
-          ref={statsRef}
-          className="max-w-5xl mx-auto px-5 pt-24 sm:pt-32 lg:pt-40 grid grid-cols-2 sm:grid-cols-4 gap-8"
-        >
-          {stats.map((stat, i) => (
-            <StatItem key={stat.label} stat={stat} active={active} index={i} />
+        {/* FACTS — at the 40% boundary */}
+        <h2 className="af-facts">FACTS</h2>
+
+        {/* Stats */}
+        <div className="af-stats">
+          {stats.map((stat) => (
+            <div key={stat.number} className="af-stat">
+              <p className="af-stat-num">{stat.number}</p>
+              <p className="af-stat-lbl">{stat.label}</p>
+            </div>
           ))}
         </div>
+
       </div>
-    </section>
+    </>
   );
 }

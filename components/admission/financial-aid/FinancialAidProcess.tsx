@@ -18,6 +18,14 @@
 // - Fully responsive — Mobile / Tablet / Laptop / TV
 
 const STYLES = `
+  /* ── WHITE GAP WRAPPER — creates the white space above yellow ── */
+  .fap-wrapper {
+    background-color: #ffffff;
+    padding-top: 160px;
+  }
+  @media (min-width: 640px)  { .fap-wrapper { padding-top: 180px; } }
+  @media (min-width: 1024px) { .fap-wrapper { padding-top: 200px; } }
+
   /* ── SECTION — full-width yellow ── */
   .fap-section {
     background-color: #FFC501;
@@ -44,7 +52,6 @@ const STYLES = `
     line-height: 0.9em;
     margin: 0 0 28px 0;
     letter-spacing: -0.02em;
-    /* Scales smoothly: ~72px on small phones → 160px on TV */
     font-size: clamp(72px, 14vw, 100px);
   }
   @media (min-width: 640px)  { .fap-heading { margin-bottom: 32px; } }
@@ -56,15 +63,13 @@ const STYLES = `
     font-weight: 900;
     color: #292929;
     margin: 0 0 40px 0;
-    font-size: clamp(26px, 1.8vw, 18px);
+    font-size: clamp(18px, 1.8vw, 26px);
     letter-spacing: 0.01em;
   }
   @media (min-width: 640px)  { .fap-subtitle { margin-bottom: 48px; } }
   @media (min-width: 1024px) { .fap-subtitle { margin-bottom: 52px; } }
 
   /* ── STEPS ROW ── */
-  /* Mobile: stacked column
-     Tablet+: side by side, spread across full width */
   .fap-steps {
     display: flex;
     flex-direction: column;
@@ -86,15 +91,14 @@ const STYLES = `
     gap: 0;
   }
 
-  /* ── STEP LABEL — number + text together, bold, dark ── */
-  /* Matches screenshot: "01. Apply for Aid" all as one bold line */
+  /* ── STEP LABEL ── */
   .fap-step-label {
     font-family: 'Work Sans', sans-serif;
     font-weight: 900;
     color: #292929;
     margin: 0;
     line-height: 1.2em;
-    font-size: clamp(25px, 1.8vw, 18px);
+    font-size: clamp(18px, 1.8vw, 25px);
   }
 `;
 
@@ -108,26 +112,30 @@ export default function FinancialAidProcess() {
   return (
     <>
       <style>{STYLES}</style>
-      <section className="fap-section">
-        <div className="fap-container">
 
-          {/* Giant PROCESS heading */}
-          <h2 className="fap-heading">PROCESS</h2>
+      {/* White gap wrapper — creates white space between hero and yellow section */}
+      <div className="fap-wrapper">
+        <section className="fap-section">
+          <div className="fap-container">
 
-          {/* Subtitle */}
-          <p className="fap-subtitle">The Financial Aid Process</p>
+            {/* Giant PROCESS heading */}
+            <h2 className="fap-heading">PROCESS</h2>
 
-          {/* Three step labels — spread across full width */}
-          <div className="fap-steps">
-            {steps.map((step) => (
-              <div key={step.label} className="fap-step">
-                <p className="fap-step-label">{step.label}</p>
-              </div>
-            ))}
+            {/* Subtitle */}
+            <p className="fap-subtitle">The Financial Aid Process</p>
+
+            {/* Three step labels — spread across full width */}
+            <div className="fap-steps">
+              {steps.map((step) => (
+                <div key={step.label} className="fap-step">
+                  <p className="fap-step-label">{step.label}</p>
+                </div>
+              ))}
+            </div>
+
           </div>
-
-        </div>
-      </section>
+        </section>
+      </div>
     </>
   );
 }

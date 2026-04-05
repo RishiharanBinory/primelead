@@ -229,7 +229,7 @@ export default function AidDetailSection({ data }: AidDetailSectionProps) {
             {/* Optional Learn More link */}
             {learnMoreHref && (
               <Link href={learnMoreHref} className="ads-link">
-                Learn More
+                Apply Now
                 <span className="ads-link-arrow">
                   <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
                     <path
@@ -253,48 +253,58 @@ export default function AidDetailSection({ data }: AidDetailSectionProps) {
 
 // ─────────────────────────────────────────────
 // DATA — the 3 aid sections
-// Move this to a separate data file if preferred:
-// e.g. lib/financialAidData.ts
 // ─────────────────────────────────────────────
 
 export const studentFinanceData: AidDetailData = {
   id: "student-finance",
   title: "1. Student Finance of England",
   background: "#ffffff",
-  learnMoreHref: "https://www.gov.uk/student-finance",
+  learnMoreHref: "/apply-form",
   content: [
     {
       type: "subheading",
-      text: "Tuition Fee Loan",
+      text: "1.1 Undergraduate Students",
+    },
+    {
+      type: "subheading",
+      text: "Tuition Fee Funding",
     },
     {
       type: "paragraph",
-      text: "Student Finance England provides financial support to eligible students studying in higher education in England. This includes tuition fee loans to cover the cost of your course fees, paid directly to your university or college.",
+      text: "Your university or college sets your tuition fee, and the loan is paid directly to them.",
     },
     {
       type: "bullets",
       items: [
-        "Available to UK and EU students studying at a UK university or college.",
-        "The loan covers the full cost of tuition fees up to the maximum amount (£9,250 per year).",
-        "You will not need to pay anything upfront — the loan is paid directly to your institution.",
-        "You only start repaying once you earn over the repayment threshold.",
-        "You are eligible to a loan on Tuition Fees TOPUP that is equal to the Tuition fee eligible amount.",
+        "If you're a full-time student, you can get up to £9,250.",
+        "If you're studying an accelerated degree course, you could get up to £11,100.",
       ],
     },
     {
       type: "subheading",
-      text: "Maintenance Loan",
+      text: "Maintenance Allowance for Living Cost",
     },
     {
       type: "paragraph",
-      text: "A maintenance loan helps with living costs such as accommodation, food, and transport. The amount you can borrow depends on your household income and where you study.",
+      text: "The allowance is paid directly into the student's bank account at the start of each semester.",
     },
     {
       type: "bullets",
       items: [
-        "2024/25: £10,227 per academic year.",
-        "2024/25: £13,022 per academic year for London students.",
-        "2024/25: £8,610 per academic year while living at home.",
+        "If you're a full-time student, you can get up to £13,022 per annum.",
+        "If you're a full-time student, living with your parents you can get up to £8,400 per annum",
+      ],
+    },
+    {
+      type: "subheading",
+      text: "1.2 Postgraduate Students",
+    },
+    {
+      type: "bullets",
+      items: [
+        "Students are eligible for a maximum Tuition fee of 11,500£ for the full duration of the postgraduate degree.",
+        "Your university or college sets your tuition fee, Each University has a different set of tuition fees for each course.",
+        "If you have a balance amount after paying the tuition fee you can use that as your personal expenses.",
       ],
     },
   ],
@@ -304,50 +314,34 @@ export const grantsData: AidDetailData = {
   id: "grants",
   title: "2. Grants and Allowances",
   background: "#FAFAFA",
-  learnMoreHref: "/financial-aid/grants",
+  learnMoreHref: "/apply-form",
   content: [
     {
       type: "subheading",
-      text: "All the Grants",
+      text: "2.0 Grants & Allowances",
     },
     {
       type: "paragraph",
-      text: "The government grants allowances are for young people receiving financial finance income.",
+      text: "All the available grants & allowances are for Undergraduate Students provided by Student Finance England",
     },
     {
       type: "subheading",
-      text: "Allowances and requirements",
+      text: "2.1 Parents Learning Allowance:",
     },
     {
       type: "paragraph",
-      text: "The following conditions and requirements in order to help eligible students who are on grants:",
+      text: "The Parents' Learning Allowance is additional funding to help students who are also parents.",
     },
     {
       type: "subheading",
-      text: "Grant A",
+      text: "Eligibility",
     },
     {
       type: "bullets",
       items: [
-        "Available to UK and EU students studying in a higher education course.",
-        "Students must be in full-time education to receive the grant, for a period of at least a full academic year.",
-        "Annual household income of below £25,000 per annum.",
-      ],
-    },
-    {
-      type: "subheading",
-      text: "Grant B",
-    },
-    {
-      type: "paragraph",
-      text: "In addition to Grant A, the following additional criteria also apply for students who are applying for Grant B. You can use Government's official resource to find out more on the criteria.",
-    },
-    {
-      type: "bullets",
-      items: [
-        "The student must be a UK and EU resident.",
-        "The student must be over 21 years of age.",
-        "Not published more than 5 years.",
+        "Needs to be a full-time Undergraduate student.",
+        "The parent should have dependent child/children under the age of 16.",
+        "Parents who live together and who are both students can both apply for Parents' Learning Allowance for the same child.",
       ],
     },
     {
@@ -357,8 +351,105 @@ export const grantsData: AidDetailData = {
     {
       type: "bullets",
       items: [
-        "Up to £1,000 per academic year for Grant A.",
-        "£2,000 to £5,000 academic year for Grant B.",
+        "2022/23 – £1,863 per academic Year",
+        "2023/24 – £1,915 per academic Year",
+      ],
+    },
+    {
+      type: "subheading",
+      text: "2.2 Adult Dependent Grant:",
+    },
+    {
+      type: "paragraph",
+      text: "If you're a full-time student in higher education and an adult depends on you financially, you can apply for an Adult Dependants' Grant",
+    },
+    {
+      type: "subheading",
+      text: "Eligibility",
+    },
+    {
+      type: "bullets",
+      items: [
+        "Needs to be a full-time Undergraduate student.",
+        "Adult dependant should be husband, wife, partner or civil partner or a relative, such as a parent or a grandparent.",
+        "If you're under 25, the adult dependant cannot be your partner unless you're married or in a civil partnership.",
+      ],
+    },
+    {
+      type: "subheading",
+      text: "What you'll get",
+    },
+    {
+      type: "bullets",
+      items: [
+        "£3,354 for the 2023 to 2024 academic year",
+        "£3,263 for the 2022 to 2023 academic year",
+      ],
+    },
+    {
+      type: "subheading",
+      text: "2.3 Child Care Grant",
+    },
+    {
+      type: "paragraph",
+      text: "Childcare Grant will be paid directly to the childcare provider which is registered with Ofsted Early Years or General Childcare Register",
+    },
+    {
+      type: "subheading",
+      text: "Eligibility",
+    },
+    {
+      type: "bullets",
+      items: [
+        "Needs to be a full-time Undergraduate student.",
+        "The parent should have dependent child/children under the age of 16.",
+      ],
+    },
+    {
+      type: "subheading",
+      text: "What you'll get",
+    },
+    {
+      type: "bullets",
+      items: [
+        "Up to £188.90 a week for 1 child",
+        "Up to £323.85 a week for 2 or more children",
+      ],
+    },
+    {
+      type: "subheading",
+      text: "2.4 Disabled Students' Allowance (DSA)",
+    },
+    {
+      type: "paragraph",
+      text: "Disabled Students Allowance is support to cover the study-related costs you have because of a mental health problem, long-term illness or any other disability.",
+    },
+    {
+      type: "subheading",
+      text: "Eligibility",
+    },
+    {
+      type: "bullets",
+      items: [
+        "Specific learning difficulty, for example dyslexia or ADHD.",
+        "Mental health condition, for example anxiety or depression.",
+        "Physical disability, for example if you have to use crutches, a wheelchair or a special keyboard.",
+        "Sensory disability, for example if you're visually impaired, deaf or have a hearing impairment.",
+        "Long-term health condition, for example cancer, chronic heart disease or HIV.",
+      ],
+    },
+    {
+      type: "subheading",
+      text: "What you'll get",
+    },
+    {
+      type: "bullets",
+      items: [
+        "Specialist equipment, for example a computer if you need one because of your disability.",
+        "Non-medical helpers, for example a British Sign Language (BSL) interpreter or specialist note taker.",
+        "Extra travel to attend your course or placement because of your disability.",
+        "Other disability-related study support, for example having to print additional copies of documents for proof-reading.",
+        "Buying a new laptop.",
       ],
     },
   ],
@@ -368,54 +459,123 @@ export const bursariesData: AidDetailData = {
   id: "bursaries",
   title: "3. Bursaries & Scholarships",
   background: "#ffffff",
-  learnMoreHref: "/financial-aid/bursaries",
+  learnMoreHref: "/apply-form",
   content: [
     {
       type: "subheading",
-      text: "All Bursaries & Scholarships",
+      text: "3.0 Bursaries & Scholarships",
     },
     {
       type: "paragraph",
-      text: "Bursaries and scholarships are awarded to eligible students based on financial need, academic achievement, or other criteria set by universities.",
-    },
-    {
-      type: "subheading",
-      text: "Bursary requirements",
-    },
-    {
-      type: "bullets",
-      items: [
-        "The following conditions must be met for students to be eligible.",
-        "First-time students studying at the institution.",
-        "High academic achievement — must have a minimum of 3 A's at A-level or equivalent.",
-        "Annual household income must be below a threshold set by the institution.",
-      ],
-    },
-    {
-      type: "subheading",
-      text: "Special Scholarships",
-    },
-    {
-      type: "bullets",
-      items: [
-        "The Scholarship is available for students who are in their first year of study and are undertaking a course that ONLY leads to a specific degree.",
-      ],
-    },
-    {
-      type: "subheading",
-      text: "Special Financial Bursary",
+      text: "The above facilities are provided by the Universities listed below:",
     },
     {
       type: "paragraph",
-      text: "The Warwick Bursary is a means-tested bursary provided to eligible students with assessed household income below £45,000 per year. Students do not need to apply as eligibility is assessed automatically.",
+      text: "Anglia Ruskin University / University of Northampton / University of Bolton (Manchester)",
+    },
+    {
+      type: "subheading",
+      text: "Undergraduate Scholarships",
     },
     {
       type: "bullets",
       items: [
-        "£1,500 per year for those with assessed household income.",
-        "£750 per year for those with partially assessed income.",
-        "Full financial support for students in Local Authority care.",
+        "Entry Scholarship: £1,000 scholarship in your first year could be available:",
+        "Top Achievers: Scholarships of £2,000 are available for the overall top achievers in Year 0, Year 1 and Year 2.",
       ],
+    },
+    {
+      type: "subheading",
+      text: "Postgraduate Scholarships",
+    },
+    {
+      type: "bullets",
+      items: [
+        "All applicants are offered the chance to receive a scholarship of up to 50%.",
+        "Any applicant who has achieved a First-Class honours degree from a university in the UK will be offered a £1,000 scholarship upon admission.",
+      ],
+    },
+    {
+      type: "subheading",
+      text: "Sports Scholarship",
+    },
+    {
+      type: "bullets",
+      items: [
+        "If you're a talented athlete, apply for our Anglia Ruskin Sports Scholarship worth £1,000.",
+      ],
+    },
+    {
+      type: "subheading",
+      text: "Student Travel Bursary",
+    },
+    {
+      type: "paragraph",
+      text: "The Travel Bursary Eligible students can receive a payment of £250 for each semester, with the opportunity of receiving up to £500 per Academic Year.",
+    },
+    {
+      type: "subheading",
+      text: "Eligibility Criteria",
+    },
+    {
+      type: "bullets",
+      items: [
+        "Studying an undergraduate degree.",
+        "80% minimum attendance across all modules for the semester.",
+        "Submitted all assessments on time.",
+        "Payment:",
+      ],
+    },
+    {
+      type: "paragraph",
+      text: "For qualifying students, the payment will be £250 after the assessment results are confirmed for Semester 1, and £250 after the results are confirmed for Semester 2.",
+    },
+    {
+      type: "subheading",
+      text: "Other Travel Discounts",
+    },
+    {
+      type: "bullets",
+      items: [
+        "Oyster Card – Students can get up to 30% for their transportation.",
+        "Railway Card Discount",
+      ],
+    },
+    {
+      type: "subheading",
+      text: "Financial Hardship Bursary",
+    },
+    {
+      type: "paragraph",
+      text: "The Financial Hardship Bursary is a bursary provided by ARU London to assist undergraduate and postgraduate students who are experiencing financial hardship and their Student Finance Loan does not cover their expenses.",
+    },
+    {
+      type: "paragraph",
+      text: "A bursary of up to £500 for undergraduate or £250 for postgraduate students will be awarded to students with a successful application that does not need to be paid back.",
+    },
+    {
+      type: "subheading",
+      text: "Hardship Fund",
+    },
+    {
+      type: "paragraph",
+      text: "Hardship Fund is a grant provided by ARU London to assist undergraduate students who are experiencing long-term financial difficulties and are therefore unable to pay their outstanding tuition fees. If the application for financial relief is successful, a partial discount will be offered on the current outstanding tuition fees. The Hardship Fund only applies to your tuition fees.",
+    },
+    {
+      type: "paragraph",
+      text: "When applying for Hardship Fund, relevant evidence will be requested to demonstrate how your financial difficulty is impacting your essential day-to-day living costs and inability to pay your outstanding tuition fees.",
+    },
+    {
+      type: "subheading",
+      text: "Short-Term Loan",
+    },
+    {
+      type: "paragraph",
+      text: "A Short-Term Loan of £500 is available to students who experience an unexpected, short-term financial issue that will impact their essential day-to-day living costs or studies.",
+    },
+    {
+      type: "paragraph",
+      text: "The loan is paid across four weeks in instalments of £125. You would be required to pay back the loan in full as soon as you have received your first maintenance loan instalment from Student Finance England.",
     },
   ],
 };

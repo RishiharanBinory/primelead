@@ -1,8 +1,4 @@
 // components/about/CoreValueCard.tsx
-// FULLY RESPONSIVE — Mobile / Tablet / Laptop / TV
-//
-// Vertical borders only activate at tablet+ (640px+).
-// On mobile, no side borders — clean single-column look.
 
 import { LucideIcon } from "lucide-react";
 
@@ -31,6 +27,18 @@ const STYLES = `
     flex-shrink: 0;
     width:  clamp(24px, 3vw, 36px) !important;
     height: clamp(24px, 3vw, 36px) !important;
+
+    /* Start small — zooms to full size when card becomes visible */
+    transform: scale(0.5);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+                opacity   0.4s ease;
+  }
+
+  /* Triggered when parent card gets .visible class */
+  .cv-card-anim.visible .cvc-icon {
+    transform: scale(1);
+    opacity: 1;
   }
 
   .cvc-title {

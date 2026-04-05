@@ -16,10 +16,8 @@ export default function AboutPage() {
       <AboutIntro />
       <StatsBanner />
       <AboutMissionVision /> {/* ← replaced VisionMission with this */}
-      <CoreValues />
-      <AdmissionFormBanner/>
-      {/* <FormOverlap />
-      <CallToAction /> */}
+      <CoreValues introText="Aligned with global shifts in the economy, society, and environment, our vision drives our mission and upholds our core values" />
+      <AdmissionFormBanner />
     </main>
   );
 }
