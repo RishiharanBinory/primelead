@@ -1,12 +1,6 @@
 "use client";
 
 // components/about/CoreValues.tsx
-// FULLY RESPONSIVE — Mobile / Tablet / Laptop / TV
-//
-// Mobile  (<640px)  — 1 column, horizontal rules between cards
-// Tablet  (640px+)  — 3 columns (only 3 items, fits perfectly), vertical borders
-// Laptop  (1024px+) — wider spacing
-// TV      (1440px+) — max-width expanded
 
 import { useRef, useEffect } from "react";
 import {
@@ -20,28 +14,21 @@ import CoreValueCard from "./CoreValueCard";
 const STYLES = `
   .cv-section {
     background-color: #ffffff;
-    padding: 60px 20px 80px;
+    padding: 60px 0 80px;
     box-sizing: border-box;
   }
-  @media (min-width: 640px)  { .cv-section { padding: 72px 32px 96px; } }
-  @media (min-width: 1024px) { .cv-section { padding: 80px 48px 100px; } }
-  @media (min-width: 1440px) { .cv-section { padding: 100px 64px 120px; } }
+  @media (min-width: 640px)  { .cv-section { padding: 72px 0 96px; } }
+  @media (min-width: 1024px) { .cv-section { padding: 80px 0 100px; } }
+  @media (min-width: 1440px) { .cv-section { padding: 100px 0 120px; } }
 
-  .cv-container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  @media (min-width: 1440px) { .cv-container { max-width: 1400px; } }
-
-  /* Header row: intro text + optional link */
   .cv-header {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     gap: 16px;
     margin-bottom: 48px;
   }
-  @media (min-width: 640px)  { .cv-header { margin-bottom: 56px; align-items: center; } }
+  @media (min-width: 640px)  { .cv-header { margin-bottom: 56px; } }
   @media (min-width: 1024px) { .cv-header { margin-bottom: 64px; } }
 
   .cv-intro {
@@ -54,7 +41,6 @@ const STYLES = `
     flex: 1;
   }
 
-  /* Link — matches "View All Requirements" style from the screenshot */
   .cv-link {
     font-family: 'Work Sans', sans-serif;
     font-size: 14px;
@@ -65,13 +51,9 @@ const STYLES = `
     flex-shrink: 0;
     transition: opacity 0.2s ease;
   }
-  .cv-link:hover {
-    opacity: 0.75;
-    text-decoration: underline;
-  }
+  .cv-link:hover { opacity: 0.75; text-decoration: underline; }
   @media (min-width: 640px) { .cv-link { font-size: 15px; } }
 
-  /* Grid */
   .cv-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -81,7 +63,6 @@ const STYLES = `
     .cv-grid { grid-template-columns: repeat(3, 1fr); }
   }
 
-  /* Each cell — row spacing & horizontal rules on mobile */
   .cv-cell {
     padding: 28px 0;
     border-top: 1px solid #e0e0e0;
@@ -90,12 +71,8 @@ const STYLES = `
   .cv-cell:first-child { border-top: none; padding-top: 0; }
   .cv-cell:last-child  { padding-bottom: 0; }
 
-  /* Tablet+: all 3 are in one row — remove top borders entirely */
   @media (min-width: 640px) {
-    .cv-cell {
-      border-top: none;
-      padding: 0;
-    }
+    .cv-cell { border-top: none; padding: 0; }
   }
 `;
 
@@ -128,36 +105,30 @@ const values: Value[] = [
 
 interface CoreValuesProps {
   introText?: string;
-  /** Optional link displayed top-right, matching the "View All Requirements" pattern */
   linkLabel?: string;
   linkHref?: string;
 }
 
-export default function CoreValues({
-  introText,
-  linkLabel,
-  linkHref,
-}: CoreValuesProps) {
+export default function CoreValues({ introText, linkLabel, linkHref }: CoreValuesProps) {
   const gridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const grid = gridRef.current;
     if (!grid) return;
-
     const cards = grid.querySelectorAll<HTMLElement>(".cv-card-anim");
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            cards.forEach((card) => card.classList.add("visible"));
+            cards.forEach((card, i) => {
+              setTimeout(() => card.classList.add("visible"), i * 100);
+            });
             observer.unobserve(entry.target);
           }
         });
       },
       { threshold: 0.2 },
     );
-
     observer.observe(grid);
     return () => observer.disconnect();
   }, []);
@@ -166,34 +137,26 @@ export default function CoreValues({
     <>
       <style>{STYLES}</style>
       <section className="cv-section">
-        <div className="cv-container">
-          {/* Header: intro text + optional link */}
-          <div className="cv-header">
-            <p className="cv-intro">
-              {introText ??
-                "Aligned with global shifts in the economy, society, and environment, our vision drives our mission and upholds our core values"}
-            </p>
-
-            {linkLabel && linkHref && (
-              <a className="cv-link" href={linkHref}>
-                {linkLabel}
-              </a>
-            )}
-          </div>
-
-          <div className="cv-grid" ref={gridRef}>
-            {values.map((value, index) => (
-              <div key={value.title} className="cv-cell">
-                <CoreValueCard
-                  icon={value.icon}
-                  title={value.title}
-                  description={value.description}
-                  showLeftBorder={index === 1}
-                  showRightBorder={index === 1}
-                />
-              </div>
-            ))}
-          </div>
+        <div className="cv-header">
+          <p className="cv-intro">{introText ?? "How to Apply"}</p>
+          {linkLabel && linkHref && (
+            <a className="cv-link" href={linkHref}>{linkLabel}</a>
+          )}
+        </div>
+        <div className="cv-grid" ref={gridRef}>
+          {values.map((value, index) => (
+            <div key={value.title} className="cv-cell cv-card-anim">
+              <CoreValueCard
+                icon={value.icon}
+                title={value.title}
+                description={value.description}
+                showLeftBorder={index === 1}
+                showRightBorder={index === 1}
+                isFirst={index === 0}
+                isLast={index === values.length - 1}
+              />
+            </div>
+          ))}
         </div>
       </section>
     </>

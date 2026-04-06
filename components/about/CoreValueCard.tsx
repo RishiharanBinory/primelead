@@ -1,19 +1,36 @@
+"use client";
+
 // components/about/CoreValueCard.tsx
 
 import { LucideIcon } from "lucide-react";
 
 const STYLES = `
-  .cvc-card {
-    padding: 0 16px;
-    box-sizing: border-box;
+  .cvc-card         { padding: 0 24px 0 0; box-sizing: border-box; }
+  .cvc-card--padded { padding: 0 24px; }
+  .cvc-card--last   { padding: 0 0 0 24px; }
+
+  @media (min-width: 1024px) {
+    .cvc-card         { padding: 0 36px 0 0; }
+    .cvc-card--padded { padding: 0 36px; }
+    .cvc-card--last   { padding: 0 0 0 36px; }
   }
+  @media (min-width: 1440px) {
+    .cvc-card         { padding: 0 48px 0 0; }
+    .cvc-card--padded { padding: 0 48px; }
+    .cvc-card--last   { padding: 0 0 0 48px; }
+  }
+
+  /* Mobile — all flush left */
+  @media (max-width: 639px) {
+    .cvc-card,
+    .cvc-card--padded,
+    .cvc-card--last { padding: 0 !important; }
+  }
+
   @media (min-width: 640px) {
-    .cvc-card { padding: 0 28px; }
     .cvc-card--border-left  { border-left:  1px solid #e0e0e0; }
     .cvc-card--border-right { border-right: 1px solid #e0e0e0; }
   }
-  @media (min-width: 1024px) { .cvc-card { padding: 0 36px; } }
-  @media (min-width: 1440px) { .cvc-card { padding: 0 48px; } }
 
   .cvc-header {
     display: flex;
@@ -27,15 +44,12 @@ const STYLES = `
     flex-shrink: 0;
     width:  clamp(24px, 3vw, 36px) !important;
     height: clamp(24px, 3vw, 36px) !important;
-
-    /* Start small — zooms to full size when card becomes visible */
     transform: scale(0.5);
     opacity: 0;
-    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
-                opacity   0.4s ease;
+    transition:
+      transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+      opacity   0.4s ease;
   }
-
-  /* Triggered when parent card gets .visible class */
   .cv-card-anim.visible .cvc-icon {
     transform: scale(1);
     opacity: 1;
@@ -67,6 +81,8 @@ interface CoreValueCardProps {
   description: string;
   showLeftBorder?: boolean;
   showRightBorder?: boolean;
+  isFirst?: boolean;
+  isLast?: boolean;
 }
 
 export default function CoreValueCard({
@@ -75,9 +91,17 @@ export default function CoreValueCard({
   description,
   showLeftBorder = false,
   showRightBorder = false,
+  isFirst = false,
+  isLast = false,
 }: CoreValueCardProps) {
+  const baseClass = isFirst
+    ? "cvc-card"
+    : isLast
+    ? "cvc-card cvc-card--last"
+    : "cvc-card cvc-card--padded";
+
   const cardClass = [
-    "cvc-card",
+    baseClass,
     showLeftBorder  ? "cvc-card--border-left"  : "",
     showRightBorder ? "cvc-card--border-right" : "",
   ].filter(Boolean).join(" ");
