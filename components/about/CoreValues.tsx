@@ -9,7 +9,12 @@
 // TV      (1440px+) — max-width expanded
 
 import { useRef, useEffect } from "react";
-import { ClipboardList, MessageSquare, CalendarCheck, LucideIcon } from "lucide-react";
+import {
+  ClipboardList,
+  MessageSquare,
+  CalendarCheck,
+  LucideIcon,
+} from "lucide-react";
 import CoreValueCard from "./CoreValueCard";
 
 const STYLES = `
@@ -28,16 +33,43 @@ const STYLES = `
   }
   @media (min-width: 1440px) { .cv-container { max-width: 1400px; } }
 
+  /* Header row: intro text + optional link */
+  .cv-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  @media (min-width: 640px)  { .cv-header { margin-bottom: 56px; align-items: center; } }
+  @media (min-width: 1024px) { .cv-header { margin-bottom: 64px; } }
+
   .cv-intro {
     font-family: 'Work Sans', sans-serif;
     font-weight: 800;
     line-height: 1.5em;
     color: #1a1a1a;
-    margin: 0 0 48px 0;
+    margin: 0;
     font-size: clamp(18px, 3vw, 26px);
+    flex: 1;
   }
-  @media (min-width: 640px)  { .cv-intro { margin-bottom: 56px; } }
-  @media (min-width: 1024px) { .cv-intro { margin-bottom: 64px; } }
+
+  /* Link — matches "View All Requirements" style from the screenshot */
+  .cv-link {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #149AB5;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: opacity 0.2s ease;
+  }
+  .cv-link:hover {
+    opacity: 0.75;
+    text-decoration: underline;
+  }
+  @media (min-width: 640px) { .cv-link { font-size: 15px; } }
 
   /* Grid */
   .cv-grid {
@@ -68,69 +100,86 @@ const STYLES = `
 `;
 
 interface Value {
-  icon: LucideIcon
-  title: string
-  description: string
+  icon: LucideIcon;
+  title: string;
+  description: string;
 }
 
 const values: Value[] = [
   {
     icon: ClipboardList,
-    title: 'You Apply',
+    title: "You Apply",
     description:
       "Tell us a little about yourself and we'll help with the rest. Our convenient online application tool only takes 10 minutes to complete.",
   },
   {
     icon: MessageSquare,
-    title: 'We Connect',
+    title: "We Connect",
     description:
-      'After you submit your application, an admissions representative will contact you and will help you to complete the process.',
+      "After you submit your application, an admissions representative will contact you and will help you to complete the process.",
   },
   {
     icon: CalendarCheck,
-    title: 'You Get Ready',
+    title: "You Get Ready",
     description:
       "Once you've completed your application and connected with an admissions representative, you're ready to create your schedule.",
   },
-]
+];
 
 interface CoreValuesProps {
-  introText?: string
+  introText?: string;
+  /** Optional link displayed top-right, matching the "View All Requirements" pattern */
+  linkLabel?: string;
+  linkHref?: string;
 }
 
-export default function CoreValues({ introText }: CoreValuesProps) {
-  const gridRef = useRef<HTMLDivElement>(null)
+export default function CoreValues({
+  introText,
+  linkLabel,
+  linkHref,
+}: CoreValuesProps) {
+  const gridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const grid = gridRef.current
-    if (!grid) return
+    const grid = gridRef.current;
+    if (!grid) return;
 
-    const cards = grid.querySelectorAll<HTMLElement>('.cv-card-anim')
+    const cards = grid.querySelectorAll<HTMLElement>(".cv-card-anim");
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            cards.forEach((card) => card.classList.add('visible'))
-            observer.unobserve(entry.target)
+            cards.forEach((card) => card.classList.add("visible"));
+            observer.unobserve(entry.target);
           }
-        })
+        });
       },
-      { threshold: 0.2 }
-    )
+      { threshold: 0.2 },
+    );
 
-    observer.observe(grid)
-    return () => observer.disconnect()
-  }, [])
+    observer.observe(grid);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
       <style>{STYLES}</style>
       <section className="cv-section">
         <div className="cv-container">
-          <p className="cv-intro">
-            {introText ?? "Aligned with global shifts in the economy, society, and environment, our vision drives our mission and upholds our core values"}
-          </p>
+          {/* Header: intro text + optional link */}
+          <div className="cv-header">
+            <p className="cv-intro">
+              {introText ??
+                "Aligned with global shifts in the economy, society, and environment, our vision drives our mission and upholds our core values"}
+            </p>
+
+            {linkLabel && linkHref && (
+              <a className="cv-link" href={linkHref}>
+                {linkLabel}
+              </a>
+            )}
+          </div>
 
           <div className="cv-grid" ref={gridRef}>
             {values.map((value, index) => (

@@ -14,7 +14,6 @@ import CTABanner from "@/components/home/Ctabanner";
 import CoreValues from "@/components/about/CoreValues";
 import type { Metadata } from "next";
 
-
 export const metadata: Metadata = {
   title: "Primeleed | Secure UK University Placement",
   description:
@@ -33,7 +32,11 @@ export default function Home() {
       <FundingSupport />
       <div className="h-20 bg-white" />
       <StudentFinance />
-      <CoreValues />
+      <CoreValues
+        introText="How to Apply"
+        linkLabel="View All Requirements"
+        linkHref="admission/how-to-apply"
+      />
       <ApplyToday />
       <AdmissionContent />
       <StudentLife />
@@ -42,7 +45,6 @@ export default function Home() {
         style={{ zIndex: 1 }}
       />
       <CTABanner />
-
     </>
   );
 }

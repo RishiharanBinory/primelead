@@ -61,9 +61,13 @@ export default function Postgraduate() {
           },
         ]}
       />
-      <CoreValues />
+      <CoreValues
+        introText="How to Apply"
+        linkLabel="View All Requirements"
+        linkHref="admission/how-to-apply"
+      />
       {/* <CallToAction /> */}
-      <AdmissionFormBanner/>
+      <AdmissionFormBanner />
     </main>
   );
 }

@@ -55,9 +55,13 @@ export default function Undergraduate() {
           { name: "FDSC Business Management Foundation Degree" },
         ]}
       />
-      <CoreValues />
+      <CoreValues
+        introText="How to Apply"
+        linkLabel="View All Requirements"
+        linkHref="admission/how-to-apply"
+      />
       {/* <CallToAction /> */}
-      <AdmissionFormBanner/>
+      <AdmissionFormBanner />
     </main>
   );
 }

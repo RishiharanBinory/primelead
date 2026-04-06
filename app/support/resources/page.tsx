@@ -36,7 +36,11 @@ const Guidance = () => {
           { label: "Program Worksheet", href: "/pdfs/program-worksheet.pdf" },
         ]}
       />
-      <CoreValues />
+      <CoreValues
+        introText="How to Apply"
+        linkLabel="View All Requirements"
+        linkHref="admission/how-to-apply"
+      />
     </main>
   );
 };
