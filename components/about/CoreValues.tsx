@@ -21,6 +21,25 @@ const STYLES = `
   @media (min-width: 1024px) { .cv-section { padding: 80px 0 100px; } }
   @media (min-width: 1440px) { .cv-section { padding: 100px 0 120px; } }
 
+  /*
+    Self-contained container — mirrors AdmissionContent exactly:
+    max-w-7xl (1280px) + px-5 (20px) + md:px-7 (28px)
+    Works correctly on every page with no wrapper needed.
+  */
+  .cv-container {
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  @media (min-width: 768px) {
+    .cv-container {
+      padding-left: 28px;
+      padding-right: 28px;
+    }
+  }
+
   .cv-header {
     display: flex;
     align-items: center;
@@ -137,26 +156,28 @@ export default function CoreValues({ introText, linkLabel, linkHref }: CoreValue
     <>
       <style>{STYLES}</style>
       <section className="cv-section">
-        <div className="cv-header">
-          <p className="cv-intro">{introText ?? "How to Apply"}</p>
-          {linkLabel && linkHref && (
-            <a className="cv-link" href={linkHref}>{linkLabel}</a>
-          )}
-        </div>
-        <div className="cv-grid" ref={gridRef}>
-          {values.map((value, index) => (
-            <div key={value.title} className="cv-cell cv-card-anim">
-              <CoreValueCard
-                icon={value.icon}
-                title={value.title}
-                description={value.description}
-                showLeftBorder={index === 1}
-                showRightBorder={index === 1}
-                isFirst={index === 0}
-                isLast={index === values.length - 1}
-              />
-            </div>
-          ))}
+        <div className="cv-container">
+          <div className="cv-header">
+            <p className="cv-intro">{introText ?? "How to Apply"}</p>
+            {linkLabel && linkHref && (
+              <a className="cv-link" href={linkHref}>{linkLabel}</a>
+            )}
+          </div>
+          <div className="cv-grid" ref={gridRef}>
+            {values.map((value, index) => (
+              <div key={value.title} className="cv-cell cv-card-anim">
+                <CoreValueCard
+                  icon={value.icon}
+                  title={value.title}
+                  description={value.description}
+                  showLeftBorder={index === 1}
+                  showRightBorder={index === 1}
+                  isFirst={index === 0}
+                  isLast={index === values.length - 1}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </>

@@ -32,15 +32,11 @@ export default function Home() {
       <FundingSupport />
       <div className="h-20 bg-white" />
       <StudentFinance />
-      <section className="w-full bg-white">
-        <div className="max-w-7xl mx-auto px-5 md:px-7">
-          <CoreValues
-            introText="How to Apply"
-            linkLabel="View All Requirements"
-            linkHref="admission/how-to-apply"
-          />
-        </div>
-      </section>
+      <CoreValues
+        introText="How to Apply"
+        linkLabel="View All Requirements"
+        linkHref="admission/how-to-apply"
+      />
       <ApplyToday />
       <AdmissionContent />
       <StudentLife />
