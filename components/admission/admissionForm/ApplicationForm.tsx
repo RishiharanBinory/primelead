@@ -1,16 +1,7 @@
 "use client";
 // components/admission/admissionForm/ApplicationForm.tsx
-//
-// FIXES in this version:
-// 1. fileRef prop renamed to inputRef — avoids React ref prop conflict
-// 2. Date.now() wrapped in useMemo/useState to avoid hydration mismatch
-// 3. Phone field rebuilt as uncontrolled-friendly — no overflow:hidden,
-//    explicit heights in px, caretColor set — cursor always visible
-// 4. Name fields (firstName, lastName, fullName) — only alphabet + spaces allowed
-// 5. Full validation on every step before proceeding
 
 import { useState, useRef } from "react";
-import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 // ── Types ─────────────────────────────────────────────────────────
 interface FormData {
@@ -122,13 +113,219 @@ const BTN: React.CSSProperties = {
 // Red asterisk for required fields
 const R = () => <span style={{ color: "#e53e3e", marginLeft: "3px" }}>*</span>;
 
-// ── Component ─────────────────────────────────────────────────────
+// ── Select with chevron — defined OUTSIDE ApplicationForm ─────────
+interface SelProps {
+  name: string;
+  value: string;
+  onChange: (v: string) => void;
+  children: React.ReactNode;
+  focused: string;
+  errors: Record<string, string>;
+  onFocus: (n: string) => () => void;
+  onBlur: () => void;
+}
+
+function Sel({ name, value, onChange, children, focused, errors, onFocus, onBlur }: SelProps) {
+  const borderColor = focused === name ? "#149AB5" : errors[name] ? "#e53e3e" : "#e0e4ea";
+  const boxShadow = focused === name ? "0 0 0 3px rgba(20,154,181,0.12)" : "none";
+  return (
+    <div style={{ position: "relative" }}>
+      <select
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        onFocus={onFocus(name)}
+        onBlur={onBlur}
+        style={{
+          ...INPUT,
+          borderColor,
+          boxShadow,
+          paddingRight: "42px",
+          cursor: "pointer",
+          appearance: "none" as const,
+        }}
+      >
+        {children}
+      </select>
+      <div style={{
+        position: "absolute", right: "16px", top: "50%",
+        transform: "translateY(-50%)", pointerEvents: "none",
+      }}>
+        <svg width="12" height="7" viewBox="0 0 12 7" fill="none">
+          <path d="M1 1L6 6L11 1" stroke="#6b7280" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </div>
+      {errors[name] && <span style={ERR}>{errors[name]}</span>}
+    </div>
+  );
+}
+
+// ── Phone field — defined OUTSIDE ApplicationForm ─────────────────
+interface PhoneFieldProps {
+  form: FormData;
+  focused: string;
+  errors: Record<string, string>;
+  onFocus: (n: string) => () => void;
+  onBlur: () => void;
+  onCountryChange: (v: string) => void;
+  onPhoneChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+function PhoneField({ form, focused, errors, onFocus, onBlur, onCountryChange, onPhoneChange }: PhoneFieldProps) {
+  return (
+    <div>
+      <div style={{
+        display: "flex",
+        alignItems: "stretch",
+        height: "52px",
+        border: `1px solid ${
+          focused === "phone" ? "#149AB5"
+          : errors.phone ? "#e53e3e"
+          : "#e0e4ea"
+        }`,
+        borderRadius: "4px",
+        backgroundColor: "#f5f7fa",
+        boxShadow: focused === "phone" ? "0 0 0 3px rgba(20,154,181,0.12)" : "none",
+        transition: "border-color 0.2s, box-shadow 0.2s",
+      }}>
+        {/* Country code dropdown */}
+        <div style={{ position: "relative", flexShrink: 0, display: "flex", alignItems: "center" }}>
+          <select
+            value={form.countryCode}
+            onChange={e => onCountryChange(e.target.value)}
+            style={{
+              height: "50px",
+              padding: "0 28px 0 10px",
+              border: "none",
+              borderRight: "1px solid #e0e4ea",
+              borderRadius: "4px 0 0 4px",
+              backgroundColor: "#edf0f4",
+              fontFamily: "'Inter', sans-serif",
+              fontSize: "14px",
+              color: "#292929",
+              outline: "none",
+              cursor: "pointer",
+              appearance: "none" as const,
+              minWidth: "92px",
+            }}
+          >
+            {COUNTRIES.map(c => (
+              <option key={c.code} value={c.code}>{c.flag} {c.code}</option>
+            ))}
+          </select>
+          <div style={{
+            position: "absolute", right: "8px", top: "50%",
+            transform: "translateY(-50%)", pointerEvents: "none",
+          }}>
+            <svg width="9" height="6" viewBox="0 0 9 6" fill="none">
+              <path d="M1 1L4.5 5L8 1" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+        </div>
+
+        {/* Number input */}
+        <input
+          type="text"
+          placeholder="7700 900000"
+          value={form.phone}
+          onChange={onPhoneChange}
+          onFocus={onFocus("phone")}
+          onBlur={onBlur}
+          style={{
+            flex: 1,
+            height: "50px",
+            padding: "0 14px",
+            border: "none",
+            borderRadius: "0 4px 4px 0",
+            backgroundColor: "transparent",
+            fontFamily: "'Inter', sans-serif",
+            fontSize: "15px",
+            color: "#292929",
+            outline: "none",
+            caretColor: "#149AB5",
+            minWidth: 0,
+          }}
+        />
+      </div>
+      {errors.phone && <span style={ERR}>{errors.phone}</span>}
+    </div>
+  );
+}
+
+// ── File upload — defined OUTSIDE ApplicationForm ─────────────────
+interface FileUploadFieldProps {
+  label: string;
+  value: File | null;
+  inputRef: React.RefObject<HTMLInputElement | null>;
+  fieldKey: keyof FormData;
+  hint?: string;
+  errors: Record<string, string>;
+  onFileChange: (key: keyof FormData, file: File | null) => void;
+}
+
+function FileUploadField({ label, value, inputRef, fieldKey, hint, errors, onFileChange }: FileUploadFieldProps) {
+  return (
+    <div style={FW}>
+      <label style={LABEL}>{label} <R /></label>
+      <div style={{
+        display: "flex",
+        height: "52px",
+        border: `1px solid ${errors[fieldKey as string] ? "#e53e3e" : "#e0e4ea"}`,
+        borderRadius: "4px",
+        backgroundColor: "#f5f7fa",
+        overflow: "hidden",
+      }}>
+        <span style={{
+          flex: 1, padding: "0 16px",
+          fontFamily: "'Inter',sans-serif", fontSize: "14px",
+          color: value ? "#292929" : "#9ca3af",
+          display: "flex", alignItems: "center",
+          overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
+        }}>
+          {value ? value.name : "No file chosen"}
+        </span>
+        <button
+          type="button"
+          onClick={() => inputRef.current?.click()}
+          style={{
+            padding: "0 18px", height: "100%",
+            backgroundColor: "#292929", color: "#fff",
+            border: "none", fontFamily: "'Inter',sans-serif",
+            fontSize: "14px", cursor: "pointer", flexShrink: 0,
+            whiteSpace: "nowrap",
+          }}
+        >
+          Choose File
+        </button>
+        <input
+          ref={inputRef}
+          type="file"
+          accept=".pdf"
+          style={{ display: "none" }}
+          onChange={e => onFileChange(fieldKey, e.target.files?.[0] || null)}
+        />
+      </div>
+      {hint && (
+        <p style={{
+          fontSize: "12px", color: "#64748b",
+          fontFamily: "'Inter',sans-serif",
+          lineHeight: "1.6em", marginTop: "7px",
+        }}>
+          {hint}
+        </p>
+      )}
+      {errors[fieldKey as string] && (
+        <span style={ERR}>{errors[fieldKey as string]}</span>
+      )}
+    </div>
+  );
+}
+
+// ── Main Component ────────────────────────────────────────────────
 export default function ApplicationForm() {
   const [step,      setStep]      = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [errors,    setErrors]    = useState<Record<string, string>>({});
   const [focused,   setFocused]   = useState("");
-  // FIX 2: reference number generated once on submit, not on every render
   const [refNum,    setRefNum]    = useState("");
 
   const [form, setForm] = useState<FormData>({
@@ -140,29 +337,24 @@ export default function ApplicationForm() {
     fullName: "", additionalInfo: "", privacyAccepted: false,
   });
 
-  // FIX 1: refs stored at component level, not inside sub-components
-  // This avoids the React ref forwarding issue at lines 552/555
-  const passportRef = useRef<HTMLInputElement>(null);
-  const cvRef       = useRef<HTMLInputElement>(null);
+  const passportRef = useRef<HTMLInputElement | null>(null);
+  const cvRef       = useRef<HTMLInputElement | null>(null);
 
   const set = (k: keyof FormData, v: string | boolean | File | null) => {
     setForm(p => ({ ...p, [k]: v }));
     setErrors(p => { const n = { ...p }; delete n[k]; return n; });
   };
 
-  // FIX 4: only allow alphabet + spaces in name fields
   const setName = (k: keyof FormData) => (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value.replace(/[^a-zA-Z\s]/g, "");
     set(k, val);
   };
 
-  // FIX 3: phone only allows digits, spaces, hyphens
   const setPhone = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value.replace(/[^\d\s\-]/g, "");
     set("phone", val);
   };
 
-  // Dynamic input style with focus/error border
   const si = (name: string, extra?: React.CSSProperties): React.CSSProperties => ({
     ...INPUT,
     borderColor: focused === name ? "#149AB5" : errors[name] ? "#e53e3e" : "#e0e4ea",
@@ -171,7 +363,7 @@ export default function ApplicationForm() {
   });
 
   const fo = (n: string) => () => setFocused(n);
-  const fb = ()           => setFocused("");
+  const fb = () => setFocused("");
 
   // ── Validation ────────────────────────────────────────────────
   const validate = () => {
@@ -253,204 +445,21 @@ export default function ApplicationForm() {
   };
   const submit = () => {
     if (validate()) {
-      // FIX 2: generate reference number once at submit time
       setRefNum("PL-" + Date.now().toString().slice(-6));
       setSubmitted(true);
     }
   };
 
-  // ── Select with chevron ───────────────────────────────────────
-  const Sel = ({ name, value, onChange, children }: {
-    name: string; value: string;
-    onChange: (v: string) => void; children: React.ReactNode;
-  }) => (
-    <div style={{ position: "relative" }}>
-      <select
-        value={value}
-        onChange={e => onChange(e.target.value)}
-        onFocus={fo(name)}
-        onBlur={fb}
-        style={{
-          ...si(name),
-          paddingRight: "42px",
-          cursor: "pointer",
-          appearance: "none" as const,
-        }}
-      >
-        {children}
-      </select>
-      <div style={{
-        position: "absolute", right: "16px", top: "50%",
-        transform: "translateY(-50%)", pointerEvents: "none",
-      }}>
-        <svg width="12" height="7" viewBox="0 0 12 7" fill="none">
-          <path d="M1 1L6 6L11 1" stroke="#6b7280" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      </div>
-      {errors[name] && <span style={ERR}>{errors[name]}</span>}
-    </div>
-  );
-
-  // ── Phone field ───────────────────────────────────────────────
-  // FIX 3: No overflow:hidden, explicit px heights, caretColor visible
-  // The wrapper div provides the border — input has no border of its own
-  const PhoneField = () => (
-    <div>
-      <div style={{
-        display: "flex",
-        alignItems: "stretch",
-        height: "52px",
-        border: `1px solid ${
-          focused === "phone" ? "#149AB5"
-          : errors.phone ? "#e53e3e"
-          : "#e0e4ea"
-        }`,
-        borderRadius: "4px",
-        backgroundColor: "#f5f7fa",
-        boxShadow: focused === "phone" ? "0 0 0 3px rgba(20,154,181,0.12)" : "none",
-        transition: "border-color 0.2s, box-shadow 0.2s",
-        // NO overflow:hidden — that was clipping the text cursor
-      }}>
-        {/* Country code dropdown */}
-        <div style={{ position: "relative", flexShrink: 0, display: "flex", alignItems: "center" }}>
-          <select
-            value={form.countryCode}
-            onChange={e => set("countryCode", e.target.value)}
-            style={{
-              height: "50px",
-              padding: "0 28px 0 10px",
-              border: "none",
-              borderRight: "1px solid #e0e4ea",
-              borderRadius: "4px 0 0 4px",
-              backgroundColor: "#edf0f4",
-              fontFamily: "'Inter', sans-serif",
-              fontSize: "14px",
-              color: "#292929",
-              outline: "none",
-              cursor: "pointer",
-              appearance: "none" as const,
-              minWidth: "92px",
-            }}
-          >
-            {COUNTRIES.map(c => (
-              <option key={c.code} value={c.code}>{c.flag} {c.code}</option>
-            ))}
-          </select>
-          <div style={{
-            position: "absolute", right: "8px", top: "50%",
-            transform: "translateY(-50%)", pointerEvents: "none",
-          }}>
-            <svg width="9" height="6" viewBox="0 0 9 6" fill="none">
-              <path d="M1 1L4.5 5L8 1" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
-        </div>
-
-        {/* Number input */}
-        <input
-          type="text"
-          placeholder="7700 900000"
-          value={form.phone}
-          onChange={setPhone}
-          onFocus={fo("phone")}
-          onBlur={fb}
-          style={{
-            flex: 1,
-            height: "50px",
-            padding: "0 14px",
-            border: "none",
-            borderRadius: "0 4px 4px 0",
-            backgroundColor: "transparent",
-            fontFamily: "'Inter', sans-serif",
-            fontSize: "15px",
-            color: "#292929",
-            outline: "none",
-            caretColor: "#149AB5",  // cursor always visible
-            minWidth: 0,            // prevents flex overflow hiding caret
-          }}
-        />
-      </div>
-      {errors.phone && <span style={ERR}>{errors.phone}</span>}
-    </div>
-  );
-
-  // ── File upload ───────────────────────────────────────────────
-  // FIX 1: uses inputRef prop name (not fileRef) to avoid React conflicts
-  // The actual refs (passportRef, cvRef) are passed directly from parent scope
-  const FileUploadField = ({
-    label, value, inputRef, fieldKey, hint,
-  }: {
-    label: string;
-    value: File | null;
-    inputRef: React.RefObject<HTMLInputElement>;
-    fieldKey: keyof FormData;
-    hint?: string;
-  }) => (
-    <div style={FW}>
-      <label style={LABEL}>{label} <R /></label>
-      <div style={{
-        display: "flex",
-        height: "52px",
-        border: `1px solid ${errors[fieldKey as string] ? "#e53e3e" : "#e0e4ea"}`,
-        borderRadius: "4px",
-        backgroundColor: "#f5f7fa",
-        overflow: "hidden",
-      }}>
-        <span style={{
-          flex: 1, padding: "0 16px",
-          fontFamily: "'Inter',sans-serif", fontSize: "14px",
-          color: value ? "#292929" : "#9ca3af",
-          display: "flex", alignItems: "center",
-          overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
-        }}>
-          {value ? value.name : "No file chosen"}
-        </span>
-        <button
-          type="button"
-          onClick={() => inputRef.current?.click()}
-          style={{
-            padding: "0 18px", height: "100%",
-            backgroundColor: "#292929", color: "#fff",
-            border: "none", fontFamily: "'Inter',sans-serif",
-            fontSize: "14px", cursor: "pointer", flexShrink: 0,
-            whiteSpace: "nowrap",
-          }}
-        >
-          Choose File
-        </button>
-        <input
-          ref={inputRef}
-          type="file"
-          accept=".pdf"
-          style={{ display: "none" }}
-          onChange={e => set(fieldKey, e.target.files?.[0] || null)}
-        />
-      </div>
-      {hint && (
-        <p style={{
-          fontSize: "12px", color: "#64748b",
-          fontFamily: "'Inter',sans-serif",
-          lineHeight: "1.6em", marginTop: "7px",
-        }}>
-          {hint}
-        </p>
-      )}
-      {errors[fieldKey as string] && (
-        <span style={ERR}>{errors[fieldKey as string]}</span>
-      )}
-    </div>
-  );
-
   // ── Render ────────────────────────────────────────────────────
   return (
-    <section style={{ backgroundColor: "#ffffff", padding: "40px 20px 80px",paddingTop: "150px", }}>
+    <section style={{ backgroundColor: "#ffffff", padding: "40px 20px 80px", paddingTop: "150px" }}>
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
 
         {/* Intro */}
         <p style={{
           fontFamily: "'Inter',sans-serif", fontSize: "18px",
           color: "#000000", lineHeight: "1.7em",
-          textAlign: "center", marginBottom: "40px",fontWeight: "400"
+          textAlign: "center", marginBottom: "40px", fontWeight: "400",
         }}>
           Seeking guidance on your higher education, or looking to secure your Masters at
           <br />a top university? Start your application today.
@@ -515,13 +524,7 @@ export default function ApplicationForm() {
           {STEPS[step - 1].title}
         </h2>
 
-        {/* ════════════════════════════════════
-            STEP 1 — Applicant Details
-            Row 1: First name    | Last name
-            Row 2: Email         | Phone
-            Row 3: Date of birth | Student type
-            Row 4: Address       (full width)
-        ════════════════════════════════════ */}
+        {/* ════════ STEP 1 — Applicant Details ════════ */}
         {step === 1 && (
           <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
 
@@ -572,7 +575,15 @@ export default function ApplicationForm() {
               </div>
               <div style={FW}>
                 <label style={LABEL}>Phone number <R /></label>
-                <PhoneField />
+                <PhoneField
+                  form={form}
+                  focused={focused}
+                  errors={errors}
+                  onFocus={fo}
+                  onBlur={fb}
+                  onCountryChange={v => set("countryCode", v)}
+                  onPhoneChange={setPhone}
+                />
               </div>
             </div>
 
@@ -592,7 +603,7 @@ export default function ApplicationForm() {
               </div>
               <div style={FW}>
                 <label style={LABEL}>Student type <R /></label>
-                <Sel name="studentType" value={form.studentType} onChange={v => set("studentType", v)}>
+                <Sel name="studentType" value={form.studentType} onChange={v => set("studentType", v)} focused={focused} errors={errors} onFocus={fo} onBlur={fb}>
                   <option value="">Please select</option>
                   <option>UK Citizen</option>
                   <option>EU Citizen</option>
@@ -658,7 +669,7 @@ export default function ApplicationForm() {
               </div>
               <div style={FW}>
                 <label style={LABEL}>Current status <R /></label>
-                <Sel name="currentStatus" value={form.currentStatus} onChange={v => set("currentStatus", v)}>
+                <Sel name="currentStatus" value={form.currentStatus} onChange={v => set("currentStatus", v)} focused={focused} errors={errors} onFocus={fo} onBlur={fb}>
                   <option value="">Please select</option>
                   <option>Studying</option>
                   <option>Working</option>
@@ -676,7 +687,7 @@ export default function ApplicationForm() {
             <div style={ROW}>
               <div style={FW}>
                 <label style={LABEL}>Select area of study <R /></label>
-                <Sel name="areaOfStudy" value={form.areaOfStudy} onChange={v => set("areaOfStudy", v)}>
+                <Sel name="areaOfStudy" value={form.areaOfStudy} onChange={v => set("areaOfStudy", v)} focused={focused} errors={errors} onFocus={fo} onBlur={fb}>
                   <option value="">Please select</option>
                   <option>Business & Administration</option>
                   <option>Computer Science & A.I.</option>
@@ -688,7 +699,7 @@ export default function ApplicationForm() {
               </div>
               <div style={FW}>
                 <label style={LABEL}>Degree level <R /></label>
-                <Sel name="degreeLevel" value={form.degreeLevel} onChange={v => set("degreeLevel", v)}>
+                <Sel name="degreeLevel" value={form.degreeLevel} onChange={v => set("degreeLevel", v)} focused={focused} errors={errors} onFocus={fo} onBlur={fb}>
                   <option value="">Please select</option>
                   <option>Bachelor&apos;s Degrees</option>
                   <option>Master&apos;s Degrees</option>
@@ -700,7 +711,6 @@ export default function ApplicationForm() {
         )}
 
         {/* ════════ STEP 4 — Documentation ════════ */}
-        {/* FIX 1: Using FileUploadField with inputRef prop (not fileRef) */}
         {step === 4 && (
           <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
             <h3 style={SECTION}>Upload Documents</h3>
@@ -710,6 +720,8 @@ export default function ApplicationForm() {
                 value={form.passportFile}
                 inputRef={passportRef}
                 fieldKey="passportFile"
+                errors={errors}
+                onFileChange={(key, file) => set(key, file)}
                 hint="Please upload a VERIFIED copy of your Passport or Birth Certificate. VERIFIED means the original document has been sighted & the copy dated and signed by an authorised person."
               />
               <FileUploadField
@@ -717,12 +729,14 @@ export default function ApplicationForm() {
                 value={form.cvFile}
                 inputRef={cvRef}
                 fieldKey="cvFile"
+                errors={errors}
+                onFileChange={(key, file) => set(key, file)}
                 hint="Upload your CV or Resume in PDF format."
               />
             </div>
             <div style={{ maxWidth: "calc(50% - 12px)" }}>
               <label style={LABEL}>How did you find us? <R /></label>
-              <Sel name="howDidYouFindUs" value={form.howDidYouFindUs} onChange={v => set("howDidYouFindUs", v)}>
+              <Sel name="howDidYouFindUs" value={form.howDidYouFindUs} onChange={v => set("howDidYouFindUs", v)} focused={focused} errors={errors} onFocus={fo} onBlur={fb}>
                 <option value="">- Select -</option>
                 <option>Google</option>
                 <option>Facebook</option>
@@ -915,7 +929,6 @@ export default function ApplicationForm() {
               Our admissions team will get back to you within <strong>2 working days</strong>.
             </p>
 
-            {/* FIX 2: refNum generated once at submit — no hydration mismatch */}
             <div style={{
               backgroundColor: "#f8fafc", padding: "14px 20px",
               marginBottom: "28px", borderRadius: "4px",
