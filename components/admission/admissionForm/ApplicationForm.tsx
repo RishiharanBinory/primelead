@@ -74,12 +74,6 @@ const ERR: React.CSSProperties = {
   display: "block",
 };
 
-const ROW: React.CSSProperties = {
-  display: "grid",
-  gridTemplateColumns: "1fr 1fr",
-  gap: "24px",
-};
-
 const FW: React.CSSProperties = {
   display: "flex",
   flexDirection: "column",
@@ -113,7 +107,7 @@ const BTN: React.CSSProperties = {
 // Red asterisk for required fields
 const R = () => <span style={{ color: "#e53e3e", marginLeft: "3px" }}>*</span>;
 
-// ── Select with chevron — defined OUTSIDE ApplicationForm ─────────
+// ── Select with chevron ───────────────────────────────────────────
 interface SelProps {
   name: string;
   value: string;
@@ -159,7 +153,7 @@ function Sel({ name, value, onChange, children, focused, errors, onFocus, onBlur
   );
 }
 
-// ── Phone field — defined OUTSIDE ApplicationForm ─────────────────
+// ── Phone field ───────────────────────────────────────────────────
 interface PhoneFieldProps {
   form: FormData;
   focused: string;
@@ -186,6 +180,7 @@ function PhoneField({ form, focused, errors, onFocus, onBlur, onCountryChange, o
         backgroundColor: "#f5f7fa",
         boxShadow: focused === "phone" ? "0 0 0 3px rgba(20,154,181,0.12)" : "none",
         transition: "border-color 0.2s, box-shadow 0.2s",
+        overflow: "hidden",
       }}>
         {/* Country code dropdown */}
         <div style={{ position: "relative", flexShrink: 0, display: "flex", alignItems: "center" }}>
@@ -205,7 +200,8 @@ function PhoneField({ form, focused, errors, onFocus, onBlur, onCountryChange, o
               outline: "none",
               cursor: "pointer",
               appearance: "none" as const,
-              minWidth: "92px",
+              minWidth: "82px",
+              maxWidth: "90px",
             }}
           >
             {COUNTRIES.map(c => (
@@ -251,7 +247,7 @@ function PhoneField({ form, focused, errors, onFocus, onBlur, onCountryChange, o
   );
 }
 
-// ── File upload — defined OUTSIDE ApplicationForm ─────────────────
+// ── File upload ───────────────────────────────────────────────────
 interface FileUploadFieldProps {
   label: string;
   value: File | null;
@@ -275,11 +271,12 @@ function FileUploadField({ label, value, inputRef, fieldKey, hint, errors, onFil
         overflow: "hidden",
       }}>
         <span style={{
-          flex: 1, padding: "0 16px",
-          fontFamily: "'Inter',sans-serif", fontSize: "14px",
+          flex: 1, padding: "0 12px",
+          fontFamily: "'Inter',sans-serif", fontSize: "13px",
           color: value ? "#292929" : "#9ca3af",
           display: "flex", alignItems: "center",
           overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
+          minWidth: 0,
         }}>
           {value ? value.name : "No file chosen"}
         </span>
@@ -287,10 +284,10 @@ function FileUploadField({ label, value, inputRef, fieldKey, hint, errors, onFil
           type="button"
           onClick={() => inputRef.current?.click()}
           style={{
-            padding: "0 18px", height: "100%",
+            padding: "0 14px", height: "100%",
             backgroundColor: "#292929", color: "#fff",
             border: "none", fontFamily: "'Inter',sans-serif",
-            fontSize: "14px", cursor: "pointer", flexShrink: 0,
+            fontSize: "13px", cursor: "pointer", flexShrink: 0,
             whiteSpace: "nowrap",
           }}
         >
@@ -452,511 +449,668 @@ export default function ApplicationForm() {
 
   // ── Render ────────────────────────────────────────────────────
   return (
-    <section style={{ backgroundColor: "#ffffff", padding: "40px 20px 80px", paddingTop: "150px" }}>
-      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+    <>
+      {/* ── Responsive CSS ── */}
+      <style>{`
+        /* ── Form section ── */
+        .af-section {
+          background-color: #ffffff;
+          padding: 60px 60px 80px;
+          margin-top: 80px;
+        }
+        .af-inner {
+          max-width: 1100px;
+          margin: 0 auto;
+        }
 
-        {/* Intro */}
-        <p style={{
-          fontFamily: "'Inter',sans-serif", fontSize: "18px",
-          color: "#000000", lineHeight: "1.7em",
-          textAlign: "center", marginBottom: "40px", fontWeight: "400",
-        }}>
-          Seeking guidance on your higher education, or looking to secure your Masters at
-          <br />a top university? Start your application today.
-        </p>
+        /* ── Two-column grid row ── */
+        .af-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 24px;
+        }
 
-        {/* ── Progress bar ── */}
-        <div style={{ position: "relative", marginBottom: "48px" }}>
-          <div style={{
-            position: "absolute", top: "18px", left: "18px", right: "18px",
-            height: "2px", backgroundColor: "#e5e7eb", zIndex: 0,
-          }} />
-          <div style={{
-            position: "absolute", top: "18px", left: "18px",
-            width: `${((step - 1) / 4) * 100}%`,
-            height: "2px", backgroundColor: "#22c55e",
-            zIndex: 1, transition: "width 0.4s ease",
-          }} />
-          <div style={{
-            display: "flex", justifyContent: "space-between",
-            position: "relative", zIndex: 2,
+        /* ── Step 4 half-width "how did you find us" ── */
+        .af-half {
+          max-width: calc(50% - 12px);
+        }
+
+        /* ── Progress bar ── */
+        .af-progress-track {
+          position: absolute;
+          top: 18px; left: 18px; right: 18px;
+          height: 2px;
+          background-color: #e5e7eb;
+          z-index: 0;
+        }
+        .af-progress-fill {
+          position: absolute;
+          top: 18px; left: 18px;
+          height: 2px;
+          background-color: #22c55e;
+          z-index: 1;
+          transition: width 0.4s ease;
+        }
+        .af-progress-dots {
+          display: flex;
+          justify-content: space-between;
+          position: relative;
+          z-index: 2;
+        }
+        .af-step-dot {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 8px;
+        }
+        .af-step-label {
+          font-family: 'Inter', sans-serif;
+          font-size: 11px;
+          color: #9ca3af;
+          text-align: center;
+          max-width: 80px;
+          line-height: 1.3;
+          white-space: nowrap;
+        }
+        .af-step-label.active {
+          color: #22c55e;
+          font-weight: 600;
+        }
+
+        /* ── Nav buttons ── */
+        .af-nav {
+          display: flex;
+          gap: 12px;
+          margin-top: 40px;
+          padding-top: 24px;
+          border-top: 1px solid #f3f4f6;
+          flex-wrap: wrap;
+        }
+        .af-nav button {
+          flex-shrink: 0;
+        }
+
+        /* ── Success modal ── */
+        .af-modal-box {
+          background-color: #fff;
+          padding: 56px 48px;
+          max-width: 460px;
+          width: 100%;
+          text-align: center;
+          border-top: 4px solid #149AB5;
+          border-radius: 8px;
+          box-shadow: 0 24px 80px rgba(0,0,0,0.2);
+        }
+
+        /* ══════════════════════════════════════
+           TABLET  ≤ 1024px
+        ══════════════════════════════════════ */
+        @media (max-width: 1024px) {
+          .af-section {
+            padding: 60px 40px 72px;
+            margin-top: 90px;
+          }
+        }
+
+        /* ══════════════════════════════════════
+           MOBILE  ≤ 640px
+        ══════════════════════════════════════ */
+        @media (max-width: 640px) {
+          .af-section {
+            padding: 40px 16px 60px;
+            margin-top: 90px;
+          }
+
+          /* Stack all two-column rows to single column */
+          .af-row {
+            grid-template-columns: 1fr;
+            gap: 20px;
+          }
+
+          /* Step 4 "how did you find us" — full width on mobile */
+          .af-half {
+            max-width: 100%;
+          }
+
+          /* Hide progress step labels on mobile (dots only) */
+          .af-step-label {
+            display: none;
+          }
+
+          /* Tighten progress bar dot spacing */
+          .af-progress-track,
+          .af-progress-fill {
+            top: 14px;
+          }
+
+          /* Smaller dots */
+          .af-dot-circle {
+            width: 28px !important;
+            height: 28px !important;
+          }
+
+          /* Full-width nav buttons on mobile */
+          .af-nav {
+            flex-direction: column;
+          }
+          .af-nav button {
+            width: 100%;
+            justify-content: center;
+          }
+
+          /* Modal tighter on small screens */
+          .af-modal-box {
+            padding: 36px 20px;
+          }
+
+          /* Intro text smaller */
+          .af-intro {
+            font-size: 15px !important;
+          }
+        }
+
+        /* ══════════════════════════════════════
+           VERY SMALL  ≤ 390px
+        ══════════════════════════════════════ */
+        @media (max-width: 390px) {
+          .af-section {
+            padding: 32px 12px 48px;
+            margin-top: 60px;
+          }
+        }
+      `}</style>
+
+      <section className="af-section">
+        <div className="af-inner">
+
+          {/* Intro */}
+          <p className="af-intro" style={{
+            fontFamily: "'Inter',sans-serif", fontSize: "18px",
+            color: "#000000", lineHeight: "1.7em",
+            textAlign: "center", marginBottom: "40px", fontWeight: "400",
           }}>
-            {STEPS.map(s => {
-              const done = s.number < step;
-              const cur  = s.number === step;
-              return (
-                <div key={s.number} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                  <div style={{
-                    width: "36px", height: "36px", borderRadius: "50%",
-                    backgroundColor: done || cur ? "#22c55e" : "#ffffff",
-                    border: `2px solid ${done || cur ? "#22c55e" : "#d1d5db"}`,
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    transition: "all 0.3s",
-                    boxShadow: cur ? "0 0 0 4px rgba(34,197,94,0.15)" : "none",
-                  }}>
-                    {done
-                      ? (
-                        <svg width="14" height="11" viewBox="0 0 14 11" fill="none">
-                          <path d="M1.5 5.5L5 9L12.5 1.5" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      ) : (
-                        <span style={{
-                          fontFamily: "'Inter',sans-serif", fontSize: "13px",
-                          fontWeight: "600", color: cur ? "#fff" : "#9ca3af",
-                        }}>
-                          {s.number}
-                        </span>
-                      )
-                    }
+            Seeking guidance on your higher education, or looking to secure your Masters at
+            <br />a top university? Start your application today.
+          </p>
+
+          {/* ── Progress bar ── */}
+          <div style={{ position: "relative", marginBottom: "52px" }}>
+            <div className="af-progress-track" />
+            <div
+              className="af-progress-fill"
+              style={{ width: `${((step - 1) / 4) * 100}%` }}
+            />
+            <div className="af-progress-dots">
+              {STEPS.map(s => {
+                const done = s.number < step;
+                const cur  = s.number === step;
+                return (
+                  <div key={s.number} className="af-step-dot">
+                    <div
+                      className="af-dot-circle"
+                      style={{
+                        width: "36px", height: "36px", borderRadius: "50%",
+                        backgroundColor: done || cur ? "#22c55e" : "#ffffff",
+                        border: `2px solid ${done || cur ? "#22c55e" : "#d1d5db"}`,
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        transition: "all 0.3s",
+                        boxShadow: cur ? "0 0 0 4px rgba(34,197,94,0.15)" : "none",
+                      }}
+                    >
+                      {done
+                        ? (
+                          <svg width="14" height="11" viewBox="0 0 14 11" fill="none">
+                            <path d="M1.5 5.5L5 9L12.5 1.5" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        ) : (
+                          <span style={{
+                            fontFamily: "'Inter',sans-serif", fontSize: "13px",
+                            fontWeight: "600", color: cur ? "#fff" : "#9ca3af",
+                          }}>
+                            {s.number}
+                          </span>
+                        )
+                      }
+                    </div>
+                    {/* Step label — hidden on mobile via CSS */}
+                    <span className={`af-step-label${cur ? " active" : ""}`}>
+                      {s.title}
+                    </span>
                   </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Step title */}
+          <h2 style={{
+            fontFamily: "'Work Sans',sans-serif", fontSize: "22px",
+            fontWeight: "700", color: "#292929",
+            marginBottom: "32px", letterSpacing: "-0.01em",
+          }}>
+            {STEPS[step - 1].title}
+          </h2>
+
+          {/* ════════ STEP 1 — Applicant Details ════════ */}
+          {step === 1 && (
+            <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+
+              <div className="af-row">
+                <div style={FW}>
+                  <label style={LABEL}>First name <R /></label>
+                  <input
+                    style={si("firstName")}
+                    type="text"
+                    placeholder="Enter first name"
+                    value={form.firstName}
+                    onChange={setName("firstName")}
+                    onFocus={fo("firstName")}
+                    onBlur={fb}
+                  />
+                  {errors.firstName && <span style={ERR}>{errors.firstName}</span>}
                 </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Step title */}
-        <h2 style={{
-          fontFamily: "'Work Sans',sans-serif", fontSize: "22px",
-          fontWeight: "700", color: "#292929",
-          marginBottom: "32px", letterSpacing: "-0.01em",
-        }}>
-          {STEPS[step - 1].title}
-        </h2>
-
-        {/* ════════ STEP 1 — Applicant Details ════════ */}
-        {step === 1 && (
-          <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-
-            {/* Row 1 */}
-            <div style={ROW}>
-              <div style={FW}>
-                <label style={LABEL}>First name <R /></label>
-                <input
-                  style={si("firstName")}
-                  type="text"
-                  placeholder="Enter first name"
-                  value={form.firstName}
-                  onChange={setName("firstName")}
-                  onFocus={fo("firstName")}
-                  onBlur={fb}
-                />
-                {errors.firstName && <span style={ERR}>{errors.firstName}</span>}
+                <div style={FW}>
+                  <label style={LABEL}>Last name <R /></label>
+                  <input
+                    style={si("lastName")}
+                    type="text"
+                    placeholder="Enter last name"
+                    value={form.lastName}
+                    onChange={setName("lastName")}
+                    onFocus={fo("lastName")}
+                    onBlur={fb}
+                  />
+                  {errors.lastName && <span style={ERR}>{errors.lastName}</span>}
+                </div>
               </div>
+
+              <div className="af-row">
+                <div style={FW}>
+                  <label style={LABEL}>Email address <R /></label>
+                  <input
+                    style={si("email")}
+                    type="email"
+                    placeholder="Enter email address"
+                    value={form.email}
+                    onChange={e => set("email", e.target.value)}
+                    onFocus={fo("email")}
+                    onBlur={fb}
+                  />
+                  {errors.email && <span style={ERR}>{errors.email}</span>}
+                </div>
+                <div style={FW}>
+                  <label style={LABEL}>Phone number <R /></label>
+                  <PhoneField
+                    form={form}
+                    focused={focused}
+                    errors={errors}
+                    onFocus={fo}
+                    onBlur={fb}
+                    onCountryChange={v => set("countryCode", v)}
+                    onPhoneChange={setPhone}
+                  />
+                </div>
+              </div>
+
+              <div className="af-row">
+                <div style={FW}>
+                  <label style={LABEL}>Date of birth <R /></label>
+                  <input
+                    style={si("dateOfBirth")}
+                    type="date"
+                    value={form.dateOfBirth}
+                    onChange={e => set("dateOfBirth", e.target.value)}
+                    onFocus={fo("dateOfBirth")}
+                    onBlur={fb}
+                  />
+                  {errors.dateOfBirth && <span style={ERR}>{errors.dateOfBirth}</span>}
+                </div>
+                <div style={FW}>
+                  <label style={LABEL}>Student type <R /></label>
+                  <Sel name="studentType" value={form.studentType} onChange={v => set("studentType", v)} focused={focused} errors={errors} onFocus={fo} onBlur={fb}>
+                    <option value="">Please select</option>
+                    <option>UK Citizen</option>
+                    <option>EU Citizen</option>
+                    <option>International / Foreign Student</option>
+                    <option>U.S. Permanent Resident (Green Card Holder)</option>
+                    <option>International Student Transferring Within UK/EU</option>
+                  </Sel>
+                </div>
+              </div>
+
               <div style={FW}>
-                <label style={LABEL}>Last name <R /></label>
-                <input
-                  style={si("lastName")}
-                  type="text"
-                  placeholder="Enter last name"
-                  value={form.lastName}
-                  onChange={setName("lastName")}
-                  onFocus={fo("lastName")}
+                <label style={LABEL}>Address <R /></label>
+                <textarea
+                  style={{
+                    ...si("address"),
+                    height: "120px",
+                    padding: "14px 16px",
+                    resize: "vertical" as const,
+                  }}
+                  placeholder="Enter your full address"
+                  value={form.address}
+                  onChange={e => set("address", e.target.value)}
+                  onFocus={fo("address")}
                   onBlur={fb}
                 />
-                {errors.lastName && <span style={ERR}>{errors.lastName}</span>}
+                {errors.address && <span style={ERR}>{errors.address}</span>}
+              </div>
+
+            </div>
+          )}
+
+          {/* ════════ STEP 2 — Education Records ════════ */}
+          {step === 2 && (
+            <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+              <h3 style={SECTION}>Academic Background</h3>
+              <div className="af-row">
+                <div style={FW}>
+                  <label style={LABEL}>School <R /></label>
+                  <input style={si("school")} type="text" placeholder="Name of school or college"
+                    value={form.school} onChange={e => set("school", e.target.value)}
+                    onFocus={fo("school")} onBlur={fb} />
+                  {errors.school && <span style={ERR}>{errors.school}</span>}
+                </div>
+                <div style={FW}>
+                  <label style={LABEL}>Year of completion <R /></label>
+                  <input style={si("yearOfCompletion")} type="text" placeholder="e.g. 2022"
+                    value={form.yearOfCompletion}
+                    onChange={e => set("yearOfCompletion", e.target.value.replace(/\D/g, ""))}
+                    onFocus={fo("yearOfCompletion")} onBlur={fb} />
+                  {errors.yearOfCompletion && <span style={ERR}>{errors.yearOfCompletion}</span>}
+                </div>
+              </div>
+              <div className="af-row">
+                <div style={FW}>
+                  <label style={LABEL}>Highest qualification <R /></label>
+                  <input style={si("highestQualification")} type="text"
+                    placeholder="Highest qualification achieved or currently completing?"
+                    value={form.highestQualification}
+                    onChange={e => set("highestQualification", e.target.value)}
+                    onFocus={fo("highestQualification")} onBlur={fb} />
+                  {errors.highestQualification && <span style={ERR}>{errors.highestQualification}</span>}
+                </div>
+                <div style={FW}>
+                  <label style={LABEL}>Current status <R /></label>
+                  <Sel name="currentStatus" value={form.currentStatus} onChange={v => set("currentStatus", v)} focused={focused} errors={errors} onFocus={fo} onBlur={fb}>
+                    <option value="">Please select</option>
+                    <option>Studying</option>
+                    <option>Working</option>
+                    <option>Other</option>
+                  </Sel>
+                </div>
               </div>
             </div>
+          )}
 
-            {/* Row 2 */}
-            <div style={ROW}>
-              <div style={FW}>
-                <label style={LABEL}>Email address <R /></label>
-                <input
-                  style={si("email")}
-                  type="email"
-                  placeholder="Enter email address"
-                  value={form.email}
-                  onChange={e => set("email", e.target.value)}
-                  onFocus={fo("email")}
-                  onBlur={fb}
-                />
-                {errors.email && <span style={ERR}>{errors.email}</span>}
+          {/* ════════ STEP 3 — Education Details ════════ */}
+          {step === 3 && (
+            <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+              <h3 style={SECTION}>Study Preferences</h3>
+              <div className="af-row">
+                <div style={FW}>
+                  <label style={LABEL}>Select area of study <R /></label>
+                  <Sel name="areaOfStudy" value={form.areaOfStudy} onChange={v => set("areaOfStudy", v)} focused={focused} errors={errors} onFocus={fo} onBlur={fb}>
+                    <option value="">Please select</option>
+                    <option>Business & Administration</option>
+                    <option>Computer Science & A.I.</option>
+                    <option>Accounting and Finance</option>
+                    <option>Art & Design</option>
+                    <option>Media Management</option>
+                    <option>Media and Communication</option>
+                  </Sel>
+                </div>
+                <div style={FW}>
+                  <label style={LABEL}>Degree level <R /></label>
+                  <Sel name="degreeLevel" value={form.degreeLevel} onChange={v => set("degreeLevel", v)} focused={focused} errors={errors} onFocus={fo} onBlur={fb}>
+                    <option value="">Please select</option>
+                    <option>Bachelor&apos;s Degrees</option>
+                    <option>Master&apos;s Degrees</option>
+                    <option>Undergraduate Degrees</option>
+                  </Sel>
+                </div>
               </div>
-              <div style={FW}>
-                <label style={LABEL}>Phone number <R /></label>
-                <PhoneField
-                  form={form}
-                  focused={focused}
+            </div>
+          )}
+
+          {/* ════════ STEP 4 — Documentation ════════ */}
+          {step === 4 && (
+            <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+              <h3 style={SECTION}>Upload Documents</h3>
+              <div className="af-row">
+                <FileUploadField
+                  label="Upload passport or birth documentation"
+                  value={form.passportFile}
+                  inputRef={passportRef}
+                  fieldKey="passportFile"
                   errors={errors}
-                  onFocus={fo}
-                  onBlur={fb}
-                  onCountryChange={v => set("countryCode", v)}
-                  onPhoneChange={setPhone}
+                  onFileChange={(key, file) => set(key, file)}
+                  hint="Please upload a VERIFIED copy of your Passport or Birth Certificate. VERIFIED means the original document has been sighted & the copy dated and signed by an authorised person."
+                />
+                <FileUploadField
+                  label="Upload Curriculum Vitae (CV) or Resume"
+                  value={form.cvFile}
+                  inputRef={cvRef}
+                  fieldKey="cvFile"
+                  errors={errors}
+                  onFileChange={(key, file) => set(key, file)}
+                  hint="Upload your CV or Resume in PDF format."
                 />
               </div>
-            </div>
-
-            {/* Row 3 */}
-            <div style={ROW}>
-              <div style={FW}>
-                <label style={LABEL}>Date of birth <R /></label>
-                <input
-                  style={si("dateOfBirth")}
-                  type="date"
-                  value={form.dateOfBirth}
-                  onChange={e => set("dateOfBirth", e.target.value)}
-                  onFocus={fo("dateOfBirth")}
-                  onBlur={fb}
-                />
-                {errors.dateOfBirth && <span style={ERR}>{errors.dateOfBirth}</span>}
-              </div>
-              <div style={FW}>
-                <label style={LABEL}>Student type <R /></label>
-                <Sel name="studentType" value={form.studentType} onChange={v => set("studentType", v)} focused={focused} errors={errors} onFocus={fo} onBlur={fb}>
-                  <option value="">Please select</option>
-                  <option>UK Citizen</option>
-                  <option>EU Citizen</option>
-                  <option>International / Foreign Student</option>
-                  <option>U.S. Permanent Resident (Green Card Holder)</option>
-                  <option>International Student Transferring Within UK/EU</option>
-                </Sel>
-              </div>
-            </div>
-
-            {/* Row 4 — full width */}
-            <div style={FW}>
-              <label style={LABEL}>Address <R /></label>
-              <textarea
-                style={{
-                  ...si("address"),
-                  height: "120px",
-                  padding: "14px 16px",
-                  resize: "vertical" as const,
-                }}
-                placeholder="Enter your full address"
-                value={form.address}
-                onChange={e => set("address", e.target.value)}
-                onFocus={fo("address")}
-                onBlur={fb}
-              />
-              {errors.address && <span style={ERR}>{errors.address}</span>}
-            </div>
-
-          </div>
-        )}
-
-        {/* ════════ STEP 2 — Education Records ════════ */}
-        {step === 2 && (
-          <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-            <h3 style={SECTION}>Academic Background</h3>
-            <div style={ROW}>
-              <div style={FW}>
-                <label style={LABEL}>School <R /></label>
-                <input style={si("school")} type="text" placeholder="Name of school or college"
-                  value={form.school} onChange={e => set("school", e.target.value)}
-                  onFocus={fo("school")} onBlur={fb} />
-                {errors.school && <span style={ERR}>{errors.school}</span>}
-              </div>
-              <div style={FW}>
-                <label style={LABEL}>Year of completion <R /></label>
-                <input style={si("yearOfCompletion")} type="text" placeholder="e.g. 2022"
-                  value={form.yearOfCompletion}
-                  onChange={e => set("yearOfCompletion", e.target.value.replace(/\D/g, ""))}
-                  onFocus={fo("yearOfCompletion")} onBlur={fb} />
-                {errors.yearOfCompletion && <span style={ERR}>{errors.yearOfCompletion}</span>}
-              </div>
-            </div>
-            <div style={ROW}>
-              <div style={FW}>
-                <label style={LABEL}>Highest qualification <R /></label>
-                <input style={si("highestQualification")} type="text"
-                  placeholder="Highest qualification achieved or currently completing?"
-                  value={form.highestQualification}
-                  onChange={e => set("highestQualification", e.target.value)}
-                  onFocus={fo("highestQualification")} onBlur={fb} />
-                {errors.highestQualification && <span style={ERR}>{errors.highestQualification}</span>}
-              </div>
-              <div style={FW}>
-                <label style={LABEL}>Current status <R /></label>
-                <Sel name="currentStatus" value={form.currentStatus} onChange={v => set("currentStatus", v)} focused={focused} errors={errors} onFocus={fo} onBlur={fb}>
-                  <option value="">Please select</option>
-                  <option>Studying</option>
-                  <option>Working</option>
+              {/* af-half becomes full-width on mobile via CSS */}
+              <div className="af-half">
+                <label style={LABEL}>How did you find us? <R /></label>
+                <Sel name="howDidYouFindUs" value={form.howDidYouFindUs} onChange={v => set("howDidYouFindUs", v)} focused={focused} errors={errors} onFocus={fo} onBlur={fb}>
+                  <option value="">- Select -</option>
+                  <option>Google</option>
+                  <option>Facebook</option>
+                  <option>Instagram</option>
+                  <option>Friends / Family</option>
                   <option>Other</option>
                 </Sel>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* ════════ STEP 3 — Education Details ════════ */}
-        {step === 3 && (
-          <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-            <h3 style={SECTION}>Study Preferences</h3>
-            <div style={ROW}>
-              <div style={FW}>
-                <label style={LABEL}>Select area of study <R /></label>
-                <Sel name="areaOfStudy" value={form.areaOfStudy} onChange={v => set("areaOfStudy", v)} focused={focused} errors={errors} onFocus={fo} onBlur={fb}>
-                  <option value="">Please select</option>
-                  <option>Business & Administration</option>
-                  <option>Computer Science & A.I.</option>
-                  <option>Accounting and Finance</option>
-                  <option>Art & Design</option>
-                  <option>Media Management</option>
-                  <option>Media and Communication</option>
-                </Sel>
-              </div>
-              <div style={FW}>
-                <label style={LABEL}>Degree level <R /></label>
-                <Sel name="degreeLevel" value={form.degreeLevel} onChange={v => set("degreeLevel", v)} focused={focused} errors={errors} onFocus={fo} onBlur={fb}>
-                  <option value="">Please select</option>
-                  <option>Bachelor&apos;s Degrees</option>
-                  <option>Master&apos;s Degrees</option>
-                  <option>Undergraduate Degrees</option>
-                </Sel>
-              </div>
-            </div>
-          </div>
-        )}
+          {/* ════════ STEP 5 — Declaration ════════ */}
+          {step === 5 && (
+            <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+              <h3 style={SECTION}>Review & Submit</h3>
 
-        {/* ════════ STEP 4 — Documentation ════════ */}
-        {step === 4 && (
-          <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-            <h3 style={SECTION}>Upload Documents</h3>
-            <div style={ROW}>
-              <FileUploadField
-                label="Upload passport or birth documentation"
-                value={form.passportFile}
-                inputRef={passportRef}
-                fieldKey="passportFile"
-                errors={errors}
-                onFileChange={(key, file) => set(key, file)}
-                hint="Please upload a VERIFIED copy of your Passport or Birth Certificate. VERIFIED means the original document has been sighted & the copy dated and signed by an authorised person."
-              />
-              <FileUploadField
-                label="Upload Curriculum Vitae (CV) or Resume"
-                value={form.cvFile}
-                inputRef={cvRef}
-                fieldKey="cvFile"
-                errors={errors}
-                onFileChange={(key, file) => set(key, file)}
-                hint="Upload your CV or Resume in PDF format."
-              />
-            </div>
-            <div style={{ maxWidth: "calc(50% - 12px)" }}>
-              <label style={LABEL}>How did you find us? <R /></label>
-              <Sel name="howDidYouFindUs" value={form.howDidYouFindUs} onChange={v => set("howDidYouFindUs", v)} focused={focused} errors={errors} onFocus={fo} onBlur={fb}>
-                <option value="">- Select -</option>
-                <option>Google</option>
-                <option>Facebook</option>
-                <option>Instagram</option>
-                <option>Friends / Family</option>
-                <option>Other</option>
-              </Sel>
-            </div>
-          </div>
-        )}
-
-        {/* ════════ STEP 5 — Declaration ════════ */}
-        {step === 5 && (
-          <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-            <h3 style={SECTION}>Review & Submit</h3>
-
-            {/* Application summary */}
-            <div style={{
-              backgroundColor: "#f8fafc",
-              border: "1px solid #e5e7eb",
-              borderRadius: "6px",
-              padding: "20px 24px",
-            }}>
-              <p style={{
-                fontFamily: "'Work Sans',sans-serif", fontSize: "11px",
-                fontWeight: "700", color: "#149AB5",
-                letterSpacing: "3px", textTransform: "uppercase", marginBottom: "14px",
+              {/* Application summary */}
+              <div style={{
+                backgroundColor: "#f8fafc",
+                border: "1px solid #e5e7eb",
+                borderRadius: "6px",
+                padding: "20px 24px",
               }}>
-                Application Summary
-              </p>
-              {[
-                { l: "Name",          v: `${form.firstName} ${form.lastName}` },
-                { l: "Email",         v: form.email },
-                { l: "Student Type",  v: form.studentType },
-                { l: "Area of Study", v: form.areaOfStudy },
-                { l: "Degree Level",  v: form.degreeLevel },
-              ].map(i => (
-                <div key={i.l} style={{ display: "flex", gap: "12px", marginBottom: "8px" }}>
-                  <span style={{ fontFamily: "'Inter',sans-serif", fontSize: "13px", color: "#6b7280", minWidth: "110px" }}>{i.l}:</span>
-                  <span style={{ fontFamily: "'Inter',sans-serif", fontSize: "13px", color: "#292929", fontWeight: "500" }}>{i.v || "—"}</span>
-                </div>
-              ))}
-            </div>
+                <p style={{
+                  fontFamily: "'Work Sans',sans-serif", fontSize: "11px",
+                  fontWeight: "700", color: "#149AB5",
+                  letterSpacing: "3px", textTransform: "uppercase", marginBottom: "14px",
+                }}>
+                  Application Summary
+                </p>
+                {[
+                  { l: "Name",          v: `${form.firstName} ${form.lastName}` },
+                  { l: "Email",         v: form.email },
+                  { l: "Student Type",  v: form.studentType },
+                  { l: "Area of Study", v: form.areaOfStudy },
+                  { l: "Degree Level",  v: form.degreeLevel },
+                ].map(i => (
+                  <div key={i.l} style={{ display: "flex", gap: "12px", marginBottom: "8px", flexWrap: "wrap" }}>
+                    <span style={{ fontFamily: "'Inter',sans-serif", fontSize: "13px", color: "#6b7280", minWidth: "110px" }}>{i.l}:</span>
+                    <span style={{ fontFamily: "'Inter',sans-serif", fontSize: "13px", color: "#292929", fontWeight: "500" }}>{i.v || "—"}</span>
+                  </div>
+                ))}
+              </div>
 
-            <div style={FW}>
-              <label style={LABEL}>Application full name <R /></label>
-              <input
-                style={si("fullName")}
-                type="text"
-                placeholder="Enter your full legal name"
-                value={form.fullName}
-                onChange={setName("fullName")}
-                onFocus={fo("fullName")}
-                onBlur={fb}
-              />
-              {errors.fullName && <span style={ERR}>{errors.fullName}</span>}
-            </div>
+              <div style={FW}>
+                <label style={LABEL}>Application full name <R /></label>
+                <input
+                  style={si("fullName")}
+                  type="text"
+                  placeholder="Enter your full legal name"
+                  value={form.fullName}
+                  onChange={setName("fullName")}
+                  onFocus={fo("fullName")}
+                  onBlur={fb}
+                />
+                {errors.fullName && <span style={ERR}>{errors.fullName}</span>}
+              </div>
 
-            <div style={FW}>
-              <label style={LABEL}>Additional information</label>
-              <textarea
-                style={{
-                  ...si("additionalInfo"),
-                  height: "120px",
-                  padding: "14px 16px",
-                  resize: "vertical" as const,
-                }}
-                placeholder="Any additional information..."
-                value={form.additionalInfo}
-                onChange={e => set("additionalInfo", e.target.value)}
-                onFocus={fo("additionalInfo")}
-                onBlur={fb}
-              />
-            </div>
+              <div style={FW}>
+                <label style={LABEL}>Additional information</label>
+                <textarea
+                  style={{
+                    ...si("additionalInfo"),
+                    height: "120px",
+                    padding: "14px 16px",
+                    resize: "vertical" as const,
+                  }}
+                  placeholder="Any additional information..."
+                  value={form.additionalInfo}
+                  onChange={e => set("additionalInfo", e.target.value)}
+                  onFocus={fo("additionalInfo")}
+                  onBlur={fb}
+                />
+              </div>
 
-            <div style={{
-              backgroundColor: "#f8fafc",
-              border: "1px solid #e5e7eb",
-              borderRadius: "6px",
-              padding: "20px 24px",
-            }}>
+              <div style={{
+                backgroundColor: "#f8fafc",
+                border: "1px solid #e5e7eb",
+                borderRadius: "6px",
+                padding: "20px 24px",
+              }}>
+                <p style={{
+                  fontFamily: "'Inter',sans-serif", fontSize: "14px",
+                  fontWeight: "500", color: "#292929", marginBottom: "12px",
+                }}>
+                  Privacy Policy Acceptance <R />
+                </p>
+                <label style={{ display: "flex", alignItems: "flex-start", gap: "10px", cursor: "pointer" }}>
+                  <input
+                    type="checkbox"
+                    checked={form.privacyAccepted}
+                    onChange={e => set("privacyAccepted", e.target.checked)}
+                    style={{
+                      width: "16px", height: "16px", marginTop: "2px",
+                      accentColor: "#149AB5", cursor: "pointer", flexShrink: 0,
+                    }}
+                  />
+                  <span style={{ fontFamily: "'Inter',sans-serif", fontSize: "14px", color: "#545454", lineHeight: "1.6em" }}>
+                    By submitting this form, you agree to Prime Leed privacy notice.
+                  </span>
+                </label>
+                {errors.privacyAccepted && (
+                  <span style={{ ...ERR, marginTop: "8px" }}>{errors.privacyAccepted}</span>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* ── Navigation buttons ── */}
+          <div className="af-nav">
+            {step > 1 && (
+              <button
+                onClick={prev}
+                style={{ ...BTN, backgroundColor: "#6b7280" }}
+                onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#4b5563")}
+                onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#6b7280")}
+              >
+                Previous
+              </button>
+            )}
+            {step < 5 ? (
+              <button
+                onClick={next}
+                style={BTN}
+                onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#1a1a1a")}
+                onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#292929")}
+              >
+                Next
+              </button>
+            ) : (
+              <button
+                onClick={submit}
+                style={{ ...BTN, backgroundColor: "#149AB5" }}
+                onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#117a8f")}
+                onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#149AB5")}
+              >
+                Submit Application
+                <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
+                  <path d="M1 7H17M11 1L17 7L11 13" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+            )}
+          </div>
+
+        </div>
+
+        {/* ── Success Modal ── */}
+        {submitted && (
+          <div style={{
+            position: "fixed", inset: 0,
+            backgroundColor: "rgba(0,0,0,0.55)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            zIndex: 1000, padding: "20px",
+          }}>
+            <div className="af-modal-box">
+              <div style={{
+                width: "68px", height: "68px", borderRadius: "50%",
+                backgroundColor: "#f0fdf4", border: "2px solid #22c55e",
+                margin: "0 auto 24px",
+                display: "flex", alignItems: "center", justifyContent: "center",
+              }}>
+                <svg width="28" height="22" viewBox="0 0 28 22" fill="none">
+                  <path d="M2 11L10 19L26 2" stroke="#22c55e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+
+              <h2 style={{
+                fontFamily: "'Work Sans',sans-serif", fontSize: "24px",
+                fontWeight: "800", color: "#292929", marginBottom: "12px",
+              }}>
+                Application Submitted!
+              </h2>
+
               <p style={{
                 fontFamily: "'Inter',sans-serif", fontSize: "14px",
-                fontWeight: "500", color: "#292929", marginBottom: "12px",
+                color: "#545454", lineHeight: "1.7em", marginBottom: "28px",
               }}>
-                Privacy Policy Acceptance <R />
+                Thank you, <strong>{form.firstName} {form.lastName}</strong>.<br />
+                Our admissions team will get back to you within <strong>2 working days</strong>.
               </p>
-              <label style={{ display: "flex", alignItems: "flex-start", gap: "10px", cursor: "pointer" }}>
-                <input
-                  type="checkbox"
-                  checked={form.privacyAccepted}
-                  onChange={e => set("privacyAccepted", e.target.checked)}
-                  style={{
-                    width: "16px", height: "16px", marginTop: "2px",
-                    accentColor: "#149AB5", cursor: "pointer", flexShrink: 0,
-                  }}
-                />
-                <span style={{ fontFamily: "'Inter',sans-serif", fontSize: "14px", color: "#545454", lineHeight: "1.6em" }}>
-                  By submitting this form, you agree to Prime Leed privacy notice.
-                </span>
-              </label>
-              {errors.privacyAccepted && (
-                <span style={{ ...ERR, marginTop: "8px" }}>{errors.privacyAccepted}</span>
-              )}
+
+              <div style={{
+                backgroundColor: "#f8fafc", padding: "14px 20px",
+                marginBottom: "28px", borderRadius: "4px",
+              }}>
+                <p style={{
+                  fontSize: "11px", color: "#6b7280",
+                  fontFamily: "'Inter',sans-serif",
+                  marginBottom: "4px", letterSpacing: "1px", textTransform: "uppercase",
+                }}>
+                  Reference Number
+                </p>
+                <p style={{
+                  fontFamily: "'Work Sans',sans-serif",
+                  fontSize: "18px", fontWeight: "700", color: "#149AB5",
+                }}>
+                  {refNum}
+                </p>
+              </div>
+
+              <button
+                onClick={() => { setSubmitted(false); setStep(1); setRefNum(""); }}
+                style={{ ...BTN, width: "100%", justifyContent: "center" }}
+              >
+                Close
+              </button>
             </div>
           </div>
         )}
-
-        {/* ── Navigation buttons ── */}
-        <div style={{
-          display: "flex", gap: "12px", marginTop: "40px",
-          paddingTop: "24px", borderTop: "1px solid #f3f4f6",
-        }}>
-          {step > 1 && (
-            <button
-              onClick={prev}
-              style={{ ...BTN, backgroundColor: "#6b7280" }}
-              onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#4b5563")}
-              onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#6b7280")}
-            >
-              Previous
-            </button>
-          )}
-          {step < 5 ? (
-            <button
-              onClick={next}
-              style={BTN}
-              onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#1a1a1a")}
-              onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#292929")}
-            >
-              Next
-            </button>
-          ) : (
-            <button
-              onClick={submit}
-              style={{ ...BTN, backgroundColor: "#149AB5" }}
-              onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#117a8f")}
-              onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#149AB5")}
-            >
-              Submit Application
-              <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
-                <path d="M1 7H17M11 1L17 7L11 13" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
-          )}
-        </div>
-
-      </div>
-
-      {/* ── Success Modal ── */}
-      {submitted && (
-        <div style={{
-          position: "fixed", inset: 0,
-          backgroundColor: "rgba(0,0,0,0.55)",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          zIndex: 1000, padding: "20px",
-        }}>
-          <div style={{
-            backgroundColor: "#fff",
-            padding: "56px 48px",
-            maxWidth: "460px", width: "100%",
-            textAlign: "center",
-            borderTop: "4px solid #149AB5",
-            borderRadius: "8px",
-            boxShadow: "0 24px 80px rgba(0,0,0,0.2)",
-          }}>
-            <div style={{
-              width: "68px", height: "68px", borderRadius: "50%",
-              backgroundColor: "#f0fdf4", border: "2px solid #22c55e",
-              margin: "0 auto 24px",
-              display: "flex", alignItems: "center", justifyContent: "center",
-            }}>
-              <svg width="28" height="22" viewBox="0 0 28 22" fill="none">
-                <path d="M2 11L10 19L26 2" stroke="#22c55e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
-
-            <h2 style={{
-              fontFamily: "'Work Sans',sans-serif", fontSize: "24px",
-              fontWeight: "800", color: "#292929", marginBottom: "12px",
-            }}>
-              Application Submitted!
-            </h2>
-
-            <p style={{
-              fontFamily: "'Inter',sans-serif", fontSize: "14px",
-              color: "#545454", lineHeight: "1.7em", marginBottom: "28px",
-            }}>
-              Thank you, <strong>{form.firstName} {form.lastName}</strong>.<br />
-              Our admissions team will get back to you within <strong>2 working days</strong>.
-            </p>
-
-            <div style={{
-              backgroundColor: "#f8fafc", padding: "14px 20px",
-              marginBottom: "28px", borderRadius: "4px",
-            }}>
-              <p style={{
-                fontSize: "11px", color: "#6b7280",
-                fontFamily: "'Inter',sans-serif",
-                marginBottom: "4px", letterSpacing: "1px", textTransform: "uppercase",
-              }}>
-                Reference Number
-              </p>
-              <p style={{
-                fontFamily: "'Work Sans',sans-serif",
-                fontSize: "18px", fontWeight: "700", color: "#149AB5",
-              }}>
-                {refNum}
-              </p>
-            </div>
-
-            <button
-              onClick={() => { setSubmitted(false); setStep(1); setRefNum(""); }}
-              style={{ ...BTN, width: "100%", justifyContent: "center" }}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
-    </section>
+      </section>
+    </>
   );
 }

@@ -1,9 +1,9 @@
 // app/admission/how-to-apply/page.tsx
 // Accessible at /admission/how-to-apply from the Navbar dropdown.
 
-import FormOverlap from "@/components/FormOverlap";
+
 import HowToApplyContent from "@/components/admission/how-to-apply/HowToApplyContent";
-import CallToAction from "@/components/CallToAction";
+
 import PageHero from "@/components/admission/how-to-apply/htaHero";
 import AdmissionFormBanner from "@/components/about/AdmissionFormbanner";
 
