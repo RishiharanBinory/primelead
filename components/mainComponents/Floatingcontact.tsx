@@ -23,7 +23,12 @@
 "use client";
 
 import { useState } from "react";
-import { FaWhatsapp, FaFacebookMessenger, FaTimes, FaCommentDots } from "react-icons/fa";
+import {
+  FaWhatsapp,
+  FaFacebookMessenger,
+  FaTimes,
+  FaCommentDots,
+} from "react-icons/fa";
 
 interface FloatingContactProps {
   whatsappNumber?: string;
@@ -59,7 +64,7 @@ export default function FloatingContact({
 
   return (
     <div
-      className="fixed bottom-6 left-6 z-50 flex flex-col-reverse items-center gap-3"
+      className="fixed bottom-6 right-6 z-50 flex flex-col-reverse items-center gap-3"
       role="region"
       aria-label="Contact options"
     >
@@ -72,8 +77,7 @@ export default function FloatingContact({
           relative w-14 h-14 rounded-full
           flex items-center justify-center
           shadow-lg shadow-black/25
-          transition-all duration-300 ease-out
-          focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-950
+          transition-all duration-300 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-950
           active:scale-95
         "
         style={{ backgroundColor: "#0084FF" }}
@@ -90,7 +94,9 @@ export default function FloatingContact({
         <span
           className="transition-all duration-300"
           style={{
-            transform: isOpen ? "rotate(90deg) scale(1.1)" : "rotate(0deg) scale(1)",
+            transform: isOpen
+              ? "rotate(90deg) scale(1.1)"
+              : "rotate(0deg) scale(1)",
           }}
         >
           {isOpen ? (
@@ -124,30 +130,31 @@ export default function FloatingContact({
               transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)",
               transitionDelay: isOpen ? `${index * 60}ms` : "0ms",
               opacity: isOpen ? 1 : 0,
-              transform: isOpen ? "translateY(0) scale(1)" : "translateY(16px) scale(0.7)",
+              transform: isOpen
+                ? "translateY(0) scale(1)"
+                : "translateY(16px) scale(0.7)",
               pointerEvents: isOpen ? "auto" : "none",
             }}
           >
             {/* Tooltip label */}
+
             <span
               className="
-                absolute right-full mr-3
-                px-3 py-1.5 rounded-md
-                text-white text-xs font-semibold whitespace-nowrap
-                shadow-md
-                pointer-events-none
-              "
-              style={{ backgroundColor: item.bg }}
-              aria-hidden="true"
+    absolute left-full ml-3
+    px-3 py-1.5 rounded-md
+    text-white text-xs font-semibold whitespace-nowrap
+    shadow-md
+    pointer-events-none
+  "
             >
               {item.label}
-              {/* Tooltip arrow */}
+              {/* Tooltip arrow — flip from borderLeft to borderRight */}
               <span
-                className="absolute top-1/2 -right-1.5 -translate-y-1/2 w-0 h-0"
+                className="absolute top-1/2 -left-1.5 -translate-y-1/2 w-0 h-0"
                 style={{
                   borderTop: "5px solid transparent",
                   borderBottom: "5px solid transparent",
-                  borderLeft: `6px solid ${item.bg}`,
+                  borderRight: `6px solid ${item.bg}`, // was borderLeft
                 }}
               />
             </span>
@@ -163,8 +170,7 @@ export default function FloatingContact({
                 flex items-center justify-center
                 shadow-lg shadow-black/20
                 transition-transform duration-150
-                hover:scale-110 active:scale-95
-                focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+                hover:scale-110 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2
               "
               style={{
                 backgroundColor: item.bg,
@@ -172,10 +178,12 @@ export default function FloatingContact({
                 // @ts-ignore — inline CSS hover workaround via group
               }}
               onMouseEnter={(e) =>
-                ((e.currentTarget as HTMLElement).style.backgroundColor = item.hoverBg)
+                ((e.currentTarget as HTMLElement).style.backgroundColor =
+                  item.hoverBg)
               }
               onMouseLeave={(e) =>
-                ((e.currentTarget as HTMLElement).style.backgroundColor = item.bg)
+                ((e.currentTarget as HTMLElement).style.backgroundColor =
+                  item.bg)
               }
             >
               <Icon size={26} color="#fff" />
