@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 
+const FONT = { fontFamily: "'Google Sans Flex', 'Google Sans', sans-serif" };
+
 type DropdownItem = { label: string; href: string };
 type NavItem = { label: string; href: string; children?: DropdownItem[] };
 
@@ -75,7 +77,7 @@ function ChevronIcon({ open }: { open: boolean }) {
       viewBox="0 0 10 6"
       fill="none"
       aria-hidden="true"
-      className="ml-1 shrink-0 transition-transform duration-200"
+      className="ml-1.5 shrink-0 transition-transform duration-200"
       style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
     >
       <path
@@ -89,7 +91,6 @@ function ChevronIcon({ open }: { open: boolean }) {
   );
 }
 
-// ── KEY CHANGE: Dropdown now receives pathname and highlights the active child ──
 function Dropdown({
   items,
   open,
@@ -105,20 +106,26 @@ function Dropdown({
     <ul
       role="menu"
       aria-hidden={!open}
-      className={`absolute top-full left-0 min-w-50 bg-white
-                  border border-[#e6eaed] border-t-[3px] border-t-[#F5C400]
-                  shadow-lg list-none m-0 py-1 z-200
-                  transition-all duration-150
-                  ${
-                    open
-                      ? "opacity-100 visible translate-y-0 pointer-events-auto"
-                      : "opacity-0 invisible -translate-y-2 pointer-events-none"
-                  }`}
+      className="absolute list-none m-0 p-0 z-[200]"
+      style={{
+        top: "calc(100% + 10px)",
+        left: "50%",
+        transform: "translateX(-50%)",
+        minWidth: "210px",
+        background: "#ffffff",
+        border: "1px solid #e8edf2",
+        borderRadius: "14px",
+        boxShadow: "0 8px 40px rgba(20, 60, 100, 0.10)",
+        padding: "6px",
+        opacity: open ? 1 : 0,
+        visibility: open ? "visible" : "hidden",
+        pointerEvents: open ? "auto" : "none",
+        transition: "opacity 0.18s ease",
+        ...FONT,
+      }}
     >
       {items.map((item) => {
-        // Exact match for child pages — prevents /academics matching /academics/overview
         const isActiveChild = pathname === item.href;
-
         return (
           <li key={item.href} role="none">
             <Link
@@ -126,33 +133,31 @@ function Dropdown({
               role="menuitem"
               tabIndex={open ? 0 : -1}
               onClick={onClose}
-              className="block px-5 py-3 text-[14px] font-semibold
-                         border-b border-[#f3f5f7] last:border-0
-                         transition-all duration-100"
+              className="flex items-center gap-2 px-4 py-3 rounded-lg transition-all duration-150"
               style={{
-                // Active child → #149AB5 bg + white text
-                // Inactive → normal styling with hover
-                backgroundColor: isActiveChild ? "#149AB5" : "transparent",
-                color: isActiveChild ? "#ffffff" : "#2c3e50",
-                paddingLeft: isActiveChild ? "20px" : undefined,
+                fontSize: "15px",
+                fontWeight: 500,
+                backgroundColor: isActiveChild ? "#1a8fa8" : "transparent",
+                color: isActiveChild ? "#ffffff" : "#374151",
+                ...FONT,
               }}
               onMouseEnter={(e) => {
                 if (!isActiveChild) {
-                  (e.currentTarget as HTMLElement).style.backgroundColor =
-                    "#FFFBEC";
-                  (e.currentTarget as HTMLElement).style.paddingLeft = "24px";
+                  (e.currentTarget as HTMLElement).style.backgroundColor = "#f0f8fb";
+                  (e.currentTarget as HTMLElement).style.color = "#1a8fa8";
                 }
               }}
               onMouseLeave={(e) => {
                 if (!isActiveChild) {
-                  (e.currentTarget as HTMLElement).style.backgroundColor =
-                    "transparent";
-                  (e.currentTarget as HTMLElement).style.paddingLeft = "";
+                  (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
+                  (e.currentTarget as HTMLElement).style.color = "#374151";
                 }
               }}
             >
-              {/* Active child gets a small indicator dot */}
-              <span className="flex items-center gap-2">{item.label}</span>
+              {isActiveChild && (
+                <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0" />
+              )}
+              {item.label}
             </Link>
           </li>
         );
@@ -164,143 +169,95 @@ function Dropdown({
 function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
     <div
-      className="absolute top-full left-0 right-0 z-100 bg-white shadow-xl transition-all duration-300 ease-in-out"
+      className="absolute top-full left-0 right-0 z-[100] bg-white transition-all duration-300 ease-in-out"
       style={{
         maxHeight: open ? "900px" : "0px",
         opacity: open ? 1 : 0,
         overflow: "hidden",
         pointerEvents: open ? "auto" : "none",
+        borderTop: "1px solid #e8edf2",
+        boxShadow: "0 20px 60px rgba(20, 60, 100, 0.10)",
+        ...FONT,
       }}
     >
       <div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_1fr_1fr_1.1fr] gap-0"
         style={{ minHeight: "500px" }}
       >
-        <div className="pl-25 pr-25 pt-14 h-full">
-          <h3 className="font-black text-[#1a2e3b] text-[26px] mb-13">
-            Giving
-          </h3>
-          <p className="text-[18px] text-[#4b5563] leading-relaxed mb-6">
+        <div className="pl-16 pr-10 pt-14 h-full">
+          <h3 className="font-black text-[#0f1f2e] text-[24px] mb-5">Giving</h3>
+          <p style={{ fontSize: "15px", color: "#6b7280", lineHeight: "1.7", marginBottom: "24px" }}>
             All donations to the Student Emergency Fund will directly support
             our students as they adapt to changing circumstances.
           </p>
-          <Link
-            href="/giving"
-            onClick={onClose}
-            className="inline-flex items-center gap-2 text-[#2ab4c0] font-semibold text-[16px] hover:text-[#F5C400] transition-opacity"
-          >
+          <Link href="/giving" onClick={onClose} style={{ color: "#1a8fa8", fontWeight: 600, fontSize: "15px" }}
+            className="inline-flex items-center gap-2 hover:text-[#0f6e82] transition-colors">
             Visit Page →
           </Link>
         </div>
-
-        <div className="pl-25 pr-25 pt-14 h-full">
-          <h3 className="font-black text-[#1a2e3b] text-[26px] mb-13">Blog</h3>
+        <div className="pl-10 pr-10 pt-14 h-full">
+          <h3 className="font-black text-[#0f1f2e] text-[24px] mb-5">Blog</h3>
           <div className="flex flex-col gap-6">
             {BLOG_POSTS.map((post, i) => (
               <div key={i}>
-                <Link
-                  href={post.href}
-                  onClick={onClose}
-                  className="block text-[18px] font-semibold text-[#1a2e3b] hover:text-[#2ab4c0] transition-colors mb-1 leading-snug"
-                >
+                <Link href={post.href} onClick={onClose}
+                  style={{ fontSize: "15px", fontWeight: 600, color: "#0f1f2e", display: "block", marginBottom: "4px", lineHeight: "1.4" }}
+                  className="hover:text-[#1a8fa8] transition-colors">
                   {post.title}
                 </Link>
-                <p className="text-[14px] text-[#9ca3af]">{post.date}</p>
-                {i < BLOG_POSTS.length - 1 && (
-                  <div className="border-b border-[#f0f3f5] mt-10" />
-                )}
+                <p style={{ fontSize: "13px", color: "#9ca3af" }}>{post.date}</p>
+                {i < BLOG_POSTS.length - 1 && <div className="border-b border-[#f0f3f5] mt-6" />}
               </div>
             ))}
           </div>
-          <Link
-            href="/blog"
-            onClick={onClose}
-            className="inline-flex items-center gap-2 text-[#2ab4c0] font-semibold text-[16px] hover:text-[#F5C400] transition-opacity mt-8"
-          >
+          <Link href="/blog" onClick={onClose} style={{ color: "#1a8fa8", fontWeight: 600, fontSize: "15px" }}
+            className="inline-flex items-center gap-2 hover:text-[#0f6e82] transition-colors mt-8">
             View Blog →
           </Link>
         </div>
-
-        <div className="pl-25 pr-25 pt-14 h-full">
-          <h3 className="font-black mb-6 text-[#1a2e3b] text-[26px]">
-            Directory
-          </h3>
+        <div className="pl-10 pr-10 pt-14 h-full">
+          <h3 className="font-black text-[#0f1f2e] text-[24px] mb-5">Directory</h3>
           <div className="flex flex-col mt-2">
             {DIRECTORY_LINKS.map((link, i) => (
               <div key={i}>
-                <Link
-                  href={link.href}
-                  onClick={onClose}
-                  className="block py-6 text-[16px] font-semibold text-[#1a2e3b] hover:text-[#2ab4c0] transition-colors"
-                >
+                <Link href={link.href} onClick={onClose}
+                  style={{ fontSize: "15px", fontWeight: 600, color: "#0f1f2e", display: "block", padding: "16px 0" }}
+                  className="hover:text-[#1a8fa8] transition-colors">
                   {link.label}
                 </Link>
-                {i < DIRECTORY_LINKS.length - 1 && (
-                  <div className="border-b border-[#f0f3f5]" />
-                )}
+                {i < DIRECTORY_LINKS.length - 1 && <div className="border-b border-[#f0f3f5]" />}
               </div>
             ))}
           </div>
         </div>
-
-        <div
-          className="relative overflow-hidden"
-          style={{ backgroundColor: "rgb(170, 212, 236)", minHeight: "500px" }}
-        >
-          <div className="p-10 pr-0 relative z-10" style={{ maxWidth: "50%" }}>
-            <h3 className="font-black mb-4 text-[#1a2e3b] text-[26px]">
-              Alumni
-            </h3>
-            <div
-              className="text-[#1a2e3b] font-black mb-3"
-              style={{ fontSize: "40px", lineHeight: 1 }}
-            >
-              ❝
-            </div>
-            <p className="text-[16px] font-bold text-[#1a2e3b] leading-snug mb-4">
-              Everything that I learned at Prime Leed really helped put me above
-              the competition in the field of business management.
+        <div className="relative overflow-hidden" style={{ backgroundColor: "#c8e8f0", minHeight: "500px" }}>
+          <div className="p-10 pr-0 relative z-10" style={{ maxWidth: "55%" }}>
+            <h3 className="font-black mb-4 text-[#0f1f2e] text-[24px]">Alumni</h3>
+            <div className="text-[#0f1f2e] font-black mb-3" style={{ fontSize: "36px", lineHeight: 1 }}>❝</div>
+            <p style={{ fontSize: "14px", fontWeight: 700, color: "#0f1f2e", lineHeight: "1.5", marginBottom: "16px" }}>
+              Everything that I learned at Prime Leed really helped put me above the competition in the field of business management.
             </p>
-            <p className="text-[17px] font-semibold text-[#1a2e3b] mb-0.5">
-              Alyssa Watson
-            </p>
-            <p className="text-[16px] text-[#4b5563] mb-6">
-              BA Business Management
-            </p>
-            <Link
-              href="/alumni"
-              onClick={onClose}
-              className="inline-flex items-center gap-2 text-[#2ab4c0] font-semibold text-[18px] hover:opacity-70 transition-opacity"
-            >
+            <p style={{ fontSize: "15px", fontWeight: 600, color: "#0f1f2e", marginBottom: "2px" }}>Alyssa Watson</p>
+            <p style={{ fontSize: "13px", color: "#4b5563", marginBottom: "24px" }}>BA Business Management</p>
+            <Link href="/alumni" onClick={onClose} style={{ color: "#1a8fa8", fontWeight: 600, fontSize: "15px" }}
+              className="inline-flex items-center gap-2 hover:opacity-70 transition-opacity">
               Our Alumni →
             </Link>
           </div>
-          <div
-            className="absolute top-0 right-0 bottom-0"
-            style={{ width: "42%" }}
-          >
-            <Image
-              src="/alumini.png"
-              alt="Alumni student"
-              fill
-              className="object-cover object-top"
-            />
+          <div className="absolute top-0 right-0 bottom-0" style={{ width: "42%" }}>
+            <Image src="/alumini.png" alt="Alumni student" fill className="object-cover object-top" />
           </div>
         </div>
       </div>
-
-      <div className="bg-[#fefefe] border-t border-[#dde0e4] py-12 px-0">
-        <div
-          className="grid grid-cols-3 gap-0 mx-auto pl-10px pr-10px"
-          style={{ maxWidth: "1100px" }}
-        >
+      <div className="border-t border-[#e8edf2] py-8 px-0" style={{ backgroundColor: "#fafbfc" }}>
+        <div className="grid grid-cols-3 gap-0 mx-auto" style={{ maxWidth: "900px" }}>
           {CTA_BUTTONS.map((btn) => (
             <Link
               key={btn.href}
               href={btn.href}
               onClick={onClose}
-              className="flex items-center justify-center bg-[#1a2e3b] text-white text-[19px] font-bold hover:bg-[#2ab4c0] transition-colors duration-200 mx-2"
-              style={{ height: "60px", width: "300px" }}
+              className="flex items-center justify-center text-white hover:opacity-90 transition-opacity duration-200 mx-2 rounded-xl"
+              style={{ height: "52px", backgroundColor: "#0f1f2e", fontSize: "15px", fontWeight: 700, ...FONT }}
             >
               {btn.label}
             </Link>
@@ -318,11 +275,13 @@ export default function Navbar() {
   const [megaOpen, setMegaOpen] = useState(false);
   const [mobileAccordion, setMobileAccordion] = useState<string | null>(null);
   const [navVisible, setNavVisible] = useState(true);
+  const [scrolled, setScrolled] = useState(false);
   const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentY = window.scrollY;
+      setScrolled(currentY > 10);
       if (currentY <= 0) {
         setNavVisible(true);
         lastScrollY.current = 0;
@@ -342,9 +301,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const leaveTimer = useRef<ReturnType<typeof setTimeout> | undefined>(
-    undefined,
-  );
+  const leaveTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -382,60 +339,65 @@ export default function Navbar() {
     setMegaOpen(false);
     setMobileOpen(false);
   }, []);
+
   const enter = useCallback((label: string) => {
     clearTimeout(leaveTimer.current);
     setOpenItem(label);
   }, []);
+
   const leave = useCallback(() => {
     leaveTimer.current = setTimeout(() => setOpenItem(null), 140);
   }, []);
 
-  const isActive = (item: NavItem) =>
-    item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+  // ✅ FIXED: Parent items with children only highlight on exact match
+  const isActive = (item: NavItem) => {
+    if (item.href === "/") return pathname === "/";
+    if (item.children) return pathname === item.href;
+    return pathname.startsWith(item.href);
+  };
 
   return (
     <header
       ref={navRef}
-      className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#e6eaed] font-sans"
+      className="fixed top-0 left-0 right-0 z-50 bg-white"
       style={{
+        borderBottom: scrolled ? "1px solid #e8edf2" : "1px solid #f0f4f7",
+        boxShadow: scrolled ? "0 1px 20px rgba(20, 60, 100, 0.07)" : "none",
         transform: navVisible ? "translateY(0)" : "translateY(-100%)",
-        transition: "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+        transition: "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease",
+        ...FONT,
       }}
     >
       {/* ── Desktop bar ── */}
       <div
-        className="hidden lg:flex items-center justify-between w-full px-10 relative"
-        style={{ height: "100px" }}
+        className="hidden lg:flex items-center justify-between w-full relative"
+        style={{ height: "80px", padding: "0 48px" }}
       >
-        <Link
-          href="/"
-          aria-label="Primeleed home"
-          className="shrink-0 flex items-center"
-          style={{ height: "68px" }}
-        >
+        {/* Logo */}
+        <Link href="/" aria-label="Primeleed home" className="shrink-0 flex items-center">
           <Image
             src="/logo.png"
             alt="Primeleed"
-            width={170}
-            height={52}
+            width={180}
+            height={54}
             priority
-            className="object-contain w-full h-full"
+            className="object-contain w-auto"
+            style={{ height: "46px" }}
           />
         </Link>
 
-        <nav aria-label="Main navigation" className="flex-1 flex justify-end">
-          <ul
-            role="menubar"
-            className="flex items-center list-none m-0 p-0 gap-0"
-            style={{ height: "52px" }}
-          >
+        {/* Nav — centered */}
+        <nav aria-label="Main navigation" className="absolute left-1/2 -translate-x-1/2">
+          {/* ✅ FIXED: gap-2 instead of gap-0.5 for more spacing between links */}
+          <ul role="menubar" className="flex items-center list-none m-0 p-0 gap-2">
             {NAV_ITEMS.map((item) => {
               const active = isActive(item);
               const expanded = openItem === item.label;
+
               return (
                 <li
                   key={item.label}
-                  className={`relative flex items-stretch h-full ${expanded ? "z-200" : "z-auto"}`}
+                  className={`relative flex items-center ${expanded ? "z-[200]" : "z-auto"}`}
                   onMouseEnter={() => item.children && enter(item.label)}
                   onMouseLeave={() => item.children && leave()}
                 >
@@ -448,24 +410,45 @@ export default function Navbar() {
                     onClick={(e) => {
                       if (item.children) {
                         e.preventDefault();
-                        setOpenItem((v) =>
-                          v === item.label ? null : item.label,
-                        );
+                        setOpenItem((v) => v === item.label ? null : item.label);
                       } else {
                         closeAll();
                       }
                     }}
-                    className={`inline-flex items-center px-4 xl:px-5 h-full
-                                text-[14px] xl:text-[15px] font-bold text-[#1a2e3b]
-                                no-underline whitespace-nowrap cursor-pointer
-                                transition-colors duration-150
-                                ${active || expanded ? "bg-[#F5C400]" : "hover:bg-[#F5C400]"}`}
+                    className="inline-flex items-center px-4 py-2.5 rounded-xl
+                               no-underline whitespace-nowrap cursor-pointer
+                               transition-all duration-150 relative"
+                    style={{
+                      fontSize: "15.5px",
+                      fontWeight: active || expanded ? 600 : 500,
+                      color: active || expanded ? "#1a8fa8" : "#374151",
+                      letterSpacing: "-0.01em",
+                      ...FONT,
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!active && !expanded) {
+                        (e.currentTarget as HTMLElement).style.color = "#1a8fa8";
+                        (e.currentTarget as HTMLElement).style.backgroundColor = "#f0f8fb";
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!active && !expanded) {
+                        (e.currentTarget as HTMLElement).style.color = "#374151";
+                        (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
+                      }
+                    }}
                   >
                     {item.label}
                     {item.children && <ChevronIcon open={expanded} />}
+                    {/* Underline for active */}
+                    {(active || expanded) && (
+                      <span
+                        className="absolute bottom-0 left-4 right-4 h-[2px] rounded-full"
+                        style={{ backgroundColor: "#1a8fa8" }}
+                      />
+                    )}
                   </Link>
 
-                  {/* ── Pass pathname so Dropdown can highlight active child ── */}
                   {item.children && (
                     <Dropdown
                       items={item.children}
@@ -480,86 +463,46 @@ export default function Navbar() {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-1 ml-3 z-200">
+        {/* Right actions */}
+        <div className="flex items-center gap-3 z-[200]">
+          <Link
+            href="/admission/form"
+            className="inline-flex items-center px-6 py-2.5 rounded-xl text-white transition-all duration-200"
+            style={{ backgroundColor: "#1a8fa8", fontSize: "15px", fontWeight: 600, letterSpacing: "-0.01em", ...FONT }}
+            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = "#0f6e82")}
+            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = "#1a8fa8")}
+          >
+            Apply Now
+          </Link>
           <button
             onClick={() => setMegaOpen((v) => !v)}
-            className="flex items-center justify-center w-10 h-10 bg-transparent border-none rounded cursor-pointer text-[#1a2e3b] hover:bg-[#f0f3f5] transition-colors"
+            className="flex items-center justify-center w-10 h-10 rounded-xl cursor-pointer transition-all duration-150"
             aria-label="Open mega menu"
             aria-expanded={megaOpen}
+            style={{ color: "#374151", backgroundColor: "transparent", border: "1px solid #e2e8ed" }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.backgroundColor = "#f0f8fb";
+              (e.currentTarget as HTMLElement).style.borderColor = "#1a8fa8";
+              (e.currentTarget as HTMLElement).style.color = "#1a8fa8";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
+              (e.currentTarget as HTMLElement).style.borderColor = "#e2e8ed";
+              (e.currentTarget as HTMLElement).style.color = "#374151";
+            }}
           >
             {megaOpen ? (
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M2 2L16 16M16 2L2 16"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                />
+              <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
+                <path d="M2 2L16 16M16 2L2 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               </svg>
             ) : (
-              <svg
-                width="22"
-                height="16"
-                viewBox="0 0 22 16"
-                fill="none"
-                aria-hidden="true"
-              >
-                <rect
-                  y="0"
-                  width="22"
-                  height="2.2"
-                  rx="1.1"
-                  fill="currentColor"
-                />
-                <rect
-                  y="7"
-                  width="15"
-                  height="2.2"
-                  rx="1.1"
-                  fill="currentColor"
-                />
-                <rect
-                  y="14"
-                  width="22"
-                  height="2.2"
-                  rx="1.1"
-                  fill="currentColor"
-                />
+              <svg width="17" height="13" viewBox="0 0 22 16" fill="none">
+                <rect y="0" width="22" height="2.2" rx="1.1" fill="currentColor" />
+                <rect y="7" width="14" height="2.2" rx="1.1" fill="currentColor" />
+                <rect y="14" width="22" height="2.2" rx="1.1" fill="currentColor" />
               </svg>
             )}
           </button>
-          {/* <button
-            className="flex items-center justify-center w-10 h-10 bg-transparent border-none rounded cursor-pointer text-[#1a2e3b] hover:bg-[#f0f3f5] transition-colors"
-            aria-label="Search"
-          >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              aria-hidden="true"
-            >
-              <circle
-                cx="8.5"
-                cy="8.5"
-                r="5.5"
-                stroke="currentColor"
-                strokeWidth="2"
-              />
-              <path
-                d="M13 13L18 18"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-            </svg>
-          </button> */}
         </div>
 
         <MegaMenu open={megaOpen} onClose={closeAll} />
@@ -567,96 +510,44 @@ export default function Navbar() {
 
       {/* ── Mobile bar ── */}
       <div
-        className="flex lg:hidden items-center justify-between px-5"
+        className="flex lg:hidden items-center justify-between px-5 border-b border-[#f0f4f7]"
         style={{ height: "68px" }}
       >
         <Link href="/" aria-label="Primeleed home" className="shrink-0">
           <Image
             src="/logo.png"
             alt="Primeleed"
-            width={130}
-            height={36}
+            width={140}
+            height={42}
             priority
-            className="object-contain h-8 w-auto"
+            className="object-contain w-auto"
+            style={{ height: "38px" }}
           />
         </Link>
-        <div className="flex items-center gap-1 text-[#1a2e3b]">
-          <button
-            className="flex items-center justify-center w-9 h-9 bg-transparent border-none rounded cursor-pointer hover:bg-[#f0f3f5] transition-colors"
-            aria-label="Search"
+        <div className="flex items-center gap-2">
+          <Link
+            href="/admission/form"
+            className="inline-flex items-center px-4 py-2 rounded-lg text-white"
+            style={{ backgroundColor: "#1a8fa8", fontSize: "13.5px", fontWeight: 600, ...FONT }}
           >
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 20 20"
-              fill="none"
-              aria-hidden="true"
-            >
-              <circle
-                cx="8.5"
-                cy="8.5"
-                r="5.5"
-                stroke="currentColor"
-                strokeWidth="2"
-              />
-              <path
-                d="M13 13L18 18"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-            </svg>
-          </button>
+            Apply Now
+          </Link>
           <button
-            className="flex items-center justify-center w-9 h-9 bg-transparent border-none rounded cursor-pointer hover:bg-[#f0f3f5] transition-colors"
+            className="flex items-center justify-center w-10 h-10 rounded-xl cursor-pointer border border-[#e2e8ed] transition-colors"
+            style={{ backgroundColor: "transparent", color: "#374151" }}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen((v) => !v)}
           >
             {mobileOpen ? (
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M2 2L16 16M16 2L2 16"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                />
+              <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
+                <path d="M2 2L16 16M16 2L2 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               </svg>
             ) : (
-              <svg
-                width="22"
-                height="16"
-                viewBox="0 0 22 16"
-                fill="none"
-                aria-hidden="true"
-              >
-                <rect
-                  y="0"
-                  width="22"
-                  height="2.2"
-                  rx="1.1"
-                  fill="currentColor"
-                />
-                <rect
-                  y="7"
-                  width="15"
-                  height="2.2"
-                  rx="1.1"
-                  fill="currentColor"
-                />
-                <rect
-                  y="14"
-                  width="22"
-                  height="2.2"
-                  rx="1.1"
-                  fill="currentColor"
-                />
+              <svg width="17" height="13" viewBox="0 0 22 16" fill="none">
+                <rect y="0" width="22" height="2.2" rx="1.1" fill="currentColor" />
+                <rect y="7" width="14" height="2.2" rx="1.1" fill="currentColor" />
+                <rect y="14" width="22" height="2.2" rx="1.1" fill="currentColor" />
               </svg>
             )}
           </button>
@@ -667,87 +558,94 @@ export default function Navbar() {
       <nav
         aria-label="Mobile navigation"
         aria-hidden={!mobileOpen}
-        className="lg:hidden bg-white border-t border-[#e6eaed] grid transition-[grid-template-rows] duration-300 ease-in-out"
-        style={{ gridTemplateRows: mobileOpen ? "1fr" : "0fr" }}
+        className="lg:hidden bg-white grid transition-[grid-template-rows] duration-300 ease-in-out"
+        style={{ gridTemplateRows: mobileOpen ? "1fr" : "0fr", ...FONT }}
       >
         <div className="overflow-hidden">
-          {NAV_ITEMS.map((item) => {
-            const active = isActive(item);
-            const subOpen = mobileAccordion === item.label;
-            return (
-              <div key={item.label} className="border-b border-[#f0f3f5]">
-                {item.children ? (
-                  <>
-                    <button
-                      aria-expanded={subOpen}
-                      onClick={() =>
-                        setMobileAccordion((v) =>
-                          v === item.label ? null : item.label,
-                        )
-                      }
-                      className={`flex items-center justify-between w-full px-6 py-4
-                                  text-[15px] font-bold text-[#1a2e3b] bg-transparent
-                                  border-none cursor-pointer text-left hover:bg-[#FFFBEC] transition-colors
-                                  ${active ? "border-l-4 border-l-[#F5C400] bg-[#FFFBEC] pl-5" : ""}`}
+          <div className="py-2 px-3">
+            {NAV_ITEMS.map((item) => {
+              const active = isActive(item);
+              const subOpen = mobileAccordion === item.label;
+              return (
+                <div key={item.label}>
+                  {item.children ? (
+                    <>
+                      <button
+                        aria-expanded={subOpen}
+                        onClick={() => setMobileAccordion((v) => v === item.label ? null : item.label)}
+                        className="flex items-center justify-between w-full px-4 py-3.5 mb-0.5
+                                   bg-transparent border-none cursor-pointer text-left rounded-xl transition-colors"
+                        style={{
+                          fontSize: "15.5px",
+                          fontWeight: 500,
+                          color: active ? "#1a8fa8" : "#374151",
+                          backgroundColor: active ? "#f0f8fb" : "transparent",
+                          ...FONT,
+                        }}
+                      >
+                        {item.label}
+                        <ChevronIcon open={subOpen} />
+                      </button>
+                      <div
+                        className="grid transition-[grid-template-rows] duration-200"
+                        style={{ gridTemplateRows: subOpen ? "1fr" : "0fr" }}
+                      >
+                        <div className="overflow-hidden pl-4">
+                          {item.children.map((child) => {
+                            const isActiveChild = pathname === child.href;
+                            return (
+                              <Link
+                                key={child.href}
+                                href={child.href}
+                                onClick={() => setMobileOpen(false)}
+                                className="flex items-center gap-2 px-4 py-3 mb-0.5 rounded-xl transition-colors"
+                                style={{
+                                  fontSize: "15px",
+                                  fontWeight: 500,
+                                  backgroundColor: isActiveChild ? "#1a8fa8" : "transparent",
+                                  color: isActiveChild ? "#ffffff" : "#6b7280",
+                                  ...FONT,
+                                }}
+                              >
+                                {isActiveChild && <span className="shrink-0 w-1.5 h-1.5 rounded-full bg-white" />}
+                                {child.label}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      aria-current={active ? "page" : undefined}
+                      onClick={() => setMobileOpen(false)}
+                      className="flex px-4 py-3.5 mb-0.5 no-underline rounded-xl transition-colors"
+                      style={{
+                        fontSize: "15.5px",
+                        fontWeight: 500,
+                        color: active ? "#1a8fa8" : "#374151",
+                        backgroundColor: active ? "#f0f8fb" : "transparent",
+                        ...FONT,
+                      }}
                     >
                       {item.label}
-                      <ChevronIcon open={subOpen} />
-                    </button>
-                    <div
-                      className="bg-[#fafbfc] grid transition-[grid-template-rows] duration-200"
-                      style={{ gridTemplateRows: subOpen ? "1fr" : "0fr" }}
-                    >
-                      <div className="overflow-hidden">
-                        {item.children.map((child) => {
-                          // ── Active child in mobile too ──
-                          const isActiveChild = pathname === child.href;
-                          return (
-                            <Link
-                              key={child.href}
-                              href={child.href}
-                              onClick={() => setMobileOpen(false)}
-                              className="flex items-center gap-2 px-9 py-4 text-[14px] font-semibold
-                                         border-t border-[#eff1f4] transition-colors"
-                              style={{
-                                backgroundColor: isActiveChild
-                                  ? "#149AB5"
-                                  : "transparent",
-                                color: isActiveChild ? "#ffffff" : "#3d5166",
-                              }}
-                            >
-                              {isActiveChild && (
-                                <span className="shrink-0 w-1.5 h-1.5 rounded-full bg-white" />
-                              )}
-                              {child.label}
-                            </Link>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </>
-                ) : (
-                  <Link
-                    href={item.href}
-                    aria-current={active ? "page" : undefined}
-                    onClick={() => setMobileOpen(false)}
-                    className={`flex px-6 py-4 text-[15px] font-bold text-[#1a2e3b]
-                                no-underline hover:bg-[#FFFBEC] transition-colors
-                                ${active ? "border-l-4 border-l-[#F5C400] bg-[#FFFBEC] pl-5" : ""}`}
-                  >
-                    {item.label}
-                  </Link>
-                )}
-              </div>
-            );
-          })}
-
-          <div className="hidden sm:flex flex-col gap-3 px-6 py-6 bg-[#f0f2f4] border-t border-[#dde0e4]">
+                    </Link>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+          <div className="flex flex-col gap-2 px-5 py-5 border-t border-[#f0f4f7]">
             {CTA_BUTTONS.map((btn) => (
               <Link
                 key={btn.href}
                 href={btn.href}
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-center bg-[#1a2e3b] text-white text-[15px] font-bold py-4 hover:bg-[#2ab4c0] transition-colors duration-200"
+                className="flex items-center justify-center text-white py-4 rounded-xl transition-colors duration-200"
+                style={{ backgroundColor: "#0f1f2e", fontSize: "15px", fontWeight: 600, ...FONT }}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = "#1a8fa8")}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = "#0f1f2e")}
               >
                 {btn.label}
               </Link>
