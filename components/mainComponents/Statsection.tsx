@@ -1,11 +1,50 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useRef } from "react";
+import { useInView, animate } from "framer-motion";
 
 const stats = [
-  { value: "15+", label: "Partnered Universities" },
-  { value: "2.0K", label: "Students Registered" },
-  { value: "2.5K", label: "Students Enrolled" },
-  { value: "500+", label: "Courses" },
+  { value: 15, suffix: "+", label: "Partnered Universities" },
+  { value: 2.0, suffix: "K", label: "Students Registered", decimal: 1 },
+  { value: 2.5, suffix: "K", label: "Students Enrolled", decimal: 1 },
+  { value: 500, suffix: "+", label: "Courses" },
 ];
+
+function CountUp({
+  to,
+  suffix,
+  decimal = 0,
+  duration = 2,
+}: {
+  to: number;
+  suffix: string;
+  decimal?: number;
+  duration?: number;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  useEffect(() => {
+    if (!inView || !ref.current) return;
+    const controls = animate(0, to, {
+      duration,
+      ease: "easeOut",
+      onUpdate(value) {
+        if (ref.current) {
+          ref.current.textContent = value.toFixed(decimal) + suffix;
+        }
+      },
+    });
+    return () => controls.stop();
+  }, [inView, to, suffix, decimal, duration]);
+
+  return (
+    <span ref={ref}>
+      {"0" + suffix}
+    </span>
+  );
+}
 
 export default function StatsSection() {
   return (
@@ -14,8 +53,10 @@ export default function StatsSection() {
       style={{ backgroundColor: "#e8eef4" }}
     >
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 lg:items-end">
+
         {/* ── Left Column ── */}
         <div className="flex flex-col">
+
           {/* Text block */}
           <div className="pt-4 md:pt-8 mb-6 md:mb-8">
             <p
@@ -39,7 +80,7 @@ export default function StatsSection() {
             </p>
           </div>
 
-          {/* Girl + circle — shown below text on mobile, at bottom on desktop */}
+          {/* Girl + circle */}
           <div
             className="relative w-full"
             style={{ height: "clamp(280px, 45vw, 420px)", overflow: "visible" }}
@@ -83,6 +124,7 @@ export default function StatsSection() {
 
         {/* ── Right Column ── */}
         <div className="flex flex-col justify-center gap-4 md:gap-5 pb-8 md:pb-16">
+
           {/* 2×2 stat cards */}
           <div className="grid grid-cols-2 gap-3 md:gap-5">
             {stats.map((stat) => (
@@ -98,7 +140,12 @@ export default function StatsSection() {
                   className="font-extrabold text-gray-900 leading-none mb-2 md:mb-3"
                   style={{ fontSize: "clamp(28px, 5vw, 48px)" }}
                 >
-                  {stat.value}
+                  <CountUp
+                    to={stat.value}
+                    suffix={stat.suffix}
+                    decimal={stat.decimal}
+                    duration={2}
+                  />
                 </span>
                 <span
                   className="text-gray-500 font-medium"
@@ -122,7 +169,7 @@ export default function StatsSection() {
               className="font-extrabold text-gray-900 leading-none"
               style={{ fontSize: "clamp(28px, 5vw, 48px)" }}
             >
-              5.0
+              <CountUp to={5.0} suffix="" decimal={1} duration={1.5} />
             </span>
             <span style={{ fontSize: "clamp(20px, 3vw, 28px)", lineHeight: 1 }}>
               ⭐
@@ -144,6 +191,7 @@ export default function StatsSection() {
             </a>
           </div>
         </div>
+
       </div>
     </section>
   );
