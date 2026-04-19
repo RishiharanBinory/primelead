@@ -1,6 +1,6 @@
-'use client'
-import React, { useEffect, useState, useRef } from 'react'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
+"use client";
+import React, { useEffect, useState, useRef } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
   Clock,
   TrendingUp,
@@ -10,126 +10,126 @@ import {
   CheckCircle,
   ChevronLeft,
   ChevronRight,
-} from 'lucide-react'
+} from "lucide-react";
 const steps = [
   {
-    id: '01',
-    title: 'Free Consultation',
-    desc: 'Understanding academic goals and background.',
-    duration: 'STEP 1',
+    id: "01",
+    title: "Free Consultation",
+    desc: "Understanding academic goals and background.",
+    duration: "STEP 1",
     image:
-      'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&h=600&fit=crop',
-    stat: '98% Satisfaction Rate',
+      "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&h=600&fit=crop",
+    stat: "98% Satisfaction Rate",
     icon: Users,
   },
   {
-    id: '02',
-    title: 'Course & University Selection',
-    desc: 'Matching students with suitable programmes.',
-    duration: 'STEP 2',
+    id: "02",
+    title: "Course & University Selection",
+    desc: "Matching students with suitable programmes.",
+    duration: "STEP 2",
     image:
-      'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&h=600&fit=crop',
-    stat: '500+ University Partners',
+      "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&h=600&fit=crop",
+    stat: "500+ University Partners",
     icon: BookOpen,
   },
   {
-    id: '03',
-    title: 'Application Submission',
-    desc: 'Preparing and submitting accurate applications.',
-    duration: 'STEP 3',
+    id: "03",
+    title: "Application Submission",
+    desc: "Preparing and submitting accurate applications.",
+    duration: "STEP 3",
     image:
-      'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=600&fit=crop',
-    stat: '95% Acceptance Rate',
+      "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=600&fit=crop",
+    stat: "95% Acceptance Rate",
     icon: FileText,
   },
   {
-    id: '04',
-    title: 'Student Finance Guidance',
-    desc: 'Supporting funding applications and documentation.',
-    duration: 'STEP 4',
+    id: "04",
+    title: "Student Finance Guidance",
+    desc: "Supporting funding applications and documentation.",
+    duration: "STEP 4",
     image:
-      'https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=800&h=600&fit=crop',
-    stat: '£50M+ Funding Secured',
+      "https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=800&h=600&fit=crop",
+    stat: "£50M+ Funding Secured",
     icon: TrendingUp,
   },
   {
-    id: '05',
-    title: 'Enrolment Support',
-    desc: 'Helping students transition smoothly into university life.',
-    duration: 'STEP 5',
+    id: "05",
+    title: "Enrolment Support",
+    desc: "Helping students transition smoothly into university life.",
+    duration: "STEP 5",
     image:
-      'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop',
-    stat: '10k+ Students Enrolled',
+      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop",
+    stat: "10k+ Students Enrolled",
     icon: CheckCircle,
   },
-]
-const AUTO_ADVANCE_MS = 5000
+];
+const AUTO_ADVANCE_MS = 5000;
 export function ProcessSteps() {
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [isPaused, setIsPaused] = useState(false)
-  const [hoveredStep, setHoveredStep] = useState<number | null>(null)
-  const [progressKey, setProgressKey] = useState(0)
-  const sectionRef = useRef<HTMLElement>(null)
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [hoveredStep, setHoveredStep] = useState<number | null>(null);
+  const [progressKey, setProgressKey] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, {
     once: false,
-    margin: '-100px 0px',
-  })
+    margin: "-100px 0px",
+  });
   // Mobile swipe state
-  const [touchStart, setTouchStart] = useState<number | null>(null)
-  const [touchEnd, setTouchEnd] = useState<number | null>(null)
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
   // Auto-advance timer — runs when section is in view and not paused by step hover
   useEffect(() => {
-    if (!isInView || isPaused) return
+    if (!isInView || isPaused) return;
     const timer = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % steps.length)
-      setProgressKey((k) => k + 1)
-    }, AUTO_ADVANCE_MS)
-    return () => clearInterval(timer)
-  }, [activeIndex, isPaused, isInView])
+      setActiveIndex((prev) => (prev + 1) % steps.length);
+      setProgressKey((k) => k + 1);
+    }, AUTO_ADVANCE_MS);
+    return () => clearInterval(timer);
+  }, [activeIndex, isPaused, isInView]);
   // Reset progress bar on manual step change
   const goToStep = (index: number) => {
-    setActiveIndex(index)
-    setProgressKey((k) => k + 1)
-  }
+    setActiveIndex(index);
+    setProgressKey((k) => k + 1);
+  };
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (!sectionRef.current) return
-      const rect = sectionRef.current.getBoundingClientRect()
-      if (rect.top > window.innerHeight || rect.bottom < 0) return
-      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-        e.preventDefault()
-        const next = Math.min(activeIndex + 1, steps.length - 1)
-        goToStep(next)
-      } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-        e.preventDefault()
-        const prev = Math.max(activeIndex - 1, 0)
-        goToStep(prev)
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      if (rect.top > window.innerHeight || rect.bottom < 0) return;
+      if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+        e.preventDefault();
+        const next = Math.min(activeIndex + 1, steps.length - 1);
+        goToStep(next);
+      } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+        e.preventDefault();
+        const prev = Math.max(activeIndex - 1, 0);
+        goToStep(prev);
       }
-    }
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [activeIndex])
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeIndex]);
   // Mobile Swipe Handlers
-  const minSwipeDistance = 50
+  const minSwipeDistance = 50;
   const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null)
-    setTouchStart(e.targetTouches[0].clientX)
-  }
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
   const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX)
-  }
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
   const onTouchEndHandler = () => {
-    if (!touchStart || !touchEnd) return
-    const distance = touchStart - touchEnd
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
     if (distance > minSwipeDistance) {
-      goToStep(Math.min(activeIndex + 1, steps.length - 1))
+      goToStep(Math.min(activeIndex + 1, steps.length - 1));
     }
     if (distance < -minSwipeDistance) {
-      goToStep(Math.max(activeIndex - 1, 0))
+      goToStep(Math.max(activeIndex - 1, 0));
     }
-  }
-  const activeStep = steps[activeIndex]
+  };
+  const activeStep = steps[activeIndex];
   return (
     <section
       ref={sectionRef}
@@ -160,18 +160,14 @@ export function ProcessSteps() {
           className="mb-12 md:mb-20 text-center"
         >
           <div className="flex items-center justify-center gap-3 mb-4 md:mb-6">
-            <div className="h-[2px] w-8 bg-[#F5C518]" />
-            <span className="text-[#2869A3] text-sm font-bold tracking-[0.2em] uppercase">
+            
+            <span className="text-[#000000] text-sm font-bold tracking-[0.2em] uppercase">
               How it works
             </span>
-            <div className="h-[2px] w-8 bg-[#F5C518]" />
+            
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15]">
-            Your{' '}
-            <span className="bg-gradient-to-r from-[#2869A3] to-[#4A9FD8] bg-clip-text text-transparent">
-              journey
-            </span>{' '}
-            to university
+            Your <span style={{ color: "#149ab5" }}>journey</span> to university
           </h2>
         </motion.div>
 
@@ -179,22 +175,22 @@ export function ProcessSteps() {
           {/* ── DESKTOP: Left Column Navigator ── */}
           <div className="hidden lg:flex flex-col gap-2 relative">
             {steps.map((step, index) => {
-              const isActive = activeIndex === index
-              const isPast = index < activeIndex
-              const StepIcon = step.icon
+              const isActive = activeIndex === index;
+              const isPast = index < activeIndex;
+              const StepIcon = step.icon;
               return (
                 <motion.div
                   key={step.id}
                   onClick={() => goToStep(index)}
                   onMouseEnter={() => {
-                    setHoveredStep(index)
-                    setIsPaused(true)
+                    setHoveredStep(index);
+                    setIsPaused(true);
                   }}
                   onMouseLeave={() => {
-                    setHoveredStep(null)
-                    setIsPaused(false)
+                    setHoveredStep(null);
+                    setIsPaused(false);
                   }}
-                  className={`relative cursor-pointer rounded-2xl p-5 transition-colors duration-300 ${isActive ? 'bg-[#F8FAFC] border border-[#E5E7EB]' : 'hover:bg-[#FAFBFC] border border-transparent'}`}
+                  className={`relative cursor-pointer rounded-2xl p-5 transition-colors duration-300 ${isActive ? "bg-[#F8FAFC] border border-[#E5E7EB]" : "hover:bg-[#FAFBFC] border border-transparent"}`}
                   initial={{
                     opacity: 0,
                     x: -10,
@@ -214,12 +210,12 @@ export function ProcessSteps() {
                   {/* Step Number + Icon Row */}
                   <div className="flex items-center gap-3 mb-2">
                     <div
-                      className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm font-black transition-all duration-300 ${isActive ? 'bg-[#F5C518] text-white' : isPast ? 'bg-[#2869A3] text-white' : 'bg-[#F3F4F6] text-[#9CA3AF]'}`}
+                      className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm font-black transition-all duration-300 ${isActive ? "bg-[#F5C518] text-white" : isPast ? "bg-[#2869A3] text-white" : "bg-[#F3F4F6] text-[#9CA3AF]"}`}
                     >
                       {step.id}
                     </div>
                     <h3
-                      className={`text-base font-bold transition-colors duration-300 ${isActive ? 'text-[#111827]' : 'text-[#6B7280]'}`}
+                      className={`text-base font-bold transition-colors duration-300 ${isActive ? "text-[#111827]" : "text-[#6B7280]"}`}
                     >
                       {step.title}
                     </h3>
@@ -234,7 +230,7 @@ export function ProcessSteps() {
                           opacity: 0,
                         }}
                         animate={{
-                          height: 'auto',
+                          height: "auto",
                           opacity: 1,
                         }}
                         exit={{
@@ -259,7 +255,7 @@ export function ProcessSteps() {
                     <div className="mt-3 ml-11 mr-2 h-1 bg-[#E5E7EB] rounded-full overflow-hidden">
                       <div
                         key={progressKey}
-                        className={`h-full bg-[#2869A3] rounded-full animate-progress ${isPaused ? 'pause-anim' : ''}`}
+                        className={`h-full bg-[#2869A3] rounded-full animate-progress ${isPaused ? "pause-anim" : ""}`}
                       />
                     </div>
                   )}
@@ -297,7 +293,7 @@ export function ProcessSteps() {
                     )}
                   </AnimatePresence>
                 </motion.div>
-              )
+              );
             })}
           </div>
 
@@ -305,7 +301,7 @@ export function ProcessSteps() {
           <div
             className="hidden lg:block relative w-full rounded-3xl overflow-hidden border border-[#E5E7EB] shadow-lg"
             style={{
-              minHeight: '480px',
+              minHeight: "480px",
             }}
           >
             <AnimatePresence mode="wait">
@@ -339,7 +335,7 @@ export function ProcessSteps() {
                   }}
                   transition={{
                     duration: 0.7,
-                    ease: 'easeOut',
+                    ease: "easeOut",
                   }}
                 />
 
@@ -498,7 +494,7 @@ export function ProcessSteps() {
                   }}
                   transition={{
                     duration: 0.3,
-                    ease: 'easeOut',
+                    ease: "easeOut",
                   }}
                   className="flex flex-col"
                 >
@@ -529,11 +525,11 @@ export function ProcessSteps() {
             <div className="flex items-center justify-between mt-8 pt-6 border-t border-[#E5E7EB]">
               <div className="flex items-center gap-2">
                 <span className="text-sm font-bold text-[#2869A3]">
-                  {String(activeIndex + 1).padStart(2, '0')}
+                  {String(activeIndex + 1).padStart(2, "0")}
                 </span>
                 <span className="text-sm font-medium text-[#9CA3AF]">/</span>
                 <span className="text-sm font-medium text-[#9CA3AF]">
-                  {String(steps.length).padStart(2, '0')}
+                  {String(steps.length).padStart(2, "0")}
                 </span>
               </div>
 
@@ -541,7 +537,7 @@ export function ProcessSteps() {
                 {steps.map((_, idx) => (
                   <div
                     key={idx}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${idx === activeIndex ? 'w-6 bg-[#2869A3]' : 'w-1.5 bg-[#E5E7EB]'}`}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${idx === activeIndex ? "w-6 bg-[#2869A3]" : "w-1.5 bg-[#E5E7EB]"}`}
                   />
                 ))}
               </div>
@@ -569,5 +565,5 @@ export function ProcessSteps() {
         </div>
       </div>
     </section>
-  )
+  );
 }

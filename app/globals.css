@@ -13,8 +13,8 @@
   --foreground: #171717;
 
   /* ✅ ADD THESE */
-  --primel-blue: #2563eb;
-  --primel-gold: #F5C400; 
+  --primel-blue: #149ab5;
+  --primel-gold: #f5c400;
   --primel-navy: #0f172a;
   --primel-gray: #64748b;
   --primel-lightbg: #f0f4f8;
@@ -29,11 +29,15 @@
 
   /* ✅ ADD THESE — this is how Tailwind v4 registers custom colors */
   --color-primel-blue: var(--primel-blue);
-  --color-primel-gold: var(--primel-gold); 
+  --color-primel-gold: var(--primel-gold);
   --color-primel-navy: var(--primel-navy);
   --color-primel-gray: var(--primel-gray);
   --color-primel-lightbg: var(--primel-lightbg);
   --color-primel-border: var(--primel-border);
+  --color-prime-black: #149ab5;
+  --color-prime-dark: #334155;
+  --color-prime-blue: #0ea5e9;
+  --color-prime-yellow: #eab308;
 
   /* ✅ ADD THESE — custom shadows */
   --shadow-soft: 0 2px 12px 0 rgba(15, 23, 42, 0.06);
@@ -80,9 +84,27 @@
 @theme {
   --font-sans: "Google Sans Flex", Inter, sans-serif;
 
-  --color-brand-blue: #1a73e8;
+  --color-brand-blue: #149ab5;
   --color-brand-yellow: #f5b731;
   --color-brand-black: #111827;
   --color-brand-gray: #f9fafb;
   --color-brand-border: #e5e7eb;
+}
+.service-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(
+    circle at top right,
+    rgba(26, 115, 232, 0.1) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+.react-tel-input .form-control:focus {
+  border-color: #ffc501 !important;
+  box-shadow: 0 0 0 4px rgba(255, 197, 1, 0.1) !important;
 }

@@ -73,28 +73,6 @@ function SlidingTestimonial() {
           </p>
 
           {/* Highlight Quotes — compact on mobile */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-5 text-left">
-            <div className="bg-blue-50/60 border border-blue-100 rounded-xl sm:rounded-2xl p-4 sm:p-6 relative">
-              <QuoteIcon className="absolute top-4 right-4 sm:top-6 sm:right-6 w-6 h-6 sm:w-8 sm:h-8 text-blue-200" />
-              <p className="text-slate-800 font-medium text-sm sm:text-lg mb-2 sm:mb-4 pr-8 relative z-10">
-                &quot;The process felt easy because I always knew what my next
-                step was.&quot;
-              </p>
-              <p className="text-blue-600 font-semibold text-xs sm:text-sm">
-                — PrimeLeed Student
-              </p>
-            </div>
-            <div className="bg-blue-50/60 border border-blue-100 rounded-xl sm:rounded-2xl p-4 sm:p-6 relative">
-              <QuoteIcon className="absolute top-4 right-4 sm:top-6 sm:right-6 w-6 h-6 sm:w-8 sm:h-8 text-blue-200" />
-              <p className="text-slate-800 font-medium text-sm sm:text-lg mb-2 sm:mb-4 pr-8 relative z-10">
-                &quot;They helped me understand Student Finance and choose the
-                right course.&quot;
-              </p>
-              <p className="text-blue-600 font-semibold text-xs sm:text-sm">
-                — University Applicant
-              </p>
-            </div>
-          </div>
         </div>
 
         {/* Sliding Testimonials */}

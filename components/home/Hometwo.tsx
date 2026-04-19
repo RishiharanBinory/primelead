@@ -273,7 +273,7 @@ export default function StudyInLondon() {
           margin-bottom: 0;
         }
         .hs-desc {
-          font-size: 24px;
+          font-size: 20px;
           font-weight: 400;
           font-variation-settings: 'wght' 400;
           color: #3a3a3a;
@@ -415,10 +415,10 @@ export default function StudyInLondon() {
               <div className="hs-cta-row">
                 <Buttontwo
                   text="Apply Now"
-                  href="http://localhost:3000/admission/form"
-                  bgColor="#2869A3"
+                  href="/admission/form"
+                  bgColor="#149ab5"
                   textColor="#ffffff"
-                  fontSize={24}
+                  fontSize={20}
                 />
                 <Example />
               </div>

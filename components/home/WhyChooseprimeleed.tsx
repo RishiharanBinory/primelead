@@ -1,6 +1,6 @@
-'use client'
-import React from 'react'
-import { motion } from 'framer-motion'
+"use client";
+import React from "react";
+import { motion } from "framer-motion";
 import {
   PoundSterling,
   GraduationCap,
@@ -8,45 +8,45 @@ import {
   Globe,
   Monitor,
   HeartHandshake,
-} from 'lucide-react'
+} from "lucide-react";
 const services = [
   {
-    title: 'Student Finance Help in London',
+    title: "Student Finance Help in London",
     description:
       "We guide students through funding eligibility and Student Finance applications so financial barriers don't stop educational goals.",
     icon: PoundSterling,
   },
   {
-    title: 'University Application Support UK',
+    title: "University Application Support UK",
     description:
-      'Professional support to apply to university UK institutions accurately and efficiently.',
+      "Professional support to apply to university UK institutions accurately and efficiently.",
     icon: GraduationCap,
   },
   {
-    title: 'Study While Working in London',
+    title: "Study While Working in London",
     description:
-      'Flexible degree options allow students to continue employment while studying.',
+      "Flexible degree options allow students to continue employment while studying.",
     icon: Briefcase,
   },
   {
-    title: 'EU Students - Study & Funding in the UK',
+    title: "EU Students - Study & Funding in the UK",
     description:
-      'Specialised guidance for EU students navigating UK university admissions and funding options.',
+      "Specialised guidance for EU students navigating UK university admissions and funding options.",
     icon: Globe,
   },
   {
-    title: 'Online & Part-Time Degrees UK',
+    title: "Online & Part-Time Degrees UK",
     description:
-      'Access flexible education pathways including online degrees UK programmes designed around modern lifestyles.',
+      "Access flexible education pathways including online degrees UK programmes designed around modern lifestyles.",
     icon: Monitor,
   },
   {
-    title: 'End-to-End Student Support',
+    title: "End-to-End Student Support",
     description:
-      'Comprehensive university support UK students receive from first enquiry through enrolment.',
+      "Comprehensive university support UK students receive from first enquiry through enrolment.",
     icon: HeartHandshake,
   },
-]
+];
 const containerVariants = {
   hidden: {
     opacity: 0,
@@ -57,7 +57,7 @@ const containerVariants = {
       staggerChildren: 0.08,
     },
   },
-}
+};
 const itemVariants = {
   hidden: { opacity: 0, y: 16 },
   visible: {
@@ -65,10 +65,10 @@ const itemVariants = {
     y: 0,
     transition: {
       duration: 0.4,
-      ease: 'easeOut' as const,
+      ease: "easeOut" as const,
     },
   },
-}
+};
 export function WhyChoosePrimeLeed() {
   return (
     <section className="w-full bg-white  font-sans">
@@ -94,7 +94,7 @@ export function WhyChoosePrimeLeed() {
           >
             <h2 className="text-3xl md:text-5xl font-bold text-brand-black mb-4 md:mb-6 relative inline-block">
               Why Choose PrimeLeed
-              <span className="absolute -bottom-2 md:-bottom-3 left-1/2 transform -translate-x-1/2 w-12 md:w-16 h-1 md:h-1.5 bg-brand-yellow rounded-full"></span>
+              
             </h2>
             <p className="text-base md:text-xl text-gray-600 mt-3 md:mt-6 leading-relaxed px-2">
               We remove barriers between ambition and education — guiding
@@ -110,28 +110,26 @@ export function WhyChoosePrimeLeed() {
           whileInView="visible"
           viewport={{
             once: true,
-            margin: '-60px',
+            margin: "-60px",
           }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 lg:gap-8"
         >
           {services.map((service, index) => {
-            const Icon = service.icon
+            const Icon = service.icon;
             return (
               <motion.div
                 key={index}
                 variants={itemVariants}
-                whileHover={{
-                  y: -6,
-                  transition: {
-                    duration: 0.2,
-                  },
+                whileHover={{ y: -6, transition: { duration: 0.2 } }}
+                className="p-4 sm:p-5 lg:p-8 rounded-xl lg:rounded-2xl border border-brand-border shadow-sm hover:shadow-lg transition-all duration-300 group"
+                style={{
+                  background:
+                    "linear-gradient(145deg, #eff6ff 0%, #ffffff 55%)",
                 }}
-                className="bg-white p-4 sm:p-5 lg:p-8 rounded-xl lg:rounded-2xl border border-brand-border shadow-sm hover:shadow-lg transition-all duration-300 group"
               >
                 {/* Mobile: icon + title inline | Desktop: stacked */}
                 <div className="flex items-start gap-3 sm:block">
                   <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-lg lg:rounded-xl bg-blue-50 flex items-center justify-center shrink-0 sm:mb-4 lg:mb-6 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-brand-yellow opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                     <Icon className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-brand-blue relative z-10 group-hover:scale-110 transition-transform duration-300" />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -144,10 +142,10 @@ export function WhyChoosePrimeLeed() {
                   </div>
                 </div>
               </motion.div>
-            )
+            );
           })}
         </motion.div>
       </div>
     </section>
-  )
+  );
 }

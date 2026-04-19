@@ -2,8 +2,7 @@ import React from "react";
 import MainHero from "@/components/mainComponents/Mainhero";
 import ReviewsCarousel from "@/components/home/Reviewscarousel";
 import ContactForm from "@/components/form/contact";
-import CallToAction from "@/components/CallToAction";
-import FormOverlap from "@/components/FormOverlap";
+
 import AdmissionFormBanner from "@/components/about/AdmissionFormbanner";
 
 const page = () => {

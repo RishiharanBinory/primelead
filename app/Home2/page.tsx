@@ -1,12 +1,14 @@
 import React from "react";
 import Section from "@/components/mainComponents/Section";
-import StudyInLondon from "@/components/home/Hometwo";
 import { ProcessSteps } from "@/components/home/Process";
-import { StatsSection } from "@/components/mainComponents/Statsection";
+import StatSection  from "@/components/mainComponents/Statsection";
 import Component from "@/components/mainComponents/Background";
 import IntegrationHero from "@/components/home/Carosal2";
 import { SlidingTestimonial } from "@/components/home/Testimonials";
 import { WhyChoosePrimeLeed } from "@/components/home/WhyChooseprimeleed";
+import { FAQSection } from "@/components/home/Faq";
+import CtaComponent from "@/components/home/CTA";
+import { ContactSection } from "@/components/mainComponents/Contact";
 
 const page = () => {
   return (
@@ -21,8 +23,8 @@ const page = () => {
         <SlidingTestimonial />
       </Section>
 
-      <Section>
-        <StatsSection />
+      <Section noPadX>
+        <StatSection />
       </Section>
       <Section>
         <ProcessSteps />
@@ -30,6 +32,15 @@ const page = () => {
       <Section>
         <WhyChoosePrimeLeed />
       </Section>
+
+      <Section noPadX>
+        <FAQSection />
+      </Section>
+      
+
+      <ContactSection />
+
+      <CtaComponent />
     </main>
   );
 };
