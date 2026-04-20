@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/mainComponents/Navbar";
-import { Footer7 } from "@/components/mainComponents/Footer";
+import { Footer } from "@/components/mainComponents/Footer";
 import FloatingContact from "@/components/mainComponents/Floatingcontact";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -33,7 +33,7 @@ export default function RootLayout({
             messengerUsername="primeleed"
           />
         </main>
-        <Footer7 />
+        <Footer />
       </body>
     </html>
   );

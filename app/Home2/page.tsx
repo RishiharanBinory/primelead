@@ -1,7 +1,7 @@
 import React from "react";
 import Section from "@/components/mainComponents/Section";
 import { ProcessSteps } from "@/components/home/Process";
-import StatSection  from "@/components/mainComponents/Statsection";
+import StatSection from "@/components/mainComponents/Statsection";
 import Component from "@/components/mainComponents/Background";
 import IntegrationHero from "@/components/home/Carosal2";
 import { SlidingTestimonial } from "@/components/home/Testimonials";
@@ -20,23 +20,22 @@ const page = () => {
         <IntegrationHero />
       </Section>
       <Section>
-        <SlidingTestimonial />
-      </Section>
-
-      <Section noPadX>
-        <StatSection />
+        <WhyChoosePrimeLeed />
       </Section>
       <Section>
         <ProcessSteps />
       </Section>
+      <Section noPadX>
+        <StatSection />
+      </Section>
       <Section>
-        <WhyChoosePrimeLeed />
+        <SlidingTestimonial />
       </Section>
 
       <Section noPadX>
         <FAQSection />
       </Section>
-      
+     
 
       <ContactSection />
 
