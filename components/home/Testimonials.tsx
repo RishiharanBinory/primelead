@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { StarIcon } from "lucide-react";
 import Image from "next/image";
 
@@ -83,8 +83,6 @@ function getInitials(name: string) {
     .toUpperCase();
 }
 
-const CARD_HEIGHT = 220;
-
 function TestimonialCard({
   testimonial,
   colorClass,
@@ -142,6 +140,20 @@ function TestimonialCard({
 }
 
 export function SlidingTestimonial() {
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  const pauseMarquee = () => {
+    carouselRef.current
+      ?.querySelectorAll<HTMLElement>(".animate-marquee")
+      .forEach((el) => (el.style.animationPlayState = "paused"));
+  };
+
+  const resumeMarquee = () => {
+    carouselRef.current
+      ?.querySelectorAll<HTMLElement>(".animate-marquee")
+      .forEach((el) => (el.style.animationPlayState = "running"));
+  };
+
   return (
     <section className="w-full bg-white overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-16">
@@ -156,28 +168,22 @@ export function SlidingTestimonial() {
           </p>
         </div>
 
-        {/* Carousel row — items-end so rectangle bottom aligns with card bottoms */}
+        {/* Carousel row */}
         <div className="flex items-end gap-6">
 
-          {/*
-            LEFT: teal rectangle + image
-            Hidden on mobile (below sm breakpoint), visible from sm and up
-          */}
+          {/* LEFT: teal rectangle + image — hidden on mobile */}
           <div
             className="hidden sm:block shrink-0 relative overflow-visible"
             style={{
               width: "260px",
-              height: `150px`,
+              height: "150px",
               marginLeft: "-60px",
             }}
           >
-            {/* Teal rectangle — exactly card height */}
             <div
               className="absolute inset-0 rounded-t-full"
               style={{ backgroundColor: "#1a8fa8" }}
             />
-
-            {/* Image — anchored to the rectangle's bottom, overflows upward */}
             <div
               className="absolute"
               style={{
@@ -200,19 +206,25 @@ export function SlidingTestimonial() {
 
           {/* RIGHT: scrolling carousel */}
           <div
-            className="flex-1 min-w-0 flex overflow-hidden group"
+            ref={carouselRef}
+            className="flex-1 min-w-0 flex overflow-hidden"
             style={{
               maskImage:
                 "linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)",
               WebkitMaskImage:
                 "linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)",
             }}
+            onMouseEnter={pauseMarquee}
+            onMouseLeave={resumeMarquee}
+            onTouchStart={pauseMarquee}
+            onTouchEnd={resumeMarquee}
+            onTouchCancel={resumeMarquee}
           >
             {[0, 1].map((clone) => (
               <div
                 key={clone}
                 aria-hidden={clone === 1}
-                className="flex gap-4 pr-4 min-w-max shrink-0 animate-marquee group-hover:[animation-play-state:paused]"
+                className="flex gap-4 pr-4 min-w-max shrink-0 animate-marquee"
               >
                 {testimonials.map((t, idx) => (
                   <TestimonialCard
