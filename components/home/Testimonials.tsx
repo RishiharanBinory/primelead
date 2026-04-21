@@ -83,7 +83,6 @@ function getInitials(name: string) {
     .toUpperCase();
 }
 
-// Card height is roughly 220px (content) — used to size the rectangle
 const CARD_HEIGHT = 220;
 
 function TestimonialCard({
@@ -161,17 +160,15 @@ export function SlidingTestimonial() {
         <div className="flex items-end gap-6">
 
           {/*
-            LEFT: teal rectangle
-            - Fixed width & height matching card height
-            - Position relative so the image can overflow upward absolutely
-            - overflow-visible so image spills above
+            LEFT: teal rectangle + image
+            Hidden on mobile (below sm breakpoint), visible from sm and up
           */}
           <div
-            className="shrink-0 relative overflow-visible"
+            className="hidden sm:block shrink-0 relative overflow-visible"
             style={{
               width: "260px",
               height: `150px`,
-              marginLeft: "-60px", 
+              marginLeft: "-60px",
             }}
           >
             {/* Teal rectangle — exactly card height */}
