@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 import { ArrowRight, Mail, Phone, MapPin } from "lucide-react";
 import PhoneInput from "react-phone-input-2";
 import { isValidPhoneNumber } from "libphonenumber-js";
@@ -100,7 +101,7 @@ export function ContactSection() {
       try {
         await emailjs.send(
           process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-          process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!, // your main notification template
+          process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
           {
             from_name: form.fullName,
             from_email: form.email,
@@ -110,10 +111,9 @@ export function ContactSection() {
           process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
         );
 
-        // Auto-reply to the user
         await emailjs.send(
           process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-          process.env.NEXT_PUBLIC_EMAILJS_AUTO_REPLY_TEMPLATE_ID!, // your auto-reply template ID
+          process.env.NEXT_PUBLIC_EMAILJS_AUTO_REPLY_TEMPLATE_ID!,
           {
             from_name: form.fullName,
             from_email: form.email,
@@ -154,7 +154,7 @@ export function ContactSection() {
         {/* Mobile header */}
         <div className="text-center mb-8 lg:hidden">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-prime-light-blue text-prime-blue text-sm font-semibold mb-4 border border-blue-100 shadow-sm">
-            📞 Get in Touch
+             Get in Touch
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold text-prime-dark mb-3 tracking-tight">
             Not sure where to begin?
@@ -168,18 +168,20 @@ export function ContactSection() {
         <div className="bg-white rounded-2xl sm:rounded-[2.5rem] shadow-2xl border border-gray-100 overflow-hidden flex flex-col lg:flex-row">
           {/* Left Side */}
           <div className="w-full lg:w-5/12 relative overflow-hidden p-6 sm:p-10 lg:p-14 flex flex-col justify-between text-white min-h-[200px] lg:min-h-[400px]">
-            <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{
-                backgroundImage:
-                  "url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80')",
-              }}
+            {/* Background Image */}
+            <Image
+              src="/contact.jpg"
+              alt="Contact background"
+              fill
+              className="object-cover object-center"
+              priority
             />
-            <div className="absolute inset-0 bg-prime-dark/85 backdrop-blur-[2px]" />
+            {/* Dark overlay */}
+            <div className="absolute inset-0 bg-prime-dark/55 backdrop-blur-[1px]" />
 
             <div className="relative z-10 hidden lg:block">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-white text-sm font-semibold mb-8 border border-white/20">
-                📞 Get in Touch
+                Get in Touch
               </div>
               <h2 className="text-4xl font-bold mb-6 tracking-tight leading-tight">
                 Not sure where to begin?

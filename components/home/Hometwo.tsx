@@ -36,13 +36,7 @@ function useScrollY() {
 }
 
 // ------------------------------------------------------------------
-// ParallaxImage — premium animations with two-div pattern
-//
-// Outer div: scroll drift + base rotation  (no animation)
-// Inner div: float animation + hover tilt + entrance reveal
-//
-// This cleanly separates the transforms so CSS animation and
-// inline transforms never fight each other.
+// ParallaxImage
 // ------------------------------------------------------------------
 interface ParallaxImageProps {
   src: string;
@@ -89,26 +83,18 @@ function ParallaxImage({
 
   const h = Math.round(figmaHeight * scale);
   const w = Math.round((naturalWidth / naturalHeight) * h);
-
-  // Scroll drift applied on the outer wrapper
   const drift = -(scrollY * scrollSpeedY) / 100;
-
-  // Float durations per variant
-  const floatDuration = floatVariant === "b" ? "7s" : floatVariant === "c" ? "4.5s" : "5.5s";
-
-  // Hover tilt — only on non-touch, only after revealed
+  const floatDuration =
+    floatVariant === "b" ? "7s" : floatVariant === "c" ? "4.5s" : "5.5s";
   const hoverTransform =
     hovered && !isTouch && revealed
       ? "rotate3d(0.4, -0.6, 0, 5deg) scale(1.04)"
       : "rotate3d(0, 0, 0, 0deg) scale(1)";
-
-  // Entrance transforms on inner div
   const entranceScale = revealed ? 1 : 0.82;
   const entranceOpacity = revealed ? 1 : 0;
   const entranceFilter = revealed ? "blur(0px)" : "blur(8px)";
 
   return (
-    // OUTER: handles scroll drift + base rotation
     <div
       style={{
         position: "absolute",
@@ -119,7 +105,6 @@ function ParallaxImage({
         ...style,
       }}
     >
-      {/* INNER: handles entrance reveal + float animation + hover tilt */}
       <div
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
@@ -128,13 +113,9 @@ function ParallaxImage({
           boxShadow: revealed
             ? "0 0 0 5px #ffffff, 0 24px 48px rgba(0,0,0,0.18), 0 8px 16px rgba(0,0,0,0.10)"
             : "0 0 0 5px #ffffff",
-
-          // Entrance: scale + opacity + blur
           transform: `scale(${entranceScale}) ${hoverTransform}`,
           opacity: entranceOpacity,
           filter: entranceFilter,
-
-          // Transition: spring overshoot on entrance, snappy on hover
           transition: revealed
             ? [
                 "transform 0.55s cubic-bezier(0.34,1.56,0.64,1)",
@@ -148,12 +129,9 @@ function ParallaxImage({
                 `filter 1.05s cubic-bezier(0.16,1,0.3,1) ${revealDelay}ms`,
                 `box-shadow 1.05s cubic-bezier(0.16,1,0.3,1) ${revealDelay}ms`,
               ].join(", "),
-
-          // Float kicks in only after fully revealed
           animation: revealed
             ? `float-${floatVariant} ${floatDuration} ease-in-out infinite`
             : "none",
-
           willChange: "transform, opacity, filter",
           cursor: "default",
         }}
@@ -220,7 +198,6 @@ export default function StudyInLondon() {
           font-family: 'Google Sans Flex', 'Google Sans', sans-serif !important;
         }
 
-        /* ── Float keyframes — three variants with different heights & timing ── */
         @keyframes float-a {
           0%   { transform: translateY(0px)    scale(1); }
           30%  { transform: translateY(-7px)   scale(1.005); }
@@ -239,7 +216,6 @@ export default function StudyInLondon() {
           100% { transform: translateY(0px)   scale(1); }
         }
 
-        /* ── Shimmer sweep on reveal ── */
         @keyframes shimmer-once {
           0%   { background-position: -200% center; }
           100% { background-position: 200% center; }
@@ -292,7 +268,33 @@ export default function StudyInLondon() {
           gap: 40px;
           position: relative;
         }
-        .hs-text { flex: 1 1 300px; max-width: 580px; z-index: 2; }
+
+        .hs-text {
+          flex: 1 1 300px;
+          max-width: 580px;
+          z-index: 2;
+          margin-top: -200px;
+        }
+
+        /* Floating logo: visible on desktop/tablet, hidden on mobile */
+        .hs-logo-floating {
+          display: block;
+          position: absolute;
+          top: 40px;
+          left: 30%;
+          transform: translateX(-50%);
+          z-index: 10;
+          pointer-events: none;
+        }
+
+        /* Inline logo: hidden on desktop, shown on mobile */
+        .hs-logo-mobile {
+          display: none;
+          margin-bottom: 16px;
+          width: 100%;
+          justify-content: center;
+          align-items: center;
+        }
 
         .hs-reveal-wrap {
           overflow: hidden;
@@ -311,7 +313,6 @@ export default function StudyInLondon() {
           transform: translateY(0);
         }
 
-        /* Desktop: button stacked above trust badge */
         .hs-cta-row {
           display: flex;
           flex-direction: column;
@@ -329,6 +330,10 @@ export default function StudyInLondon() {
           .hs-london   { font-size: 72px !important; letter-spacing: -1.5px !important; }
           .hs-subtitle { font-size: 22px !important; margin-top: 16px !important; }
           .hs-desc     { font-size: 18px !important; margin-top: 12px !important; }
+          .hs-logo-floating {
+            top: 30px;
+            left: 38%;
+          }
         }
 
         /* ── MOBILE ── */
@@ -346,6 +351,7 @@ export default function StudyInLondon() {
             flex-direction: column !important;
             align-items: center !important;
             width: 100% !important;
+            margin-top: 0 !important;
           }
           .hs-desc { text-align: left !important; }
           .hs-in     { font-size: 36px !important; letter-spacing: -0.5px !important; }
@@ -353,7 +359,6 @@ export default function StudyInLondon() {
           .hs-subtitle { font-size: 18px !important; }
           .hs-desc     { font-size: 16px !important; }
 
-          /* Button + trust badge side by side on mobile */
           .hs-cta-row {
             flex-direction: row !important;
             align-items: center !important;
@@ -364,8 +369,16 @@ export default function StudyInLondon() {
             width: 100% !important;
           }
 
-          /* Hide decorative side images on mobile */
           .hs-side-image { display: none !important; }
+
+          /* Hide floating logo on mobile — it overlaps text */
+          .hs-logo-floating { display: none !important; }
+
+          /* Show inline logo above heading on mobile */
+          .hs-logo-mobile {
+            display: flex !important;
+            justify-content: center !important;
+          }
         }
 
         @media (max-width: 400px) {
@@ -374,7 +387,6 @@ export default function StudyInLondon() {
           .hs-wrap   { padding: 32px 16px !important; }
         }
 
-        /* Respect reduced-motion preference */
         @media (prefers-reduced-motion: reduce) {
           @keyframes float-a { 0%, 100% { transform: none; } }
           @keyframes float-b { 0%, 100% { transform: none; } }
@@ -383,9 +395,35 @@ export default function StudyInLondon() {
       `}</style>
 
       <div className="hs-wrap">
+
+        {/* ── FLOATING LOGO — desktop/tablet only ── */}
+        <div className="hs-logo-floating">
+          <Image
+            src="/logo1.png"
+            alt="Primeleed logo"
+            width={220}
+            height={220}
+            priority
+            style={{ objectFit: "contain" }}
+          />
+        </div>
+
         {/* ── TEXT ── */}
         <div className="hs-text">
           <TextReveal>
+
+            {/* ── INLINE LOGO — mobile only, above heading ── */}
+            <div className="hs-logo-mobile">
+              <Image
+                src="/logo1.png"
+                alt="Primeleed logo"
+                width={200}
+                height={88}
+                priority
+                style={{ objectFit: "contain", display: "block" }}
+              />
+            </div>
+
             <h1 style={{ margin: 0, padding: 0 }}>
               <RevealLine delay={0}>
                 <span className="hs-in">Study in</span>
@@ -440,7 +478,7 @@ export default function StudyInLondon() {
 }
 
 // ------------------------------------------------------------------
-// Cluster: mobile = single Big Ben, desktop = full 3-image cluster
+// Cluster: mobile = single Big Ben (smaller), desktop = full 3-image cluster
 // ------------------------------------------------------------------
 function MobileAwareCluster({
   clusterW,
@@ -470,7 +508,7 @@ function MobileAwareCluster({
   }, []);
 
   if (isMobile) {
-    const mobileW = Math.round(vw * 0.82);
+    const mobileW = Math.round(vw * 0.65);
     const mobileH = Math.round((649 / 400) * mobileW);
 
     return (
@@ -513,7 +551,6 @@ function MobileAwareCluster({
         width: `${clusterW}px`,
         height: `${clusterH}px`,
         overflow: "visible",
-        // pointer-events: none on cluster but inner divs re-enable for hover
         pointerEvents: "none",
       }}
     >

@@ -28,7 +28,7 @@ const page = () => {
       <Section noPadX>
         <StatSection />
       </Section>
-      <Section>
+      <Section >
         <SlidingTestimonial />
       </Section>
 

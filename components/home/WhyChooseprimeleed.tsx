@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   PoundSterling,
   GraduationCap,
@@ -9,6 +10,7 @@ import {
   Monitor,
   HeartHandshake,
 } from "lucide-react";
+
 const services = [
   {
     title: "Student Finance Help in London",
@@ -47,104 +49,129 @@ const services = [
     icon: HeartHandshake,
   },
 ];
+
 const containerVariants = {
-  hidden: {
-    opacity: 0,
-  },
+  hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-    },
+    transition: { staggerChildren: 0.08 },
   },
 };
+
 const itemVariants = {
-  hidden: { opacity: 0, y: 16 },
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.4,
-      ease: "easeOut" as const,
-    },
+    transition: { duration: 0.4, ease: "easeOut" as const },
   },
 };
+
 export function WhyChoosePrimeLeed() {
   return (
-    <section className="w-full bg-white  font-sans">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-8 md:mb-16">
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: -16,
-            }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-            }}
-            viewport={{
-              once: true,
-            }}
-            transition={{
-              duration: 0.5,
-            }}
-            className="flex flex-col items-center"
-          >
-            <h2 className="text-3xl md:text-5xl font-bold text-brand-black mb-4 md:mb-6 relative inline-block">
-              Why Choose PrimeLeed
-              
-            </h2>
-            <p className="text-base md:text-xl text-gray-600 mt-3 md:mt-6 leading-relaxed px-2">
-              We remove barriers between ambition and education — guiding
-              students through every step of their UK university journey.
-            </p>
-          </motion.div>
-        </div>
+    <section className="w-full bg-white font-sans overflow-hidden">
+      <div className="max-w-[1400px] mx-auto">
+        <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-8">
 
-        {/* Services Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{
-            once: true,
-            margin: "-60px",
-          }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 lg:gap-8"
-        >
-          {services.map((service, index) => {
-            const Icon = service.icon;
-            return (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                whileHover={{ y: -6, transition: { duration: 0.2 } }}
-                className="p-4 sm:p-5 lg:p-8 rounded-xl lg:rounded-2xl border border-brand-border shadow-sm hover:shadow-lg transition-all duration-300 group"
+          {/* ── LEFT: Girl + Circle ─────────────────────────────────────── */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.65, ease: "easeOut" }}
+            className="flex-shrink-0 flex items-center justify-center w-full lg:w-auto"
+            style={{ flex: "0 0 35%" }}
+          >
+            {/*
+              Mobile: w-[240px] h-[300px] — small, compact, professional
+              Desktop: w-full h-[700px] — full figure using the 35% column
+            */}
+            <div className="relative w-[240px] h-[300px] lg:w-full lg:h-[700px]">
+
+              {/* Teal circle — percentage-based, scales with container */}
+              <div
+                className="absolute"
                 style={{
-                  background:
-                    "linear-gradient(145deg, #eff6ff 0%, #ffffff 55%)",
+                  width: "52%",
+                  paddingBottom: "52%",
+                  height: 0,
+                  borderRadius: "50%",
+                  background: "#17A7AF",
+                  top: "55%",
+                  left: "43%",
+                  transform: "translate(-50%, -50%)",
+                  zIndex: 0,
                 }}
-              >
-                {/* Mobile: icon + title inline | Desktop: stacked */}
-                <div className="flex items-start gap-3 sm:block">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-lg lg:rounded-xl bg-blue-50 flex items-center justify-center shrink-0 sm:mb-4 lg:mb-6 relative overflow-hidden">
-                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-brand-blue relative z-10 group-hover:scale-110 transition-transform duration-300" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-base sm:text-lg lg:text-xl font-bold text-brand-black mb-1.5 sm:mb-2 lg:mb-4 leading-tight">
+              />
+
+              {/* Girl image */}
+              <Image
+                src="/whyChoose.png"
+                alt="Student advisor"
+                fill
+                className="object-contain z-10"
+                priority
+              />
+            </div>
+          </motion.div>
+
+          {/* ── RIGHT: Heading + Cards ──────────────────────────────────── */}
+          <div className="flex-1 min-w-0 flex flex-col gap-8">
+
+            {/* Heading — center on mobile, left on desktop */}
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-center lg:text-left"
+            >
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-4">
+                Why Choose PrimeLeed
+              </h2>
+              <p className="text-base md:text-lg text-gray-500 leading-relaxed">
+                We remove barriers between ambition and education — guiding
+                students through every step of their UK university journey.
+              </p>
+            </motion.div>
+
+            {/* 6 Cards — 1 col mobile → 2 col tablet → 3 col desktop */}
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-60px" }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+            >
+              {services.map((service, index) => {
+                const Icon = service.icon;
+                return (
+                  <motion.div
+                    key={index}
+                    variants={itemVariants}
+                    whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                    className="group p-5 rounded-2xl border border-blue-50 hover:border-blue-100 hover:shadow-lg transition-all duration-300"
+                    style={{
+                      background:
+                        "linear-gradient(145deg, #EFF6FF 0%, #FFFFFF 60%)",
+                    }}
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center mb-4 group-hover:bg-blue-100 transition-colors duration-300">
+                      <Icon className="w-5 h-5 text-blue-600 group-hover:scale-110 transition-transform duration-300" />
+                    </div>
+                    <h3 className="text-sm lg:text-base font-bold text-gray-900 mb-2 leading-snug">
                       {service.title}
                     </h3>
-                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">
                       {service.description}
                     </p>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
+                  </motion.div>
+                );
+              })}
+            </motion.div>
+          </div>
+
+        </div>
       </div>
     </section>
   );

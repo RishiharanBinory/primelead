@@ -61,13 +61,13 @@ export default function CtaComponent() {
               />
             </div>
           </div>
-          <p className="font-medium ml-1 text-yellow-900">
+          <p className="font-medium ml-1 text-blackB">
             Your future shouldn&apos;t feel confusing.
           </p>
         </div>
 
         {/* Heading */}
-        <h1 className="text-4xl md:text-5xl md:leading-[1.2] font-semibold max-w-xl text-yellow-950 mt-5">
+        <h1 className="text-4xl md:text-5xl md:leading-[1.2] font-semibold max-w-xl text-black mt-5">
           Let&apos;s plan it together.
         </h1>
 

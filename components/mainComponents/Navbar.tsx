@@ -378,11 +378,11 @@ export default function Navbar() {
           <Image
             src="/logo.png"
             alt="Primeleed"
-            width={180}
+            width={200}
             height={54}
             priority
             className="object-contain w-auto"
-            style={{ height: "46px" }}
+            style={{ height: "56px" }}
           />
         </Link>
 

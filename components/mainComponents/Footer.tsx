@@ -6,177 +6,201 @@ import {
   Twitter as TwitterIcon,
   Linkedin as LinkedinIcon,
   Facebook as FacebookIcon,
+  MapPin,
+  Phone,
+  Mail,
 } from 'lucide-react'
+
 export function Footer() {
   const currentYear = new Date().getFullYear()
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    })
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
+
   return (
-    <footer className="bg-[#105E74] text-white relative overflow-hidden">
-      {/* SVG Wave Divider at Top */}
+    <footer
+      className="bg-[#105E74] text-white relative overflow-hidden"
+      style={{ fontFamily: "'Google Sans Flex', sans-serif" }}
+    >
+      <link
+        href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100..900&display=swap"
+        rel="stylesheet"
+      />
+
+      {/* Wave */}
       <div className="absolute top-0 left-0 right-0 w-full overflow-hidden leading-none">
         <svg
           className="relative block w-full h-[40px]"
-          data-name="Layer 1"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1200 120"
           preserveAspectRatio="none"
         >
           <path
             d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
-            fill="#F8FAFC"
-          ></path>
+            fill="#FFFFFF"
+          />
         </svg>
       </div>
 
-      {/* Subtle Dot Grid Background */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 pt-20 pb-8 relative z-10">
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 pt-30 pb-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-10">
-          <div className="md:col-span-2">
-            <a
-              href="#"
-              className="text-3xl font-serif font-bold text-white tracking-tight block mb-6"
-            >
+        {/* ── TOP SECTION: Brand (left) + 3 columns (right) ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 mb-12 items-start">
+
+          {/* Col 1 — Brand block (no heading, just brand name as anchor) */}
+          <div className="flex flex-col lg:col-span-2">
+            {/* Invisible spacer so brand name sits at same height as the headings in other cols */}
+            <a href="#" className="text-3xl font-serif font-bold text-white tracking-tight mb-5 block">
               Primeleed<span className="text-prime-blue">.</span>
             </a>
-            <p className="text-sm leading-relaxed max-w-sm text-slate-400">
+
+            <p className="text-white leading-relaxed mb-6" style={{ fontSize: '14px' }}>
               Expert guidance for students looking to study in London. From
               university applications to securing Student Finance, we support
               you end-to-end.
             </p>
 
-            {/* Social Links & Newsletter */}
-            <div className="mt-8">
-              <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-3 mb-6">
+              {[
+                { Icon: InstagramIcon, label: 'Instagram' },
+                { Icon: TwitterIcon, label: 'Twitter' },
+                { Icon: LinkedinIcon, label: 'LinkedIn' },
+                { Icon: FacebookIcon, label: 'Facebook' },
+              ].map(({ Icon, label }) => (
                 <a
+                  key={label}
                   href="#"
-                  aria-label="Instagram"
+                  aria-label={label}
                   className="w-9 h-9 rounded-full bg-slate-800 hover:bg-prime-blue transition-colors flex items-center justify-center text-white"
                 >
-                  <InstagramIcon size={16} />
+                  <Icon size={16} />
                 </a>
-                <a
-                  href="#"
-                  aria-label="Twitter"
-                  className="w-9 h-9 rounded-full bg-slate-800 hover:bg-prime-blue transition-colors flex items-center justify-center text-white"
-                >
-                  <TwitterIcon size={16} />
-                </a>
-                <a
-                  href="#"
-                  aria-label="LinkedIn"
-                  className="w-9 h-9 rounded-full bg-slate-800 hover:bg-prime-blue transition-colors flex items-center justify-center text-white"
-                >
-                  <LinkedinIcon size={16} />
-                </a>
-                <a
-                  href="#"
-                  aria-label="Facebook"
-                  className="w-9 h-9 rounded-full bg-slate-800 hover:bg-prime-blue transition-colors flex items-center justify-center text-white"
-                >
-                  <FacebookIcon size={16} />
-                </a>
-              </div>
-              <form
-                className="flex items-center max-w-xs"
-                onSubmit={(e) => e.preventDefault()}
-              >
-                <input
-                  type="email"
-                  placeholder="Email address"
-                  className="w-full bg-slate-800 border border-slate-700 rounded-l-lg px-4 py-2.5 text-sm text-white outline-none focus:border-prime-blue transition-colors placeholder-slate-500"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="bg-prime-blue hover:bg-sky-400 transition-colors rounded-r-lg px-4 py-2.5 text-sm font-bold text-white whitespace-nowrap"
-                >
-                  Subscribe
-                </button>
-              </form>
+              ))}
             </div>
+
+            <form className="flex items-center max-w-xs" onSubmit={(e) => e.preventDefault()}>
+              <input
+                type="email"
+                placeholder="Email address"
+                className="w-full bg-slate-800 border border-slate-700 rounded-l-lg px-4 py-2.5 text-white outline-none focus:border-prime-blue transition-colors placeholder-slate-500"
+                style={{ fontSize: '14px' }}
+                required
+              />
+              <button
+                type="submit"
+                className="bg-prime-blue hover:bg-sky-400 transition-colors rounded-r-lg px-4 py-2.5 font-bold text-white whitespace-nowrap"
+                style={{ fontSize: '14px' }}
+              >
+                Subscribe
+              </button>
+            </form>
           </div>
 
-          <div>
-            <h4 className="text-white font-bold mb-6 uppercase tracking-wider text-sm">
+          {/* Col 2 — Quick Links */}
+          <div className="flex flex-col">
+            <h4
+              className="text-white font-bold uppercase tracking-wider mb-5"
+              style={{ fontSize: '13px', letterSpacing: '0.1em' }}
+            >
               Quick Links
             </h4>
-            <ul className="space-y-3 text-sm">
+            <ul className="flex flex-col" style={{ gap: '14px' }}>
+              {[
+                { href: '#services', label: 'Services' },
+                { href: '#process', label: 'Our Process' },
+                { href: '#finance', label: 'Student Finance' },
+                { href: '#faq', label: 'FAQ' },
+              ].map(({ href, label }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    className="text-white hover:text-prime-blue transition-colors flex items-center gap-2"
+                    style={{ fontSize: '14px' }}
+                  >
+                    <span className="w-1 h-1 bg-prime-blue rounded-full flex-shrink-0" />
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Col 3 — Contact Us */}
+          <div className="flex flex-col">
+            <h4
+              className="text-white font-bold uppercase tracking-wider mb-5"
+              style={{ fontSize: '13px', letterSpacing: '0.1em' }}
+            >
+              Contact Us
+            </h4>
+            <ul className="flex flex-col" style={{ gap: '14px' }}>
+              <li className="flex items-start gap-3 text-white">
+                <MapPin size={15} className="shrink-0 text-prime-blue" style={{ marginTop: '2px' }} />
+                <span className="leading-relaxed" style={{ fontSize: '14px' }}>
+                  1 Woodlands Grove, Stapleford Abbotts,<br />
+                  Romford, RM4 1FB
+                </span>
+              </li>
               <li>
                 <a
-                  href="#services"
-                  className="hover:text-prime-blue transition-colors flex items-center gap-2"
+                  href="tel:02080043779"
+                  className="flex items-center gap-3 text-white hover:text-prime-blue transition-colors"
+                  style={{ fontSize: '14px' }}
                 >
-                  <span className="w-1 h-1 bg-prime-blue rounded-full"></span>
-                  Services
+                  <Phone size={15} className="shrink-0 text-prime-blue" />
+                  020 8004 3779
                 </a>
               </li>
               <li>
                 <a
-                  href="#process"
-                  className="hover:text-prime-blue transition-colors flex items-center gap-2"
+                  href="mailto:info@primeleed.com"
+                  className="flex items-center gap-3 text-white hover:text-prime-blue transition-colors"
+                  style={{ fontSize: '14px' }}
                 >
-                  <span className="w-1 h-1 bg-prime-blue rounded-full"></span>
-                  Our Process
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#finance"
-                  className="hover:text-prime-blue transition-colors flex items-center gap-2"
-                >
-                  <span className="w-1 h-1 bg-prime-blue rounded-full"></span>
-                  Student Finance
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#faq"
-                  className="hover:text-prime-blue transition-colors flex items-center gap-2"
-                >
-                  <span className="w-1 h-1 bg-prime-blue rounded-full"></span>
-                  FAQ
+                  <Mail size={15} className="shrink-0 text-prime-blue" />
+                  info@primeleed.com
                 </a>
               </li>
             </ul>
           </div>
 
-          <div>
-            <h4 className="text-white font-bold mb-6 uppercase tracking-wider text-sm">
+          {/* Col 4 — Legal */}
+          <div className="flex flex-col">
+            <h4
+              className="text-white font-bold uppercase tracking-wider mb-5"
+              style={{ fontSize: '13px', letterSpacing: '0.1em' }}
+            >
               Legal
             </h4>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <a href="#" className="hover:text-prime-blue transition-colors">
-                  Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-prime-blue transition-colors">
-                  Terms of Service
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-prime-blue transition-colors">
-                  Cookie Policy
-                </a>
-              </li>
+            <ul className="flex flex-col" style={{ gap: '14px' }}>
+              {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((item) => (
+                <li key={item}>
+                  <a
+                    href="#"
+                    className="text-white hover:text-prime-blue transition-colors"
+                    style={{ fontSize: '14px' }}
+                  >
+                    {item}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-slate-800/50 flex flex-col md:flex-row items-center justify-between gap-6 text-xs font-medium text-slate-500">
-          <p>&copy; {currentYear} Primeleed. All rights reserved.</p>
+        {/* Divider */}
+        <div className="border-t border-slate-800/50" />
 
+        {/* Bottom Bar */}
+        <div
+          className="pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-white font-medium"
+          style={{ fontSize: '12px' }}
+        >
+          <p>&copy; {currentYear} Primeleed. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <p className="flex items-center gap-2">
               Designed for students studying in London
-              <span className="w-2 h-2 rounded-full bg-prime-blue inline-block"></span>
+              <span className="w-2 h-2 rounded-full bg-prime-blue inline-block" />
             </p>
             <button
               onClick={scrollToTop}

@@ -1,101 +1,215 @@
-import React from "react";
-import { StarIcon, QuoteIcon } from "lucide-react";
+"use client";
+import React, { useState } from "react";
+import { StarIcon } from "lucide-react";
+import Image from "next/image";
+
 const testimonials = [
   {
-    name: "Sarah Jenkins",
-    profession: "First-year Undergrad",
+    name: "Stella Dike",
+    date: "02/10/2023",
     description:
-      "PrimeLeed made my university application process seamless. Their advisors were always there to help me refine my personal statement until it was perfect.",
-    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+      "I had an amazing experience with primeleed. The customer service was outstanding. I was so pleased with the service I received from them. They went above and beyond to help me find the perfect university.",
   },
   {
-    name: "David Chen",
-    profession: "University Applicant",
+    name: "Nwanya Chukwuemeka Uzoma",
+    date: "02/10/2023",
     description:
-      "I was completely lost with Student Finance, but the team explained everything clearly. Highly recommend their services to anyone feeling overwhelmed!",
-    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+      "They are very reliable and always look out for your interest to your admission problems. I will recommend them for this job.",
   },
   {
-    name: "Emily Rodriguez",
-    profession: "BSc Computer Science",
+    name: "Jazmin Mera",
+    date: "25/09/2023",
     description:
-      "The guidance I received for choosing the right course was invaluable. I'm now studying exactly what I love at my top-choice university.",
-    avatar: "https://randomuser.me/api/portraits/women/68.jpg",
+      "I would like to mention that Prime Leed is a very useful resource that helps students in various ways and makes their lives easier thanks to the team they have. Randy in particular is very patient and intelligent, always willing to help me.",
   },
   {
-    name: "James Wilson",
-    profession: "Law Student",
+    name: "Tuğba Arslan Bayat",
+    date: "17/08/2023",
     description:
-      "They helped me secure offers from all my top choices. The mock interviews were especially helpful and gave me the confidence I needed.",
-    avatar: "https://randomuser.me/api/portraits/men/75.jpg",
+      "PrimeLeed gave me a professional service by supporting me in every aspect during my higher education application process. I am lucky to have PrimeLeed with me in this journey, and happily recommend.",
   },
   {
-    name: "Aisha Patel",
-    profession: "Medical Student",
+    name: "Sultan Alenzi",
+    date: "15/02/2023",
     description:
-      "A fantastic service that took the stress out of applying to university. Always responsive, deeply knowledgeable, and incredibly supportive.",
-    avatar: "https://randomuser.me/api/portraits/women/26.jpg",
+      "Highly recommended, very supportive, they've got me straight to the right path. Very friendly staff especially Shawn — he's always willing to help, even after I secured my place at uni he always calls to check how I'm doing and if I need any assistance.",
   },
   {
-    name: "Thomas Wright",
-    profession: "BA History",
+    name: "Marian Shaw",
+    date: "13/02/2023",
     description:
-      "From UCAS applications to accommodation advice, PrimeLeed was there every step of the way. I couldn't have done it without them.",
-    avatar: "https://randomuser.me/api/portraits/men/46.jpg",
+      "Primeleed is the best student service for new learners at Solent University. Their professional team are so diligent, all along the way from application to admission. Sam and Randy were by my side in every step. Am extremely grateful for their dedication and patience for problem-solving. I would love to say a big thank you to Sam and Randy.",
   },
   {
-    name: "Lucy Thompson",
-    profession: "University Applicant",
+    name: "Ash Zandi",
+    date: "13/01/2023",
     description:
-      "I couldn't have navigated the clearing process without their prompt and reassuring support. They turned a stressful day into a success.",
-    avatar: "https://randomuser.me/api/portraits/women/89.jpg",
+      "PrimeLeed has delivered a very good and professional service. They made applying for Uni so easy and advised on everything I needed. They liaised on my behalf with the Uni and took care of the application process. Shawn was specially good and professional. He kept his communication open and easy with me and was available for a chat when needed. Overall great service.",
   },
   {
-    name: "Michael Chang",
-    profession: "Engineering Student",
+    name: "Lirio Alim",
+    date: "08/05/2022",
     description:
-      "Their essay review service transformed my personal statement. I felt so much more confident submitting my application knowing it was strong.",
-    avatar: "https://randomuser.me/api/portraits/men/22.jpg",
+      "I would like to express my gratitude and thanks to Mr Randy, the person who assisted and guided me in getting into my University. A massive thanks for everything you have done. I couldn't have done it without his guidance. He gives me a lot of hope because he is confident, believes in his job, and enjoys assisting students.",
+  },
+  {
+    name: "Olabisi Abolade Ogunbiyi",
+    date: "06/05/2022",
+    description:
+      "Wow! PrimeLeed! Three words: Fantastic, Great, Superb! I never thought it was possible for me to go back to Uni. But right now I am bursting with pride and joy. Randy's patience is from another world — he never gave up on me even when I was giving up on myself. Now I'm at University of Bolton studying Business Management. I will recommend PrimeLeed to everyone!",
   },
 ];
-function SlidingTestimonial() {
+
+const colors = [
+  "from-blue-500 to-blue-600",
+  "from-violet-500 to-violet-600",
+  "from-emerald-500 to-emerald-600",
+  "from-amber-500 to-amber-600",
+  "from-rose-500 to-rose-600",
+  "from-cyan-500 to-cyan-600",
+  "from-pink-500 to-pink-600",
+  "from-indigo-500 to-indigo-600",
+  "from-lime-500 to-lime-600",
+];
+
+const CHAR_LIMIT = 180;
+
+function getInitials(name: string) {
+  return name
+    .split(" ")
+    .slice(0, 2)
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase();
+}
+
+function TestimonialCard({
+  testimonial,
+  colorClass,
+}: {
+  testimonial: (typeof testimonials)[0];
+  colorClass: string;
+}) {
+  const [expanded, setExpanded] = useState(false);
+  const isLong = testimonial.description.length > CHAR_LIMIT;
+
   return (
-    <section className="w-full bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12 md:mb-16">
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 mb-3 sm:mb-6">
+    <div className="flex flex-col bg-white border border-slate-200 rounded-2xl shadow-sm w-[260px] p-5 shrink-0 transition-all duration-300 hover:shadow-md hover:border-blue-200">
+      <div className="flex gap-0.5 text-amber-400 mb-3">
+        {[...Array(5)].map((_, i) => (
+          <StarIcon key={i} className="w-3.5 h-3.5 fill-current" />
+        ))}
+      </div>
+
+      <p
+        className={`text-slate-700 text-sm leading-relaxed mb-1 ${
+          !expanded ? "line-clamp-4" : ""
+        }`}
+      >
+        &quot;{testimonial.description}&quot;
+      </p>
+
+      {isLong && (
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="text-blue-500 hover:text-blue-700 text-xs font-semibold text-left mb-3 transition-colors"
+        >
+          {expanded ? "Show less" : "Read more"}
+        </button>
+      )}
+
+      <div className="flex-1" />
+
+      <div className="flex items-center gap-3 pt-3 border-t border-slate-100 mt-3">
+        <div
+          className={`w-9 h-9 rounded-full bg-gradient-to-br ${colorClass} flex items-center justify-center text-white font-bold text-xs shrink-0`}
+        >
+          {getInitials(testimonial.name)}
+        </div>
+        <div>
+          <p className="font-semibold text-slate-900 text-xs">
+            {testimonial.name}
+          </p>
+          <p className="text-slate-400 text-[11px] mt-0.5">
+            {testimonial.date}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function SlidingTestimonial() {
+  return (
+    <section className="w-full bg-white overflow-hidden py-16">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-16">
+        {/* Heading + subtitle */}
+        <div className="text-center mb-10">
+          <h2 className="text-[28px] sm:text-[36px] lg:text-[48px] font-bold tracking-tight text-slate-900 mb-4">
             What Our Students Say
           </h2>
-          <p className="text-sm sm:text-lg md:text-xl text-slate-600 leading-relaxed mb-6 sm:mb-10">
+          <p className="text-[16px] sm:text-[18px] text-slate-600 leading-relaxed max-w-[560px] mx-auto">
             Students consistently choose PrimeLeed for clear guidance,
             supportive advisors, and simplified university applications.
           </p>
-
-          {/* Highlight Quotes — compact on mobile */}
         </div>
 
-        {/* Sliding Testimonials */}
-        <div
-          className="relative flex overflow-hidden group"
-          style={{
-            maskImage:
-              "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
-            WebkitMaskImage:
-              "linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)",
-          }}
-        >
-          <div className="flex gap-4 sm:gap-6 pr-4 sm:pr-6 min-w-full shrink-0 animate-marquee group-hover:[animation-play-state:paused]">
-            {testimonials.map((testimonial, idx) => (
-              <TestimonialCard key={`a-${idx}`} testimonial={testimonial} />
-            ))}
+        {/* Carousel row */}
+        <div className="flex items-center gap-6">
+
+          {/* LEFT: teal circle with overflowing image */}
+          <div className="shrink-0 relative w-[280px] h-[280px] overflow-visible ">
+            {/* Teal circle — stays 180x180 */}
+            <div
+              className="absolute inset-0  rounded-full"
+              style={{ backgroundColor: "#0ABAB5" }}
+            />
+
+            {/* Image wrapper — resize THIS to make image bigger, circle stays same */}
+            <div
+              className="absolute"
+              style={{
+                width: "720px",   // ← change this to resize image
+                height: "780px",  // ← change this to resize image
+                bottom:"-100px",
+                left: "80%",
+                transform: "translateX(-50%)",
+                zIndex: 10,
+              }}
+            >
+              <Image
+                src="/review.png"
+                alt="Student advisor"
+                fill
+                className="object-contain object-bottom"
+              />
+            </div>
           </div>
+
+          {/* RIGHT: scrolling carousel */}
           <div
-            className="flex gap-4 sm:gap-6 pr-4 sm:pr-6 min-w-full shrink-0 animate-marquee group-hover:[animation-play-state:paused]"
-            aria-hidden="true"
+            className="flex-1 min-w-0 flex overflow-hidden group"
+            style={{
+              maskImage:
+                "linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)",
+            }}
           >
-            {testimonials.map((testimonial, idx) => (
-              <TestimonialCard key={`b-${idx}`} testimonial={testimonial} />
+            {[0, 1].map((clone) => (
+              <div
+                key={clone}
+                aria-hidden={clone === 1}
+                className="flex gap-4 pr-4 min-w-max shrink-0 animate-marquee group-hover:[animation-play-state:paused]"
+              >
+                {testimonials.map((t, idx) => (
+                  <TestimonialCard
+                    key={`${clone}-${idx}`}
+                    testimonial={t}
+                    colorClass={colors[idx % colors.length]}
+                  />
+                ))}
+              </div>
             ))}
           </div>
         </div>
@@ -103,45 +217,3 @@ function SlidingTestimonial() {
     </section>
   );
 }
-function TestimonialCard({
-  testimonial,
-}: {
-  testimonial: (typeof testimonials)[0];
-}) {
-  return (
-    <div className="flex flex-col bg-white border border-slate-200 rounded-xl sm:rounded-2xl shadow-sm w-65 sm:w-85 md:w-95 p-4 sm:p-6 shrink-0 transition-all duration-300 hover:shadow-md hover:border-blue-200">
-      {/* Stars */}
-      <div className="flex gap-0.5 text-amber-400 mb-3 sm:mb-4">
-        {[...Array(5)].map((_, i) => (
-          <StarIcon
-            key={i}
-            className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current"
-          />
-        ))}
-      </div>
-
-      {/* Review */}
-      <p className="text-slate-700 mb-4 sm:mb-6 grow text-sm sm:text-base leading-relaxed">
-        &quot;{testimonial.description}&quot;
-      </p>
-
-      {/* Author */}
-      <div className="flex items-center gap-3 mt-auto pt-3 sm:pt-4 border-t border-slate-100">
-        <img
-          src={testimonial.avatar}
-          alt={`${testimonial.name}`}
-          className="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover border-2 border-slate-100"
-        />
-        <div className="flex flex-col">
-          <h5 className="font-semibold text-slate-900 text-xs sm:text-sm">
-            {testimonial.name}
-          </h5>
-          <p className="text-slate-500 text-[11px] sm:text-xs mt-0.5">
-            {testimonial.profession}
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-export { SlidingTestimonial };

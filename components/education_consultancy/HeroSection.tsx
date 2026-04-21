@@ -35,7 +35,7 @@ export function HeroSection() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center">
             {/* Left Content */}
             <motion.div
-              className="max-w-2xl"
+              className="max-w-2xl text-center lg:text-left"
               variants={containerVariants}
               initial="hidden"
               animate="visible"
@@ -95,7 +95,7 @@ export function HeroSection() {
               {/* Body */}
               <motion.p
                 variants={itemVariants}
-                className="text-lg sm:text-xl mb-10 leading-relaxed max-w-xl"
+                className="text-lg sm:text-xl mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0"
                 style={{ color: "var(--body-text)" }}
               >
                 Looking for a trusted education consultancy London students rely
@@ -107,15 +107,17 @@ export function HeroSection() {
               {/* CTAs */}
               <motion.div
                 variants={itemVariants}
-                className="flex flex-col sm:flex-row gap-5"
+                className="flex flex-col sm:flex-row gap-5 items-center lg:items-start"
               >
-                <Buttontwo
-                  text="Book Free Consultation"
-                  href="/contact"
-                  bgColor="#149ab5"
-                  textColor="#ffffff"
-                  fontSize={18}
-                />
+                <div className="w-fit mx-auto lg:mx-0">
+                  <Buttontwo
+                    text="Book Free Consultation"
+                    href="/contact"
+                    bgColor="#149ab5"
+                    textColor="#ffffff"
+                    fontSize={18}
+                  />
+                </div>
               </motion.div>
             </motion.div>
 

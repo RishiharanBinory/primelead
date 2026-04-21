@@ -1,33 +1,39 @@
-'use client'
-import React, { useState } from 'react'
-import Image from 'next/image'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Plus, Minus } from 'lucide-react'
+"use client";
+import React, { useState } from "react";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { Plus, Minus } from "lucide-react";
 
 export function FAQSection() {
   const faqs = [
     {
-      question: 'Can I study in London while working?',
+      question: "Can I study in London while working?",
       answer:
-        'Yes. Many universities offer flexible programmes allowing students to balance work and study.',
+        "Yes. Many universities offer flexible programmes allowing students to balance work and study.",
     },
     {
-      question: 'How to study in London with Student Finance?',
+      question: "How to study in London with Student Finance?",
       answer:
-        'Eligible students can apply for funding through Student Finance England with advisor guidance throughout the process.',
+        "Eligible students can apply for funding through Student Finance England with advisor guidance throughout the process.",
     },
     {
-      question: 'Do mature students qualify to study in London?',
+      question: "Do mature students qualify to study in London?",
       answer:
-        'Yes. Universities actively support mature students entering higher education.',
+        "Yes. Universities actively support mature students entering higher education.",
     },
-  ]
+    {
+      question: "Can international students study in London?",
+      answer:
+        "Yes. London universities welcome international students and offer dedicated support services, including visa guidance and cultural integration programmes.",
+    },
+  
+  ];
 
-  const [openIndex, setOpenIndex] = useState<number | null>(0)
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggleFAQ = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index)
-  }
+    setOpenIndex(openIndex === index ? null : index);
+  };
 
   return (
     <section className="py-24 lg:py-28 bg-primel-lightbg">
@@ -54,7 +60,7 @@ export function FAQSection() {
 
             <div className="hidden lg:block rounded-3xl overflow-hidden shadow-xl border-8 border-white h-64 relative">
               <Image
-                src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=80"
+                src="/faq.jpg"
                 alt="Student studying"
                 fill
                 className="object-cover"
@@ -80,8 +86,8 @@ export function FAQSection() {
                   <span
                     className={`font-bold pr-8 text-lg transition-colors ${
                       openIndex === index
-                        ? 'text-prime-blue'
-                        : 'text-prime-dark group-hover:text-prime-blue'
+                        ? "text-prime-blue"
+                        : "text-prime-dark group-hover:text-prime-blue"
                     }`}
                   >
                     {faq.question}
@@ -89,11 +95,15 @@ export function FAQSection() {
                   <div
                     className={`shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
                       openIndex === index
-                        ? 'bg-primel-gold text-white shadow-md'
-                        : 'bg-prime-blue/10 text-prime-blue group-hover:bg-prime-blue/20'
+                        ? "bg-primel-gold text-white shadow-md"
+                        : "bg-prime-blue/10 text-prime-blue group-hover:bg-prime-blue/20"
                     }`}
                   >
-                    {openIndex === index ? <Minus size={20} /> : <Plus size={20} />}
+                    {openIndex === index ? (
+                      <Minus size={20} />
+                    ) : (
+                      <Plus size={20} />
+                    )}
                   </div>
                 </button>
 
@@ -101,9 +111,9 @@ export function FAQSection() {
                   {openIndex === index && (
                     <motion.div
                       initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
+                      animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
                     >
                       <div className="px-6 pb-6 sm:px-8 sm:pb-8 text-primel-gray text-lg border-t border-primel-border pt-4 leading-relaxed">
                         {faq.answer}
@@ -117,5 +127,5 @@ export function FAQSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

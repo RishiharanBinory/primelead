@@ -18,7 +18,7 @@ const steps = [
     desc: "Understanding academic goals and background.",
     duration: "STEP 1",
     image:
-      "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&h=600&fit=crop",
+      "/consultation.jpg",
     stat: "98% Satisfaction Rate",
     icon: Users,
   },
@@ -38,7 +38,7 @@ const steps = [
     desc: "Preparing and submitting accurate applications.",
     duration: "STEP 3",
     image:
-      "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=600&fit=crop",
+      "/application.jpg",
     stat: "95% Acceptance Rate",
     icon: FileText,
   },
@@ -48,7 +48,7 @@ const steps = [
     desc: "Supporting funding applications and documentation.",
     duration: "STEP 4",
     image:
-      "https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=800&h=600&fit=crop",
+      "/finance.jpg",
     stat: "£50M+ Funding Secured",
     icon: TrendingUp,
   },
@@ -58,7 +58,7 @@ const steps = [
     desc: "Helping students transition smoothly into university life.",
     duration: "STEP 5",
     image:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop",
+      "/enrollment.jpg",
     stat: "10k+ Students Enrolled",
     icon: CheckCircle,
   },
