@@ -83,6 +83,9 @@ function getInitials(name: string) {
     .toUpperCase();
 }
 
+// Card height is roughly 220px (content) — used to size the rectangle
+const CARD_HEIGHT = 220;
+
 function TestimonialCard({
   testimonial,
   colorClass,
@@ -141,7 +144,7 @@ function TestimonialCard({
 
 export function SlidingTestimonial() {
   return (
-    <section className="w-full bg-white overflow-hidden py-16">
+    <section className="w-full bg-white overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-16">
         {/* Heading + subtitle */}
         <div className="text-center mb-10">
@@ -154,25 +157,37 @@ export function SlidingTestimonial() {
           </p>
         </div>
 
-        {/* Carousel row */}
-        <div className="flex items-center gap-6">
+        {/* Carousel row — items-end so rectangle bottom aligns with card bottoms */}
+        <div className="flex items-end gap-6">
 
-          {/* LEFT: teal circle with overflowing image */}
-          <div className="shrink-0 relative w-[280px] h-[280px] overflow-visible ">
-            {/* Teal circle — stays 180x180 */}
+          {/*
+            LEFT: teal rectangle
+            - Fixed width & height matching card height
+            - Position relative so the image can overflow upward absolutely
+            - overflow-visible so image spills above
+          */}
+          <div
+            className="shrink-0 relative overflow-visible"
+            style={{
+              width: "260px",
+              height: `150px`,
+              marginLeft: "-60px", 
+            }}
+          >
+            {/* Teal rectangle — exactly card height */}
             <div
-              className="absolute inset-0  rounded-full"
-              style={{ backgroundColor: "#0ABAB5" }}
+              className="absolute inset-0 rounded-t-full"
+              style={{ backgroundColor: "#1a8fa8" }}
             />
 
-            {/* Image wrapper — resize THIS to make image bigger, circle stays same */}
+            {/* Image — anchored to the rectangle's bottom, overflows upward */}
             <div
               className="absolute"
               style={{
-                width: "720px",   // ← change this to resize image
-                height: "780px",  // ← change this to resize image
-                bottom:"-100px",
-                left: "80%",
+                width: "720px",
+                height: "780px",
+                bottom: "-65px",
+                left: "90%",
                 transform: "translateX(-50%)",
                 zIndex: 10,
               }}

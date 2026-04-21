@@ -9,7 +9,7 @@ const page = () => {
   return (
     <main>
       
-      <div className="min-h-screen w-full relative bg-white">
+      <div className="min-h-[calc(100vh-64px)] max-h-[860px] w-full relative bg-white">
         {/* Cool Blue Glow Right */}
         <div
           className="absolute inset-0 z-0"

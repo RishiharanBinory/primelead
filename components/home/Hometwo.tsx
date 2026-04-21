@@ -257,6 +257,7 @@ export default function StudyInLondon() {
           line-height: 1.55;
           max-width: 560px;
           margin-bottom: 0;
+          padding-bottom: 0; 
         }
 
         .hs-wrap {
@@ -325,7 +326,7 @@ export default function StudyInLondon() {
 
         /* ── TABLET ── */
         @media (max-width: 1023px) {
-          .hs-wrap     { padding: 60px 40px; }
+          .hs-wrap     { padding: 60px 40px 0; }
           .hs-in       { font-size: 48px !important; letter-spacing: -0.5px !important; }
           .hs-london   { font-size: 72px !important; letter-spacing: -1.5px !important; }
           .hs-subtitle { font-size: 22px !important; margin-top: 16px !important; }
@@ -341,7 +342,7 @@ export default function StudyInLondon() {
           .hs-wrap {
             flex-direction: column !important;
             align-items: center !important;
-            padding: 40px 20px 32px !important;
+            padding: 40px 20px 0px !important;
             gap: 20px !important;
           }
           .hs-text {
@@ -384,7 +385,7 @@ export default function StudyInLondon() {
         @media (max-width: 400px) {
           .hs-in     { font-size: 30px !important; }
           .hs-london { font-size: 46px !important; }
-          .hs-wrap   { padding: 32px 16px !important; }
+          .hs-wrap   { padding: 32px 16px 0!important; }
         }
 
         @media (prefers-reduced-motion: reduce) {

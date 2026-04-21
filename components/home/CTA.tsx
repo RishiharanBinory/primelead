@@ -15,13 +15,26 @@ export default function CtaComponent() {
           margin-top: -40px;
           background: transparent;
         }
-        .cta-bg {
-          position: absolute;
-          inset: 0;
-          z-index: 0;
-          /* tight circle in the center only, fully transparent at edges */
-          background: radial-gradient(circle 400px at 50% 50%, rgba(20,154,181,0.13) 0%, transparent 100%);
-        }
+      .cta-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(
+    circle 200px at 50% 50%,
+    rgba(20, 154, 181, 0.08) 0%,
+    transparent 100%
+  );
+}
+
+@media (min-width: 768px) {
+  .cta-bg {
+    background: radial-gradient(
+      circle 400px at 50% 50%,
+      rgba(20, 154, 181, 0.13) 0%,
+      transparent 100%
+    );
+  }
+}
         .cta-section > *:not(.cta-bg) {
           position: relative;
           z-index: 1;
@@ -29,7 +42,6 @@ export default function CtaComponent() {
       `}</style>
 
       <section className="cta-section w-full flex flex-col items-center justify-center text-center pt-10">
-
         {/* Tight center glow only */}
         <div className="cta-bg" />
 
@@ -81,7 +93,6 @@ export default function CtaComponent() {
             fontSize={20}
           />
         </div>
-
       </section>
     </>
   );

@@ -36,7 +36,7 @@ export function FAQSection() {
   };
 
   return (
-    <section className="py-24 lg:py-28 bg-primel-lightbg">
+    <section className="py-15 lg:py-28 bg-primel-lightbg">
       <div className="max-w-350 mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
           {/* Left Side - Image & Heading */}

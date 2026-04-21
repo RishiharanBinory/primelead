@@ -73,22 +73,17 @@ export function WhyChoosePrimeLeed() {
       <div className="max-w-[1400px] mx-auto">
         <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-8">
 
-          {/* ── LEFT: Girl + Circle ─────────────────────────────────────── */}
+          {/* ── LEFT: Girl + Circle — hidden on mobile, visible on desktop ── */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, ease: "easeOut" }}
-            className="flex-shrink-0 flex items-center justify-center w-full lg:w-auto"
+            className="hidden lg:flex flex-shrink-0 items-center justify-center"
             style={{ flex: "0 0 35%" }}
           >
-            {/*
-              Mobile: w-[240px] h-[300px] — small, compact, professional
-              Desktop: w-full h-[700px] — full figure using the 35% column
-            */}
-            <div className="relative w-[240px] h-[300px] lg:w-full lg:h-[700px]">
-
-              {/* Teal circle — percentage-based, scales with container */}
+            <div className="relative w-full h-[700px]">
+              {/* Teal circle */}
               <div
                 className="absolute"
                 style={{
@@ -127,7 +122,7 @@ export function WhyChoosePrimeLeed() {
               className="text-center lg:text-left"
             >
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-4">
-                Why Choose PrimeLeed
+                Why <span style={{ color: "#149ab5" }}>Choose </span>Primeleed
               </h2>
               <p className="text-base md:text-lg text-gray-500 leading-relaxed">
                 We remove barriers between ambition and education — guiding

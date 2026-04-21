@@ -1,6 +1,6 @@
 const CookiePage = () => {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-[calc(100vh-64px)] max-h-[860px] bg-white">
       {/* Header */}
       <div className="px-10 pt-16 pb-0 max-w-300 mx-auto">
         <h1 className="text-5xl font-bold text-black mb-6">Cookie Policy</h1>

@@ -27,7 +27,7 @@ export function HeroSection() {
   };
 
   return (
-    <div className="min-h-screen w-full relative bg-white">
+    <div className="min-h-[calc(100vh-64px)] max-h-[860px] w-full relative bg-white">
       {/* Yellow Glow Background */}
 
       <section className="relative overflow-hidden pt-16 pb-24 lg:pt-28 lg:pb-36">

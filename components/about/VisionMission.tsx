@@ -43,7 +43,7 @@ export function VisionMission() {
   };
 
   return (
-    <section className="min-h-screen w-full bg-white flex flex-col justify-center  overflow-hidden">
+    <section className="min-h-[calc(100vh-64px)] max-h-[860px] w-full bg-white flex flex-col justify-center  overflow-hidden">
       <motion.div
         className="max-w-[1400px] mx-auto w-full flex flex-col gap-24 lg:gap-32"
         variants={container}
