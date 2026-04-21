@@ -15,19 +15,23 @@ export default function CtaComponent() {
           margin-top: -40px;
           background: transparent;
         }
-      .cta-bg {
+.cta-bg {
   position: absolute;
   inset: 0;
+  bottom: auto;          /* detach from bottom */
+  height: 55%;           /* only top 55% of the section */
   z-index: 0;
   background: radial-gradient(
-    circle 200px at 50% 50%,
-    rgba(20, 154, 181, 0.08) 0%,
+    circle 180px at 50% 30%,
+    rgba(20, 154, 181, 0.10) 0%,
     transparent 100%
   );
 }
 
 @media (min-width: 768px) {
   .cta-bg {
+    height: 100%;
+    bottom: 0;
     background: radial-gradient(
       circle 400px at 50% 50%,
       rgba(20, 154, 181, 0.13) 0%,
