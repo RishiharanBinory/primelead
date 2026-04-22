@@ -396,7 +396,6 @@ export default function StudyInLondon() {
       `}</style>
 
       <div className="hs-wrap">
-
         {/* ── FLOATING LOGO — desktop/tablet only ── */}
         <div className="hs-logo-floating">
           <Image
@@ -412,7 +411,6 @@ export default function StudyInLondon() {
         {/* ── TEXT ── */}
         <div className="hs-text">
           <TextReveal>
-
             {/* ── INLINE LOGO — mobile only, above heading ── */}
             <div className="hs-logo-mobile">
               <Image
@@ -442,11 +440,11 @@ export default function StudyInLondon() {
 
             <RevealLine delay={220}>
               <p className="hs-desc">
-                If you&apos;re planning to study in London, choosing the right
-                university, course, and funding option can feel overwhelming. At
-                Primeleed, we guide you step-by-step — from course selection to
-                Student Finance support — helping you confidently start your
-                journey to study in London.
+                If you’re planning to study in London, choosing the right
+                university, course, and funding pathway can feel overwhelming.
+                PrimeLeed guides students step-by-step, from course selection to
+                Student Finance support, helping you confidently start your
+                journey to study in London and build a strong academic future.
               </p>
             </RevealLine>
 

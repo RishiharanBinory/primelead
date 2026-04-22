@@ -30,7 +30,7 @@ export function Footer() {
       {/* Wave */}
       <div className="absolute top-0 left-0 right-0 w-full overflow-hidden leading-none">
         <svg
-          className="relative block w-full h-[40px]"
+          className="relative block w-full h-[20px] md:h-[40px]"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1200 120"
           preserveAspectRatio="none"
@@ -188,8 +188,8 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-slate-800/50" />
+
+        
 
         {/* Bottom Bar */}
         <div

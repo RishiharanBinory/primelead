@@ -4,33 +4,21 @@ import React, { useRef } from "react";
 
 // ─── University data ───────────────────────────────────────────────────────────
 const UNIVERSITIES_ROW1 = [
-  { name: "UCL", file: "/c1_logo.png", url: "https://www.ucl.ac.uk" },
-  { name: "Imperial", file: "/c2_logo.png", url: "https://www.imperial.ac.uk" },
-  {
-    name: "King's College",
-    file: "/c3_logo.png",
-    url: "https://www.kcl.ac.uk",
-  },
-  { name: "LSE", file: "/c4_logo.png", url: "https://www.lse.ac.uk" },
-  { name: "Queen Mary", file: "/c5_logo.png", url: "https://www.qmul.ac.uk" },
-  { name: "City, London", file: "/c6_logo.png", url: "https://www.city.ac.uk" },
+  { name: "UCL", file: "/c1_logo.png" },
+  { name: "Imperial", file: "/c2_logo.png" },
+  { name: "King's College", file: "/c3_logo.png" },
+  { name: "LSE", file: "/c4_logo.png" },
+  { name: "Queen Mary", file: "/c5_logo.png" },
+  { name: "City, London", file: "/c6_logo.png" },
 ];
 
 const UNIVERSITIES_ROW2 = [
-  { name: "Brunel", file: "/c7_logo.png", url: "https://www.brunel.ac.uk" },
-  {
-    name: "Westminster",
-    file: "/c8_logo.png",
-    url: "https://www.westminster.ac.uk",
-  },
-  { name: "Goldsmiths", file: "/c9_logo.png", url: "https://www.gold.ac.uk" },
-  { name: "Birkbeck", file: "/c10_logo.png", url: "https://www.bbk.ac.uk" },
-  { name: "SOAS", file: "/c11_logo.png", url: "https://www.soas.ac.uk" },
-  {
-    name: "Royal Holloway",
-    file: "/c12_logo.png",
-    url: "https://www.royalholloway.ac.uk",
-  },
+  { name: "Brunel", file: "/c7_logo.png" },
+  { name: "Westminster", file: "/c8_logo.png" },
+  { name: "Goldsmiths", file: "/c9_logo.png" },
+  { name: "Birkbeck", file: "/c10_logo.png" },
+  { name: "SOAS", file: "/c11_logo.png" },
+  { name: "Royal Holloway", file: "/c12_logo.png" },
 ];
 
 function repeated<T>(arr: T[], times = 4): T[] {
@@ -41,10 +29,9 @@ function repeated<T>(arr: T[], times = 4): T[] {
 interface UniCardProps {
   name: string;
   file: string;
-  url: string;
 }
 
-function UniCard({ name, file, url }: UniCardProps) {
+function UniCard({ name, file }: UniCardProps) {
   const [imgError, setImgError] = React.useState(false);
 
   const initials = name
@@ -55,11 +42,8 @@ function UniCard({ name, file, url }: UniCardProps) {
     .toUpperCase();
 
   return (
-    <a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      title={"Visit " + name}
+    <div
+      title={name}
       style={{
         flexShrink: 0,
         display: "flex",
@@ -73,20 +57,18 @@ function UniCard({ name, file, url }: UniCardProps) {
         border: "1px solid rgba(0,0,0,0.08)",
         background: "#ffffff",
         boxShadow: "0 1px 4px rgba(0,0,0,0.06)",
-        cursor: "pointer",
-        textDecoration: "none",
         padding: "8px",
         transition:
           "transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease",
       }}
       onMouseEnter={(e) => {
-        const el = e.currentTarget as HTMLAnchorElement;
+        const el = e.currentTarget as HTMLDivElement;
         el.style.transform = "translateY(-2px)";
         el.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)";
         el.style.borderColor = "rgba(0,0,0,0.15)";
       }}
       onMouseLeave={(e) => {
-        const el = e.currentTarget as HTMLAnchorElement;
+        const el = e.currentTarget as HTMLDivElement;
         el.style.transform = "translateY(0)";
         el.style.boxShadow = "0 1px 4px rgba(0,0,0,0.06)";
         el.style.borderColor = "rgba(0,0,0,0.08)";
@@ -132,7 +114,7 @@ function UniCard({ name, file, url }: UniCardProps) {
       >
         {name}
       </span>
-    </a>
+    </div>
   );
 }
 
@@ -160,6 +142,9 @@ function ScrollRow({ universities, direction }: ScrollRowProps) {
       ref={trackRef}
       onMouseEnter={pause}
       onMouseLeave={resume}
+      onTouchStart={pause}
+      onTouchEnd={resume}
+      onTouchCancel={resume}
       style={{
         display: "flex",
         gap: "16px",
@@ -179,7 +164,6 @@ function ScrollRow({ universities, direction }: ScrollRowProps) {
 export default function IntegrationHero() {
   return (
     <>
-      {/* Plain <style> — no jsx or jsx global pragma, safe in App Router */}
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -211,7 +195,6 @@ export default function IntegrationHero() {
         className="integration-hero-section"
         style={{
           position: "relative",
-          
           overflow: "hidden",
           background: "#ffffff",
           textAlign: "center",
