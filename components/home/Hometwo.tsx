@@ -276,6 +276,13 @@ export default function StudyInLondon() {
           z-index: 2;
           margin-top: -200px;
         }
+          @media (max-width: 1280px) {
+  .hs-text { margin-top: -120px; }
+}
+
+@media (max-width: 1023px) {
+  .hs-text { margin-top: -80px; }
+}
 
         /* Floating logo: visible on desktop/tablet, hidden on mobile */
         .hs-logo-floating {
