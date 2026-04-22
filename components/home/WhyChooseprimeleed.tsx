@@ -13,39 +13,39 @@ import {
 
 const services = [
   {
-    title: "Student Finance Help in London",
+    title: "Student Finance Support in London",
     description:
-      "We guide students through funding eligibility and Student Finance applications so financial barriers don't stop educational goals.",
+      "Study now, pay later with government-backed funding.",
     icon: PoundSterling,
   },
   {
-    title: "University Application Support UK",
+    title: "University Application Support in the UK",
     description:
-      "Professional support to apply to university UK institutions accurately and efficiently.",
+      "Expert guidance to help you secure your university place.",
     icon: GraduationCap,
   },
   {
     title: "Study While Working in London",
     description:
-      "Flexible degree options allow students to continue employment while studying.",
+      "Balance your studies with part-time work opportunities.",
     icon: Briefcase,
   },
   {
-    title: "EU Students - Study & Funding in the UK",
+    title: "UK Residents – Study and Funding Opportunities",
     description:
-      "Specialised guidance for EU students navigating UK university admissions and funding options.",
+      "Access funding and build your future through higher education.",
     icon: Globe,
   },
   {
-    title: "Online & Part-Time Degrees UK",
+    title: "Online and Part-Time Degrees in the UK",
     description:
-      "Access flexible education pathways including online degrees UK programmes designed around modern lifestyles.",
+      "Flexible study options designed around your lifestyle.",
     icon: Monitor,
   },
   {
     title: "End-to-End Student Support",
     description:
-      "Comprehensive university support UK students receive from first enquiry through enrolment.",
+      "Complete support from your first step to enrolment.",
     icon: HeartHandshake,
   },
 ];

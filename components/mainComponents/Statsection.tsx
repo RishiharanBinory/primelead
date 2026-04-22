@@ -5,10 +5,10 @@ import { useEffect, useRef } from "react";
 import { useInView, animate } from "framer-motion";
 
 const stats = [
-  { value: 15, suffix: "+", label: "Partnered Universities" },
-  { value: 2.0, suffix: "K", label: "Students Registered", decimal: 1 },
-  { value: 2.5, suffix: "K", label: "Students Enrolled", decimal: 1 },
-  { value: 500, suffix: "+", label: "Courses" },
+  { value: 20, suffix: "+", label: "Partnered Universities" },
+  { value: 3.0, suffix: "K", label: "Students Registered", decimal: 1 },
+  { value: 2.0, suffix: "K", label: "Students Enrolled", decimal: 1 },
+  { value: 100, suffix: "+", label: "Courses" },
 ];
 
 function CountUp({
@@ -39,11 +39,7 @@ function CountUp({
     return () => controls.stop();
   }, [inView, to, suffix, decimal, duration]);
 
-  return (
-    <span ref={ref}>
-      {"0" + suffix}
-    </span>
-  );
+  return <span ref={ref}>{"0" + suffix}</span>;
 }
 
 export default function StatsSection() {
@@ -53,10 +49,8 @@ export default function StatsSection() {
       style={{ backgroundColor: "#e8eef4" }}
     >
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 lg:items-end">
-
         {/* ── Left Column ── */}
         <div className="flex flex-col">
-
           {/* Text block */}
           <div className="pt-4 md:pt-8 mb-6 md:mb-8">
             <p
@@ -124,7 +118,6 @@ export default function StatsSection() {
 
         {/* ── Right Column ── */}
         <div className="flex flex-col justify-center gap-4 md:gap-5 pb-8 md:pb-16">
-
           {/* 2×2 stat cards */}
           <div className="grid grid-cols-2 gap-3 md:gap-5">
             {stats.map((stat) => (
@@ -191,7 +184,6 @@ export default function StatsSection() {
             </a>
           </div>
         </div>
-
       </div>
     </section>
   );
