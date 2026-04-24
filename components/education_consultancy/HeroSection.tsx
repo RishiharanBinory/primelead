@@ -27,7 +27,7 @@ export function HeroSection() {
 
   return (
     // Removed max-h so mobile content isn't constrained; min-h keeps desktop full-viewport
-    <div className="min-h-[calc(100vh-64px)] w-full relative overflow-hidden">
+    <div className="sm:min-h-[calc(100vh-64px)] w-full relative overflow-hidden">
       <section className="relative overflow-hidden pt-8 pb-2 sm:pt-16 sm:pb-8 lg:pt-28 lg:pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Reduced gap-16 → gap-6 on mobile so there's no huge dead space */}
