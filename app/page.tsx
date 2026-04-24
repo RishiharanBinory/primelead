@@ -38,9 +38,9 @@ const page = () => {
       <Section>
         <ContactSection />
       </Section>
-      <Section >
+      <Section>
         <CtaComponent />
-      </Section >
+      </Section>
     </main>
   );
 };

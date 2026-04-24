@@ -85,10 +85,10 @@ export function FAQSection() {
               >
                 <button
                   onClick={() => toggleFAQ(index)}
-                  className="w-full px-6 py-6 sm:px-8 sm:py-7 flex items-center justify-between text-left focus:outline-none group"
+                  className="w-full px-5 py-5 sm:px-8 sm:py-6 flex items-center justify-between text-left focus:outline-none group"
                 >
                   <span
-                    className={`font-bold pr-8 text-lg transition-colors ${
+                    className={`font-bold pr-4 sm:pr-6 text-base sm:text-lg transition-colors leading-snug ${
                       openIndex === index
                         ? "text-prime-blue"
                         : "text-prime-dark group-hover:text-prime-blue"
@@ -97,16 +97,16 @@ export function FAQSection() {
                     {faq.question}
                   </span>
                   <div
-                    className={`shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
+                    className={`shrink-0 w-9 sm:w-10 h-9 sm:h-10 rounded-full flex items-center justify-center transition-colors ${
                       openIndex === index
                         ? "bg-primel-gold text-white shadow-md"
                         : "bg-prime-blue/10 text-prime-blue group-hover:bg-prime-blue/20"
                     }`}
                   >
                     {openIndex === index ? (
-                      <Minus size={20} />
+                      <Minus size={18} strokeWidth={2.5} />
                     ) : (
-                      <Plus size={20} />
+                      <Plus size={18} strokeWidth={2.5} />
                     )}
                   </div>
                 </button>
@@ -119,7 +119,7 @@ export function FAQSection() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                     >
-                      <div className="px-6 pb-6 sm:px-8 sm:pb-8 text-primel-gray text-lg border-t border-primel-border pt-4 leading-relaxed">
+                      <div className="px-5 pb-5 sm:px-8 sm:pb-7 text-primel-gray text-base sm:text-lg border-t border-primel-border pt-4 leading-relaxed">
                         {faq.answer}
                       </div>
                     </motion.div>
