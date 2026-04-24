@@ -39,7 +39,7 @@ const page = () => {
       <Section>
         <SupportSection />
       </Section>
-      <Section>
+      <Section className="!py-0">
         <VisionMission />
       </Section>
       <Section>

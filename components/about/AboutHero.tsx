@@ -45,12 +45,12 @@ export default function HeroSection() {
         >
           <div className="flex flex-col md:flex-row items-center gap-12 md:gap-8 lg:gap-16">
             {/* ── LEFT / TOP: Text ─────────────────────────────────────── */}
-            <motion.div
-              className="w-full md:w-1/2 flex flex-col gap-6 text-center md:text-left"
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-            >
+<motion.div
+  className="w-full md:w-1/2 flex flex-col gap-6 text-center md:text-left md:-mt-24"
+  variants={containerVariants}
+  initial="hidden"
+  animate="visible"
+>
               {/* Trust badge */}
               <motion.div
                 variants={itemVariants}
