@@ -1,11 +1,10 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import { motion, useInView, animate } from "framer-motion";
-import { GraduationCap } from "lucide-react";
+import { useInView, animate } from "framer-motion";
 
 const CountUp = ({ to, duration = 2 }: { to: number; duration?: number }) => {
   const nodeRef = useRef<HTMLSpanElement>(null);
-  const inView = useInView(nodeRef, { once: true, margin: "-100px" });
+  const inView = useInView(nodeRef, { once: true, amount: 0.15 });
 
   useEffect(() => {
     if (inView && nodeRef.current) {
@@ -27,37 +26,25 @@ const CountUp = ({ to, duration = 2 }: { to: number; duration?: number }) => {
 
 export function SupportSection() {
   return (
-    <section className="w-full bg-white overflow-hidden">
-      <div className="max-w-[1400px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+    <section className="w-full bg-white overflow-hidden py-0 my-0">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center">
+
           {/* Left Column: Text Content */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="max-w-2xl"
-          >
-            <div className="flex items-center gap-4 mb-8">
-              <div
-                className="flex items-center justify-center w-10 h-10 rounded-full"
-                style={{ backgroundColor: "#149ab520", color: "#149ab5" }}
-              >
-                <GraduationCap size={20} strokeWidth={2.5} />
-              </div>
-              <div className="h-[2px] w-12 bg-brand-yellow rounded-full"></div>
-              <span
-                className="font-semibold uppercase tracking-widest text-sm"
-                style={{ color: "#149ab5" }}
-              >
+          <div className="relative flex flex-col justify-center order-2 lg:order-1">
+            <div className="flex items-center gap-4 sm:gap-6 mb-5 sm:mb-8">
+              <div className="w-8 sm:w-12 h-[2px] bg-[#F5C518]"></div>
+              <span className="text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase text-gray-400">
                 Student Support
               </span>
             </div>
 
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-[1.15] mb-8 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-5 sm:mb-8 tracking-tight">
               Empowering your journey to higher education
+              <span className="text-[#2563EB]">.</span>
             </h2>
-            <p className="text-lg md:text-xl text-gray-600 leading-relaxed font-normal">
+
+            <p className="text-base sm:text-lg md:text-[20px] text-gray-600 leading-relaxed font-light">
               Our platform offers comprehensive support, including guidance on
               the application process, access to valuable resources, and
               personalised assistance from experienced advisors. We are
@@ -65,47 +52,43 @@ export function SupportSection() {
               towards higher education is smooth and successful, regardless of
               their nationality or background.
             </p>
-          </motion.div>
+          </div>
 
           {/* Right Column: Stat Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-            className="relative"
-          >
-            {/* Decorative background */}
-
+          <div className="relative group w-full order-1 lg:order-2">
             <div
-              className="relative rounded-[2rem] p-10 md:p-14 overflow-hidden group"
+              className="relative rounded-[2rem] p-10 md:p-14 overflow-hidden"
               style={{
-                backgroundColor: "#149ab5",
-                boxShadow:
-                  "0 20px 60px -10px rgba(20, 154, 181, 0.35), 0 8px 24px -6px rgba(20, 154, 181, 0.2)",
+                backgroundImage: "url('/aboutstat.jpg')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
               }}
             >
-              {/* Inner depth gradients */}
+              <div className="absolute inset-0 bg-black/40 rounded-[2rem]"></div>
+
               <div className="absolute top-0 right-0 -mt-16 -mr-16 w-64 h-64 bg-white/10 rounded-full blur-3xl transition-transform duration-700 group-hover:scale-110"></div>
-              <div className="absolute bottom-0 left-0 -mb-16 -ml-16 w-64 h-64  rounded-full blur-3xl transition-transform duration-700 group-hover:scale-110"></div>
+              <div className="absolute bottom-0 left-0 -mb-16 -ml-16 w-64 h-64 rounded-full blur-3xl transition-transform duration-700 group-hover:scale-110"></div>
 
               <div className="relative z-10 flex flex-col h-full justify-center">
-                <div className="flex items-baseline gap-1 mb-6">
-                  <span className="text-8xl md:text-9xl font-bold text-white tracking-tighter leading-none">
+                <div className="flex items-baseline gap-1 mb-4">
+                  <span className="text-8xl md:text-9xl font-bold text-white tracking-tight leading-none">
                     <CountUp to={97} duration={2.5} />
                   </span>
                   <span className="text-6xl md:text-7xl font-bold text-white leading-none">
                     %
                   </span>
                 </div>
-                <div className="w-16 h-1  rounded-full mb-6"></div>
-                <p className="text-xl md:text-2xl text-white/95 font-medium leading-snug">
+
+                <div className="w-16 h-[2px] bg-[#F5C518] rounded-full mb-6"></div>
+
+                <p className="text-lg sm:text-xl md:text-2xl text-white/90 leading-relaxed font-light">
                   of our students successfully have been admitted to their first
                   choice of higher education through Prime Leed.
                 </p>
               </div>
             </div>
-          </motion.div>
+          </div>
+
         </div>
       </div>
     </section>

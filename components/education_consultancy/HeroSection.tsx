@@ -27,10 +27,8 @@ export function HeroSection() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-64px)] max-h-[860px] w-full relative bg-white">
-      {/* Yellow Glow Background */}
-
-      <section className="relative overflow-hidden pt-16 pb-24 lg:pt-28 lg:pb-36">
+    <div className="min-h-[calc(100vh-64px)] max-h-[860px] w-full relative overflow-hidden">
+      <section className="relative overflow-hidden pt-16 pb-8 sm:pb-24 lg:pt-28 lg:pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center">
             {/* Left Content */}
@@ -123,14 +121,14 @@ export function HeroSection() {
 
             {/* Right — Images */}
             <motion.div
-              className="relative h-125 sm:h-150 w-full lg:ml-10"
+              className="relative h-[320px] sm:h-150 w-full lg:ml-10"
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2, ease }}
             >
               {/* Main image */}
               <motion.div
-                className="absolute top-0 right-0 w-[85%] h-[80%] rounded-[2.5rem] overflow-hidden border-8 border-white shadow-2xl z-10"
+                className="absolute top-0 right-0 w-full sm:w-[85%] h-full sm:h-[80%] rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden border-4 sm:border-8 border-white shadow-2xl z-10"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.4 }}
               >
@@ -138,7 +136,7 @@ export function HeroSection() {
                   src="/consultancy.jpg"
                   alt="London Skyline"
                   fill
-                  className="object-cover"
+                  className="object-cover object-center"
                   sizes="(max-width: 768px) 100vw, 45vw"
                 />
                 <div
@@ -150,9 +148,9 @@ export function HeroSection() {
                 />
               </motion.div>
 
-              {/* Overlapping image */}
+              {/* Overlapping image — hidden on mobile */}
               <motion.div
-                className="absolute bottom-0 left-0 w-[65%] h-[60%] rounded-4xl overflow-hidden border-8 border-white shadow-2xl z-20"
+                className="hidden sm:block absolute bottom-0 left-0 w-[65%] h-[60%] rounded-4xl overflow-hidden border-8 border-white shadow-2xl z-20"
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.6 }}
@@ -167,9 +165,9 @@ export function HeroSection() {
                 />
               </motion.div>
 
-              {/* Stats card 1 */}
+              {/* Stats card 1 — hidden on mobile */}
               <motion.div
-                className="absolute top-12 -left-8 bg-white p-4 sm:p-5 rounded-2xl flex items-center gap-4 z-30"
+                className="hidden sm:flex absolute top-12 -left-8 bg-white p-4 sm:p-5 rounded-2xl items-center gap-4 z-30"
                 style={{
                   boxShadow: "var(--shadow-soft-hover)",
                   border: "1px solid var(--primel-border)",
@@ -204,9 +202,9 @@ export function HeroSection() {
                 </div>
               </motion.div>
 
-              {/* Stats card 2 */}
+              {/* Stats card 2 — hidden on mobile */}
               <motion.div
-                className="absolute bottom-12 -right-8 bg-white p-4 sm:p-5 rounded-2xl flex items-center gap-4 z-30"
+                className="hidden sm:flex absolute bottom-12 -right-8 bg-white p-4 sm:p-5 rounded-2xl items-center gap-4 z-30"
                 style={{
                   boxShadow: "var(--shadow-soft-hover)",
                   border: "1px solid var(--primel-border)",
@@ -227,13 +225,13 @@ export function HeroSection() {
                     className="text-xl font-bold leading-tight font-gsf"
                     style={{ color: "var(--dark)" }}
                   >
-                    2,000+
+                    3,000+
                   </p>
                   <p
                     className="text-sm font-medium"
                     style={{ color: "var(--body-text)" }}
                   >
-                    Students Guided
+                    Students Enrolled
                   </p>
                 </div>
               </motion.div>

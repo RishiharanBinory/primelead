@@ -189,6 +189,8 @@ export default function StudyInLondon() {
         position: "relative",
         width: "100%",
         fontFamily: "'Google Sans Flex', 'Google Sans', sans-serif",
+        paddingBottom: 0, // ← add this
+        marginBottom: 0,
       }}
     >
       <style>{`
@@ -268,6 +270,7 @@ export default function StudyInLondon() {
           justify-content: space-between;
           gap: 40px;
           position: relative;
+          padding-bottom: 0;
         }
 
         .hs-text {
@@ -558,6 +561,7 @@ function MobileAwareCluster({
         height: `${clusterH}px`,
         overflow: "visible",
         pointerEvents: "none",
+        marginTop: "80px", 
       }}
     >
       {/* TOP — Campus */}

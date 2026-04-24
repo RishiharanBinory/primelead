@@ -26,6 +26,11 @@ export function FAQSection() {
       question: "Is the consultation free?",
       answer: "Yes, all students can book a free initial consultation.",
     },
+    {
+      question: "How long does the university application process take?",
+      answer:
+        "Timelines vary depending on the university and course, but we recommend starting at least 6–12 months before your intended intake. Our advisors help you plan a realistic timeline covering personal statements, references, and submission deadlines.",
+    },
   ];
 
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -111,7 +116,7 @@ export function FAQSection() {
                     style={
                       openIndex === index
                         ? {
-                            background: "#ffc501",
+                            background: "#105E74",
                             color: "#fff",
                             boxShadow: "0 2px 8px rgba(255,197,1,0.35)",
                           }

@@ -26,7 +26,11 @@ export function FAQSection() {
       answer:
         "Yes. London universities welcome international students and offer dedicated support services, including visa guidance and cultural integration programmes.",
     },
-  
+    {
+      question: "What courses are available for study in London?",
+      answer:
+        "London universities offer a wide range of courses across arts, sciences, business, and technology. Our advisors help you find the right programme based on your interests and career goals.",
+    },
   ];
 
   const [openIndex, setOpenIndex] = useState<number | null>(0);

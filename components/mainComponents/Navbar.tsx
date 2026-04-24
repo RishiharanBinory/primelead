@@ -137,10 +137,13 @@ function Dropdown({
               style={{
                 fontSize: "15px",
                 fontWeight: 500,
+                // ✅ FIX: active styles driven purely by state, no inline hover mutation
                 backgroundColor: isActiveChild ? "#1a8fa8" : "transparent",
                 color: isActiveChild ? "#ffffff" : "#374151",
                 ...FONT,
               }}
+              // ✅ FIX: use CSS custom properties via data attributes OR simple onMouse
+              // is fine here since dropdowns unmount on close — but we still guard correctly
               onMouseEnter={(e) => {
                 if (!isActiveChild) {
                   (e.currentTarget as HTMLElement).style.backgroundColor = "#f0f8fb";
@@ -276,6 +279,12 @@ export default function Navbar() {
   const [mobileAccordion, setMobileAccordion] = useState<string | null>(null);
   const [navVisible, setNavVisible] = useState(true);
   const [scrolled, setScrolled] = useState(false);
+
+  // ✅ FIX: Track which nav item is hovered in React state — NOT via inline style mutation.
+  // This ensures styles are always driven by React's render cycle, so when pathname
+  // changes and the component re-renders, hover state is never "stuck".
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+
   const lastScrollY = useRef(0);
 
   useEffect(() => {
@@ -349,7 +358,7 @@ export default function Navbar() {
     leaveTimer.current = setTimeout(() => setOpenItem(null), 140);
   }, []);
 
-  // ✅ FIXED: Parent items with children only highlight on exact match
+  // ✅ FIX: Parent items with children only highlight on exact match.
   const isActive = (item: NavItem) => {
     if (item.href === "/") return pathname === "/";
     if (item.children) return pathname === item.href;
@@ -388,18 +397,31 @@ export default function Navbar() {
 
         {/* Nav — centered */}
         <nav aria-label="Main navigation" className="absolute left-1/2 -translate-x-1/2">
-          {/* ✅ FIXED: gap-2 instead of gap-0.5 for more spacing between links */}
           <ul role="menubar" className="flex items-center list-none m-0 p-0 gap-2">
             {NAV_ITEMS.map((item) => {
               const active = isActive(item);
               const expanded = openItem === item.label;
+              // ✅ FIX: hovered is now React state, not an inline style mutation.
+              // When the page navigates and re-renders, `active` recalculates correctly
+              // and `hovered` is independent — the two can never conflict.
+              const hovered = hoveredItem === item.label;
+              // The link should look "highlighted" if active OR expanded (dropdown open).
+              // It should look "hover-highlighted" ONLY if hovered AND NOT active.
+              const showActive = active || expanded;
+              const showHover = hovered && !active && !expanded;
 
               return (
                 <li
                   key={item.label}
                   className={`relative flex items-center ${expanded ? "z-[200]" : "z-auto"}`}
-                  onMouseEnter={() => item.children && enter(item.label)}
-                  onMouseLeave={() => item.children && leave()}
+                  onMouseEnter={() => {
+                    if (item.children) enter(item.label);
+                    setHoveredItem(item.label);
+                  }}
+                  onMouseLeave={() => {
+                    if (item.children) leave();
+                    setHoveredItem(null);
+                  }}
                 >
                   <Link
                     href={item.children ? "#" : item.href}
@@ -420,28 +442,23 @@ export default function Navbar() {
                                transition-all duration-150 relative"
                     style={{
                       fontSize: "15.5px",
-                      fontWeight: active || expanded ? 600 : 500,
-                      color: active || expanded ? "#1a8fa8" : "#374151",
+                      fontWeight: showActive ? 600 : 500,
+                      // ✅ FIX: color and background computed entirely from React state.
+                      // No `element.style` mutation — so navigation never leaves stale styles.
+                      color: showActive ? "#1a8fa8" : showHover ? "#1a8fa8" : "#374151",
+                      backgroundColor: showActive
+                        ? "transparent"
+                        : showHover
+                        ? "#f0f8fb"
+                        : "transparent",
                       letterSpacing: "-0.01em",
                       ...FONT,
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!active && !expanded) {
-                        (e.currentTarget as HTMLElement).style.color = "#1a8fa8";
-                        (e.currentTarget as HTMLElement).style.backgroundColor = "#f0f8fb";
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!active && !expanded) {
-                        (e.currentTarget as HTMLElement).style.color = "#374151";
-                        (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
-                      }
                     }}
                   >
                     {item.label}
                     {item.children && <ChevronIcon open={expanded} />}
-                    {/* Underline for active */}
-                    {(active || expanded) && (
+                    {/* Underline only for truly active or expanded */}
+                    {showActive && (
                       <span
                         className="absolute bottom-0 left-4 right-4 h-[2px] rounded-full"
                         style={{ backgroundColor: "#1a8fa8" }}
@@ -467,28 +484,20 @@ export default function Navbar() {
         <div className="flex items-center gap-3 z-[200]">
           <Link
             href="/admission/form"
-            className="inline-flex items-center px-6 py-2.5 rounded-xl text-white transition-all duration-200"
+            className="inline-flex items-center px-6 py-2.5 rounded-xl text-white transition-all duration-200 hover:bg-[#0f6e82]"
             style={{ backgroundColor: "#1a8fa8", fontSize: "15px", fontWeight: 600, letterSpacing: "-0.01em", ...FONT }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = "#0f6e82")}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = "#1a8fa8")}
           >
             Apply Now
           </Link>
           <button
             onClick={() => setMegaOpen((v) => !v)}
-            className="flex items-center justify-center w-10 h-10 rounded-xl cursor-pointer transition-all duration-150"
+            className="flex items-center justify-center w-10 h-10 rounded-xl cursor-pointer transition-all duration-150 border hover:bg-[#f0f8fb] hover:border-[#1a8fa8] hover:text-[#1a8fa8]"
             aria-label="Open mega menu"
             aria-expanded={megaOpen}
-            style={{ color: "#374151", backgroundColor: "transparent", border: "1px solid #e2e8ed" }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.backgroundColor = "#f0f8fb";
-              (e.currentTarget as HTMLElement).style.borderColor = "#1a8fa8";
-              (e.currentTarget as HTMLElement).style.color = "#1a8fa8";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
-              (e.currentTarget as HTMLElement).style.borderColor = "#e2e8ed";
-              (e.currentTarget as HTMLElement).style.color = "#374151";
+            style={{
+              color: "#374151",
+              backgroundColor: "transparent",
+              borderColor: "#e2e8ed",
             }}
           >
             {megaOpen ? (
@@ -642,10 +651,8 @@ export default function Navbar() {
                 key={btn.href}
                 href={btn.href}
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-center text-white py-4 rounded-xl transition-colors duration-200"
+                className="flex items-center justify-center text-white py-4 rounded-xl transition-colors duration-200 hover:bg-[#1a8fa8]"
                 style={{ backgroundColor: "#0f1f2e", fontSize: "15px", fontWeight: 600, ...FONT }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = "#1a8fa8")}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = "#0f1f2e")}
               >
                 {btn.label}
               </Link>

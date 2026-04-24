@@ -4,14 +4,18 @@ import { VisionMission } from "@/components/about/VisionMission";
 import { SupportSection } from "@/components/about/Support";
 import Section from "@/components/mainComponents/Section";
 import CtaComponent from "@/components/home/CTA";
+import HeroSection from "@/components/about/AboutHero";
 
 const page = () => {
   return (
     <main>
-      
-      <div className="min-h-[calc(100vh-64px)] max-h-[860px] w-full relative bg-white">
-        {/* Cool Blue Glow Right */}
-        <div
+      <Section>
+        <HeroSection />
+      </Section>
+
+      {/* <div className="min-h-[calc(100vh-64px)] max-h-[860px] w-full relative bg-white"> */}
+      {/* Cool Blue Glow Right */}
+      {/* <div
           className="absolute inset-0 z-0"
           style={{
             background: "#ffffff",
@@ -25,12 +29,12 @@ const page = () => {
             filter: "blur(80px)",
             backgroundRepeat: "no-repeat",
           }}
-        />
-        {/* Your Content/Components */}
-        <Section>
+        /> */}
+      {/* Your Content/Components */}
+      {/* <Section>
           <AboutHero />
-        </Section>
-      </div>
+        </Section> */}
+      {/* </div> */}
 
       <Section>
         <SupportSection />
@@ -38,7 +42,9 @@ const page = () => {
       <Section>
         <VisionMission />
       </Section>
-      <CtaComponent />
+      <Section>
+        <CtaComponent />
+      </Section>
     </main>
   );
 };

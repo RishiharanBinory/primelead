@@ -11,42 +11,42 @@ import {
 } from "lucide-react";
 export function WhatWeDoSection() {
   const services = [
-    {
-      icon: <GraduationCap size={22} className="text-prime-blue" />,
-      title: "Identify the right university and course pathway",
-      description:
-        "We help you find programs that align with your academic background and career aspirations.",
-    },
-    {
-      icon: <FileCheck size={22} className="text-prime-blue" />,
-      title: "Understand entry requirements and eligibility",
-      description:
-        "Clear guidance on qualifications, language tests, and specific university prerequisites.",
-    },
-    {
-      icon: <Send size={22} className="text-prime-blue" />,
-      title: "Apply to universities correctly the first time",
-      description:
-        "Expert review of your personal statement and application to maximize acceptance chances.",
-    },
-    {
-      icon: <Wallet size={22} className="text-prime-blue" />,
-      title: "Access Student Finance support",
-      description:
-        "Step-by-step assistance with funding applications, loans, and available scholarships.",
-    },
-    {
-      icon: <Clock size={22} className="text-prime-blue" />,
-      title: "Explore flexible and part-time study options",
-      description:
-        "Find study modes that fit around your work commitments and lifestyle in London.",
-    },
-    {
-      icon: <CheckCircle size={22} className="text-prime-blue" />,
-      title: "Prepare for successful enrolment",
-      description:
-        "Support through the final stages, from accepting offers to your first day on campus.",
-    },
+ {
+  icon: <GraduationCap size={22} className="text-prime-blue" />,
+  title: "Find the Right Course & University",
+  description:
+    "Discover universities and courses that match your goals and future career.",
+},
+{
+  icon: <FileCheck size={22} className="text-prime-blue" />,
+  title: "Check Your Eligibility & Entry Requirements",
+  description:
+    "Understand exactly what you need to qualify, no confusion, no guesswork.",
+},
+{
+  icon: <Send size={22} className="text-prime-blue" />,
+  title: "Expert Application Support",
+  description:
+    "Submit strong, accurate applications that maximise your chances of acceptance.",
+},
+{
+  icon: <Wallet size={22} className="text-prime-blue" />,
+  title: "Student Finance & Funding Support",
+  description:
+    "Get help securing tuition fee loans and maintenance funding.",
+},
+{
+  icon: <Clock size={22} className="text-prime-blue" />,
+  title: "Flexible Study Options That Fit Your Life",
+  description:
+    "Study around your work and lifestyle with flexible course options.",
+},
+{
+  icon: <CheckCircle size={22} className="text-prime-blue" />,
+  title: "Enrolment & Ongoing Support",
+  description:
+    "From offer acceptance to your first day, we're with you all the way.",
+},
   ];
   const containerVariants = {
     hidden: {
@@ -73,7 +73,7 @@ export function WhatWeDoSection() {
     },
   };
   return (
-    <section className="py-14 sm:py-20 lg:py-28 bg-primel-lightbg relative overflow-hidden">
+    <section className="pt-24 pb-14 sm:py-20 lg:py-28 bg-primel-lightbg relative overflow-hidden">
       <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#2563EB_1px,transparent_1px)] [background-size:20px_20px]" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -97,7 +97,7 @@ export function WhatWeDoSection() {
             }}
           >
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white text-prime-blue text-sm font-semibold mb-4 sm:mb-6 border border-blue-100 shadow-sm">
-              🎓 Our Services
+               Our Services
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-prime-dark mb-4 sm:mb-6 tracking-tight leading-tight">
               What Does an Education Consultancy in London Do?

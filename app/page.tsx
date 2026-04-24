@@ -1,50 +1,48 @@
-import Hero from "@/components/home/Hero";
-import ReviewsCarousel from "@/components/home/Reviewscarousel";
-import AboutSection from "@/components/home/AboutSection";
-import VisionMission from "@/components/home/VisionMission";
-import LogoCarousel from "@/components/mainComponents/LogoCarousel";
-import StatsSection from "@/components/home/StatsSection";
-import FundingSupport from "@/components/home/Fundingsupport";
-import StudentFinance from "@/components/home/Studentfinacehome";
+import React from "react";
+import Section from "@/components/mainComponents/Section";
+import { ProcessSteps } from "@/components/home/Process";
+import StatSection from "@/components/mainComponents/Statsection";
+import Component from "@/components/mainComponents/Background";
+import IntegrationHero from "@/components/home/Carosal2";
+import { SlidingTestimonial } from "@/components/home/Testimonials";
+import { WhyChoosePrimeLeed } from "@/components/home/WhyChooseprimeleed";
+import { FAQSection } from "@/components/home/Faq";
+import CtaComponent from "@/components/home/CTA";
+import { ContactSection } from "@/components/mainComponents/Contact";
 
-import ApplyToday from "@/components/home/Applytoday";
-import AdmissionContent from "@/components/home/Admission";
-import StudentLife from "@/components/home/Studenlife";
-import CTABanner from "@/components/home/Ctabanner";
-import CoreValues from "@/components/about/CoreValues";
-import type { Metadata } from "next";
+const page = () => {
+  return (
+    <main>
+      <Section className="!pb-2 md:!pb-2">
+        <Component />
+      </Section>
+      <Section>
+        <IntegrationHero />
+      </Section>
+      <Section className="!py-0">
+        <WhyChoosePrimeLeed />
+      </Section>
+      <Section>
+        <ProcessSteps />
+      </Section>
+      <Section noPadX>
+        <StatSection />
+      </Section>
+      <Section>
+        <SlidingTestimonial />
+      </Section>
 
-export const metadata: Metadata = {
-  title: "Primeleed | Secure UK University Placement",
-  description:
-    "Prime Leed Have Assisted More Than 2,000 Students In Securing Their Higher Education Placements Throughout The UK.",
+      <Section noPadX>
+        <FAQSection />
+      </Section>
+      <Section>
+        <ContactSection />
+      </Section>
+      <Section className="!pb-1 md:!pb-1">
+        <CtaComponent />
+      </Section >
+    </main>
+  );
 };
 
-export default function Home() {
-  return (
-    <>
-      <Hero />
-      <ReviewsCarousel />
-      <AboutSection />
-      <VisionMission />
-      <LogoCarousel />
-      <StatsSection />
-      <FundingSupport />
-      <div className="h-20 bg-white" />
-      <StudentFinance />
-      <CoreValues
-        introText="How to Apply"
-        linkLabel="View All Requirements"
-        linkHref="admission/how-to-apply"
-      />
-      <ApplyToday />
-      <AdmissionContent />
-      <StudentLife />
-      <div
-        className="hidden md:block h-50 bg-white relative"
-        style={{ zIndex: 1 }}
-      />
-      <CTABanner />
-    </>
-  );
-}
+export default page;

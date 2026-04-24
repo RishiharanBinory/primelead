@@ -1,6 +1,6 @@
 "use client";
-import React, { useState, useRef } from "react";
-import { StarIcon } from "lucide-react";
+import React, { useState, useRef, useEffect } from "react";
+import { StarIcon, X } from "lucide-react";
 import Image from "next/image";
 
 const testimonials = [
@@ -83,38 +83,113 @@ function getInitials(name: string) {
     .toUpperCase();
 }
 
-function TestimonialCard({
+// ─── Modal ────────────────────────────────────────────────────────────────────
+function TestimonialModal({
   testimonial,
   colorClass,
+  onClose,
 }: {
   testimonial: (typeof testimonials)[0];
   colorClass: string;
+  onClose: () => void;
 }) {
-  const [expanded, setExpanded] = useState(false);
+  // Close on Escape key
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handler);
+    // Prevent body scroll while modal is open
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handler);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  return (
+    // Backdrop
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      style={{ backgroundColor: "rgba(0,0,0,0.45)" }}
+      onClick={onClose} // click outside → close
+    >
+      {/* Card */}
+      <div
+        className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md p-5 sm:p-7 mx-2 sm:mx-0 max-h-[90vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()} // prevent backdrop click closing when clicking inside
+      >
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 transition-colors"
+        >
+          <X className="w-5 h-5" />
+        </button>
+
+        {/* Stars */}
+        <div className="flex gap-0.5 text-amber-400 mb-4">
+          {[...Array(5)].map((_, i) => (
+            <StarIcon key={i} className="w-4 h-4 fill-current" />
+          ))}
+        </div>
+
+        {/* Full review text */}
+        <p className="text-slate-700 text-sm leading-relaxed mb-6">
+          &quot;{testimonial.description}&quot;
+        </p>
+
+        {/* Author */}
+        <div className="flex items-center gap-3 pt-4 border-t border-slate-100">
+          <div
+            className={`w-10 h-10 rounded-full bg-gradient-to-br ${colorClass} flex items-center justify-center text-white font-bold text-sm shrink-0`}
+          >
+            {getInitials(testimonial.name)}
+          </div>
+          <div>
+            <p className="font-semibold text-slate-900 text-sm">
+              {testimonial.name}
+            </p>
+            <p className="text-slate-400 text-xs mt-0.5">{testimonial.date}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Card ─────────────────────────────────────────────────────────────────────
+function TestimonialCard({
+  testimonial,
+  colorClass,
+  onReadMore,
+}: {
+  testimonial: (typeof testimonials)[0];
+  colorClass: string;
+  onReadMore: () => void;
+}) {
   const isLong = testimonial.description.length > CHAR_LIMIT;
 
   return (
-    <div className="flex flex-col bg-white border border-slate-200 rounded-2xl shadow-sm w-[260px] p-5 shrink-0 transition-all duration-300 hover:shadow-md hover:border-blue-200">
+    <div className="flex flex-col bg-white border border-slate-200 rounded-2xl shadow-sm w-[220px] sm:w-[260px] p-4 sm:p-5 shrink-0 transition-all duration-300 hover:shadow-md hover:border-blue-200">
       <div className="flex gap-0.5 text-amber-400 mb-3">
         {[...Array(5)].map((_, i) => (
           <StarIcon key={i} className="w-3.5 h-3.5 fill-current" />
         ))}
       </div>
 
-      <p
-        className={`text-slate-700 text-sm leading-relaxed mb-1 ${
-          !expanded ? "line-clamp-4" : ""
-        }`}
-      >
+      {/* Always clamp text in the card — no inline expansion */}
+      <p className="text-slate-700 text-sm leading-relaxed mb-1 line-clamp-4">
         &quot;{testimonial.description}&quot;
       </p>
 
       {isLong && (
         <button
-          onClick={() => setExpanded(!expanded)}
+          onClick={onReadMore}
           className="text-blue-500 hover:text-blue-700 text-xs font-semibold text-left mb-3 transition-colors"
         >
-          {expanded ? "Show less" : "Read more"}
+          Read more
         </button>
       )}
 
@@ -139,105 +214,153 @@ function TestimonialCard({
   );
 }
 
+// ─── Section ──────────────────────────────────────────────────────────────────
 export function SlidingTestimonial() {
   const carouselRef = useRef<HTMLDivElement>(null);
+  // Track hover/touch pause separately from modal pause
+  const hoverPaused = useRef(false);
 
-  const pauseMarquee = () => {
+  // Single piece of state for which testimonial is open in the modal
+  const [activeModal, setActiveModal] = useState<{
+    testimonial: (typeof testimonials)[0];
+    colorClass: string;
+  } | null>(null);
+
+  const setMarqueeState = (paused: boolean) => {
     carouselRef.current
       ?.querySelectorAll<HTMLElement>(".animate-marquee")
-      .forEach((el) => (el.style.animationPlayState = "paused"));
+      .forEach((el) => (el.style.animationPlayState = paused ? "paused" : "running"));
+  };
+
+  // Pause/resume on modal open/close
+  useEffect(() => {
+    if (activeModal) {
+      setMarqueeState(true);
+    } else {
+      // Only resume if not also hovered
+      if (!hoverPaused.current) setMarqueeState(false);
+    }
+  }, [activeModal]);
+
+  const pauseMarquee = () => {
+    hoverPaused.current = true;
+    setMarqueeState(true);
   };
 
   const resumeMarquee = () => {
-    carouselRef.current
-      ?.querySelectorAll<HTMLElement>(".animate-marquee")
-      .forEach((el) => (el.style.animationPlayState = "running"));
+    hoverPaused.current = false;
+    // Only resume if modal is not open
+    if (!activeModal) setMarqueeState(false);
   };
 
   return (
-    <section className="w-full bg-white overflow-hidden">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-16">
-        {/* Heading + subtitle */}
-        <div className="text-center mb-10">
-          <h2 className="text-[28px] sm:text-[36px] lg:text-[48px] font-bold tracking-tight text-slate-900 mb-4">
-            What Our Students Say
-          </h2>
-          <p className="text-[16px] sm:text-[18px] text-slate-600 leading-relaxed max-w-[560px] mx-auto">
-            Students consistently choose PrimeLeed for clear guidance,
-            supportive advisors, and simplified university applications.
-          </p>
-        </div>
+    <>
+      <section className="w-full bg-white overflow-hidden ">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-16">
+          {/* Heading + subtitle */}
+          <div className="text-center mb-6 ">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 mb-4">
+              What Our Students Say
+            </h2>
+            <p className="text-[16px] sm:text-[18px] text-slate-600 leading-relaxed max-w-[560px] mx-auto">
+              Students consistently choose PrimeLeed for clear guidance,
+              supportive advisors, and simplified university applications.
+            </p>
+          </div>
 
-        {/* Carousel row */}
-        <div className="flex items-end gap-6">
-
-          {/* LEFT: teal rectangle + image — hidden on mobile */}
-          <div
-            className="hidden sm:block shrink-0 relative overflow-visible"
-            style={{
-              width: "260px",
-              height: "150px",
-              marginLeft: "-60px",
-            }}
-          >
+          {/* Carousel row */}
+          <div className=" max-w-[1400px] flex items-end gap-4 lg:gap-6" style={{ marginTop: "-100px" }}>
+            {/* LEFT image */}
             <div
-              className="absolute inset-0 rounded-t-full"
-              style={{ backgroundColor: "#1a8fa8" }}
-            />
-            <div
-              className="absolute"
+              className="hidden md:block shrink-0"
               style={{
-                width: "720px",
-                height: "780px",
-                bottom: "-65px",
-                left: "90%",
-                transform: "translateX(-50%)",
-                zIndex: 10,
+                width: "clamp(160px, 18vw, 360px)",
+                height: "clamp(250px, 28vw, 480px)",
+                position: "relative",
+                alignSelf: "flex-end",
+                marginTop: "clamp(-100px, -1vw, -100px)",
               }}
             >
-              <Image
-                src="/review.png"
-                alt="Student advisor"
-                fill
-                className="object-contain object-bottom"
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  height: "clamp(80px, 10vw, 160px)",
+                  backgroundColor: "#1a8fa8",
+                  borderRadius: "9999px 9999px 0 0",
+                }}
               />
+              <div
+                style={{
+                  position: "absolute",
+                  top: "30px",
+                  left: 0,
+                  right: 0,
+                  bottom: "-70px",
+                  overflow: "hidden",
+                }}
+              >
+                <Image
+                  src="/review.png"
+                  alt="Student advisor"
+                  fill
+                  style={{ objectFit: "cover", objectPosition: "25% top" }}
+                />
+              </div>
+            </div>
+
+            {/* RIGHT: scrolling carousel */}
+            <div
+              ref={carouselRef}
+              className="flex-1 min-w-0 flex overflow-hidden"
+              style={{
+                maskImage:
+                  "linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)",
+                WebkitMaskImage:
+                  "linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)",
+              }}
+              onMouseEnter={pauseMarquee}
+              onMouseLeave={resumeMarquee}
+              onTouchStart={pauseMarquee}
+              onTouchEnd={resumeMarquee}
+              onTouchCancel={resumeMarquee}
+            >
+              {[0, 1].map((clone) => (
+                <div
+                  key={clone}
+                  aria-hidden={clone === 1}
+                  className="flex gap-4 pr-4 min-w-max shrink-0 animate-marquee"
+                >
+                  {testimonials.map((t, idx) => (
+                    <TestimonialCard
+                      key={`${clone}-${idx}`}
+                      testimonial={t}
+                      colorClass={colors[idx % colors.length]}
+                      onReadMore={() =>
+                        setActiveModal({
+                          testimonial: t,
+                          colorClass: colors[idx % colors.length],
+                        })
+                      }
+                    />
+                  ))}
+                </div>
+              ))}
             </div>
           </div>
-
-          {/* RIGHT: scrolling carousel */}
-          <div
-            ref={carouselRef}
-            className="flex-1 min-w-0 flex overflow-hidden"
-            style={{
-              maskImage:
-                "linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)",
-              WebkitMaskImage:
-                "linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)",
-            }}
-            onMouseEnter={pauseMarquee}
-            onMouseLeave={resumeMarquee}
-            onTouchStart={pauseMarquee}
-            onTouchEnd={resumeMarquee}
-            onTouchCancel={resumeMarquee}
-          >
-            {[0, 1].map((clone) => (
-              <div
-                key={clone}
-                aria-hidden={clone === 1}
-                className="flex gap-4 pr-4 min-w-max shrink-0 animate-marquee"
-              >
-                {testimonials.map((t, idx) => (
-                  <TestimonialCard
-                    key={`${clone}-${idx}`}
-                    testimonial={t}
-                    colorClass={colors[idx % colors.length]}
-                  />
-                ))}
-              </div>
-            ))}
-          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Modal rendered outside the carousel so it's never duplicated */}
+      {activeModal && (
+        <TestimonialModal
+          testimonial={activeModal.testimonial}
+          colorClass={activeModal.colorClass}
+          onClose={() => setActiveModal(null)}
+        />
+      )}
+    </>
   );
 }

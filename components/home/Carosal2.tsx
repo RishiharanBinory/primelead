@@ -198,6 +198,7 @@ export default function IntegrationHero() {
           overflow: "hidden",
           background: "#ffffff",
           textAlign: "center",
+          paddingTop: "30px",
         }}
       >
         {/* Dot grid */}
@@ -249,9 +250,9 @@ export default function IntegrationHero() {
           </span>
 
           {/* Headline */}
-          <h1
+          <h2
+            className="text-3xl sm:text-4xl md:text-5xl font-bold"
             style={{
-              fontSize: "clamp(28px, 5vw, 52px)",
               fontWeight: 700,
               lineHeight: 1.15,
               color: "#111827",
@@ -272,7 +273,7 @@ export default function IntegrationHero() {
               top universities
             </span>{" "}
             in London & beyond
-          </h1>
+          </h2>
 
           {/* Sub-headline */}
           <p
@@ -285,8 +286,8 @@ export default function IntegrationHero() {
               lineHeight: 1.65,
             }}
           >
-            Seamlessly integrated with 12+ leading academic institutions —
-            powering research, innovation, and academic excellence.
+            Partnered with 20+ leading universities to help students access the
+            best courses and study opportunities.
           </p>
 
           {/* Carousel wrapper */}

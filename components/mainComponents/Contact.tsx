@@ -149,7 +149,7 @@ export function ContactSection() {
   const phoneBorder = phoneHasError ? "1px solid #f87171" : "1px solid #e5e7eb";
 
   return (
-    <section className="py-14 sm:py-20 lg:py-28 bg-white relative overflow-hidden">
+    <section className="bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Mobile header */}
         <div className="text-center mb-8 lg:hidden">

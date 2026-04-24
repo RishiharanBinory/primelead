@@ -14,20 +14,17 @@ import {
 const services = [
   {
     title: "Student Finance Support in London",
-    description:
-      "Study now, pay later with government-backed funding.",
+    description: "Study now, pay later with government-backed funding.",
     icon: PoundSterling,
   },
   {
     title: "University Application Support in the UK",
-    description:
-      "Expert guidance to help you secure your university place.",
+    description: "Expert guidance to help you secure your university place.",
     icon: GraduationCap,
   },
   {
     title: "Study While Working in London",
-    description:
-      "Balance your studies with part-time work opportunities.",
+    description: "Balance your studies with part-time work opportunities.",
     icon: Briefcase,
   },
   {
@@ -38,14 +35,12 @@ const services = [
   },
   {
     title: "Online and Part-Time Degrees in the UK",
-    description:
-      "Flexible study options designed around your lifestyle.",
+    description: "Flexible study options designed around your lifestyle.",
     icon: Monitor,
   },
   {
     title: "End-to-End Student Support",
-    description:
-      "Complete support from your first step to enrolment.",
+    description: "Complete support from your first step to enrolment.",
     icon: HeartHandshake,
   },
 ];
@@ -72,7 +67,6 @@ export function WhyChoosePrimeLeed() {
     <section className="w-full bg-white font-sans overflow-hidden">
       <div className="max-w-[1400px] mx-auto">
         <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-8">
-
           {/* ── LEFT: Girl + Circle — hidden on mobile, visible on desktop ── */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -112,7 +106,6 @@ export function WhyChoosePrimeLeed() {
 
           {/* ── RIGHT: Heading + Cards ──────────────────────────────────── */}
           <div className="flex-1 min-w-0 flex flex-col gap-8">
-
             {/* Heading — center on mobile, left on desktop */}
             <motion.div
               initial={{ opacity: 0, y: -20 }}
@@ -125,8 +118,8 @@ export function WhyChoosePrimeLeed() {
                 Why <span style={{ color: "#149ab5" }}>Choose </span>Primeleed
               </h2>
               <p className="text-base md:text-lg text-gray-500 leading-relaxed">
-                We remove barriers between ambition and education — guiding
-                students through every step of their UK university journey.
+                Everything you need to start, fund, and complete your UK
+                university journey. All in one place.
               </p>
             </motion.div>
 
@@ -165,7 +158,6 @@ export function WhyChoosePrimeLeed() {
               })}
             </motion.div>
           </div>
-
         </div>
       </div>
     </section>

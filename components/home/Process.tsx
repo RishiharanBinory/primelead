@@ -17,8 +17,7 @@ const steps = [
     title: "Free Consultation",
     desc: "Understanding academic goals and background.",
     duration: "STEP 1",
-    image:
-      "/consultation.jpg",
+    image: "/consultation.jpg",
     stat: "98% Satisfaction Rate",
     icon: Users,
   },
@@ -37,8 +36,7 @@ const steps = [
     title: "Application Submission",
     desc: "Preparing and submitting accurate applications.",
     duration: "STEP 3",
-    image:
-      "/application.jpg",
+    image: "/application.jpg",
     stat: "95% Acceptance Rate",
     icon: FileText,
   },
@@ -47,8 +45,7 @@ const steps = [
     title: "Student Finance Guidance",
     desc: "Supporting funding applications and documentation.",
     duration: "STEP 4",
-    image:
-      "/finance.jpg",
+    image: "/finance.jpg",
     stat: "£50M+ Funding Secured",
     icon: TrendingUp,
   },
@@ -57,8 +54,7 @@ const steps = [
     title: "Enrolment Support",
     desc: "Helping students transition smoothly into university life.",
     duration: "STEP 5",
-    image:
-      "/enrollment.jpg",
+    image: "/enrollment.jpg",
     stat: "10k+ Students Enrolled",
     icon: CheckCircle,
   },
@@ -131,42 +127,25 @@ export function ProcessSteps() {
   };
   const activeStep = steps[activeIndex];
   return (
-    <section
-      ref={sectionRef}
-      className="relative w-full  bg-white text-[#111827] font-gsf overflow-hidden  flex items-center"
-    >
+<section
+  ref={sectionRef}
+  className="relative w-full bg-white text-[#111827] font-gsf overflow-hidden flex items-center my-0 py-0"
+>
       <div className="container mx-auto px-6 lg:px-12 relative z-10 max-w-350 w-full">
         {/* Header — Centered */}
         <motion.div
-          initial={{
-            opacity: 0,
-            y: 20,
-          }}
-          animate={
-            isInView
-              ? {
-                  opacity: 1,
-                  y: 0,
-                }
-              : {
-                  opacity: 0,
-                  y: 20,
-                }
-          }
-          transition={{
-            duration: 0.8,
-            ease: [0.16, 1, 0.3, 1],
-          }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="mb-12 md:mb-20 text-center"
         >
           <div className="flex items-center justify-center gap-3 mb-4 md:mb-6">
-            
             <span className="text-[#000000] text-sm font-bold tracking-[0.2em] uppercase">
               How it works
             </span>
-            
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15]">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.15]">
             Your <span style={{ color: "#149ab5" }}>journey</span> to university
           </h2>
         </motion.div>
@@ -409,10 +388,7 @@ export function ProcessSteps() {
                         {activeStep.id}
                       </span>
                       <div className="h-1.5 w-1.5 rounded-full bg-white/40" />
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/15 backdrop-blur-sm border border-white/20 text-xs font-bold tracking-wider text-white uppercase">
-                        <Clock className="w-3.5 h-3.5 text-[#F5C518]" />
-                        {activeStep.duration}
-                      </div>
+   
                     </div>
 
                     <h3 className="text-3xl font-bold text-white mb-2">
@@ -504,10 +480,7 @@ export function ProcessSteps() {
                         {activeStep.id}
                       </span>
                     </div>
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F9FAFB] border border-[#E5E7EB] text-xs font-bold tracking-wider text-[#4B5563] uppercase">
-                      <Clock className="w-3.5 h-3.5 text-[#F5C518]" />
-                      {activeStep.duration}
-                    </div>
+
                   </div>
 
                   <h3 className="text-2xl font-bold text-[#111827] mb-3">

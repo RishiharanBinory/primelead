@@ -54,14 +54,14 @@ export default function StatsSection() {
           {/* Text block */}
           <div className="pt-4 md:pt-8 mb-6 md:mb-8">
             <p
-              className="text-gray-800 font-medium mb-3 text-center lg:text-left"
-              style={{ fontSize: "14px" }}
+              className="text-[#000000] text-sm font-bold tracking-[0.2em] uppercase "
+              
             >
               What Primeleed Has Offered
             </p>
             <h2
-              className="font-extrabold text-gray-900 leading-tight mb-4 text-center lg:text-left"
-              style={{ fontSize: "clamp(32px, 5vw, 48px)" }}
+              className="font-bold text-3xl sm:text-4xl md:text-5xl text-gray-900 leading-tight mb-4 text-center lg:text-left"
+              
             >
               Numbers That Speak.
             </h2>

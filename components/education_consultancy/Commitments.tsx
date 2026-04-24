@@ -6,38 +6,38 @@ import { motion, Variants } from "framer-motion";
 export function CommitmentsSection() {
   const commitments = [
     {
-      title: "Honest academic guidance",
-      desc: "Transparent advice tailored to your true potential.",
+      title: "Honest & Personalised Guidance",
+      desc: "Advice tailored to your goals, not generic recommendations.",
       image: "/st6.jpg",
     },
     {
-      title: "Personal course matching",
-      desc: "Finding the perfect fit for your career goals.",
+      title: "Smart Course & University Matching",
+      desc: "Carefully selecting the right course for your future success.",
       image: "/st3.jpg",
     },
     {
-      title: "Clear funding explanation",
-      desc: "Demystifying Student Finance and scholarships.",
+      title: "Clear Student Finance Support",
+      desc: "Making funding simple, transparent, and easy to understand.",
       image: "/st2.jpg",
     },
     {
-      title: "Accurate application submission",
-      desc: "Error-free processing to maximise acceptance.",
+      title: "Accurate & Complete Applications",
+      desc: "Ensuring every detail is correct to maximise your chances.",
       image: "/st4.jpg",
     },
     {
-      title: "Responsive advisor support",
-      desc: "Always here when you need answers.",
+      title: "Dedicated Ongoing Support",
+      desc: "Consistent guidance whenever you need it most.",
       image: "/st5.jpg",
     },
     {
-      title: "Stress-free enrolment assistance",
-      desc: "Smooth transition from offer to day one.",
+      title: "Smooth Enrolment Process",
+      desc: "From offer to enrolment, we handle every final step with you.",
       image: "/st1.jpg",
     },
     {
-      title: "Continued support beyond admission",
-      desc: "Long-term commitment to your success.",
+      title: "Long-Term Student Commitment",
+      desc: "Supporting your journey beyond admission and into your future.",
       image: "/st7.jpg",
     },
   ];
@@ -52,11 +52,11 @@ export function CommitmentsSection() {
   };
 
   return (
-    <section className="py-16 sm:py-24 bg-white relative overflow-hidden">
+    <section className="font-gsf bg-white relative overflow-hidden">
       {/* Watermark */}
       <div
         aria-hidden="true"
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[18rem] sm:text-[28rem] lg:text-[38rem] font-black text-gray-50/70 pointer-events-none select-none z-0 leading-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[18rem] sm:text-[28rem] lg:text-[38rem] font-bold  text-gray-50/70 pointer-events-none select-none z-0 leading-none"
       >
         7
       </div>
@@ -64,10 +64,10 @@ export function CommitmentsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-50 text-amber-600 text-sm font-semibold mb-4 border border-orange-100 shadow-sm">
-            🤝 Our Promise
+          <div className="inline-flex text-[#000000] text-sm font-bold tracking-[0.2em] uppercase mb-4 ">
+            Our Promise
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 tracking-tight leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold  text-prime-dark tracking-tight leading-tight">
             Our 7 Commitments to Every Student
           </h2>
         </div>
@@ -79,10 +79,7 @@ export function CommitmentsSection() {
           ))}
         </div>
 
-        {/* Row 2 — 3 cards, truly centred.
-            On desktop: each card is 1/4 of the grid width. 3 cards = 75%.
-            We wrap them in a 3-col grid that is 75% wide and centred with mx-auto.
-            Gap must match row 1 exactly so columns visually align. */}
+        {/* Row 2 — 3 cards centred */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-5 lg:w-3/4 lg:mx-auto">
           {commitments.slice(4, 7).map((item, i) => (
             <CommitmentCard key={i + 4} item={item} index={i + 4} variants={cardVariants} />
