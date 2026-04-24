@@ -38,7 +38,7 @@ const page = () => {
       <Section>
         <ContactSection />
       </Section>
-      <Section className="!pb-1 md:!pb-1">
+      <Section >
         <CtaComponent />
       </Section >
     </main>
