@@ -2,8 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { motion, type Variants, type Transition } from "framer-motion";
-import { ArrowRight, Star, Award, Users } from "lucide-react";
-import Link from "next/link";
+import { Star, Award, Users } from "lucide-react";
 import Buttontwo from "../mainComponents/Buttontwo";
 
 const ease = "easeOut" satisfies Transition["ease"];
@@ -27,10 +26,13 @@ export function HeroSection() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-64px)] max-h-[860px] w-full relative overflow-hidden">
-      <section className="relative overflow-hidden pt-16 pb-8 sm:pb-24 lg:pt-28 lg:pb-8">
+    // Removed max-h so mobile content isn't constrained; min-h keeps desktop full-viewport
+    <div className="min-h-[calc(100vh-64px)] w-full relative overflow-hidden">
+      <section className="relative overflow-hidden pt-8 pb-6 sm:pt-16 sm:pb-8 lg:pt-28 lg:pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center">
+          {/* Reduced gap-16 → gap-6 on mobile so there's no huge dead space */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-center">
+
             {/* Left Content */}
             <motion.div
               className="max-w-2xl text-center lg:text-left"
@@ -41,7 +43,7 @@ export function HeroSection() {
               {/* Trust badge */}
               <motion.div
                 variants={itemVariants}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold mb-8"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold mb-6 sm:mb-8"
                 style={{
                   background: "var(--primel-lightbg)",
                   color: "var(--primel-blue)",
@@ -64,7 +66,7 @@ export function HeroSection() {
               {/* Heading */}
               <motion.h1
                 variants={itemVariants}
-                className="font-gsf text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6 tracking-tight"
+                className="font-gsf text-4xl sm:text-6xl lg:text-7xl font-bold leading-[1.1] mb-5 sm:mb-6 tracking-tight"
                 style={{ color: "var(--dark)" }}
               >
                 Trusted Education Consultancy in{" "}
@@ -93,7 +95,7 @@ export function HeroSection() {
               {/* Body */}
               <motion.p
                 variants={itemVariants}
-                className="text-lg sm:text-xl mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0"
+                className="text-base sm:text-xl mb-8 sm:mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0"
                 style={{ color: "var(--body-text)" }}
               >
                 Looking for a trusted education consultancy London students rely
@@ -121,14 +123,15 @@ export function HeroSection() {
 
             {/* Right — Images */}
             <motion.div
-              className="relative h-[320px] sm:h-150 w-full lg:ml-10"
+              // FIX: taller on mobile (260px), proper height on sm+ (500px), auto on lg
+              className="relative h-[260px] sm:h-[500px] lg:h-[560px] w-full lg:ml-10"
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2, ease }}
             >
-              {/* Main image */}
+              {/* Main image — FIX: full width/height on mobile, 85%/80% on sm+ */}
               <motion.div
-                className="absolute top-0 right-0 w-full sm:w-[85%] h-full sm:h-[80%] rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden border-4 sm:border-8 border-white shadow-2xl z-10"
+                className="absolute top-0 right-0 w-full h-full sm:w-[85%] sm:h-[80%] rounded-[1.5rem] sm:rounded-[2.5rem] overflow-hidden border-4 sm:border-8 border-white shadow-2xl z-10"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.4 }}
               >
@@ -138,6 +141,7 @@ export function HeroSection() {
                   fill
                   className="object-cover object-center"
                   sizes="(max-width: 768px) 100vw, 45vw"
+                  priority
                 />
                 <div
                   className="absolute inset-0 mix-blend-multiply"
