@@ -117,7 +117,7 @@ export function WhyChoosePrimeLeed() {
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-4">
                 Why <span style={{ color: "#149ab5" }}>Choose </span>Primeleed
               </h2>
-              <p className="text-base md:text-lg text-gray-500 leading-relaxed">
+              <p className="text-lg sm:text-lg md:text-lg text-gray-500 leading-relaxed">
                 Everything you need to start, fund, and complete your UK
                 university journey. All in one place.
               </p>
@@ -150,7 +150,7 @@ export function WhyChoosePrimeLeed() {
                     <h3 className="text-sm lg:text-base font-bold text-gray-900 mb-2 leading-snug">
                       {service.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">
+                    <p className="text-sm sm:text-sm text-gray-500 leading-relaxed">
                       {service.description}
                     </p>
                   </motion.div>
