@@ -15,7 +15,7 @@ const steps = [
   {
     id: "01",
     title: "Free Consultation",
-    desc: "Understanding academic goals and background.",
+    desc: "Every successful academic journey begins with the right advice. Our free consultation is designed to understand your ambitions, background, and future career plans in detail.",
     duration: "STEP 1",
     image: "/consultation.jpg",
     stat: "98% Satisfaction Rate",
