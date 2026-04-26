@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import University from "@/components/academics/University";
 
 const courses = [
@@ -31,15 +32,13 @@ export default function FindCourse() {
         .font-google-sans { font-family: 'Google Sans', sans-serif; }
       `}</style>
 
-      <section className="font-google-sans bg-[#149ab5] py-12 px-60 mx-50 rounded-[9rem]">
+      <section className="font-google-sans bg-[#149ab5] py-12 px-30 mx-50 rounded-[4rem]">
         
         <div className="max-w-4xl mx-auto">
-          {/* Heading */}
           <h2 className="text-center text-white font-bold text-2xl sm:text-3xl md:text-4xl mb-10 tracking-tight">
             Find the right course for you
           </h2>
 
-          {/* Two side-by-side cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-20 mb-8">
             {courses.map((card) => (
               <div
@@ -67,7 +66,7 @@ export default function FindCourse() {
                   {card.headline}
                 </p>
 
-                <a
+                <Link
                   href={card.href}
                   className="inline-flex items-center gap-1.5 text-sm text-[#149ab5] hover:text-[#105E74] transition-colors duration-200 group w-fit"
                 >
@@ -75,14 +74,15 @@ export default function FindCourse() {
                   <span className="transition-transform duration-200 group-hover:translate-x-1">
                     →
                   </span>
-                </a>
+                </Link>
               </div>
             ))}
           </div>
-
-          {/* University carousel — inside the same bg section */}
         </div>
-        <University />
+
+        <div className="max-w-5xl mx-auto">
+          <University />
+        </div>
       </section>
     </>
   );

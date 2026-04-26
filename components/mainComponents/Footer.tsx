@@ -9,7 +9,7 @@ import {
   Phone,
   Mail,
 } from "lucide-react";
-import { SiTiktok } from "react-icons/si";
+import { SiTiktok, SiWhatsapp } from "react-icons/si";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -44,10 +44,10 @@ export function Footer() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 pt-20 pb-8 relative z-10">
-        {/* ── TOP SECTION: Brand (left) + 3 columns (right) ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 mb-12 items-start">
+        {/* ── TOP SECTION: Brand (left) + columns (right) ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-8 gap-10 mb-12 items-start">
           {/* Col 1 — Brand block */}
-          <div className="flex flex-col lg:col-span-2">
+          <div className="flex flex-col lg:col-span-3">
             <a
               href="#"
               className="text-3xl font-serif font-bold text-white tracking-tight mb-5 block"
@@ -133,12 +133,7 @@ export function Footer() {
               {[
                 { href: "/", label: "Home" },
                 { href: "/about", label: "About" },
-                { href: "/admission/how-to-apply", label: "How to Apply" },
                 { href: "support/faq", label: "FAQ" },
-                {
-                  href: "/education-consultancy",
-                  label: "Education Consultancy",
-                },
               ].map(({ href, label }) => (
                 <li key={label}>
                   <a
@@ -154,7 +149,63 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Col 3 — Contact Us */}
+          {/* Col 3 — Academics */}
+          <div className="flex flex-col">
+            <h4
+              className="text-white font-bold uppercase tracking-wider mb-5"
+              style={{ fontSize: "13px", letterSpacing: "0.1em" }}
+            >
+              Academics
+            </h4>
+            <ul className="flex flex-col" style={{ gap: "14px" }}>
+              {[
+                { href: "/academics", label: "Overview" },
+                { href: "/academics/consultancy", label: "Consultancy" },
+                { href: "/academics/undergraduate", label: "Undergraduate" },
+                { href: "/academics/postgraduate", label: "Postgraduate" },
+              ].map(({ href, label }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    className="text-white hover:text-prime-blue transition-colors flex items-center gap-2"
+                    style={{ fontSize: "14px" }}
+                  >
+                    <span className="w-1 h-1 bg-prime-blue rounded-full shrink-0" />
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Col 4 — Admissions */}
+          <div className="flex flex-col">
+            <h4
+              className="text-white font-bold uppercase tracking-wider mb-5"
+              style={{ fontSize: "13px", letterSpacing: "0.1em" }}
+            >
+              Admissions
+            </h4>
+            <ul className="flex flex-col" style={{ gap: "14px" }}>
+              {[
+                { href: "/admissions", label: "Overview" },
+                { href: "/admissions/how-to-apply", label: "How to Apply" },
+              ].map(({ href, label }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    className="text-white hover:text-prime-blue transition-colors flex items-center gap-2"
+                    style={{ fontSize: "14px" }}
+                  >
+                    <span className="w-1 h-1 bg-prime-blue rounded-full shrink-0" />
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Col 5 — Contact Us */}
           <div className="flex flex-col">
             <h4
               className="text-white font-bold uppercase tracking-wider mb-5"
@@ -185,6 +236,19 @@ export function Footer() {
                   020 8004 3779
                 </a>
               </li>
+              {/* WhatsApp */}
+              <li>
+                <a
+                  href="https://wa.me/447520604047"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-white hover:text-prime-blue transition-colors"
+                  style={{ fontSize: "14px" }}
+                >
+                  <SiWhatsapp size={15} className="shrink-0 text-prime-blue" />
+                  +44 7520 604047
+                </a>
+              </li>
               <li>
                 <a
                   href="mailto:info@primeleed.com"
@@ -198,7 +262,7 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Col 4 — Legal */}
+          {/* Col 6 — Legal */}
           <div className="flex flex-col">
             <h4
               className="text-white font-bold uppercase tracking-wider mb-5"
@@ -230,12 +294,6 @@ export function Footer() {
           style={{ fontSize: "12px" }}
         >
           <p>&copy; {currentYear} Primeleed. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <p className="flex items-center gap-2">
-              Designed and developed by Binory
-              <span className="w-2 h-2 rounded-full bg-prime-blue inline-block" />
-            </p>
-          </div>
         </div>
       </div>
     </footer>

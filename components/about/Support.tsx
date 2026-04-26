@@ -83,7 +83,7 @@ export function SupportSection() {
 
                 <p className="text-lg sm:text-xl md:text-2xl text-white/90 leading-relaxed font-light">
                   of our students successfully have been admitted to their first
-                  choice of higher education through Prime Leed.
+                  choice of higher education through Primeleed.
                 </p>
               </div>
             </div>

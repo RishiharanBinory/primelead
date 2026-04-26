@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { ArrowRight, Mail, Phone, MapPin } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Mail, Phone, MapPin, MessageCircle } from "lucide-react";
 import PhoneInput from "react-phone-input-2";
 import { isValidPhoneNumber } from "libphonenumber-js";
 import emailjs from "@emailjs/browser";
@@ -25,6 +26,38 @@ const validateEmail = (email: string): boolean => {
   const emailRegex = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
   return emailRegex.test(email.trim());
 };
+
+const contactItems: Array<{
+  icon: React.ElementType;
+  text: string;
+  href: string;
+  external: boolean;
+}> = [
+  {
+    icon: Phone,
+    text: "020 8004 3779",
+    href: "",
+    external: false,
+  },
+  {
+    icon: Mail,
+    text: "admissions@primeleed.co.uk",
+    href: "mailto:admissions@primeleed.co.uk",
+    external: false,
+  },
+  {
+    icon: MapPin,
+    text: "London, United Kingdom",
+    href: "",
+    external: false,
+  },
+  {
+    icon: MessageCircle,
+    text: "+44 7520 604047",
+    href: "",
+    external: true,
+  },
+];
 
 export function ContactSection() {
   const [form, setForm] = useState<FormState>({
@@ -88,9 +121,9 @@ export function ContactSection() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const allTouched = Object.keys(form).reduce(
+    const allTouched = Object.keys(form).reduce<Record<string, boolean>>(
       (acc, k) => ({ ...acc, [k]: true }),
-      {},
+      {}
     );
     setTouched(allTouched);
     const errs = validate(form);
@@ -108,7 +141,7 @@ export function ContactSection() {
             phone: "+" + form.phone,
             message: form.message,
           },
-          process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
+          process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
         );
 
         await emailjs.send(
@@ -118,7 +151,7 @@ export function ContactSection() {
             from_name: form.fullName,
             from_email: form.email,
           },
-          process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
+          process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
         );
         setSubmitted(true);
       } catch (error) {
@@ -135,18 +168,23 @@ export function ContactSection() {
   const inputNormal = `${inputBase} border-gray-200`;
   const inputError = `${inputBase} border-red-400 ring-2 ring-red-100`;
 
-  const focusStyle = {
+  const focusStyle: React.CSSProperties = {
     borderColor: "#ffc501",
     boxShadow: "0 0 0 4px rgba(255,197,1,0.1)",
   };
-  const blurStyle = { borderColor: "#e5e7eb", boxShadow: "" };
-  const errorBlurStyle = {
+  const blurStyle: React.CSSProperties = {
+    borderColor: "#e5e7eb",
+    boxShadow: "none",
+  };
+  const errorBlurStyle: React.CSSProperties = {
     borderColor: "#f87171",
     boxShadow: "0 0 0 2px rgba(248,113,113,0.15)",
   };
 
   const phoneHasError = touched.phone && !!errors.phone;
-  const phoneBorder = phoneHasError ? "1px solid #f87171" : "1px solid #e5e7eb";
+  const phoneBorder = phoneHasError
+    ? "1px solid #f87171"
+    : "1px solid #e5e7eb";
 
   return (
     <section className="bg-white relative overflow-hidden">
@@ -154,7 +192,7 @@ export function ContactSection() {
         {/* Mobile header */}
         <div className="text-center mb-8 lg:hidden">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-prime-light-blue text-prime-blue text-sm font-semibold mb-4 border border-blue-100 shadow-sm">
-             Get in Touch
+            Get in Touch
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold text-prime-dark mb-3 tracking-tight">
             Not sure where to begin?
@@ -168,7 +206,6 @@ export function ContactSection() {
         <div className="bg-white rounded-2xl sm:rounded-[2.5rem] shadow-2xl border border-gray-100 overflow-hidden flex flex-col lg:flex-row">
           {/* Left Side */}
           <div className="w-full lg:w-5/12 relative overflow-hidden p-6 sm:p-10 lg:p-14 flex flex-col justify-between text-white min-h-[200px] lg:min-h-[400px]">
-            {/* Background Image */}
             <Image
               src="/contact.jpg"
               alt="Contact background"
@@ -176,9 +213,9 @@ export function ContactSection() {
               className="object-cover object-center"
               priority
             />
-            {/* Dark overlay */}
             <div className="absolute inset-0 bg-prime-dark/55 backdrop-blur-[1px]" />
 
+            {/* Desktop heading */}
             <div className="relative z-10 hidden lg:block">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-white text-sm font-semibold mb-8 border border-white/20">
                 Get in Touch
@@ -193,28 +230,42 @@ export function ContactSection() {
               </p>
             </div>
 
+            {/* Contact info */}
             <div className="relative z-10 space-y-4 sm:space-y-6 lg:mt-auto">
-              {[
-                { Icon: Phone, text: "+44 (0) 20 1234 5678" },
-                { Icon: Mail, text: "admissions@primeleed.co.uk" },
-                { Icon: MapPin, text: "London, United Kingdom" },
-              ].map(({ Icon, text }) => (
-                <div
-                  key={text}
-                  className="flex items-center gap-3 sm:gap-5 text-white"
-                >
+              {contactItems.map((item) => {
+                const Icon = item.icon;
+                return (
                   <div
-                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shrink-0"
-                    style={{
-                      background: "rgba(255,197,1,0.2)",
-                      border: "1px solid rgba(255,197,1,0.3)",
-                    }}
+                    key={item.text}
+                    className="flex items-center gap-3 sm:gap-5 text-white"
                   >
-                    <Icon size={18} className="text-white" />
+                    <div
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shrink-0"
+                      style={{
+                        background: "rgba(255,197,1,0.2)",
+                        border: "1px solid rgba(255,197,1,0.3)",
+                      }}
+                    >
+                      <Icon size={18} className="text-white" />
+                    </div>
+
+                    {item.href ? (
+                      <Link
+                        href={item.href}
+                        target={item.external ? "_blank" : undefined}
+                        rel={item.external ? "noopener noreferrer" : undefined}
+                        className="text-sm sm:text-lg font-medium hover:text-yellow-300 transition-colors hover:underline underline-offset-2"
+                      >
+                        {item.text}
+                      </Link>
+                    ) : (
+                      <span className="text-sm sm:text-lg font-medium">
+                        {item.text}
+                      </span>
+                    )}
                   </div>
-                  <span className="text-sm sm:text-lg font-medium">{text}</span>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -283,7 +334,7 @@ export function ContactSection() {
                           e.currentTarget.style,
                           touched.fullName && errors.fullName
                             ? errorBlurStyle
-                            : blurStyle,
+                            : blurStyle
                         )
                       }
                       placeholder="John Doe"
@@ -320,7 +371,7 @@ export function ContactSection() {
                           e.currentTarget.style,
                           touched.email && errors.email
                             ? errorBlurStyle
-                            : blurStyle,
+                            : blurStyle
                         )
                       }
                       placeholder="john@example.com"
@@ -417,7 +468,7 @@ export function ContactSection() {
                         e.currentTarget.style,
                         touched.message && errors.message
                           ? errorBlurStyle
-                          : blurStyle,
+                          : blurStyle
                       )
                     }
                     placeholder="Tell us about your study plans..."

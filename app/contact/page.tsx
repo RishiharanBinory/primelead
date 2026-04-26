@@ -1,27 +1,13 @@
-import React from "react";
-import MainHero from "@/components/mainComponents/Mainhero";
-import ReviewsCarousel from "@/components/home/Reviewscarousel";
-import ContactForm from "@/components/form/contact";
+import React from 'react'
 
-import AdmissionFormBanner from "@/components/about/AdmissionFormbanner";
+import ContactSection from '@/components/contact/Contactsection.'
 
 const page = () => {
   return (
     <main>
-      <MainHero
-        imageSrc="/academics_bg.jpg"
-        imageAlt="Graduation ceremony"
-        title="Contact"
-        paragraph={<>We can help you with further questions. </>}
-      />
-
-      <ReviewsCarousel />
-      <ContactForm />
-      {/* <FormOverlap />
-      <CallToAction /> */}
-      <AdmissionFormBanner/>
+        <ContactSection/>
     </main>
-  );
-};
+  )
+}
 
-export default page;
+export default page

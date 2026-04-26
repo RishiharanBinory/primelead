@@ -103,18 +103,88 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
   {
     id: "undergraduate-courses",
     title: "Undergraduate Courses",
-    questionCount: "Coming soon",
+    questionCount: "7 questions",
     illustration: <IllustrationUndergraduate />,
-    faqs: [],
-    // Add undergraduate FAQs here
+    faqs: [
+      {
+        question: "What are the entry requirements for undergraduate courses in London?",
+        answer:
+          "Entry requirements vary by course and university. Many of our programmes accept relevant work experience in place of formal qualifications such as A levels. Our advisors will assess your background and match you with the right course and entry route for your situation.",
+      },
+      {
+        question: "How long does an undergraduate degree in London take?",
+        answer:
+          "Most undergraduate degrees take 3 years to complete. Some engineering and specialist programmes take 4 years. Flexible and part-time study options may extend the duration depending on your schedule and course choice.",
+      },
+      {
+        question: "Can I get Student Finance for an undergraduate course in London?",
+        answer:
+          "Yes. If you are a UK resident or an EU national with settled or pre-settled status, you are likely eligible for Student Finance England. Your tuition fees are covered in full and you only repay once you earn above the repayment threshold. Prime Leed handles the full application for you, free of charge.",
+      },
+      {
+        question: "Can I study an undergraduate degree in London as a mature student?",
+        answer:
+          "Absolutely. There is no upper age limit for undergraduate tuition fee loans. Many of our students are aged 25 to 55 and are returning to education for the first time. Our flexible online and blended courses are specifically designed to fit around work and family commitments.",
+      },
+      {
+        question: "Can I study an undergraduate degree while working full time?",
+        answer:
+          "Yes, and most of our students do exactly that. Our partner universities offer flexible online and blended learning programmes built around busy schedules. You can study in the evenings and at weekends without giving up your job or income.",
+      },
+      {
+        question: "What subjects can I study at undergraduate level through Prime Leed?",
+        answer:
+          "We offer over 50 undergraduate courses across a wide range of subjects including Business and Management, Computing and IT, Health and Social Care, Law, Engineering, Psychology, Data Science and more. Our advisors will help you find the right subject and course for your career goals.",
+      },
+      {
+        question: "How do I apply for an undergraduate course through Prime Leed?",
+        answer:
+          "Simply get in touch with us and one of our advisors will guide you through everything. We handle your university application, Student Finance and all the paperwork on your behalf. The entire process is free and there is no obligation to proceed until you are ready.",
+      },
+    ],
   },
   {
     id: "postgraduate-courses",
     title: "Postgraduate Courses",
-    questionCount: "Coming soon",
+    questionCount: "7 questions",
     illustration: <IllustrationPostgraduate />,
-    faqs: [],
-    // Add postgraduate FAQs here
+    faqs: [
+      {
+        question: "Do I need a degree to apply for a postgraduate course in London?",
+        answer:
+          "A relevant undergraduate degree is the standard entry requirement for most postgraduate programmes. However, some courses also accept significant professional experience in place of a formal degree. Our advisors will assess your background and find the right route for you.",
+      },
+      {
+        question: "How long does a postgraduate degree in London take?",
+        answer:
+          "Most postgraduate degrees, including MBAs and MSc programmes, take one year to complete full time. Flexible and part-time options may extend the duration depending on your schedule and course choice.",
+      },
+      {
+        question: "Is there funding available for postgraduate degrees in London?",
+        answer:
+          "Yes. Eligible students can apply for a Postgraduate Loan from the government to help cover tuition fees and living costs. Prime Leed will check your eligibility and support you through the funding application, completely free of charge.",
+      },
+      {
+        question: "Can I study a postgraduate degree in London while working?",
+        answer:
+          "Yes. Many of our postgraduate programmes are available online or as blended learning, making them ideal for working professionals. You can study at your own pace without leaving your current role.",
+      },
+      {
+        question: "What postgraduate courses are available through Prime Leed?",
+        answer:
+          "We offer over 20 postgraduate programmes including MBAs, MSc degrees and an LLM in International Law. Subject areas include Business and Management, Computing and Technology, Artificial Intelligence, Cyber Security, Health and Social Care, Digital Marketing, Logistics and Supply Chain, and more.",
+      },
+      {
+        question: "Can I switch from an undergraduate to a postgraduate programme?",
+        answer:
+          "Yes. If you already hold an undergraduate degree or have sufficient professional experience, our advisors can help you transition to a postgraduate programme that suits your career goals. Simply get in touch and we will assess the best route for you.",
+      },
+      {
+        question: "How do I apply for a postgraduate course through Prime Leed?",
+        answer:
+          "Simply get in touch and one of our advisors will guide you through everything. We handle your university application, funding support and all documentation on your behalf. The entire service is free with no obligation until you are ready to proceed.",
+      },
+    ],
   },
   {
     id: "student-finance",

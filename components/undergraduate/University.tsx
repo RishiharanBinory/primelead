@@ -197,8 +197,8 @@ export default function University() {
           position: "relative",
           overflow: "hidden",
           textAlign: "center",
-          paddingTop: "30px",
-          width: "100%", 
+          padding: "60px 200px", // ← changed
+          width: "100%",
         }}
       >
         {/* Dot grid */}
@@ -247,8 +247,7 @@ export default function University() {
                 top: 0,
                 height: "100%",
                 width: "100px",
-                background:
-                  "linear-gradient(to right,#ffffff, transparent)",
+                background: "linear-gradient(to right,#ffffff, transparent)",
                 zIndex: 10,
                 pointerEvents: "none",
               }}
@@ -261,8 +260,7 @@ export default function University() {
                 top: 0,
                 height: "100%",
                 width: "100px",
-                background:
-                  "linear-gradient(to left, #ffffff, transparent)",
+                background: "linear-gradient(to left, #ffffff, transparent)",
                 zIndex: 10,
                 pointerEvents: "none",
               }}
@@ -272,8 +270,6 @@ export default function University() {
             <div style={{ overflow: "hidden" }}>
               <ScrollRow universities={UNIVERSITIES_ROW1} direction="left" />
             </div>
-
-
           </div>
         </div>
       </section>

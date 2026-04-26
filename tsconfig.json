@@ -30,8 +30,8 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts",
     "app/privacy",
-    "app/about2",
-    "app/academics/undergraduate2"
+    "app/about",
+    "app/academics/undergraduate"
   ],
   "exclude": ["node_modules"]
 }

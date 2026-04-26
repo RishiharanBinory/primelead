@@ -59,7 +59,7 @@ export default function StatsBanner() {
           <div className="sb-divider" />
           <p className="sb-text">
             of our students successfully have been admitted to their first
-            choice of higher education through Prime Leed.
+            choice of higher education through Primeleed.
           </p>
         </div>
       </section>

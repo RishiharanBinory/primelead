@@ -1,7 +1,12 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence, type Variants, type Transition } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  type Variants,
+  type Transition,
+} from "framer-motion";
 import Buttontwo from "../mainComponents/Buttontwo";
 
 const ease = "easeOut" satisfies Transition["ease"];
@@ -9,15 +14,8 @@ const ease = "easeOut" satisfies Transition["ease"];
 const IMAGES = [
   { src: "/overview1.jpg", alt: "Students at university campus" },
   { src: "/overview2.jpg", alt: "London university buildings" },
-  { src: "/overview3.jpg", alt: "Students celebrating graduation" },
+  { src: "/overview5.jpg", alt: "Students celebrating graduation" },
   { src: "/overview4.jpg", alt: "Students studying together" },
-];
-
-const STATS = [
-  { value: "100+", label: "Degrees in London" },
-  { value: "20+", label: "Partner University" },
-  { value: "3.0K+", label: "Students Supported" },
-  { value: "100%", label: "Free services" },
 ];
 
 const CARD_W = 420;
@@ -34,8 +32,6 @@ const PAUSE_DURATION = 1700;
 const SWEEP_MS = 300;
 const SWEEP_S = SWEEP_MS / 1000;
 const INTERVAL = PAUSE_DURATION + SWEEP_MS;
-
-const CIRCUMFERENCE = 94.25;
 
 export function HeroSection() {
   const [index, setIndex] = useState(0);
@@ -74,7 +70,6 @@ export function HeroSection() {
       <section className="pt-8 pb-10 sm:pt-16 sm:pb-12 lg:pt-24 lg:pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-4 items-center">
-
             {/* ── Left Content ── */}
             <motion.div
               className="max-w-2xl text-center lg:text-left order-2 lg:order-1"
@@ -101,7 +96,7 @@ export function HeroSection() {
                 style={{ color: "var(--body-text, #4a4a4a)" }}
               >
                 Over 100 courses across 20+ universities in London, fully funded
-                by the government. Prime Leed guides you every step of the way,
+                by the government. Primeleed guides you every step of the way,
                 from choosing your course to the day you graduate. Course
                 selection, application, Student Finance support, all completely
                 free of charge.
@@ -109,7 +104,7 @@ export function HeroSection() {
 
               <motion.div
                 variants={itemVariants}
-                className="flex flex-col sm:flex-row gap-4 items-center lg:items-start mb-12"
+                className="flex flex-col sm:flex-row gap-4 items-center lg:items-start"
               >
                 <div className="w-fit mx-auto lg:mx-0">
                   <Buttontwo
@@ -129,29 +124,6 @@ export function HeroSection() {
                     fontSize={18}
                   />
                 </div>
-              </motion.div>
-
-              {/* Stats row */}
-              <motion.div
-                variants={itemVariants}
-                className="grid grid-cols-4 gap-3 sm:gap-6 max-w-xl mx-auto lg:mx-0"
-              >
-                {STATS.map((stat) => (
-                  <div key={stat.label} className="text-center lg:text-left">
-                    <p
-                      className="text-xl sm:text-2xl font-bold leading-tight font-gsf"
-                      style={{ color: "var(--dark, #1a1a1a)" }}
-                    >
-                      {stat.value}
-                    </p>
-                    <p
-                      className="text-[11px] sm:text-sm font-medium mt-1"
-                      style={{ color: "var(--body-text, #4a4a4a)" }}
-                    >
-                      {stat.label}
-                    </p>
-                  </div>
-                ))}
               </motion.div>
             </motion.div>
 
@@ -197,7 +169,6 @@ export function HeroSection() {
                         fill
                         className="object-cover object-center"
                         sizes={`${PEEK_W}px`}
-                        // ✅ Removed placeholder="blur" and blurDataURL
                       />
                     </motion.div>
                   </AnimatePresence>
@@ -252,21 +223,15 @@ export function HeroSection() {
                         className="object-cover object-center"
                         sizes={`${CARD_W}px`}
                         priority={index === 0}
-                        // ✅ No placeholder — images render instantly, no shimmer/blur
                       />
                     </motion.div>
                   </AnimatePresence>
-
-                  {/* ── Progress ring ── */}
-
                 </div>
               </div>
             </motion.div>
-
           </div>
         </div>
       </section>
-
     </div>
   );
 }

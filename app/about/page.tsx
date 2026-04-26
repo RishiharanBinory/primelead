@@ -1,23 +1,52 @@
-// app/about/page.tsx
+import React from "react";
+import { AboutHero } from "@/components/about/Hero";
+import { VisionMission } from "@/components/about/VisionMission";
+import { SupportSection } from "@/components/about/Support";
+import Section from "@/components/mainComponents/Section";
+import CtaComponent from "@/components/home/CTA";
+import HeroSection from "@/components/about/AboutHero";
 
-import AboutHero from "@/components/about/AboutHero";
-import AboutIntro from "@/components/about/AboutIntro";
-import StatsBanner from "@/components/about/StatsBanner";
-import AboutMissionVision from "@/components/about/AboutMissionVision"; // ← NEW
-import CoreValues from "@/components/about/CoreValues";
-import FormOverlap from "@/components/FormOverlap";
-import CallToAction from "@/components/CallToAction";
-import AdmissionFormBanner from "@/components/about/AdmissionFormbanner";
-
-export default function AboutPage() {
+const page = () => {
   return (
     <main>
-      <AboutHero />
-      <AboutIntro />
-      <StatsBanner />
-      <AboutMissionVision /> {/* ← replaced VisionMission with this */}
-      <CoreValues introText="Aligned with global shifts in the economy, society, and environment, our vision drives our mission and upholds our core values" />
-      <AdmissionFormBanner />
+      <Section>
+        <HeroSection />
+      </Section>
+
+      {/* <div className="min-h-[calc(100vh-64px)] max-h-[860px] w-full relative bg-white"> */}
+      {/* Cool Blue Glow Right */}
+      {/* <div
+          className="absolute inset-0 z-0"
+          style={{
+            background: "#ffffff",
+            backgroundImage: `
+              radial-gradient(
+                circle at top right,
+                rgba(70, 130, 180, 0.5),
+                transparent 40%
+              )
+            `,
+            filter: "blur(80px)",
+            backgroundRepeat: "no-repeat",
+          }}
+        /> */}
+      {/* Your Content/Components */}
+      {/* <Section>
+          <AboutHero />
+        </Section> */}
+      {/* </div> */}
+
+      <Section>
+        <SupportSection />
+      </Section>
+      <Section className="!py-0">
+        <VisionMission />
+      </Section>
+      <Section>
+        <CtaComponent />
+      </Section>
     </main>
   );
-}
+};
+
+export default page;

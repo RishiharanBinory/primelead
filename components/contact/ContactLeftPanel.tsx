@@ -12,8 +12,8 @@ const CONTACT_DETAILS = [
 export default function ContactLeftPanel() {
   return (
     <div className="flex-1 flex flex-col justify-center gap-8 py-6 lg:py-0 lg:pr-16">
-      {/* Text block */}
-      <div>
+      {/* Text block — shifted down */}
+      <div className="mt-10">
         <h2 className="font-bold text-[#1a1a1a] text-3xl sm:text-4xl lg:text-[2.75rem] leading-tight mb-6">
           Ready to start your journey?
         </h2>
@@ -24,10 +24,8 @@ export default function ContactLeftPanel() {
         </p>
       </div>
 
-
-
-      {/* University carousel — scoped to left panel only */}
-      <div className="w-full overflow-hidden">
+      {/* University carousel — pushed further down */}
+      <div className="w-full overflow-hidden mt-16">
         <p className="text-xs font-semibold uppercase tracking-widest text-[#bbb] mb-3">
           Partnered Universities
         </p>

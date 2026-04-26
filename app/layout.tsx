@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Primeleed | Secure UK University Placement",
   description:
-    "Start your journey in higher education & pursue your passion with Prime Leed.",
+    "Start your journey in higher education & pursue your passion with Primeleed.",
 };
 
 export default function RootLayout({

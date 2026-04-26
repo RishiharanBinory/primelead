@@ -999,7 +999,7 @@ export default function ApplicationForm() {
                     }}
                   />
                   <span style={{ fontFamily: "'Inter',sans-serif", fontSize: "14px", color: "#545454", lineHeight: "1.6em" }}>
-                    By submitting this form, you agree to Prime Leed privacy notice.
+                    By submitting this form, you agree to Primeleed privacy notice.
                   </span>
                 </label>
                 {errors.privacyAccepted && (

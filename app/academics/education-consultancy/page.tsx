@@ -28,9 +28,6 @@ const page = () => {
       <Section noPadX>
         <FAQSection />
       </Section>
-      <Section>
-        <ContactSection />
-      </Section>
 
       <Section>
         <CtaComponent />

@@ -24,7 +24,7 @@ export async function generateMetadata({
   const post = getPostBySlug(slug);
   if (!post) return {};
   return {
-    title: `${post.title} | Prime Leed`,
+    title: `${post.title} | Primeleed`,
     description: post.excerpt,
     openGraph: {
       title: post.title,

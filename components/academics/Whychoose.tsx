@@ -93,7 +93,7 @@ export default function WhyPrimeLeed() {
         {/* Section Header — centered */}
         <div className="mb-12 text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight mb-4">
-            Why study with Prime Leed
+            Why study with Primeleed
           </h2>
           <p className="text-base text-gray-500 max-w-2xl mx-auto leading-relaxed">
             Most students spend months confused about where to start. At Prime
@@ -132,7 +132,7 @@ export default function WhyPrimeLeed() {
         <div className="bg-white rounded-2xl px-8 py-8 sm:py-10 flex flex-col sm:flex-row items-center justify-between gap-6 border border-gray-100">
           <p className="text-gray-500 text-sm sm:text-base leading-relaxed italic max-w-2xl">
             &ldquo;Over 3,000 students across the UK have started their degree
-            through Prime Leed, many of them working adults who thought
+            through Primeleed, many of them working adults who thought
             university was no longer an option for them.&rdquo;
           </p>
           <div className="flex-shrink-0 text-center sm:text-right">

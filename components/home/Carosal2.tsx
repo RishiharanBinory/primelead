@@ -347,7 +347,7 @@ export default function IntegrationHero() {
               color: "#D1D5DB",
             }}
           >
-            Trusted by leading institutions worldwide
+            Trusted by leading universities worldwide
           </p>
         </div>
       </section>

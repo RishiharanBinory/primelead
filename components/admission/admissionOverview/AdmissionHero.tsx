@@ -14,7 +14,7 @@ export default function AdmissionHeroSection() {
           </h1>
 
           <p className="text-[#555555] leading-relaxed text-base sm:text-lg">
-            Applying to university does not have to be complicated. Prime Leed
+            Applying to university does not have to be complicated. Primeleed
             provides complete university application support in London, guiding
             you from your first enquiry to the day you enrol, completely free of
             charge.

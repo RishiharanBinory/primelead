@@ -10,7 +10,7 @@ export default function financialAidHero() {
         <>
           Discover various opportunities for scholarships, grants, and financial
           aid to support your pursuit of a high-quality education with the help
-          from Prime Leed.{" "}
+          from Primeleed.{" "}
         </>
       }
     />

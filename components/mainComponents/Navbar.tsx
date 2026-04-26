@@ -17,6 +17,7 @@ const NAV_ITEMS: NavItem[] = [
     href: "/academics",
     children: [
       { label: "Overview", href: "/academics/overview" },
+      { label: "Consultancy", href: "/academics/education-consultancy" },
       { label: "Undergraduate", href: "/academics/undergraduate" },
       { label: "Postgraduate", href: "/academics/postgraduate" },
     ],
@@ -27,19 +28,17 @@ const NAV_ITEMS: NavItem[] = [
     children: [
       { label: "Overview", href: "/admission/overview" },
       { label: "How to Apply", href: "/admission/how-to-apply" },
-      { label: "Admission Form", href: "/admission/form" },
-      { label: "Financial Aid", href: "/admission/financial-aid" },
     ],
   },
   {
-    label: "Support & Guidance",
-    href: "/support",
-    children: [
-      { label: "Request Information", href: "/support/request-info" },
-      { label: "FAQ", href: "/support/faq" },
-      { label: "Resources", href: "/support/resources" },
-      { label: "Support & Guidance", href: "/support/guidance" },
-    ],
+    label: "Faq",
+    href: "/faq",
+    // children: [
+    //   { label: "Request Information", href: "/support/request-info" },
+    //   { label: "FAQ", href: "/support/faq" },
+    //   { label: "Resources", href: "/support/resources" },
+    //   { label: "Support & Guidance", href: "/support/guidance" },
+    // ],
   },
   { label: "Contact", href: "/contact" },
 ];
@@ -146,13 +145,15 @@ function Dropdown({
               // is fine here since dropdowns unmount on close — but we still guard correctly
               onMouseEnter={(e) => {
                 if (!isActiveChild) {
-                  (e.currentTarget as HTMLElement).style.backgroundColor = "#f0f8fb";
+                  (e.currentTarget as HTMLElement).style.backgroundColor =
+                    "#f0f8fb";
                   (e.currentTarget as HTMLElement).style.color = "#1a8fa8";
                 }
               }}
               onMouseLeave={(e) => {
                 if (!isActiveChild) {
-                  (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
+                  (e.currentTarget as HTMLElement).style.backgroundColor =
+                    "transparent";
                   (e.currentTarget as HTMLElement).style.color = "#374151";
                 }
               }}
@@ -189,12 +190,23 @@ function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
       >
         <div className="pl-16 pr-10 pt-14 h-full">
           <h3 className="font-black text-[#0f1f2e] text-[24px] mb-5">Giving</h3>
-          <p style={{ fontSize: "15px", color: "#6b7280", lineHeight: "1.7", marginBottom: "24px" }}>
+          <p
+            style={{
+              fontSize: "15px",
+              color: "#6b7280",
+              lineHeight: "1.7",
+              marginBottom: "24px",
+            }}
+          >
             All donations to the Student Emergency Fund will directly support
             our students as they adapt to changing circumstances.
           </p>
-          <Link href="/giving" onClick={onClose} style={{ color: "#1a8fa8", fontWeight: 600, fontSize: "15px" }}
-            className="inline-flex items-center gap-2 hover:text-[#0f6e82] transition-colors">
+          <Link
+            href="/giving"
+            onClick={onClose}
+            style={{ color: "#1a8fa8", fontWeight: 600, fontSize: "15px" }}
+            className="inline-flex items-center gap-2 hover:text-[#0f6e82] transition-colors"
+          >
             Visit Page →
           </Link>
         </div>
@@ -203,64 +215,155 @@ function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
           <div className="flex flex-col gap-6">
             {BLOG_POSTS.map((post, i) => (
               <div key={i}>
-                <Link href={post.href} onClick={onClose}
-                  style={{ fontSize: "15px", fontWeight: 600, color: "#0f1f2e", display: "block", marginBottom: "4px", lineHeight: "1.4" }}
-                  className="hover:text-[#1a8fa8] transition-colors">
+                <Link
+                  href={post.href}
+                  onClick={onClose}
+                  style={{
+                    fontSize: "15px",
+                    fontWeight: 600,
+                    color: "#0f1f2e",
+                    display: "block",
+                    marginBottom: "4px",
+                    lineHeight: "1.4",
+                  }}
+                  className="hover:text-[#1a8fa8] transition-colors"
+                >
                   {post.title}
                 </Link>
-                <p style={{ fontSize: "13px", color: "#9ca3af" }}>{post.date}</p>
-                {i < BLOG_POSTS.length - 1 && <div className="border-b border-[#f0f3f5] mt-6" />}
+                <p style={{ fontSize: "13px", color: "#9ca3af" }}>
+                  {post.date}
+                </p>
+                {i < BLOG_POSTS.length - 1 && (
+                  <div className="border-b border-[#f0f3f5] mt-6" />
+                )}
               </div>
             ))}
           </div>
-          <Link href="/blog" onClick={onClose} style={{ color: "#1a8fa8", fontWeight: 600, fontSize: "15px" }}
-            className="inline-flex items-center gap-2 hover:text-[#0f6e82] transition-colors mt-8">
+          <Link
+            href="/blog"
+            onClick={onClose}
+            style={{ color: "#1a8fa8", fontWeight: 600, fontSize: "15px" }}
+            className="inline-flex items-center gap-2 hover:text-[#0f6e82] transition-colors mt-8"
+          >
             View Blog →
           </Link>
         </div>
         <div className="pl-10 pr-10 pt-14 h-full">
-          <h3 className="font-black text-[#0f1f2e] text-[24px] mb-5">Directory</h3>
+          <h3 className="font-black text-[#0f1f2e] text-[24px] mb-5">
+            Directory
+          </h3>
           <div className="flex flex-col mt-2">
             {DIRECTORY_LINKS.map((link, i) => (
               <div key={i}>
-                <Link href={link.href} onClick={onClose}
-                  style={{ fontSize: "15px", fontWeight: 600, color: "#0f1f2e", display: "block", padding: "16px 0" }}
-                  className="hover:text-[#1a8fa8] transition-colors">
+                <Link
+                  href={link.href}
+                  onClick={onClose}
+                  style={{
+                    fontSize: "15px",
+                    fontWeight: 600,
+                    color: "#0f1f2e",
+                    display: "block",
+                    padding: "16px 0",
+                  }}
+                  className="hover:text-[#1a8fa8] transition-colors"
+                >
                   {link.label}
                 </Link>
-                {i < DIRECTORY_LINKS.length - 1 && <div className="border-b border-[#f0f3f5]" />}
+                {i < DIRECTORY_LINKS.length - 1 && (
+                  <div className="border-b border-[#f0f3f5]" />
+                )}
               </div>
             ))}
           </div>
         </div>
-        <div className="relative overflow-hidden" style={{ backgroundColor: "#c8e8f0", minHeight: "500px" }}>
+        <div
+          className="relative overflow-hidden"
+          style={{ backgroundColor: "#c8e8f0", minHeight: "500px" }}
+        >
           <div className="p-10 pr-0 relative z-10" style={{ maxWidth: "55%" }}>
-            <h3 className="font-black mb-4 text-[#0f1f2e] text-[24px]">Alumni</h3>
-            <div className="text-[#0f1f2e] font-black mb-3" style={{ fontSize: "36px", lineHeight: 1 }}>❝</div>
-            <p style={{ fontSize: "14px", fontWeight: 700, color: "#0f1f2e", lineHeight: "1.5", marginBottom: "16px" }}>
-              Everything that I learned at Prime Leed really helped put me above the competition in the field of business management.
+            <h3 className="font-black mb-4 text-[#0f1f2e] text-[24px]">
+              Alumni
+            </h3>
+            <div
+              className="text-[#0f1f2e] font-black mb-3"
+              style={{ fontSize: "36px", lineHeight: 1 }}
+            >
+              ❝
+            </div>
+            <p
+              style={{
+                fontSize: "14px",
+                fontWeight: 700,
+                color: "#0f1f2e",
+                lineHeight: "1.5",
+                marginBottom: "16px",
+              }}
+            >
+              Everything that I learned at Prime Leed really helped put me above
+              the competition in the field of business management.
             </p>
-            <p style={{ fontSize: "15px", fontWeight: 600, color: "#0f1f2e", marginBottom: "2px" }}>Alyssa Watson</p>
-            <p style={{ fontSize: "13px", color: "#4b5563", marginBottom: "24px" }}>BA Business Management</p>
-            <Link href="/alumni" onClick={onClose} style={{ color: "#1a8fa8", fontWeight: 600, fontSize: "15px" }}
-              className="inline-flex items-center gap-2 hover:opacity-70 transition-opacity">
+            <p
+              style={{
+                fontSize: "15px",
+                fontWeight: 600,
+                color: "#0f1f2e",
+                marginBottom: "2px",
+              }}
+            >
+              Alyssa Watson
+            </p>
+            <p
+              style={{
+                fontSize: "13px",
+                color: "#4b5563",
+                marginBottom: "24px",
+              }}
+            >
+              BA Business Management
+            </p>
+            <Link
+              href="/alumni"
+              onClick={onClose}
+              style={{ color: "#1a8fa8", fontWeight: 600, fontSize: "15px" }}
+              className="inline-flex items-center gap-2 hover:opacity-70 transition-opacity"
+            >
               Our Alumni →
             </Link>
           </div>
-          <div className="absolute top-0 right-0 bottom-0" style={{ width: "42%" }}>
-            <Image src="/alumini.png" alt="Alumni student" fill className="object-cover object-top" />
+          <div
+            className="absolute top-0 right-0 bottom-0"
+            style={{ width: "42%" }}
+          >
+            <Image
+              src="/alumini.png"
+              alt="Alumni student"
+              fill
+              className="object-cover object-top"
+            />
           </div>
         </div>
       </div>
-      <div className="border-t border-[#e8edf2] py-8 px-0" style={{ backgroundColor: "#fafbfc" }}>
-        <div className="grid grid-cols-3 gap-0 mx-auto" style={{ maxWidth: "900px" }}>
+      <div
+        className="border-t border-[#e8edf2] py-8 px-0"
+        style={{ backgroundColor: "#fafbfc" }}
+      >
+        <div
+          className="grid grid-cols-3 gap-0 mx-auto"
+          style={{ maxWidth: "900px" }}
+        >
           {CTA_BUTTONS.map((btn) => (
             <Link
               key={btn.href}
               href={btn.href}
               onClick={onClose}
               className="flex items-center justify-center text-white hover:opacity-90 transition-opacity duration-200 mx-2 rounded-xl"
-              style={{ height: "52px", backgroundColor: "#0f1f2e", fontSize: "15px", fontWeight: 700, ...FONT }}
+              style={{
+                height: "52px",
+                backgroundColor: "#0f1f2e",
+                fontSize: "15px",
+                fontWeight: 700,
+                ...FONT,
+              }}
             >
               {btn.label}
             </Link>
@@ -310,7 +413,9 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const leaveTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const leaveTimer = useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined,
+  );
   const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -373,7 +478,8 @@ export default function Navbar() {
         borderBottom: scrolled ? "1px solid #e8edf2" : "1px solid #f0f4f7",
         boxShadow: scrolled ? "0 1px 20px rgba(20, 60, 100, 0.07)" : "none",
         transform: navVisible ? "translateY(0)" : "translateY(-100%)",
-        transition: "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease",
+        transition:
+          "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease",
         ...FONT,
       }}
     >
@@ -383,7 +489,11 @@ export default function Navbar() {
         style={{ height: "80px", padding: "0 48px" }}
       >
         {/* Logo */}
-        <Link href="/" aria-label="Primeleed home" className="shrink-0 flex items-center">
+        <Link
+          href="/"
+          aria-label="Primeleed home"
+          className="shrink-0 flex items-center"
+        >
           <Image
             src="/logo.png"
             alt="Primeleed"
@@ -396,8 +506,14 @@ export default function Navbar() {
         </Link>
 
         {/* Nav — centered */}
-        <nav aria-label="Main navigation" className="absolute left-1/2 -translate-x-1/2">
-          <ul role="menubar" className="flex items-center list-none m-0 p-0 gap-2">
+        <nav
+          aria-label="Main navigation"
+          className="absolute left-1/2 -translate-x-1/2"
+        >
+          <ul
+            role="menubar"
+            className="flex items-center list-none m-0 p-0 gap-2"
+          >
             {NAV_ITEMS.map((item) => {
               const active = isActive(item);
               const expanded = openItem === item.label;
@@ -432,7 +548,9 @@ export default function Navbar() {
                     onClick={(e) => {
                       if (item.children) {
                         e.preventDefault();
-                        setOpenItem((v) => v === item.label ? null : item.label);
+                        setOpenItem((v) =>
+                          v === item.label ? null : item.label,
+                        );
                       } else {
                         closeAll();
                       }
@@ -445,12 +563,16 @@ export default function Navbar() {
                       fontWeight: showActive ? 600 : 500,
                       // ✅ FIX: color and background computed entirely from React state.
                       // No `element.style` mutation — so navigation never leaves stale styles.
-                      color: showActive ? "#1a8fa8" : showHover ? "#1a8fa8" : "#374151",
+                      color: showActive
+                        ? "#1a8fa8"
+                        : showHover
+                          ? "#1a8fa8"
+                          : "#374151",
                       backgroundColor: showActive
                         ? "transparent"
                         : showHover
-                        ? "#f0f8fb"
-                        : "transparent",
+                          ? "#f0f8fb"
+                          : "transparent",
                       letterSpacing: "-0.01em",
                       ...FONT,
                     }}
@@ -485,7 +607,13 @@ export default function Navbar() {
           <Link
             href="/admission/form"
             className="inline-flex items-center px-6 py-2.5 rounded-xl text-white transition-all duration-200 hover:bg-[#0f6e82]"
-            style={{ backgroundColor: "#1a8fa8", fontSize: "15px", fontWeight: 600, letterSpacing: "-0.01em", ...FONT }}
+            style={{
+              backgroundColor: "#1a8fa8",
+              fontSize: "15px",
+              fontWeight: 600,
+              letterSpacing: "-0.01em",
+              ...FONT,
+            }}
           >
             Apply Now
           </Link>
@@ -502,13 +630,36 @@ export default function Navbar() {
           >
             {megaOpen ? (
               <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
-                <path d="M2 2L16 16M16 2L2 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                <path
+                  d="M2 2L16 16M16 2L2 16"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
               </svg>
             ) : (
               <svg width="17" height="13" viewBox="0 0 22 16" fill="none">
-                <rect y="0" width="22" height="2.2" rx="1.1" fill="currentColor" />
-                <rect y="7" width="14" height="2.2" rx="1.1" fill="currentColor" />
-                <rect y="14" width="22" height="2.2" rx="1.1" fill="currentColor" />
+                <rect
+                  y="0"
+                  width="22"
+                  height="2.2"
+                  rx="1.1"
+                  fill="currentColor"
+                />
+                <rect
+                  y="7"
+                  width="14"
+                  height="2.2"
+                  rx="1.1"
+                  fill="currentColor"
+                />
+                <rect
+                  y="14"
+                  width="22"
+                  height="2.2"
+                  rx="1.1"
+                  fill="currentColor"
+                />
               </svg>
             )}
           </button>
@@ -537,7 +688,12 @@ export default function Navbar() {
           <Link
             href="/admission/form"
             className="inline-flex items-center px-4 py-2 rounded-lg text-white"
-            style={{ backgroundColor: "#1a8fa8", fontSize: "13.5px", fontWeight: 600, ...FONT }}
+            style={{
+              backgroundColor: "#1a8fa8",
+              fontSize: "13.5px",
+              fontWeight: 600,
+              ...FONT,
+            }}
           >
             Apply Now
           </Link>
@@ -550,13 +706,36 @@ export default function Navbar() {
           >
             {mobileOpen ? (
               <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
-                <path d="M2 2L16 16M16 2L2 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                <path
+                  d="M2 2L16 16M16 2L2 16"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
               </svg>
             ) : (
               <svg width="17" height="13" viewBox="0 0 22 16" fill="none">
-                <rect y="0" width="22" height="2.2" rx="1.1" fill="currentColor" />
-                <rect y="7" width="14" height="2.2" rx="1.1" fill="currentColor" />
-                <rect y="14" width="22" height="2.2" rx="1.1" fill="currentColor" />
+                <rect
+                  y="0"
+                  width="22"
+                  height="2.2"
+                  rx="1.1"
+                  fill="currentColor"
+                />
+                <rect
+                  y="7"
+                  width="14"
+                  height="2.2"
+                  rx="1.1"
+                  fill="currentColor"
+                />
+                <rect
+                  y="14"
+                  width="22"
+                  height="2.2"
+                  rx="1.1"
+                  fill="currentColor"
+                />
               </svg>
             )}
           </button>
@@ -581,7 +760,11 @@ export default function Navbar() {
                     <>
                       <button
                         aria-expanded={subOpen}
-                        onClick={() => setMobileAccordion((v) => v === item.label ? null : item.label)}
+                        onClick={() =>
+                          setMobileAccordion((v) =>
+                            v === item.label ? null : item.label,
+                          )
+                        }
                         className="flex items-center justify-between w-full px-4 py-3.5 mb-0.5
                                    bg-transparent border-none cursor-pointer text-left rounded-xl transition-colors"
                         style={{
@@ -611,12 +794,16 @@ export default function Navbar() {
                                 style={{
                                   fontSize: "15px",
                                   fontWeight: 500,
-                                  backgroundColor: isActiveChild ? "#1a8fa8" : "transparent",
+                                  backgroundColor: isActiveChild
+                                    ? "#1a8fa8"
+                                    : "transparent",
                                   color: isActiveChild ? "#ffffff" : "#6b7280",
                                   ...FONT,
                                 }}
                               >
-                                {isActiveChild && <span className="shrink-0 w-1.5 h-1.5 rounded-full bg-white" />}
+                                {isActiveChild && (
+                                  <span className="shrink-0 w-1.5 h-1.5 rounded-full bg-white" />
+                                )}
                                 {child.label}
                               </Link>
                             );
@@ -652,7 +839,12 @@ export default function Navbar() {
                 href={btn.href}
                 onClick={() => setMobileOpen(false)}
                 className="flex items-center justify-center text-white py-4 rounded-xl transition-colors duration-200 hover:bg-[#1a8fa8]"
-                style={{ backgroundColor: "#0f1f2e", fontSize: "15px", fontWeight: 600, ...FONT }}
+                style={{
+                  backgroundColor: "#0f1f2e",
+                  fontSize: "15px",
+                  fontWeight: 600,
+                  ...FONT,
+                }}
               >
                 {btn.label}
               </Link>
