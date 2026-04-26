@@ -39,6 +39,13 @@ const contactItems: Array<{
     href: "",
     external: false,
   },
+
+  {
+    icon: MessageCircle,
+    text: "+44 7520 604047",
+    href: "",
+    external: true,
+  },
   {
     icon: Mail,
     text: "admissions@primeleed.co.uk",
@@ -50,12 +57,6 @@ const contactItems: Array<{
     text: "London, United Kingdom",
     href: "",
     external: false,
-  },
-  {
-    icon: MessageCircle,
-    text: "+44 7520 604047",
-    href: "",
-    external: true,
   },
 ];
 
@@ -123,7 +124,7 @@ export function ContactSection() {
     e.preventDefault();
     const allTouched = Object.keys(form).reduce<Record<string, boolean>>(
       (acc, k) => ({ ...acc, [k]: true }),
-      {}
+      {},
     );
     setTouched(allTouched);
     const errs = validate(form);
@@ -141,7 +142,7 @@ export function ContactSection() {
             phone: "+" + form.phone,
             message: form.message,
           },
-          process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+          process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
         );
 
         await emailjs.send(
@@ -151,7 +152,7 @@ export function ContactSection() {
             from_name: form.fullName,
             from_email: form.email,
           },
-          process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+          process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
         );
         setSubmitted(true);
       } catch (error) {
@@ -182,9 +183,7 @@ export function ContactSection() {
   };
 
   const phoneHasError = touched.phone && !!errors.phone;
-  const phoneBorder = phoneHasError
-    ? "1px solid #f87171"
-    : "1px solid #e5e7eb";
+  const phoneBorder = phoneHasError ? "1px solid #f87171" : "1px solid #e5e7eb";
 
   return (
     <section className="bg-white relative overflow-hidden">
@@ -334,7 +333,7 @@ export function ContactSection() {
                           e.currentTarget.style,
                           touched.fullName && errors.fullName
                             ? errorBlurStyle
-                            : blurStyle
+                            : blurStyle,
                         )
                       }
                       placeholder="John Doe"
@@ -371,7 +370,7 @@ export function ContactSection() {
                           e.currentTarget.style,
                           touched.email && errors.email
                             ? errorBlurStyle
-                            : blurStyle
+                            : blurStyle,
                         )
                       }
                       placeholder="john@example.com"
@@ -468,7 +467,7 @@ export function ContactSection() {
                         e.currentTarget.style,
                         touched.message && errors.message
                           ? errorBlurStyle
-                          : blurStyle
+                          : blurStyle,
                       )
                     }
                     placeholder="Tell us about your study plans..."

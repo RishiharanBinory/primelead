@@ -85,7 +85,7 @@ export default function ContactForm() {
                 required: true,
                 fullWidth: true,
                 checkboxLabel:
-                  "By submitting this form, you agree to the Prime Leed privacy notice.",
+                  "By submitting this form, you agree to the Primeleed privacy notice.",
               },
             ],
           },

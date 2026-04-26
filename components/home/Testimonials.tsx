@@ -20,7 +20,7 @@ const testimonials = [
     name: "Jazmin Mera",
     date: "25/09/2023",
     description:
-      "I would like to mention that Prime Leed is a very useful resource that helps students in various ways and makes their lives easier thanks to the team they have. Randy in particular is very patient and intelligent, always willing to help me.",
+      "I would like to mention that Primeleed is a very useful resource that helps students in various ways and makes their lives easier thanks to the team they have. Randy in particular is very patient and intelligent, always willing to help me.",
   },
   {
     name: "Tuğba Arslan Bayat",
@@ -222,7 +222,7 @@ export function SlidingTestimonial() {
       ref.current
         ?.querySelectorAll<HTMLElement>(".animate-marquee")
         .forEach(
-          (el) => (el.style.animationPlayState = paused ? "paused" : "running")
+          (el) => (el.style.animationPlayState = paused ? "paused" : "running"),
         );
     });
   };
@@ -248,7 +248,7 @@ export function SlidingTestimonial() {
 
   const openModal = (
     testimonial: (typeof testimonials)[0],
-    colorClass: string
+    colorClass: string,
   ) => {
     setActiveModal({ testimonial, colorClass });
   };
@@ -261,7 +261,6 @@ export function SlidingTestimonial() {
     <>
       <section className="w-full bg-white overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-8 lg:px-16">
-
           {/* Heading + subtitle */}
           <div className="text-center mb-6 sm:mb-8">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 mb-4">
@@ -274,7 +273,10 @@ export function SlidingTestimonial() {
           </div>
 
           {/* ── Desktop layout: image + carousel side by side ── */}
-          <div className="hidden md:flex items-end gap-4 lg:gap-6" style={{ marginTop: "-40px" }}>
+          <div
+            className="hidden md:flex items-end gap-4 lg:gap-6"
+            style={{ marginTop: "-40px" }}
+          >
             {/* LEFT image */}
             <div
               className="shrink-0"
@@ -301,7 +303,7 @@ export function SlidingTestimonial() {
               <div
                 style={{
                   position: "absolute",
-                  top: "-60px",   // extend upward to show more of the image
+                  top: "-60px", // extend upward to show more of the image
                   left: 0,
                   right: 0,
                   bottom: "-50px",
@@ -344,7 +346,9 @@ export function SlidingTestimonial() {
                       key={`${clone}-${idx}`}
                       testimonial={t}
                       colorClass={colors[idx % colors.length]}
-                      onReadMore={() => openModal(t, colors[idx % colors.length])}
+                      onReadMore={() =>
+                        openModal(t, colors[idx % colors.length])
+                      }
                     />
                   ))}
                 </div>
@@ -378,14 +382,15 @@ export function SlidingTestimonial() {
                       key={`${clone}-${idx}`}
                       testimonial={t}
                       colorClass={colors[idx % colors.length]}
-                      onReadMore={() => openModal(t, colors[idx % colors.length])}
+                      onReadMore={() =>
+                        openModal(t, colors[idx % colors.length])
+                      }
                     />
                   ))}
                 </div>
               ))}
             </div>
           </div>
-
         </div>
       </section>
 

@@ -14,10 +14,10 @@ export default function FaqSection() {
   return (
     <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-20">
-        <p className="text-[#3AAFB9] text-xs font-semibold uppercase tracking-widest mb-3">
+        <p className="text-[#3AAFB9] text-xs font-semibold uppercase tracking-widest mb-3 text-center lg:text-left">
           Browse by topic
         </p>
-        <h2 className="font-bold text-[#1a1a1a] text-2xl sm:text-3xl mb-10">
+        <h2 className="font-bold text-[#1a1a1a] text-2xl sm:text-3xl mb-10 text-center lg:text-left">
           What would you like to know?
         </h2>
 

@@ -51,8 +51,8 @@ function UniCard({ name, file }: UniCardProps) {
         alignItems: "center",
         justifyContent: "center",
         gap: "4px",
-        width: "160px",
-        height: "106px",
+        width: "130px",
+        height: "86px",
         borderRadius: "12px",
         border: "1px solid rgba(0,0,0,0.08)",
         background: "#ffffff",
@@ -61,6 +61,7 @@ function UniCard({ name, file }: UniCardProps) {
         transition:
           "transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease",
       }}
+      className="uni-card"
       onMouseEnter={(e) => {
         const el = e.currentTarget as HTMLDivElement;
         el.style.transform = "translateY(-2px)";
@@ -79,7 +80,7 @@ function UniCard({ name, file }: UniCardProps) {
           src={file}
           alt={name}
           onError={() => setImgError(true)}
-          style={{ width: "100px", height: "500px", objectFit: "contain" }}
+          style={{ width: "80px", height: "50px", objectFit: "contain" }}
           draggable={false}
         />
       ) : (
@@ -106,7 +107,7 @@ function UniCard({ name, file }: UniCardProps) {
           fontWeight: 500,
           color: "#9CA3AF",
           textAlign: "center",
-          maxWidth: "125px",
+          maxWidth: "110px",
           overflow: "hidden",
           whiteSpace: "nowrap",
           textOverflow: "ellipsis",
@@ -147,9 +148,9 @@ function ScrollRow({ universities, direction }: ScrollRowProps) {
       onTouchCancel={resume}
       style={{
         display: "flex",
-        gap: "16px",
+        gap: "12px",
         width: "max-content",
-        animation: animationName + " 40s linear infinite",
+        animation: animationName + " 30s linear infinite",
         animationPlayState: "running",
       }}
     >
@@ -187,17 +188,31 @@ export default function University() {
           0%   { transform: translateX(-50%); }
           100% { transform: translateX(0); }
         }
+
+        .university-section-padding {
+          padding: 60px 200px;
+        }
+
+        @media (max-width: 768px) {
+          .university-section-padding {
+            padding: 40px 0px;
+          }
+
+          .uni-card {
+            width: 110px !important;
+            height: 76px !important;
+          }
+        }
       `,
         }}
       />
 
       <section
-        className="integration-hero-section bg-[#ffffff]"
+        className="integration-hero-section bg-[#ffffff] university-section-padding"
         style={{
           position: "relative",
           overflow: "hidden",
           textAlign: "center",
-          padding: "60px 200px", // ← changed
           width: "100%",
         }}
       >
@@ -246,7 +261,7 @@ export default function University() {
                 left: 0,
                 top: 0,
                 height: "100%",
-                width: "100px",
+                width: "60px",
                 background: "linear-gradient(to right,#ffffff, transparent)",
                 zIndex: 10,
                 pointerEvents: "none",
@@ -259,7 +274,7 @@ export default function University() {
                 right: 0,
                 top: 0,
                 height: "100%",
-                width: "100px",
+                width: "60px",
                 background: "linear-gradient(to left, #ffffff, transparent)",
                 zIndex: 10,
                 pointerEvents: "none",

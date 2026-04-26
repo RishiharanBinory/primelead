@@ -242,7 +242,7 @@ export default function ContactForm() {
 
       {/* Privacy note */}
       <p className="text-[#aaa] text-xs leading-relaxed">
-        By submitting this form, you agree to the Prime Leed privacy notice.
+        By submitting this form, you agree to the Primeleed privacy notice.
         Your information will only be used to respond to your enquiry.
       </p>
 

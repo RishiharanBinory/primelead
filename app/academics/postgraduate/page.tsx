@@ -15,11 +15,13 @@ const page = () => {
       <HeroSection />
       <StatsSection/>
       <University />
+      <div id="courses">
       <CoursesSection
         courses={courses}
         heading="Explore Postgraduate Degrees in London"
         subheading="Browse our full range of postgraduate programmes across Business, Computing, Health, Law and more. All courses are available at accredited universities in London, supported by Primeleed from application to graduation."
       />
+      </div>
       <Section>
         <FAQSection />
       </Section>

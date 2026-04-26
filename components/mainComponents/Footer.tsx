@@ -43,9 +43,9 @@ export function Footer() {
         </svg>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 pt-20 pb-8 relative z-10">
+      <div className="max-w-screen-xl mx-auto px-8 md:px-16 pt-20 pb-8 relative z-10">
         {/* ── TOP SECTION: Brand (left) + columns (right) ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-8 gap-10 mb-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-10 gap-x-16 gap-y-10 mb-12 items-start">
           {/* Col 1 — Brand block */}
           <div className="flex flex-col lg:col-span-3">
             <a
@@ -206,7 +206,7 @@ export function Footer() {
           </div>
 
           {/* Col 5 — Contact Us */}
-          <div className="flex flex-col">
+          <div className="flex flex-col lg:col-span-2">
             <h4
               className="text-white font-bold uppercase tracking-wider mb-5"
               style={{ fontSize: "13px", letterSpacing: "0.1em" }}
@@ -263,7 +263,7 @@ export function Footer() {
           </div>
 
           {/* Col 6 — Legal */}
-          <div className="flex flex-col">
+          <div className="flex flex-col lg:col-span-2">
             <h4
               className="text-white font-bold uppercase tracking-wider mb-5"
               style={{ fontSize: "13px", letterSpacing: "0.1em" }}
@@ -276,7 +276,7 @@ export function Footer() {
                   <li key={item}>
                     <a
                       href="#"
-                      className="text-white hover:text-prime-blue transition-colors"
+                      className="text-white hover:text-prime-blue transition-colors whitespace-nowrap"
                       style={{ fontSize: "14px" }}
                     >
                       {item}

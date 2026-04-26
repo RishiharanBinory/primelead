@@ -46,13 +46,13 @@ const stats = [
 
 export default function StatsSection() {
   return (
-    <section className="w-full py-8 px-4 sm:px-6 lg:px-8">
+    <section className="w-full py-6 sm:py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="relative flex flex-col justify-between p-5 rounded-xl min-h-[110px] overflow-hidden"
+              className="relative flex flex-col justify-between p-4 sm:p-5 rounded-xl min-h-[90px] sm:min-h-[100px] lg:min-h-[110px] overflow-hidden"
               style={{
                 backgroundColor: "rgba(220, 231, 238, 0.35)",
                 backdropFilter: "blur(16px) saturate(180%)",
@@ -67,9 +67,9 @@ export default function StatsSection() {
                 style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent)" }}
               />
 
-              {/* Icon — top left with coloured circle */}
+              {/* Icon */}
               <div
-                className="flex items-center justify-center w-8 h-8 rounded-full mb-4"
+                className="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full mb-3 sm:mb-4"
                 style={{
                   backgroundColor: stat.iconBg,
                   border: "1px solid rgba(255,255,255,0.6)",
@@ -81,10 +81,10 @@ export default function StatsSection() {
 
               {/* Value + Label */}
               <div className="flex flex-col gap-0.5">
-                <span className="text-2xl font-semibold text-gray-900 tracking-tight leading-none">
+                <span className="text-xl sm:text-2xl font-semibold text-gray-900 tracking-tight leading-none">
                   {stat.value}
                 </span>
-                <span className="text-xs text-gray-500 font-medium leading-snug">
+                <span className="text-[11px] sm:text-xs text-gray-500 font-medium leading-snug">
                   {stat.label}
                 </span>
               </div>

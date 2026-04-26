@@ -17,7 +17,7 @@ const REVIEWS: Review[] = [
   {
     name: "Jazmin Mera",
     date: "25/09/2023",
-    text: "I would like to mention that Prime Leed is a very useful resource that helps students in various ways and makes their lives easier thanks to the team they have because they are very useful. Randy in particular is very patience and intelligent who always is willing to help me.",
+    text: "I would like to mention that Primeleed is a very useful resource that helps students in various ways and makes their lives easier thanks to the team they have because they are very useful. Randy in particular is very patience and intelligent who always is willing to help me.",
   },
   {
     name: "Tuğba Arslan Bayat",

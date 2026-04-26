@@ -30,7 +30,7 @@ export default function AboutSection() {
             <AnimateOnScroll delay="0.35s">
               <p className="text-[18px] md:text-base text-[#374151] leading-relaxed text-justify mb-3 md:mb-4">
                 <strong>
-                  Prime Leed is a trusted resource for students seeking to apply
+                  Primeleed is a trusted resource for students seeking to apply
                   for higher education.
                 </strong>{" "}
                 With a successful track record spanning over four years catering

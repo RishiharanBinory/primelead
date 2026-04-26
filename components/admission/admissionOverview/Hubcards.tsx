@@ -6,7 +6,7 @@ export default function HubCards() {
       icon: <FileText size={19} strokeWidth={2} className="text-[#149ab5]" />,
       category: "Admissions",
       title: "How to Apply",
-      desc: "Find out exactly what happens when you apply through Prime Leed. We walk you through every step, from choosing your course to submitting your application.",
+      desc: "Find out exactly what happens when you apply through Primeleed. We walk you through every step, from choosing your course to submitting your application.",
       link: "View How to Apply",
       href: "#",
     },
@@ -14,19 +14,19 @@ export default function HubCards() {
       icon: <CircleDollarSign size={19} strokeWidth={2} className="text-[#149ab5]" />,
       category: "Funding",
       title: "Student Finance in London",
-      desc: "Worried about the cost? Most of our students pay nothing upfront. Find out how government funding works and how Prime Leed helps you secure it.",
+      desc: "Worried about the cost? Most of our students pay nothing upfront. Find out how government funding works and how Primeleed helps you secure it.",
       link: "View Student Finance",
       href: "#",
     },
   ];
 
   return (
-    <div className="bg-white py-10" style={{ fontFamily: "'Google Sans', sans-serif" }}>
-      <section className="bg-[#f0f4f8] rounded-3xl mx-35 px-10 py-12">
+    <div className="bg-white py-10 px-4 sm:px-6" style={{ fontFamily: "'Google Sans', sans-serif" }}>
+      <section className="bg-[#f0f4f8] rounded-3xl mx-auto max-w-6xl px-5 sm:px-8 lg:px-10 py-10 sm:py-12">
 
         {/* Heading */}
         <h2
-          className="text-center text-[1.85rem] font-bold text-slate-900 leading-snug mb-3"
+          className="text-center text-[1.5rem] sm:text-[1.85rem] font-bold text-slate-900 leading-snug mb-3"
           style={{ fontFamily: "'Google Sans', sans-serif" }}
         >
           Everything you need in one place
@@ -41,12 +41,12 @@ export default function HubCards() {
           everything you need to take the next step with confidence.
         </p>
 
-        {/* Cards Grid — removed max-w-2xl so cards stretch wider */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-2x">
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-12">
           {cards.map((card) => (
             <div
               key={card.title}
-              className="bg-white rounded-2xl px-10 py-8 text-center shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+              className="bg-white rounded-2xl px-6 sm:px-10 py-8 text-center shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
             >
               {/* Icon */}
               <div className="inline-flex items-center justify-center w-11 h-11 bg-[#e0f5f9] rounded-xl mb-3">

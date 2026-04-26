@@ -106,7 +106,7 @@ export function WhatWeDoSection() {
               An education consultancy helps students navigate the complex UK
               university system with confidence. Our consultants guide
               applicants through academic choices, funding opportunities, and
-              admissions processes — so students receive structured professional
+              admissions processes, so students receive structured professional
               guidance tailored to their goals.
             </p>
           </motion.div>

@@ -21,14 +21,14 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
     illustration: <IllustrationStudentSupport />,
     faqs: [
       {
-        question: "What support does Prime Leed provide to students?",
+        question: "What support does Primeleed provide to students?",
         answer:
-          "Prime Leed provides free, personalised support from your very first enquiry through to the completion of your studies. This includes course and university selection, application support, Student Finance assistance, interview preparation, enrolment guidance, and ongoing academic support throughout your degree.",
+          "Primeleed provides free, personalised support from your very first enquiry through to the completion of your studies. This includes course and university selection, application support, Student Finance assistance, interview preparation, enrolment guidance, and ongoing academic support throughout your degree.",
       },
       {
-        question: "Is Prime Leed's service really free of charge?",
+        question: "Is Primeleed's service really free of charge?",
         answer:
-          "Yes, completely free for students. Prime Leed is paid directly by our partner universities when a student is successfully enrolled. There are no hidden fees, no charges, and no catches at any stage of the process.",
+          "Yes, completely free for students. Primeleed is paid directly by our partner universities when a student is successfully enrolled. There are no hidden fees, no charges, and no catches at any stage of the process.",
       },
       {
         question: "Can I get a job after completing my course?",
@@ -36,7 +36,8 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
           "Yes. Our partner universities work closely with a wide range of employers to enhance your employability. Through live projects, guest lectures, career fairs, and networking events, you can build practical experience and professional connections to improve your prospects after graduation.",
       },
       {
-        question: "Does the university help with accommodation for students outside London?",
+        question:
+          "Does the university help with accommodation for students outside London?",
         answer:
           "Yes. Universities provide guidance and advice on finding private student accommodation to help you arrange suitable housing independently. You may need to contact the university directly for specific support options relevant to your situation.",
       },
@@ -46,12 +47,14 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
           "Yes. Students can usually work part time alongside their studies. Our partner universities also provide career support services, including CV guidance, interview preparation, and job search assistance.",
       },
       {
-        question: "What happens if I need to change my course or university after enrolling?",
+        question:
+          "What happens if I need to change my course or university after enrolling?",
         answer:
-          "Prime Leed can assist you with switching courses or universities if your circumstances change. You may request a course change within one week of enrolment. Contact your advisor as soon as possible so we can guide you through the process.",
+          "Primeleed can assist you with switching courses or universities if your circumstances change. You may request a course change within one week of enrolment. Contact your advisor as soon as possible so we can guide you through the process.",
       },
       {
-        question: "Can I study online from abroad while receiving Student Finance?",
+        question:
+          "Can I study online from abroad while receiving Student Finance?",
         answer:
           "No. Studying online from abroad is not permitted if you are receiving Student Finance England funding. Students are required to reside in the UK for the duration of their course in order to maintain their funding eligibility.",
       },
@@ -66,7 +69,7 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
       {
         question: "What qualifications do I need to apply?",
         answer:
-          "Requirements vary by course and university. Some programmes require A-levels or equivalent qualifications, while others accept relevant work experience, particularly for mature students. Prime Leed will assess your profile and match you to the courses for which you are eligible.",
+          "Requirements vary by course and university. Some programmes require A-levels or equivalent qualifications, while others accept relevant work experience, particularly for mature students. Primeleed will assess your profile and match you to the courses for which you are eligible.",
       },
       {
         question: "Can I apply without formal qualifications?",
@@ -81,7 +84,7 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
       {
         question: "Is there an English language test? Is it difficult?",
         answer:
-          "Some courses require proof of English proficiency, particularly for non-native speakers. The test is not difficult, and Prime Leed provides full support to help you prepare. We offer guidance and practice sessions until you feel confident.",
+          "Some courses require proof of English proficiency, particularly for non-native speakers. The test is not difficult, and Primeleed provides full support to help you prepare. We offer guidance and practice sessions until you feel confident.",
       },
       {
         question: "Is there an age limit for applying?",
@@ -91,7 +94,7 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
       {
         question: "Can I apply if I have a gap in my education history?",
         answer:
-          "Yes. Many of our students have gaps in their education due to work, family, or personal circumstances. The universities we work with take a holistic view of your background. Prime Leed will help you present your experience in the strongest possible way.",
+          "Yes. Many of our students have gaps in their education due to work, family, or personal circumstances. The universities we work with take a holistic view of your background. Primeleed will help you present your experience in the strongest possible way.",
       },
       {
         question: "Can I study if I am on a dependent or spouse visa?",
@@ -107,7 +110,8 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
     illustration: <IllustrationUndergraduate />,
     faqs: [
       {
-        question: "What are the entry requirements for undergraduate courses in London?",
+        question:
+          "What are the entry requirements for undergraduate courses in London?",
         answer:
           "Entry requirements vary by course and university. Many of our programmes accept relevant work experience in place of formal qualifications such as A levels. Our advisors will assess your background and match you with the right course and entry route for your situation.",
       },
@@ -117,27 +121,32 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
           "Most undergraduate degrees take 3 years to complete. Some engineering and specialist programmes take 4 years. Flexible and part-time study options may extend the duration depending on your schedule and course choice.",
       },
       {
-        question: "Can I get Student Finance for an undergraduate course in London?",
+        question:
+          "Can I get Student Finance for an undergraduate course in London?",
         answer:
-          "Yes. If you are a UK resident or an EU national with settled or pre-settled status, you are likely eligible for Student Finance England. Your tuition fees are covered in full and you only repay once you earn above the repayment threshold. Prime Leed handles the full application for you, free of charge.",
+          "Yes. If you are a UK resident or an EU national with settled or pre-settled status, you are likely eligible for Student Finance England. Your tuition fees are covered in full and you only repay once you earn above the repayment threshold. Primeleed handles the full application for you, free of charge.",
       },
       {
-        question: "Can I study an undergraduate degree in London as a mature student?",
+        question:
+          "Can I study an undergraduate degree in London as a mature student?",
         answer:
           "Absolutely. There is no upper age limit for undergraduate tuition fee loans. Many of our students are aged 25 to 55 and are returning to education for the first time. Our flexible online and blended courses are specifically designed to fit around work and family commitments.",
       },
       {
-        question: "Can I study an undergraduate degree while working full time?",
+        question:
+          "Can I study an undergraduate degree while working full time?",
         answer:
           "Yes, and most of our students do exactly that. Our partner universities offer flexible online and blended learning programmes built around busy schedules. You can study in the evenings and at weekends without giving up your job or income.",
       },
       {
-        question: "What subjects can I study at undergraduate level through Prime Leed?",
+        question:
+          "What subjects can I study at undergraduate level through Primeleed?",
         answer:
           "We offer over 50 undergraduate courses across a wide range of subjects including Business and Management, Computing and IT, Health and Social Care, Law, Engineering, Psychology, Data Science and more. Our advisors will help you find the right subject and course for your career goals.",
       },
       {
-        question: "How do I apply for an undergraduate course through Prime Leed?",
+        question:
+          "How do I apply for an undergraduate course through Primeleed?",
         answer:
           "Simply get in touch with us and one of our advisors will guide you through everything. We handle your university application, Student Finance and all the paperwork on your behalf. The entire process is free and there is no obligation to proceed until you are ready.",
       },
@@ -150,7 +159,8 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
     illustration: <IllustrationPostgraduate />,
     faqs: [
       {
-        question: "Do I need a degree to apply for a postgraduate course in London?",
+        question:
+          "Do I need a degree to apply for a postgraduate course in London?",
         answer:
           "A relevant undergraduate degree is the standard entry requirement for most postgraduate programmes. However, some courses also accept significant professional experience in place of a formal degree. Our advisors will assess your background and find the right route for you.",
       },
@@ -160,9 +170,10 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
           "Most postgraduate degrees, including MBAs and MSc programmes, take one year to complete full time. Flexible and part-time options may extend the duration depending on your schedule and course choice.",
       },
       {
-        question: "Is there funding available for postgraduate degrees in London?",
+        question:
+          "Is there funding available for postgraduate degrees in London?",
         answer:
-          "Yes. Eligible students can apply for a Postgraduate Loan from the government to help cover tuition fees and living costs. Prime Leed will check your eligibility and support you through the funding application, completely free of charge.",
+          "Yes. Eligible students can apply for a Postgraduate Loan from the government to help cover tuition fees and living costs. Primeleed will check your eligibility and support you through the funding application, completely free of charge.",
       },
       {
         question: "Can I study a postgraduate degree in London while working?",
@@ -170,17 +181,18 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
           "Yes. Many of our postgraduate programmes are available online or as blended learning, making them ideal for working professionals. You can study at your own pace without leaving your current role.",
       },
       {
-        question: "What postgraduate courses are available through Prime Leed?",
+        question: "What postgraduate courses are available through Primeleed?",
         answer:
           "We offer over 20 postgraduate programmes including MBAs, MSc degrees and an LLM in International Law. Subject areas include Business and Management, Computing and Technology, Artificial Intelligence, Cyber Security, Health and Social Care, Digital Marketing, Logistics and Supply Chain, and more.",
       },
       {
-        question: "Can I switch from an undergraduate to a postgraduate programme?",
+        question:
+          "Can I switch from an undergraduate to a postgraduate programme?",
         answer:
           "Yes. If you already hold an undergraduate degree or have sufficient professional experience, our advisors can help you transition to a postgraduate programme that suits your career goals. Simply get in touch and we will assess the best route for you.",
       },
       {
-        question: "How do I apply for a postgraduate course through Prime Leed?",
+        question: "How do I apply for a postgraduate course through Primeleed?",
         answer:
           "Simply get in touch and one of our advisors will guide you through everything. We handle your university application, funding support and all documentation on your behalf. The entire service is free with no obligation until you are ready to proceed.",
       },
@@ -193,12 +205,14 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
     illustration: <IllustrationStudentFinance />,
     faqs: [
       {
-        question: "How much funding am I eligible for from Student Finance England?",
+        question:
+          "How much funding am I eligible for from Student Finance England?",
         answer:
           "If you are eligible, your tuition fees will be paid directly to the university, based on your course fee. In addition, you may receive a maintenance loan of up to £13,700 to support your living costs. You may also qualify for additional support depending on your personal circumstances.",
       },
       {
-        question: "I am an international student. Am I eligible for Student Finance England funding?",
+        question:
+          "I am an international student. Am I eligible for Student Finance England funding?",
         answer:
           "No, international students are generally not eligible. To qualify for funding, you must have one of the following residency statuses in the UK: British National, Irish National, Indefinite Leave to Remain, Settled or Pre-Settled Status, Refugee Status, other eligible residency schemes, or certain visa holders depending on immigration status.",
       },
@@ -213,7 +227,8 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
           "Yes, EU nationals may be eligible if they have lived in the UK for at least three years prior to the start of the course and hold settled or pre-settled status.",
       },
       {
-        question: "Can spouse or dependent visa holders apply for Student Finance England?",
+        question:
+          "Can spouse or dependent visa holders apply for Student Finance England?",
         answer:
           "Eligibility depends on your immigration category and date of entry into the UK.",
       },
@@ -238,7 +253,8 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
           "Yes, you may be eligible for additional grants such as the Childcare Grant and Parents' Learning Allowance. These grants are non-repayable, meaning you do not need to pay them back.",
       },
       {
-        question: "Can an agency or university determine or approve my funding?",
+        question:
+          "Can an agency or university determine or approve my funding?",
         answer:
           "No, the final decision is made solely by Student Finance England.",
       },
@@ -248,7 +264,8 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
           "Possibly. Funding is assessed based on your household income, so the amount you receive may vary.",
       },
       {
-        question: "I receive Universal Credit. Will it be affected by Student Finance?",
+        question:
+          "I receive Universal Credit. Will it be affected by Student Finance?",
         answer:
           "Yes, your maintenance loan is considered as income, and the Department for Work and Pensions (DWP) may adjust your Universal Credit accordingly.",
       },
@@ -263,17 +280,20 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
           "Yes, you can apply for undergraduate funding, although maintenance support may be limited. For postgraduate courses, you are generally not eligible.",
       },
       {
-        question: "I have previously received Student Finance. Can I apply again?",
+        question:
+          "I have previously received Student Finance. Can I apply again?",
         answer:
           "It depends on the number of years and level of study you previously funded. In some cases, exceptions may apply.",
       },
       {
-        question: "Can I change my course after enrolling and receiving funding?",
+        question:
+          "Can I change my course after enrolling and receiving funding?",
         answer:
           "Yes, this may be possible. You will need to complete a Change of Circumstances form and update your Student Finance account.",
       },
       {
-        question: "If I withdraw from a postgraduate course, can I receive funding again?",
+        question:
+          "If I withdraw from a postgraduate course, can I receive funding again?",
         answer:
           "Generally, postgraduate funding is only provided once. However, exceptions may be considered in certain circumstances.",
       },
@@ -283,7 +303,8 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
           "For undergraduate students, tuition fees are paid directly to the university, and maintenance loans are paid to your bank account in three instalments per year. For postgraduate students, the full loan is paid directly to your bank account, and you are responsible for paying tuition fees to the university according to their payment schedule.",
       },
       {
-        question: "I have not lived continuously in the UK for the past three years. Am I still eligible?",
+        question:
+          "I have not lived continuously in the UK for the past three years. Am I still eligible?",
         answer:
           "Eligibility depends on the reason for your absence. If your time abroad was for temporary reasons such as holidays or personal matters, you may still qualify. However, extended periods outside the UK for work or study purposes may affect your eligibility.",
       },
@@ -311,12 +332,14 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
           "After completing enrolment, you will gain access to a range of student services and resources, including your timetable, course modules and programme details, lecture schedules and classroom locations, online systems for forms and submissions, and attendance records.",
       },
       {
-        question: "I have not completed Pre-Enrolment. Can I attend Welcome Day?",
+        question:
+          "I have not completed Pre-Enrolment. Can I attend Welcome Day?",
         answer:
           "Yes, you may attend Welcome Day. However, you are strongly advised to complete Pre-Enrolment as soon as possible, as delays may affect your student finance or access to services.",
       },
       {
-        question: "I have not completed VLE / Final / Main University enrolment. Can I attend Welcome Day or classes?",
+        question:
+          "I have not completed VLE / Final / Main University enrolment. Can I attend Welcome Day or classes?",
         answer:
           "No. Completion of VLE / Final / Main University enrolment is mandatory before attending Welcome Day or your first class.",
       },
@@ -336,7 +359,8 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
           "Yes, you may request a course change within one week of enrolment. Please contact us as soon as possible so we can assist you with the process.",
       },
       {
-        question: "I have attended, but I have not received my payment within the expected timeframe. What should I do?",
+        question:
+          "I have attended, but I have not received my payment within the expected timeframe. What should I do?",
         answer:
           "You should contact your university's finance team to confirm whether your registration has been submitted to the Student Loans Company (SLC). If it has been submitted, you can contact SLC directly on 0300 100 0607 to check when your payment will be processed.",
       },

@@ -95,7 +95,7 @@ const DEFAULT_FAQ: FAQItem[] = [
           lineHeight: "1.7em",
         }}
       >
-        Certainly! To apply for multiple programs with Prime Leed, you must
+        Certainly! To apply for multiple programs with Primeleed, you must
         submit separate applications for each program along with the required
         materials and application fee. Additionally, if a portfolio or audition
         is necessary, you will need to provide a separate one for each

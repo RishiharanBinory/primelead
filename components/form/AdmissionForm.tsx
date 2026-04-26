@@ -99,7 +99,7 @@ export default function AdmissionFormPage() {
                 required: true,
                 fullWidth: true,
                 checkboxLabel:
-                  "I authorise Prime Leed to contact me via email about academic programs and services. I understand I may withdraw my consent to receive future marketing communications at any time.",
+                  "I authorise Primeleed to contact me via email about academic programs and services. I understand I may withdraw my consent to receive future marketing communications at any time.",
               },
             ],
           },

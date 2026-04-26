@@ -181,7 +181,7 @@ export default function FinancialAid() {
                 marginBottom: '32px',
               }}
             >
-              Prime Leed supports students in their pursuit of higher education
+              Primeleed supports students in their pursuit of higher education
               by partnering with universities across the UK to provide funding
               assistance. Through these collaborations, we bridge the financial
               gap, making education more accessible and empowering students to

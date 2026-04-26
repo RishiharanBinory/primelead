@@ -31,14 +31,8 @@ const NAV_ITEMS: NavItem[] = [
     ],
   },
   {
-    label: "Faq",
+    label: "FAQ",
     href: "/faq",
-    // children: [
-    //   { label: "Request Information", href: "/support/request-info" },
-    //   { label: "FAQ", href: "/support/faq" },
-    //   { label: "Resources", href: "/support/resources" },
-    //   { label: "Support & Guidance", href: "/support/guidance" },
-    // ],
   },
   { label: "Contact", href: "/contact" },
 ];
@@ -136,13 +130,10 @@ function Dropdown({
               style={{
                 fontSize: "15px",
                 fontWeight: 500,
-                // ✅ FIX: active styles driven purely by state, no inline hover mutation
                 backgroundColor: isActiveChild ? "#1a8fa8" : "transparent",
                 color: isActiveChild ? "#ffffff" : "#374151",
                 ...FONT,
               }}
-              // ✅ FIX: use CSS custom properties via data attributes OR simple onMouse
-              // is fine here since dropdowns unmount on close — but we still guard correctly
               onMouseEnter={(e) => {
                 if (!isActiveChild) {
                   (e.currentTarget as HTMLElement).style.backgroundColor =
@@ -299,7 +290,7 @@ function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
                 marginBottom: "16px",
               }}
             >
-              Everything that I learned at Prime Leed really helped put me above
+              Everything that I learned at Primeleed really helped put me above
               the competition in the field of business management.
             </p>
             <p
@@ -382,10 +373,6 @@ export default function Navbar() {
   const [mobileAccordion, setMobileAccordion] = useState<string | null>(null);
   const [navVisible, setNavVisible] = useState(true);
   const [scrolled, setScrolled] = useState(false);
-
-  // ✅ FIX: Track which nav item is hovered in React state — NOT via inline style mutation.
-  // This ensures styles are always driven by React's render cycle, so when pathname
-  // changes and the component re-renders, hover state is never "stuck".
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   const lastScrollY = useRef(0);
@@ -463,10 +450,9 @@ export default function Navbar() {
     leaveTimer.current = setTimeout(() => setOpenItem(null), 140);
   }, []);
 
-  // ✅ FIX: Parent items with children only highlight on exact match.
+  // ✅ FIX: use startsWith for all items so child routes activate the parent
   const isActive = (item: NavItem) => {
     if (item.href === "/") return pathname === "/";
-    if (item.children) return pathname === item.href;
     return pathname.startsWith(item.href);
   };
 
@@ -517,12 +503,7 @@ export default function Navbar() {
             {NAV_ITEMS.map((item) => {
               const active = isActive(item);
               const expanded = openItem === item.label;
-              // ✅ FIX: hovered is now React state, not an inline style mutation.
-              // When the page navigates and re-renders, `active` recalculates correctly
-              // and `hovered` is independent — the two can never conflict.
               const hovered = hoveredItem === item.label;
-              // The link should look "highlighted" if active OR expanded (dropdown open).
-              // It should look "hover-highlighted" ONLY if hovered AND NOT active.
               const showActive = active || expanded;
               const showHover = hovered && !active && !expanded;
 
@@ -561,8 +542,6 @@ export default function Navbar() {
                     style={{
                       fontSize: "15.5px",
                       fontWeight: showActive ? 600 : 500,
-                      // ✅ FIX: color and background computed entirely from React state.
-                      // No `element.style` mutation — so navigation never leaves stale styles.
                       color: showActive
                         ? "#1a8fa8"
                         : showHover
@@ -579,7 +558,6 @@ export default function Navbar() {
                   >
                     {item.label}
                     {item.children && <ChevronIcon open={expanded} />}
-                    {/* Underline only for truly active or expanded */}
                     {showActive && (
                       <span
                         className="absolute bottom-0 left-4 right-4 h-[2px] rounded-full"

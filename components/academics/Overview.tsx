@@ -48,6 +48,14 @@ export function HeroSection() {
 
   const nextIndex = (index + 1) % IMAGES.length;
 
+  const handleExploreCourses = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const target = document.getElementById("find-course");
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -106,15 +114,20 @@ export function HeroSection() {
                 variants={itemVariants}
                 className="flex flex-col sm:flex-row gap-4 items-center lg:items-start"
               >
+                {/* Explore Courses — smooth scrolls to #find-course */}
                 <div className="w-fit mx-auto lg:mx-0">
-                  <Buttontwo
-                    text="Explore Courses"
-                    href="/courses"
-                    bgColor="#149ab5"
-                    textColor="#ffffff"
-                    fontSize={18}
-                  />
+                  <button onClick={handleExploreCourses} className="appearance-none bg-transparent border-none p-0 m-0">
+                    <Buttontwo
+                      text="Explore Courses"
+                      href="#"
+                      bgColor="#149ab5"
+                      textColor="#ffffff"
+                      fontSize={18}
+                    />
+                  </button>
                 </div>
+
+                {/* Talk to an Advisor — navigates to /contact */}
                 <div className="w-fit mx-auto lg:mx-0">
                   <Buttontwo
                     text="Talk to an Advisor"

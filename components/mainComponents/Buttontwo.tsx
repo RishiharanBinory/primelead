@@ -6,11 +6,11 @@ import Link from "next/link";
 interface ButtonProps {
   text: string;
   href: string;
-  bgColor?: string;       // hex e.g. "#2869A3"
-  textColor?: string;     // hex e.g. "#ffffff"
-  fontSize?: number;      // px number e.g. 24
+  bgColor?: string;
+  textColor?: string;
+  fontSize?: number;
   className?: string;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void; // ← updated type
 }
 
 export default function Buttontwo({
@@ -59,6 +59,7 @@ export default function Buttontwo({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
+      {" "}
       {text}
       <span style={{ fontSize: `${fontSize * 0.9}px` }}>→</span>
     </Link>

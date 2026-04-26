@@ -26,7 +26,7 @@ export default function AdmissionIntro() {
             marginTop: "100px",
           }}
         >
-          By choosing to apply through Prime Leed, you open doors to a vast
+          By choosing to apply through Primeleed, you open doors to a vast
           array of courses spanning our university&apos;s various programs and
           colleges. This allows you to venture across disciplines and carve out
           your own distinct academic journey.

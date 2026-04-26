@@ -57,7 +57,7 @@ const steps = [
   {
     num: "06",
     title: "Attend university",
-    text: "Once your enrolment is complete, you are ready to begin your studies. Prime Leed remains available to support you throughout your time at university, from accessing your student portal to annual Student Finance renewals.",
+    text: "Once your enrolment is complete, you are ready to begin your studies. Primeleed remains available to support you throughout your time at university, from accessing your student portal to annual Student Finance renewals.",
     docs: [],
     icon: GraduationCap,
   },
@@ -81,7 +81,7 @@ export default function ApplicationProcess() {
             className="text-gray-500 text-base md:text-lg"
             style={{ fontFamily: "'Google Sans Text', sans-serif" }}
           >
-            Six straightforward steps. Prime Leed is with you at every one of them.
+            Six straightforward steps. Primeleed is with you at every one of them.
           </p>
         </div>
 

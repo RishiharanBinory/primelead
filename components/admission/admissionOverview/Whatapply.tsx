@@ -23,10 +23,10 @@ const cards = [
 
 export default function WhatToExpect() {
   return (
-    <section className="bg-white py-16 px-6">
-      <div className="max-w-5xl mx-auto flex flex-col items-center gap-4 text-center mb-12">
-        <h2 className="text-3xl font-bold text-gray-900">
-          What applying through Prime Leed feels like
+    <section className="bg-white py-16 px-4 sm:px-6">
+      <div className="max-w-5xl mx-auto flex flex-col items-center gap-4 text-center mb-10 sm:mb-12">
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
+          What applying through Primeleed feels like
         </h2>
         <p className="text-gray-500 max-w-xl text-base leading-relaxed">
           We have helped over 3,000 students through the process. Here is what
@@ -34,7 +34,7 @@ export default function WhatToExpect() {
         </p>
       </div>
 
-      <div className="max-w-5xl mx-auto grid grid-cols-3 gap-10 items-stretch">
+      <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 items-stretch">
         {cards.map((card) => (
           <div
             key={card.title}

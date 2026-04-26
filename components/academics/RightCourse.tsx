@@ -11,7 +11,7 @@ const courses = [
     headline:
       "Start your degree and take the first step towards the career you want",
     cta: "Explore Undergraduate Courses",
-    href: "#",
+    href: "/academics/undergraduate",
   },
   {
     tag: "POSTGRADUATE",
@@ -20,7 +20,7 @@ const courses = [
     headline:
       "Take your career further with a postgraduate degree built for professionals",
     cta: "Explore Postgraduate Courses",
-    href: "#",
+    href: "/academics/postgraduate",
   },
 ];
 
@@ -32,18 +32,21 @@ export default function FindCourse() {
         .font-google-sans { font-family: 'Google Sans', sans-serif; }
       `}</style>
 
-      <section className="font-google-sans bg-[#149ab5] py-12 px-30 mx-50 rounded-[4rem]">
-        
+      <section
+        id="find-course"
+        className="font-google-sans bg-[#149ab5] py-10 px-4 sm:px-8 md:px-12 lg:px-16 mx-3 sm:mx-6 md:mx-10 lg:mx-16 xl:mx-24 rounded-[2rem] sm:rounded-[3rem] md:rounded-[4rem] mt-9 mb-9"
+      >
+
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-center text-white font-bold text-2xl sm:text-3xl md:text-4xl mb-10 tracking-tight">
+          <h2 className="text-center text-white font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-8 tracking-tight">
             Find the right course for you
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-20 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10 lg:gap-20 mb-8">
             {courses.map((card) => (
               <div
                 key={card.tag}
-                className="bg-white rounded-xl px-6 py-7 shadow-sm flex flex-col"
+                className="bg-white rounded-xl px-5 py-6 sm:px-6 sm:py-7 shadow-sm flex flex-col"
               >
                 <p
                   className="font-bold text-[10px] tracking-[2px] uppercase mb-2"
@@ -56,7 +59,7 @@ export default function FindCourse() {
                   style={{ backgroundColor: "#149ab5" }}
                 />
 
-                <p className="text-[#149ab5] font-bold text-5xl leading-none mb-2">
+                <p className="text-[#149ab5] font-bold text-4xl sm:text-5xl leading-none mb-2">
                   {card.count}
                 </p>
 

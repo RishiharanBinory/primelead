@@ -7,7 +7,7 @@
 // Usage example:
 // <PageHero
 //   title="About"
-//   description="Prime Leed is a trusted resource..."
+//   description="Primeleed is a trusted resource..."
 //   imageSrc="/your-image.jpg"
 // />
 
