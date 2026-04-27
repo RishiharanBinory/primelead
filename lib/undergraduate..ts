@@ -1,4 +1,4 @@
-// lib/courses.ts
+// lib/courses.ts (Undergraduate)
 // ─────────────────────────────────────────────────────────────────────────────
 // Central data source for all courses.
 // Add a new entry here → it automatically appears in CoursesSection.
@@ -10,7 +10,6 @@ import { Course } from "@/components/mainComponents/Coursecard";
 export const courses: Course[] = [
   {
     id: "business-tourism",
-    badge: "Local",
     title: "Business and Tourism Management",
     subtitle: "BSc (Hons)",
     duration: "4 Years",
@@ -19,7 +18,6 @@ export const courses: Course[] = [
   },
   {
     id: "business-financial",
-    badge: "Local",
     title: "Business and Financial Management",
     subtitle: "BSc (Hons)",
     duration: "4 Years",
@@ -28,7 +26,6 @@ export const courses: Course[] = [
   },
   {
     id: "business-hospitality",
-    badge: "Local",
     title: "Business, Hospitality and Events Management",
     subtitle: "BSc (Hons)",
     duration: "4 Years",
@@ -37,7 +34,6 @@ export const courses: Course[] = [
   },
   {
     id: "digital-marketing",
-    badge: "Local",
     title: "Digital Marketing and Management",
     subtitle: "BSc (Hons)",
     duration: "4 Years",
@@ -46,7 +42,6 @@ export const courses: Course[] = [
   },
   {
     id: "finance-accounting",
-    badge: "Local",
     title: "Finance and Accounting",
     subtitle: "BSc (Hons)",
     duration: "4 Years",
@@ -55,7 +50,6 @@ export const courses: Course[] = [
   },
   {
     id: "international-business",
-    badge: "Local",
     title: "International Business Management",
     subtitle: "BSc (Hons)",
     duration: "4 Years",
@@ -64,7 +58,6 @@ export const courses: Course[] = [
   },
   {
     id: "business-hr",
-    badge: "Local",
     title: "Business and Human Resource Management",
     subtitle: "BSc (Hons)",
     duration: "4 Years",
@@ -73,7 +66,6 @@ export const courses: Course[] = [
   },
   {
     id: "business-law",
-    badge: "Local",
     title: "Business and Law",
     subtitle: "BSc (Hons)",
     duration: "4 Years",
@@ -82,7 +74,6 @@ export const courses: Course[] = [
   },
   {
     id: "law",
-    badge: "Local",
     title: "Law",
     subtitle: "LLB (Hons)",
     duration: "4 Years",
@@ -91,7 +82,6 @@ export const courses: Course[] = [
   },
   {
     id: "health-social-care",
-    badge: "Local",
     title: "Health and Social Care",
     subtitle: "BSc (Hons)",
     duration: "4 Years",
@@ -100,7 +90,6 @@ export const courses: Course[] = [
   },
   {
     id: "psychology",
-    badge: "Local",
     title: "Psychology",
     subtitle: "BSc (Hons)",
     duration: "4 Years",
@@ -109,7 +98,6 @@ export const courses: Course[] = [
   },
   {
     id: "mental-health",
-    badge: "Local",
     title: "Mental Health and Wellbeing",
     subtitle: "BSc (Hons)",
     duration: "4 Years",
@@ -118,7 +106,6 @@ export const courses: Course[] = [
   },
   {
     id: "public-health",
-    badge: "Local",
     title: "Public Health",
     subtitle: "BSc (Hons)",
     duration: "4 Years",
@@ -127,7 +114,6 @@ export const courses: Course[] = [
   },
   {
     id: "business-marketing",
-    badge: "Local",
     title: "Business and Marketing",
     subtitle: "BSc (Hons)",
     duration: "4 Years",
@@ -136,7 +122,6 @@ export const courses: Course[] = [
   },
   {
     id: "business-enterprise",
-    badge: "Local",
     title: "Business Enterprise and Innovation Management",
     subtitle: "BSc (Hons)",
     duration: "4 Years",
@@ -145,7 +130,6 @@ export const courses: Course[] = [
   },
   {
     id: "business-management-bsc-hons",
-    badge: "Local",
     title: "Business Management",
     subtitle: "BSc (Hons)",
     duration: "4 Years",
@@ -154,7 +138,6 @@ export const courses: Course[] = [
   },
   {
     id: "business-management-ba-hons",
-    badge: "Local",
     title: "Business Management",
     subtitle: "BA (Hons)",
     duration: "4 Years",
@@ -163,7 +146,6 @@ export const courses: Course[] = [
   },
   {
     id: "business-management-bsc",
-    badge: "Local",
     title: "Business Management",
     subtitle: "BSc",
     duration: "4 Years",
@@ -172,7 +154,6 @@ export const courses: Course[] = [
   },
   {
     id: "computing-hons",
-    badge: "Local",
     title: "Computing",
     subtitle: "BSc (Hons)",
     duration: "4 Years",
@@ -181,7 +162,6 @@ export const courses: Course[] = [
   },
   {
     id: "computing",
-    badge: "Local",
     title: "Computing",
     subtitle: "BSc",
     duration: "4 Years",
@@ -190,7 +170,6 @@ export const courses: Course[] = [
   },
   {
     id: "computer-science",
-    badge: "Local",
     title: "Computer Science",
     subtitle: "BSc",
     duration: "4 Years",
@@ -199,7 +178,6 @@ export const courses: Course[] = [
   },
   {
     id: "computing-ai",
-    badge: "Local",
     title: "Computing with Artificial Intelligence Technology",
     subtitle: "BSc",
     duration: "4 Years",
@@ -208,7 +186,6 @@ export const courses: Course[] = [
   },
   {
     id: "computing-cyber",
-    badge: "Local",
     title: "Computing with Cyber Security Technology",
     subtitle: "BSc",
     duration: "4 Years",
@@ -217,7 +194,6 @@ export const courses: Course[] = [
   },
   {
     id: "computing-data-science",
-    badge: "Local",
     title: "Computing with Data Science and Big Data Technology",
     subtitle: "BSc",
     duration: "4 Years",
@@ -226,7 +202,6 @@ export const courses: Course[] = [
   },
   {
     id: "computing-it-management",
-    badge: "Local",
     title: "Computing with Information Technology Management",
     subtitle: "BSc",
     duration: "4 Years",
@@ -235,7 +210,6 @@ export const courses: Course[] = [
   },
   {
     id: "computing-technology",
-    badge: "Local",
     title: "Computing with Technology",
     subtitle: "BSc",
     duration: "4 Years",
@@ -244,7 +218,6 @@ export const courses: Course[] = [
   },
   {
     id: "cyber-security",
-    badge: "Local",
     title: "Cyber Security",
     subtitle: "BSc",
     duration: "4 Years",
@@ -253,7 +226,6 @@ export const courses: Course[] = [
   },
   {
     id: "data-science",
-    badge: "Local",
     title: "Data Science",
     subtitle: "BSc (Hons)",
     duration: "4 Years",
@@ -262,7 +234,6 @@ export const courses: Course[] = [
   },
   {
     id: "construction-management",
-    badge: "Local",
     title: "Construction Management",
     subtitle: "BSc (Hons)",
     duration: "4 Years",
@@ -271,7 +242,6 @@ export const courses: Course[] = [
   },
   {
     id: "software-engineering",
-    badge: "Local",
     title: "Software Engineering",
     subtitle: "BEng (Hons)",
     duration: "4 Years",
@@ -280,7 +250,6 @@ export const courses: Course[] = [
   },
   {
     id: "electrical-engineering",
-    badge: "Local",
     title: "Electrical and Electronic Engineering",
     subtitle: "BEng (Hons)",
     duration: "4 Years",
@@ -289,7 +258,6 @@ export const courses: Course[] = [
   },
   {
     id: "mechanical-engineering",
-    badge: "Local",
     title: "Mechanical Engineering",
     subtitle: "BEng (Hons)",
     duration: "4 Years",

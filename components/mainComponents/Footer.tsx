@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 import {
-  ArrowUp,
   Instagram as InstagramIcon,
   Linkedin as LinkedinIcon,
   Facebook as FacebookIcon,
@@ -13,9 +13,37 @@ import { SiTiktok, SiWhatsapp } from "react-icons/si";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+
+  const socialLinks = [
+    { Icon: InstagramIcon, label: "Instagram", href: "https://www.instagram.com/primeleededu/" },
+    { Icon: FacebookIcon,  label: "Facebook",  href: "https://web.facebook.com/primeleed" },
+    { Icon: LinkedinIcon,  label: "LinkedIn",  href: "https://www.linkedin.com/company/primeleed/" },
+    { Icon: SiTiktok,      label: "TikTok",    href: "https://www.tiktok.com/@primeleed?_r=1&_t=ZN-95o8QzV4kqM" },
+  ];
+
+  const quickLinks = [
+    { href: "/",           label: "Home"  },
+    { href: "/about",      label: "About" },
+    { href: "/support/faq", label: "FAQ"  },
+  ];
+
+  const academicLinks = [
+    { href: "/academics",               label: "Overview"      },
+    { href: "/academics/consultancy",   label: "Consultancy"   },
+    { href: "/academics/undergraduate", label: "Undergraduate" },
+    { href: "/academics/postgraduate",  label: "Postgraduate"  },
+  ];
+
+  const admissionLinks = [
+    { href: "/admissions",              label: "Overview"     },
+    { href: "/admissions/how-to-apply", label: "How to Apply" },
+  ];
+
+  const legalLinks = [
+    { href: "/privacy-policy",   label: "Privacy Policy"   },
+    { href: "/terms-of-service", label: "Terms of Service" },
+    { href: "/cookie-policy",    label: "Cookie Policy"    },
+  ];
 
   return (
     <footer
@@ -28,10 +56,9 @@ export function Footer() {
       />
 
       {/* Wave */}
-      <div className="absolute top-0 left-0 right-0 w-full overflow-hidden leading-none border-0 outline-none">
+      <div className="absolute top-0 left-0 right-0 w-full overflow-hidden leading-none">
         <svg
-          className="relative block w-full h-5 md:h-10 border-0 outline-none"
-          style={{ display: "block" }}
+          className="relative block w-full h-5 md:h-10"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1200 120"
           preserveAspectRatio="none"
@@ -44,106 +71,73 @@ export function Footer() {
       </div>
 
       <div className="max-w-screen-xl mx-auto px-8 md:px-16 pt-20 pb-8 relative z-10">
-        {/* ── TOP SECTION: Brand (left) + columns (right) ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-10 gap-x-16 gap-y-10 mb-12 items-start">
-          {/* Col 1 — Brand block */}
-          <div className="flex flex-col lg:col-span-3">
-            <a
-              href="#"
+
+        {/* TOP SECTION */}
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr_1fr_1fr_1.5fr_1fr] gap-x-12 gap-y-10 mb-12 items-start">
+
+
+          {/* Col 1 — Brand */}
+          <div className="flex flex-col pr-10 lg:pr-16">
+            <Link
+              href="/"
               className="text-3xl font-serif font-bold text-white tracking-tight mb-5 block"
             >
-              Primeleed<span className="text-prime-blue">.</span>
-            </a>
+              Primeleed<span className="text-[#38bdf8]">.</span>
+            </Link>
 
-            <p
-              className="text-white leading-relaxed mb-6"
-              style={{ fontSize: "14px" }}
-            >
+            <p className="text-white leading-relaxed mb-6 text-sm">
               Expert guidance for students looking to study in London. From
               university applications to securing Student Finance, we support
               you end-to-end.
             </p>
 
+            {/* Social Icons */}
             <div className="flex items-center gap-3 mb-6">
-              {[
-                {
-                  Icon: InstagramIcon,
-                  label: "Instagram",
-                  href: "https://www.instagram.com/primeleededu/",
-                },
-                {
-                  Icon: FacebookIcon,
-                  label: "Facebook",
-                  href: "https://web.facebook.com/primeleed",
-                },
-                {
-                  Icon: LinkedinIcon,
-                  label: "LinkedIn",
-                  href: "https://www.linkedin.com/company/primeleed/",
-                },
-                {
-                  Icon: SiTiktok,
-                  label: "TikTok",
-                  href: "https://www.tiktok.com/@primeleed?_r=1&_t=ZN-95o8QzV4kqM",
-                },
-              ].map(({ Icon, label, href }) => (
-                <a
+              {socialLinks.map(({ Icon, label, href }) => (
+                <Link
                   key={label}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="w-9 h-9 rounded-full bg-slate-800 hover:bg-prime-blue transition-colors flex items-center justify-center text-white"
+                  className="w-9 h-9 rounded-full bg-slate-800 hover:bg-[#38bdf8] transition-colors flex items-center justify-center text-white"
                 >
                   <Icon size={16} />
-                </a>
+                </Link>
               ))}
             </div>
 
-            <form
-              className="flex items-center max-w-xs"
-              onSubmit={(e) => e.preventDefault()}
-            >
+            {/* Subscribe */}
+            <div className="flex items-center max-w-xs">
               <input
                 type="email"
                 placeholder="Email address"
-                className="w-full bg-slate-800 border border-slate-700 rounded-l-lg px-4 py-2.5 text-white outline-none focus:border-prime-blue transition-colors placeholder-slate-500"
-                style={{ fontSize: "14px" }}
-                required
+                className="w-full bg-slate-800 border border-slate-700 rounded-l-lg px-4 py-2.5 text-white outline-none focus:border-[#38bdf8] transition-colors placeholder-slate-500 text-sm"
               />
               <button
-                type="submit"
-                className="bg-prime-blue hover:bg-sky-400 transition-colors rounded-r-lg px-4 py-2.5 font-bold text-white whitespace-nowrap"
-                style={{ fontSize: "14px" }}
+                type="button"
+                className="bg-[#38bdf8] hover:bg-sky-400 transition-colors rounded-r-lg px-4 py-2.5 font-bold text-white whitespace-nowrap text-sm"
               >
                 Subscribe
               </button>
-            </form>
+            </div>
           </div>
 
           {/* Col 2 — Quick Links */}
           <div className="flex flex-col">
-            <h4
-              className="text-white font-bold uppercase tracking-wider mb-5"
-              style={{ fontSize: "13px", letterSpacing: "0.1em" }}
-            >
+            <h4 className="text-white font-bold uppercase tracking-wider mb-5 text-xs" style={{ letterSpacing: "0.1em" }}>
               Quick Links
             </h4>
-            <ul className="flex flex-col" style={{ gap: "14px" }}>
-              {[
-                { href: "/", label: "Home" },
-                { href: "/about", label: "About" },
-                { href: "support/faq", label: "FAQ" },
-              ].map(({ href, label }) => (
+            <ul className="flex flex-col gap-3.5">
+              {quickLinks.map(({ href, label }) => (
                 <li key={label}>
-                  <a
+                  <Link
                     href={href}
-                    className="text-white hover:text-prime-blue transition-colors flex items-center gap-2"
-                    style={{ fontSize: "14px" }}
+                    className="text-white hover:text-[#38bdf8] transition-colors flex items-center gap-2 text-sm"
                   >
-                    <span className="w-1 h-1 bg-prime-blue rounded-full shrink-0" />
+                    <span className="w-1 h-1 bg-[#38bdf8] rounded-full shrink-0" />
                     {label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -151,28 +145,19 @@ export function Footer() {
 
           {/* Col 3 — Academics */}
           <div className="flex flex-col">
-            <h4
-              className="text-white font-bold uppercase tracking-wider mb-5"
-              style={{ fontSize: "13px", letterSpacing: "0.1em" }}
-            >
+            <h4 className="text-white font-bold uppercase tracking-wider mb-5 text-xs" style={{ letterSpacing: "0.1em" }}>
               Academics
             </h4>
-            <ul className="flex flex-col" style={{ gap: "14px" }}>
-              {[
-                { href: "/academics", label: "Overview" },
-                { href: "/academics/consultancy", label: "Consultancy" },
-                { href: "/academics/undergraduate", label: "Undergraduate" },
-                { href: "/academics/postgraduate", label: "Postgraduate" },
-              ].map(({ href, label }) => (
+            <ul className="flex flex-col gap-3.5">
+              {academicLinks.map(({ href, label }) => (
                 <li key={label}>
-                  <a
+                  <Link
                     href={href}
-                    className="text-white hover:text-prime-blue transition-colors flex items-center gap-2"
-                    style={{ fontSize: "14px" }}
+                    className="text-white hover:text-[#38bdf8] transition-colors flex items-center gap-2 text-sm"
                   >
-                    <span className="w-1 h-1 bg-prime-blue rounded-full shrink-0" />
+                    <span className="w-1 h-1 bg-[#38bdf8] rounded-full shrink-0" />
                     {label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -180,121 +165,94 @@ export function Footer() {
 
           {/* Col 4 — Admissions */}
           <div className="flex flex-col">
-            <h4
-              className="text-white font-bold uppercase tracking-wider mb-5"
-              style={{ fontSize: "13px", letterSpacing: "0.1em" }}
-            >
+            <h4 className="text-white font-bold uppercase tracking-wider mb-5 text-xs" style={{ letterSpacing: "0.1em" }}>
               Admissions
             </h4>
-            <ul className="flex flex-col" style={{ gap: "14px" }}>
-              {[
-                { href: "/admissions", label: "Overview" },
-                { href: "/admissions/how-to-apply", label: "How to Apply" },
-              ].map(({ href, label }) => (
+            <ul className="flex flex-col gap-3.5">
+              {admissionLinks.map(({ href, label }) => (
                 <li key={label}>
-                  <a
+                  <Link
                     href={href}
-                    className="text-white hover:text-prime-blue transition-colors flex items-center gap-2"
-                    style={{ fontSize: "14px" }}
+                    className="text-white hover:text-[#38bdf8] transition-colors flex items-center gap-2 text-sm"
                   >
-                    <span className="w-1 h-1 bg-prime-blue rounded-full shrink-0" />
+                    <span className="w-1 h-1 bg-[#38bdf8] rounded-full shrink-0" />
                     {label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
           {/* Col 5 — Contact Us */}
-          <div className="flex flex-col lg:col-span-2">
-            <h4
-              className="text-white font-bold uppercase tracking-wider mb-5"
-              style={{ fontSize: "13px", letterSpacing: "0.1em" }}
-            >
+          <div className="flex flex-col">
+            <h4 className="text-white font-bold uppercase tracking-wider mb-5 text-xs" style={{ letterSpacing: "0.1em" }}>
               Contact Us
             </h4>
-            <ul className="flex flex-col" style={{ gap: "14px" }}>
+            <ul className="flex flex-col gap-3.5">
               <li className="flex items-start gap-3 text-white">
-                <MapPin
-                  size={15}
-                  className="shrink-0 text-prime-blue"
-                  style={{ marginTop: "2px" }}
-                />
-                <span className="leading-relaxed" style={{ fontSize: "14px" }}>
-                  1 Woodlands Grove, Stapleford Abbotts,
-                  <br />
-                  Romford, RM4 1FB
+                <MapPin size={15} className="shrink-0 text-[#38bdf8] mt-0.5" />
+                <span className="leading-relaxed text-sm">
+                  1 Woodlands Grove, Stapleford Abbotts,<br />Romford, RM4 1FB
                 </span>
               </li>
               <li>
-                <a
+                <Link
                   href="tel:02080043779"
-                  className="flex items-center gap-3 text-white hover:text-prime-blue transition-colors"
-                  style={{ fontSize: "14px" }}
+                  className="flex items-center gap-3 text-white hover:text-[#38bdf8] transition-colors text-sm"
                 >
-                  <Phone size={15} className="shrink-0 text-prime-blue" />
+                  <Phone size={15} className="shrink-0 text-[#38bdf8]" />
                   020 8004 3779
-                </a>
+                </Link>
               </li>
-              {/* WhatsApp */}
               <li>
-                <a
+                <Link
                   href="https://wa.me/447520604047"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-white hover:text-prime-blue transition-colors"
-                  style={{ fontSize: "14px" }}
+                  className="flex items-center gap-3 text-white hover:text-[#38bdf8] transition-colors text-sm"
                 >
-                  <SiWhatsapp size={15} className="shrink-0 text-prime-blue" />
+                  <SiWhatsapp size={15} className="shrink-0 text-[#38bdf8]" />
                   +44 7520 604047
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="mailto:info@primeleed.com"
-                  className="flex items-center gap-3 text-white hover:text-prime-blue transition-colors"
-                  style={{ fontSize: "14px" }}
+                  className="flex items-center gap-3 text-white hover:text-[#38bdf8] transition-colors text-sm"
                 >
-                  <Mail size={15} className="shrink-0 text-prime-blue" />
+                  <Mail size={15} className="shrink-0 text-[#38bdf8]" />
                   info@primeleed.com
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
 
           {/* Col 6 — Legal */}
-          <div className="flex flex-col lg:col-span-2">
-            <h4
-              className="text-white font-bold uppercase tracking-wider mb-5"
-              style={{ fontSize: "13px", letterSpacing: "0.1em" }}
-            >
+          <div className="flex flex-col">
+            <h4 className="text-white font-bold uppercase tracking-wider mb-5 text-xs" style={{ letterSpacing: "0.1em" }}>
               Legal
             </h4>
-            <ul className="flex flex-col" style={{ gap: "14px" }}>
-              {["Privacy Policy", "Terms of Service", "Cookie Policy"].map(
-                (item) => (
-                  <li key={item}>
-                    <a
-                      href="#"
-                      className="text-white hover:text-prime-blue transition-colors whitespace-nowrap"
-                      style={{ fontSize: "14px" }}
-                    >
-                      {item}
-                    </a>
-                  </li>
-                ),
-              )}
+            <ul className="flex flex-col gap-3.5">
+              {legalLinks.map(({ href, label }) => (
+                <li key={label}>
+                  <Link
+                    href={href}
+                    className="text-white hover:text-[#38bdf8] transition-colors whitespace-nowrap text-sm"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
+
         </div>
 
         {/* Bottom Bar */}
-        <div
-          className="pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-white font-medium"
-          style={{ fontSize: "12px" }}
-        >
+        <div className="pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-white font-medium text-xs">
           <p>&copy; {currentYear} Primeleed. All rights reserved.</p>
         </div>
+
       </div>
     </footer>
   );

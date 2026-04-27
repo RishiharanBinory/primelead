@@ -1,4 +1,4 @@
-// lib/courses.ts
+// lib/courses.ts (Postgraduate)
 // ─────────────────────────────────────────────────────────────────────────────
 // Central data source for all courses.
 // Add a new entry here → it automatically appears in CoursesSection.
@@ -10,7 +10,6 @@ import { Course } from "@/components/mainComponents/Coursecard";
 export const courses: Course[] = [
   {
     id: "mba-international",
-    badge: "Local",
     title: "Master of Business Administration – International",
     subtitle: "MBA",
     duration: "4 Years",
@@ -19,7 +18,6 @@ export const courses: Course[] = [
   },
   {
     id: "mba-health-social-care",
-    badge: "Local",
     title: "Master of Business Administration – Health and Social Care",
     subtitle: "MBA",
     duration: "4 Years",
@@ -28,7 +26,6 @@ export const courses: Course[] = [
   },
   {
     id: "mba-online",
-    badge: "Local",
     title: "Master of Business Administration Online",
     subtitle: "MBA",
     duration: "4 Years",
@@ -37,7 +34,6 @@ export const courses: Course[] = [
   },
   {
     id: "msc-international-management-online",
-    badge: "Local",
     title: "International Management Online",
     subtitle: "MSc",
     duration: "4 Years",
@@ -46,7 +42,6 @@ export const courses: Course[] = [
   },
   {
     id: "msc-hospitality-tourism",
-    badge: "Local",
     title: "International Hospitality and Tourism Management",
     subtitle: "MSc",
     duration: "4 Years",
@@ -55,7 +50,6 @@ export const courses: Course[] = [
   },
   {
     id: "msc-international-marketing",
-    badge: "Local",
     title: "International Marketing",
     subtitle: "MSc",
     duration: "4 Years",
@@ -64,7 +58,6 @@ export const courses: Course[] = [
   },
   {
     id: "msc-international-project-management",
-    badge: "Local",
     title: "International Project Management",
     subtitle: "MSc",
     duration: "4 Years",
@@ -73,7 +66,6 @@ export const courses: Course[] = [
   },
   {
     id: "msc-programme-project-management",
-    badge: "Local",
     title: "Programme and Project Management",
     subtitle: "MSc",
     duration: "4 Years",
@@ -82,7 +74,6 @@ export const courses: Course[] = [
   },
   {
     id: "msc-accounting-financial-management",
-    badge: "Local",
     title: "Accounting and Financial Management",
     subtitle: "MSc",
     duration: "4 Years",
@@ -91,7 +82,6 @@ export const courses: Course[] = [
   },
   {
     id: "msc-international-business-management",
-    badge: "Local",
     title: "International Business Management",
     subtitle: "MSc",
     duration: "4 Years",
@@ -100,7 +90,6 @@ export const courses: Course[] = [
   },
   {
     id: "msc-business-analytics",
-    badge: "Local",
     title: "Business with Business Analytics",
     subtitle: "MSc",
     duration: "4 Years",
@@ -109,7 +98,6 @@ export const courses: Course[] = [
   },
   {
     id: "msc-business-entrepreneurship",
-    badge: "Local",
     title: "Business with Entrepreneurship",
     subtitle: "MSc",
     duration: "4 Years",
@@ -118,7 +106,6 @@ export const courses: Course[] = [
   },
   {
     id: "msc-business-financial-management",
-    badge: "Local",
     title: "Business with Financial Management",
     subtitle: "MSc",
     duration: "4 Years",
@@ -127,7 +114,6 @@ export const courses: Course[] = [
   },
   {
     id: "msc-business-hospitality-tourism",
-    badge: "Local",
     title: "Business with Hospitality and Tourism Management",
     subtitle: "MSc",
     duration: "4 Years",
@@ -136,7 +122,6 @@ export const courses: Course[] = [
   },
   {
     id: "msc-business-hr",
-    badge: "Local",
     title: "Business with Human Resource Management",
     subtitle: "MSc",
     duration: "4 Years",
@@ -145,7 +130,6 @@ export const courses: Course[] = [
   },
   {
     id: "msc-business-international-management",
-    badge: "Local",
     title: "Business with International Management",
     subtitle: "MSc",
     duration: "4 Years",
@@ -154,7 +138,6 @@ export const courses: Course[] = [
   },
   {
     id: "msc-business-marketing-management",
-    badge: "Local",
     title: "Business with Marketing Management",
     subtitle: "MSc",
     duration: "4 Years",
@@ -163,7 +146,6 @@ export const courses: Course[] = [
   },
   {
     id: "msc-computing-technology",
-    badge: "Local",
     title: "Computing and Technology",
     subtitle: "MSc",
     duration: "4 Years",
@@ -172,7 +154,6 @@ export const courses: Course[] = [
   },
   {
     id: "msc-artificial-intelligence",
-    badge: "Local",
     title: "Artificial Intelligence Technology",
     subtitle: "MSc",
     duration: "4 Years",
@@ -181,7 +162,6 @@ export const courses: Course[] = [
   },
   {
     id: "msc-big-data-science",
-    badge: "Local",
     title: "Big Data and Data Science Technology",
     subtitle: "MSc",
     duration: "4 Years",
@@ -190,7 +170,6 @@ export const courses: Course[] = [
   },
   {
     id: "msc-cyber-security",
-    badge: "Local",
     title: "Cyber Security",
     subtitle: "MSc",
     duration: "4 Years",
@@ -199,7 +178,6 @@ export const courses: Course[] = [
   },
   {
     id: "msc-cyber-security-technology",
-    badge: "Local",
     title: "Cyber Security Technology",
     subtitle: "MSc",
     duration: "4 Years",
@@ -208,7 +186,6 @@ export const courses: Course[] = [
   },
   {
     id: "msc-digital-marketing",
-    badge: "Local",
     title: "Digital Marketing",
     subtitle: "MSc",
     duration: "4 Years",
@@ -217,7 +194,6 @@ export const courses: Course[] = [
   },
   {
     id: "msc-global-logistics",
-    badge: "Local",
     title: "Global Logistics, Operations and Supply Chain Management",
     subtitle: "MSc",
     duration: "4 Years",
@@ -226,7 +202,6 @@ export const courses: Course[] = [
   },
   {
     id: "msc-global-logistics-online",
-    badge: "Local",
     title: "Global Logistics, Operations and Supply Chain Management Online",
     subtitle: "MSc",
     duration: "4 Years",
@@ -235,7 +210,6 @@ export const courses: Course[] = [
   },
   {
     id: "msc-social-care-health-wellbeing",
-    badge: "Local",
     title: "Social Care, Health and Wellbeing",
     subtitle: "MSc",
     duration: "4 Years",
@@ -244,7 +218,6 @@ export const courses: Course[] = [
   },
   {
     id: "master-public-health",
-    badge: "Local",
     title: "Master of Public Health",
     subtitle: "MPH",
     duration: "4 Years",
@@ -253,7 +226,6 @@ export const courses: Course[] = [
   },
   {
     id: "llm-international-law",
-    badge: "Local",
     title: "International Law",
     subtitle: "LLM",
     duration: "4 Years",

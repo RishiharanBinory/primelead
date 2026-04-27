@@ -41,26 +41,24 @@ const BLOG_POSTS = [
   {
     title: "How to Organise Your Studies for Success",
     date: "December 29, 2020",
-    href: "/blog/how-to-organise-your-studies-for-success",
+    // href: "/blog/how-to-organise-your-studies-for-success",
+    href: "#",
   },
   {
     title: "4th Workshop Advanced Materials",
     date: "December 29, 2020",
-    href: "/blog/4th-workshop-advanced-materials",
+    // href: "/blog/4th-workshop-advanced-materials",
+    href: "#",
   },
 ];
 
 const DIRECTORY_LINKS = [
-  { label: "Events Directory", href: "/events" },
-  { label: "Faculty Directory", href: "/faculty" },
-  { label: "Detailed Plans", href: "/plans" },
+  // { label: "Events Directory", href: "/events" },
+  // { label: "Faculty Directory", href: "/faculty" },
+  // { label: "Detailed Plans", href: "/plans" },
 ];
 
-const CTA_BUTTONS = [
-  { label: "Request Info", href: "/support/request-info" },
-  { label: "Visit", href: "/contact" },
-  { label: "Apply", href: "/admission/form" },
-];
+const CTA_BUTTONS: { label: string; href: string }[] = [];
 
 function ChevronIcon({ open }: { open: boolean }) {
   return (
@@ -192,35 +190,15 @@ function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
             All donations to the Student Emergency Fund will directly support
             our students as they adapt to changing circumstances.
           </p>
-          <Link
-            href="/giving"
-            onClick={onClose}
-            style={{ color: "#1a8fa8", fontWeight: 600, fontSize: "15px" }}
-            className="inline-flex items-center gap-2 hover:text-[#0f6e82] transition-colors"
-          >
-            Visit Page →
-          </Link>
         </div>
         <div className="pl-10 pr-10 pt-14 h-full">
           <h3 className="font-black text-[#0f1f2e] text-[24px] mb-5">Blog</h3>
           <div className="flex flex-col gap-6">
             {BLOG_POSTS.map((post, i) => (
               <div key={i}>
-                <Link
-                  href={post.href}
-                  onClick={onClose}
-                  style={{
-                    fontSize: "15px",
-                    fontWeight: 600,
-                    color: "#0f1f2e",
-                    display: "block",
-                    marginBottom: "4px",
-                    lineHeight: "1.4",
-                  }}
-                  className="hover:text-[#1a8fa8] transition-colors"
-                >
+                <p style={{ fontSize: "15px", fontWeight: 600, color: "#0f1f2e", marginBottom: "4px", lineHeight: "1.4" }}>
                   {post.title}
-                </Link>
+                </p>
                 <p style={{ fontSize: "13px", color: "#9ca3af" }}>
                   {post.date}
                 </p>
@@ -230,41 +208,13 @@ function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
               </div>
             ))}
           </div>
-          <Link
-            href="/blog"
-            onClick={onClose}
-            style={{ color: "#1a8fa8", fontWeight: 600, fontSize: "15px" }}
-            className="inline-flex items-center gap-2 hover:text-[#0f6e82] transition-colors mt-8"
-          >
-            View Blog →
-          </Link>
         </div>
         <div className="pl-10 pr-10 pt-14 h-full">
           <h3 className="font-black text-[#0f1f2e] text-[24px] mb-5">
             Directory
           </h3>
           <div className="flex flex-col mt-2">
-            {DIRECTORY_LINKS.map((link, i) => (
-              <div key={i}>
-                <Link
-                  href={link.href}
-                  onClick={onClose}
-                  style={{
-                    fontSize: "15px",
-                    fontWeight: 600,
-                    color: "#0f1f2e",
-                    display: "block",
-                    padding: "16px 0",
-                  }}
-                  className="hover:text-[#1a8fa8] transition-colors"
-                >
-                  {link.label}
-                </Link>
-                {i < DIRECTORY_LINKS.length - 1 && (
-                  <div className="border-b border-[#f0f3f5]" />
-                )}
-              </div>
-            ))}
+            <p style={{ fontSize: "14px", color: "#9ca3af" }}>Coming soon.</p>
           </div>
         </div>
         <div
@@ -332,33 +282,6 @@ function MegaMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
               className="object-cover object-top"
             />
           </div>
-        </div>
-      </div>
-      <div
-        className="border-t border-[#e8edf2] py-8 px-0"
-        style={{ backgroundColor: "#fafbfc" }}
-      >
-        <div
-          className="grid grid-cols-3 gap-0 mx-auto"
-          style={{ maxWidth: "900px" }}
-        >
-          {CTA_BUTTONS.map((btn) => (
-            <Link
-              key={btn.href}
-              href={btn.href}
-              onClick={onClose}
-              className="flex items-center justify-center text-white hover:opacity-90 transition-opacity duration-200 mx-2 rounded-xl"
-              style={{
-                height: "52px",
-                backgroundColor: "#0f1f2e",
-                fontSize: "15px",
-                fontWeight: 700,
-                ...FONT,
-              }}
-            >
-              {btn.label}
-            </Link>
-          ))}
         </div>
       </div>
     </div>
@@ -450,7 +373,6 @@ export default function Navbar() {
     leaveTimer.current = setTimeout(() => setOpenItem(null), 140);
   }, []);
 
-  // ✅ FIX: use startsWith for all items so child routes activate the parent
   const isActive = (item: NavItem) => {
     if (item.href === "/") return pathname === "/";
     return pathname.startsWith(item.href);
@@ -583,7 +505,7 @@ export default function Navbar() {
         {/* Right actions */}
         <div className="flex items-center gap-3 z-[200]">
           <Link
-            href="/admission/form"
+            href="/contact"
             className="inline-flex items-center px-6 py-2.5 rounded-xl text-white transition-all duration-200 hover:bg-[#0f6e82]"
             style={{
               backgroundColor: "#1a8fa8",
@@ -595,52 +517,6 @@ export default function Navbar() {
           >
             Apply Now
           </Link>
-          <button
-            onClick={() => setMegaOpen((v) => !v)}
-            className="flex items-center justify-center w-10 h-10 rounded-xl cursor-pointer transition-all duration-150 border hover:bg-[#f0f8fb] hover:border-[#1a8fa8] hover:text-[#1a8fa8]"
-            aria-label="Open mega menu"
-            aria-expanded={megaOpen}
-            style={{
-              color: "#374151",
-              backgroundColor: "transparent",
-              borderColor: "#e2e8ed",
-            }}
-          >
-            {megaOpen ? (
-              <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
-                <path
-                  d="M2 2L16 16M16 2L2 16"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </svg>
-            ) : (
-              <svg width="17" height="13" viewBox="0 0 22 16" fill="none">
-                <rect
-                  y="0"
-                  width="22"
-                  height="2.2"
-                  rx="1.1"
-                  fill="currentColor"
-                />
-                <rect
-                  y="7"
-                  width="14"
-                  height="2.2"
-                  rx="1.1"
-                  fill="currentColor"
-                />
-                <rect
-                  y="14"
-                  width="22"
-                  height="2.2"
-                  rx="1.1"
-                  fill="currentColor"
-                />
-              </svg>
-            )}
-          </button>
         </div>
 
         <MegaMenu open={megaOpen} onClose={closeAll} />
@@ -664,7 +540,7 @@ export default function Navbar() {
         </Link>
         <div className="flex items-center gap-2">
           <Link
-            href="/admission/form"
+            href="/contact"
             className="inline-flex items-center px-4 py-2 rounded-lg text-white"
             style={{
               backgroundColor: "#1a8fa8",
@@ -693,27 +569,9 @@ export default function Navbar() {
               </svg>
             ) : (
               <svg width="17" height="13" viewBox="0 0 22 16" fill="none">
-                <rect
-                  y="0"
-                  width="22"
-                  height="2.2"
-                  rx="1.1"
-                  fill="currentColor"
-                />
-                <rect
-                  y="7"
-                  width="14"
-                  height="2.2"
-                  rx="1.1"
-                  fill="currentColor"
-                />
-                <rect
-                  y="14"
-                  width="22"
-                  height="2.2"
-                  rx="1.1"
-                  fill="currentColor"
-                />
+                <rect y="0" width="22" height="2.2" rx="1.1" fill="currentColor" />
+                <rect y="7" width="14" height="2.2" rx="1.1" fill="currentColor" />
+                <rect y="14" width="22" height="2.2" rx="1.1" fill="currentColor" />
               </svg>
             )}
           </button>
@@ -809,24 +667,6 @@ export default function Navbar() {
                 </div>
               );
             })}
-          </div>
-          <div className="flex flex-col gap-2 px-5 py-5 border-t border-[#f0f4f7]">
-            {CTA_BUTTONS.map((btn) => (
-              <Link
-                key={btn.href}
-                href={btn.href}
-                onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-center text-white py-4 rounded-xl transition-colors duration-200 hover:bg-[#1a8fa8]"
-                style={{
-                  backgroundColor: "#0f1f2e",
-                  fontSize: "15px",
-                  fontWeight: 600,
-                  ...FONT,
-                }}
-              >
-                {btn.label}
-              </Link>
-            ))}
           </div>
         </div>
       </nav>

@@ -1,12 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useRef, useEffect, useState } from "react";
 
 export interface Course {
   id: string;
-  badge?: string;
   subtitle?: string;
   specialization?: string;
   title: string;
@@ -74,7 +72,7 @@ export default function CourseCard({ course }: CourseCardProps) {
   const clipId = `card-clip-${course.id}`;
 
   return (
-    <Link href={course.href} className="group block h-full">
+    <div className="group block h-full cursor-default">
       <div ref={wrapRef} className="relative h-full min-h-[210px]">
 
         {/* Drop shadow + white fill behind the clip */}
@@ -96,7 +94,6 @@ export default function CourseCard({ course }: CourseCardProps) {
               d={cardPath}
               fill="white"
               filter={`url(#shadow-${course.id})`}
-              className="group-hover:[filter:drop-shadow(0_4px_12px_#0000001a)] transition-all duration-300"
             />
             {/* White fill */}
             <path d={cardPath} fill="white" />
@@ -112,13 +109,6 @@ export default function CourseCard({ course }: CourseCardProps) {
               : { borderRadius: R, background: "white" }
           }
         >
-          {/* Badge */}
-          {course.badge && (
-            <span className="absolute top-4 right-4 text-xs text-gray-400 bg-gray-100 rounded-full px-3 py-1 font-medium">
-              {course.badge}
-            </span>
-          )}
-
           {/* Title block */}
           <div className="pr-14">
             {course.subtitle && (
@@ -162,7 +152,6 @@ export default function CourseCard({ course }: CourseCardProps) {
             flex items-center justify-center
             text-white
             translate-x-1/4 translate-y-1/4
-            group-hover:scale-110 transition-transform duration-200
             z-20
           "
           style={{ backgroundColor: "#105E74" }}
@@ -171,6 +160,6 @@ export default function CourseCard({ course }: CourseCardProps) {
         </div>
 
       </div>
-    </Link>
+    </div>
   );
 }
