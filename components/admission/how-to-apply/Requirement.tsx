@@ -90,7 +90,7 @@ export default function EntryRequirements() {
             className="w-full p-3 sm:p-5"
             style={{ backgroundColor: "#DCE7EE" }}
           >
-            <div className="grid grid-cols-2 gap-3 sm:gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-5 items-start">
               {requirementCards.map((card, i) => (
                 <div
                   key={i}
