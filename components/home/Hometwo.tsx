@@ -462,7 +462,7 @@ export default function StudyInLondon() {
               <div className="hs-cta-row">
                 <Buttontwo
                   text="Apply Now"
-                  href="/admission/form"
+                  href="/contact"
                   bgColor="#149ab5"
                   textColor="#ffffff"
                   fontSize={20}
@@ -561,7 +561,7 @@ function MobileAwareCluster({
         height: `${clusterH}px`,
         overflow: "visible",
         pointerEvents: "none",
-        marginTop: "80px", 
+        marginTop: "80px",
       }}
     >
       {/* TOP — Campus */}
