@@ -44,21 +44,21 @@ export function Footer() {
   ];
 
   const academicLinks = [
-    { href: "/academics", label: "Overview" },
-    { href: "/academics/consultancy", label: "Consultancy" },
+    { href: "/academics/overview", label: "Overview" },
+    { href: "/academics/education-consultancy", label: "Consultancy" },
     { href: "/academics/undergraduate", label: "Undergraduate" },
     { href: "/academics/postgraduate", label: "Postgraduate" },
   ];
 
   const admissionLinks = [
-    { href: "/admissions", label: "Overview" },
-    { href: "/admissions/how-to-apply", label: "How to Apply" },
+    { href: "/admission/overview", label: "Overview" },
+    { href: "/admission/how-to-apply", label: "How to Apply" },
   ];
 
   const legalLinks = [
-    { href: "/privacy-policy", label: "Privacy Policy" },
-    { href: "/terms-of-service", label: "Terms of Service" },
-    { href: "/cookie-policy", label: "Cookie Policy" },
+    { href: "/privacy", label: "Privacy Policy" },
+    { href: "/terms", label: "Terms of Service" },
+    { href: "/cookies", label: "Cookie Policy" },
   ];
 
   return (
