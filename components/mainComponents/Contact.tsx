@@ -39,7 +39,6 @@ const contactItems: Array<{
     href: "",
     external: false,
   },
-
   {
     icon: MessageCircle,
     text: "+44 7520 604047",
@@ -145,15 +144,6 @@ export function ContactSection() {
           process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
         );
 
-        await emailjs.send(
-          process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-          process.env.NEXT_PUBLIC_EMAILJS_AUTO_REPLY_TEMPLATE_ID!,
-          {
-            from_name: form.fullName,
-            from_email: form.email,
-          },
-          process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
-        );
         setSubmitted(true);
       } catch (error) {
         console.error("EmailJS error:", error);

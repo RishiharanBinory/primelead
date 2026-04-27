@@ -15,7 +15,9 @@ const BASE =
   "w-full px-4 py-3 rounded-lg border outline-none transition-all bg-white text-[#1a1a1a] text-sm placeholder:text-[#bbb] focus:border-[#3AAFB9] focus:ring-2 focus:ring-[#3AAFB9]/10";
 
 const cls = (hasError: boolean) =>
-  hasError ? `${BASE} border-red-400 ring-2 ring-red-100` : `${BASE} border-[#e5e5e5]`;
+  hasError
+    ? `${BASE} border-red-400 ring-2 ring-red-100`
+    : `${BASE} border-[#e5e5e5]`;
 
 function FieldError({ msg }: { msg?: string }) {
   if (!msg) return null;
@@ -26,9 +28,18 @@ function FieldError({ msg }: { msg?: string }) {
   );
 }
 
-function Label({ htmlFor, children }: { htmlFor: string; children: React.ReactNode }) {
+function Label({
+  htmlFor,
+  children,
+}: {
+  htmlFor: string;
+  children: React.ReactNode;
+}) {
   return (
-    <label htmlFor={htmlFor} className="block text-xs font-semibold text-[#555] mb-1.5">
+    <label
+      htmlFor={htmlFor}
+      className="block text-xs font-semibold text-[#555] mb-1.5"
+    >
       {children}
     </label>
   );
@@ -83,7 +94,10 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const allTouched = Object.keys(form).reduce((acc, k) => ({ ...acc, [k]: true }), {});
+    const allTouched = Object.keys(form).reduce(
+      (acc, k) => ({ ...acc, [k]: true }),
+      {},
+    );
     setTouched(allTouched);
     const errs = validate(form);
     setErrors(errs);
@@ -93,24 +107,17 @@ export default function ContactForm() {
     try {
       await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID2!,
         {
-          from_name: form.fullName,
-          from_email: form.email,
+          name: form.fullName,
+          email: form.email,
           phone: "+" + form.phone,
           academic_level:
-            ACADEMIC_LEVELS.find((l) => l.value === form.academicLevel)?.label ??
-            form.academicLevel,
+            ACADEMIC_LEVELS.find((l) => l.value === form.academicLevel)
+              ?.label ?? form.academicLevel,
           message: form.message,
         },
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
-      );
-
-      await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-        process.env.NEXT_PUBLIC_EMAILJS_AUTO_REPLY_TEMPLATE_ID!,
-        { from_name: form.fullName, from_email: form.email },
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
       );
 
       setSubmitted(true);
@@ -129,7 +136,6 @@ export default function ContactForm() {
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit} noValidate>
-
       {/* Full Name + Phone */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
@@ -165,7 +171,9 @@ export default function ContactForm() {
               fontSize: "0.875rem",
               borderRadius: "0.5rem",
               border: phoneBorder,
-              boxShadow: phoneHasError ? "0 0 0 2px rgba(248,113,113,0.15)" : "none",
+              boxShadow: phoneHasError
+                ? "0 0 0 2px rgba(248,113,113,0.15)"
+                : "none",
               backgroundColor: "#ffffff",
               color: "#1a1a1a",
               height: "auto",
@@ -215,14 +223,18 @@ export default function ContactForm() {
           onBlur={() => handleBlur("academicLevel")}
           className={`${cls(!!touched.academicLevel && !!errors.academicLevel)} appearance-none cursor-pointer`}
         >
-          <option value="" disabled>Select your level</option>
+          <option value="" disabled>
+            Select your level
+          </option>
           {ACADEMIC_LEVELS.map((level) => (
             <option key={level.value} value={level.value}>
               {level.label}
             </option>
           ))}
         </select>
-        <FieldError msg={touched.academicLevel ? errors.academicLevel : undefined} />
+        <FieldError
+          msg={touched.academicLevel ? errors.academicLevel : undefined}
+        />
       </div>
 
       {/* Message */}
@@ -242,8 +254,8 @@ export default function ContactForm() {
 
       {/* Privacy note */}
       <p className="text-[#aaa] text-xs leading-relaxed">
-        By submitting this form, you agree to the Primeleed privacy notice.
-        Your information will only be used to respond to your enquiry.
+        By submitting this form, you agree to the Primeleed privacy notice. Your
+        information will only be used to respond to your enquiry.
       </p>
 
       {/* Submit */}
@@ -254,16 +266,34 @@ export default function ContactForm() {
       >
         {loading ? (
           <>
-            <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+            <svg
+              className="animate-spin h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              />
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8v8z"
+              />
             </svg>
             Sending...
           </>
         ) : (
           <>
             Send Message
-            <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-200" />
+            <ArrowRight
+              size={15}
+              className="group-hover:translate-x-1 transition-transform duration-200"
+            />
           </>
         )}
       </button>
