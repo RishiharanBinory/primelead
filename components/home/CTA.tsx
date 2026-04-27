@@ -91,7 +91,7 @@ export default function CtaComponent() {
         <div className="mt-8">
           <Buttontwo
             text="Apply Now"
-            href="/admission/form"
+            href="/contact"
             bgColor="#149ab5"
             textColor="#ffffff"
             fontSize={20}
