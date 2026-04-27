@@ -15,34 +15,50 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { Icon: InstagramIcon, label: "Instagram", href: "https://www.instagram.com/primeleededu/" },
-    { Icon: FacebookIcon,  label: "Facebook",  href: "https://web.facebook.com/primeleed" },
-    { Icon: LinkedinIcon,  label: "LinkedIn",  href: "https://www.linkedin.com/company/primeleed/" },
-    { Icon: SiTiktok,      label: "TikTok",    href: "https://www.tiktok.com/@primeleed?_r=1&_t=ZN-95o8QzV4kqM" },
+    {
+      Icon: InstagramIcon,
+      label: "Instagram",
+      href: "https://www.instagram.com/primeleededu/",
+    },
+    {
+      Icon: FacebookIcon,
+      label: "Facebook",
+      href: "https://web.facebook.com/primeleed",
+    },
+    {
+      Icon: LinkedinIcon,
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/company/primeleed/",
+    },
+    {
+      Icon: SiTiktok,
+      label: "TikTok",
+      href: "https://www.tiktok.com/@primeleed?_r=1&_t=ZN-95o8QzV4kqM",
+    },
   ];
 
   const quickLinks = [
-    { href: "/",           label: "Home"  },
-    { href: "/about",      label: "About" },
-    { href: "/support/faq", label: "FAQ"  },
+    { href: "/", label: "Home" },
+    { href: "/about", label: "About" },
+    { href: "/faq", label: "FAQ" },
   ];
 
   const academicLinks = [
-    { href: "/academics",               label: "Overview"      },
-    { href: "/academics/consultancy",   label: "Consultancy"   },
+    { href: "/academics", label: "Overview" },
+    { href: "/academics/consultancy", label: "Consultancy" },
     { href: "/academics/undergraduate", label: "Undergraduate" },
-    { href: "/academics/postgraduate",  label: "Postgraduate"  },
+    { href: "/academics/postgraduate", label: "Postgraduate" },
   ];
 
   const admissionLinks = [
-    { href: "/admissions",              label: "Overview"     },
+    { href: "/admissions", label: "Overview" },
     { href: "/admissions/how-to-apply", label: "How to Apply" },
   ];
 
   const legalLinks = [
-    { href: "/privacy-policy",   label: "Privacy Policy"   },
+    { href: "/privacy-policy", label: "Privacy Policy" },
     { href: "/terms-of-service", label: "Terms of Service" },
-    { href: "/cookie-policy",    label: "Cookie Policy"    },
+    { href: "/cookie-policy", label: "Cookie Policy" },
   ];
 
   return (
@@ -71,11 +87,8 @@ export function Footer() {
       </div>
 
       <div className="max-w-screen-xl mx-auto px-8 md:px-16 pt-20 pb-8 relative z-10">
-
         {/* TOP SECTION */}
         <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr_1fr_1fr_1.5fr_1fr] gap-x-12 gap-y-10 mb-12 items-start">
-
-
           {/* Col 1 — Brand */}
           <div className="flex flex-col pr-10 lg:pr-16">
             <Link
@@ -125,7 +138,10 @@ export function Footer() {
 
           {/* Col 2 — Quick Links */}
           <div className="flex flex-col">
-            <h4 className="text-white font-bold uppercase tracking-wider mb-5 text-xs" style={{ letterSpacing: "0.1em" }}>
+            <h4
+              className="text-white font-bold uppercase tracking-wider mb-5 text-xs"
+              style={{ letterSpacing: "0.1em" }}
+            >
               Quick Links
             </h4>
             <ul className="flex flex-col gap-3.5">
@@ -145,7 +161,10 @@ export function Footer() {
 
           {/* Col 3 — Academics */}
           <div className="flex flex-col">
-            <h4 className="text-white font-bold uppercase tracking-wider mb-5 text-xs" style={{ letterSpacing: "0.1em" }}>
+            <h4
+              className="text-white font-bold uppercase tracking-wider mb-5 text-xs"
+              style={{ letterSpacing: "0.1em" }}
+            >
               Academics
             </h4>
             <ul className="flex flex-col gap-3.5">
@@ -165,7 +184,10 @@ export function Footer() {
 
           {/* Col 4 — Admissions */}
           <div className="flex flex-col">
-            <h4 className="text-white font-bold uppercase tracking-wider mb-5 text-xs" style={{ letterSpacing: "0.1em" }}>
+            <h4
+              className="text-white font-bold uppercase tracking-wider mb-5 text-xs"
+              style={{ letterSpacing: "0.1em" }}
+            >
               Admissions
             </h4>
             <ul className="flex flex-col gap-3.5">
@@ -185,14 +207,19 @@ export function Footer() {
 
           {/* Col 5 — Contact Us */}
           <div className="flex flex-col">
-            <h4 className="text-white font-bold uppercase tracking-wider mb-5 text-xs" style={{ letterSpacing: "0.1em" }}>
+            <h4
+              className="text-white font-bold uppercase tracking-wider mb-5 text-xs"
+              style={{ letterSpacing: "0.1em" }}
+            >
               Contact Us
             </h4>
             <ul className="flex flex-col gap-3.5">
               <li className="flex items-start gap-3 text-white">
                 <MapPin size={15} className="shrink-0 text-[#38bdf8] mt-0.5" />
                 <span className="leading-relaxed text-sm">
-                  1 Woodlands Grove, Stapleford Abbotts,<br />Romford, RM4 1FB
+                  1 Woodlands Grove, Stapleford Abbotts,
+                  <br />
+                  Romford, RM4 1FB
                 </span>
               </li>
               <li>
@@ -229,7 +256,10 @@ export function Footer() {
 
           {/* Col 6 — Legal */}
           <div className="flex flex-col">
-            <h4 className="text-white font-bold uppercase tracking-wider mb-5 text-xs" style={{ letterSpacing: "0.1em" }}>
+            <h4
+              className="text-white font-bold uppercase tracking-wider mb-5 text-xs"
+              style={{ letterSpacing: "0.1em" }}
+            >
               Legal
             </h4>
             <ul className="flex flex-col gap-3.5">
@@ -245,14 +275,12 @@ export function Footer() {
               ))}
             </ul>
           </div>
-
         </div>
 
         {/* Bottom Bar */}
         <div className="pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-white font-medium text-xs">
           <p>&copy; {currentYear} Primeleed. All rights reserved.</p>
         </div>
-
       </div>
     </footer>
   );
