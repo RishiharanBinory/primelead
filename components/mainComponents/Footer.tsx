@@ -121,19 +121,7 @@ export function Footer() {
             </div>
 
             {/* Subscribe */}
-            <div className="flex items-center max-w-xs">
-              <input
-                type="email"
-                placeholder="Email address"
-                className="w-full bg-slate-800 border border-slate-700 rounded-l-lg px-4 py-2.5 text-white outline-none focus:border-[#38bdf8] transition-colors placeholder-slate-500 text-sm"
-              />
-              <button
-                type="button"
-                className="bg-[#38bdf8] hover:bg-sky-400 transition-colors rounded-r-lg px-4 py-2.5 font-bold text-white whitespace-nowrap text-sm"
-              >
-                Subscribe
-              </button>
-            </div>
+
           </div>
 
           {/* Col 2 — Quick Links */}
