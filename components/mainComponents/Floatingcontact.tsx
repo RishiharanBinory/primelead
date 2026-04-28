@@ -43,7 +43,7 @@ const contactItems = [
     bg: "#25D366",
     hoverBg: "#1ebe5d",
     getHref: (whatsappNumber: string, _: string) =>
-      `https://wa.me/${whatsappNumber}`,
+      `https://wa.me/${whatsappNumber.replace(/^\+/, "")}`,
   },
   {
     key: "messenger",
