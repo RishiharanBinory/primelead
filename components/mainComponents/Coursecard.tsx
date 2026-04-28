@@ -8,8 +8,8 @@ export interface Course {
   subtitle?: string;
   specialization?: string;
   title: string;
-  duration: string;
-  schedule: string;
+  duration?: string;   // optional — will be shown once data is ready
+  schedule?: string;   // optional — will be shown once data is ready
   href: string;
 }
 
@@ -127,7 +127,8 @@ export default function CourseCard({ course }: CourseCardProps) {
             </h3>
           </div>
 
-          {/* Duration / Schedule */}
+          {/* ─── Duration / Schedule ───────────────────────────────────────────
+               TODO: Uncomment once real duration & schedule data is available.
           <div className="flex gap-8 mt-6 pb-1">
             <div>
               <p className="text-xs font-semibold text-[#E07B39] uppercase tracking-wide">
@@ -142,6 +143,7 @@ export default function CourseCard({ course }: CourseCardProps) {
               <p className="text-sm text-gray-700 mt-0.5">{course.schedule}</p>
             </div>
           </div>
+          ────────────────────────────────────────────────────────────────── */}
         </div>
 
         {/* Teal circle button — centred in the notch pocket */}

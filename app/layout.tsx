@@ -28,10 +28,10 @@ export default function RootLayout({
         <Navbar />
         <main className="pt-17.5">
           {children}
-          <FloatingContact
-            whatsappNumber="94771234567"
+          {/* <FloatingContact
+            whatsappNumber="+447520604047"
             messengerUsername="primeleed"
-          />
+          /> */}
         </main>
         <Footer />
       </body>
