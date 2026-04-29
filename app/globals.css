@@ -108,3 +108,7 @@
   border-color: #ffc501 !important;
   box-shadow: 0 0 0 4px rgba(255, 197, 1, 0.1) !important;
 }
+
+#zsiqwidget {
+  bottom: 80px !important;
+}

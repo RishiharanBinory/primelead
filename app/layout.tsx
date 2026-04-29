@@ -4,6 +4,8 @@ import "./globals.css";
 import Navbar from "@/components/mainComponents/Navbar";
 import { Footer } from "@/components/mainComponents/Footer";
 import FloatingContact from "@/components/mainComponents/Floatingcontact";
+import ZohoSalesIQ from "@/components/mainComponents/ZohoSalesIQ";
+
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({
@@ -28,10 +30,11 @@ export default function RootLayout({
         <Navbar />
         <main className="pt-17.5">
           {children}
-          <FloatingContact
+          {/* <FloatingContact
             whatsappNumber="447520604047"
             messengerUsername="primeleed"
-          />
+          /> */}
+          <ZohoSalesIQ/>
         </main>
         <Footer />
       </body>
