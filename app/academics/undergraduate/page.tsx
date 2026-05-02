@@ -6,7 +6,7 @@ import CtaComponent from "@/components/home/CTA";
 import Section from "@/components/mainComponents/Section";
 
 import CoursesSection from "@/components/mainComponents/Course";
-import { courses } from "@/lib/undergraduate.";
+import { courses } from "@/lib/undergraduate";
 import StatsSection from "@/components/mainComponents/stat";
 
 const page = () => {

@@ -8,8 +8,8 @@ export interface Course {
   subtitle?: string;
   specialization?: string;
   title: string;
-  duration?: string;   // optional — will be shown once data is ready
-  schedule?: string;   // optional — will be shown once data is ready
+  duration?: string; // optional — will be shown once data is ready
+  schedule?: string; // optional — will be shown once data is ready
   href: string;
 }
 
@@ -18,7 +18,7 @@ interface CourseCardProps {
 }
 
 const CORNER = 36;
-const NOTCH  = 56;
+const NOTCH = 56;
 const SMOOTH = 10;
 
 export default function CourseCard({ course }: CourseCardProps) {
@@ -52,8 +52,9 @@ export default function CourseCard({ course }: CourseCardProps) {
    *   → Q blend in → concave arc → Q blend out
    *   → bottom edge → rounded bottom-left → left edge → close
    */
-  const cardPath = w && h
-    ? `
+  const cardPath =
+    w && h
+      ? `
         M ${R} 0
         L ${w - R} 0
         Q ${w} 0 ${w} ${R}
@@ -67,14 +68,13 @@ export default function CourseCard({ course }: CourseCardProps) {
         Q 0 0 ${R} 0
         Z
       `
-    : "";
+      : "";
 
   const clipId = `card-clip-${course.id}`;
 
   return (
     <div className="group block h-full cursor-default">
       <div ref={wrapRef} className="relative h-full min-h-[210px]">
-
         {/* Drop shadow + white fill behind the clip */}
         {w > 0 && (
           <svg
@@ -85,8 +85,19 @@ export default function CourseCard({ course }: CourseCardProps) {
               <clipPath id={clipId} clipPathUnits="userSpaceOnUse">
                 <path d={cardPath} />
               </clipPath>
-              <filter id={`shadow-${course.id}`} x="-10%" y="-10%" width="130%" height="130%">
-                <feDropShadow dx="0" dy="1" stdDeviation="3" floodColor="#00000018" />
+              <filter
+                id={`shadow-${course.id}`}
+                x="-10%"
+                y="-10%"
+                width="130%"
+                height="130%"
+              >
+                <feDropShadow
+                  dx="0"
+                  dy="1"
+                  stdDeviation="3"
+                  floodColor="#00000018"
+                />
               </filter>
             </defs>
             {/* Shadow shape */}
@@ -127,23 +138,28 @@ export default function CourseCard({ course }: CourseCardProps) {
             </h3>
           </div>
 
-          {/* ─── Duration / Schedule ───────────────────────────────────────────
-               TODO: Uncomment once real duration & schedule data is available.
           <div className="flex gap-8 mt-6 pb-1">
-            <div>
-              <p className="text-xs font-semibold text-[#E07B39] uppercase tracking-wide">
-                Duration
-              </p>
-              <p className="text-sm text-gray-700 mt-0.5">{course.duration}</p>
-            </div>
-            <div>
-              <p className="text-xs font-semibold text-[#E07B39] uppercase tracking-wide">
-                Schedule
-              </p>
-              <p className="text-sm text-gray-700 mt-0.5">{course.schedule}</p>
-            </div>
+            {course.duration && (
+              <div>
+                <p className="text-xs font-semibold text-[#E07B39] uppercase tracking-wide">
+                  Duration
+                </p>
+                <p className="text-sm text-gray-700 mt-0.5">
+                  {course.duration}
+                </p>
+              </div>
+            )}
+            {course.schedule && (
+              <div>
+                <p className="text-xs font-semibold text-[#E07B39] uppercase tracking-wide">
+                  Schedule
+                </p>
+                <p className="text-sm text-gray-700 mt-0.5">
+                  {course.schedule}
+                </p>
+              </div>
+            )}
           </div>
-          ────────────────────────────────────────────────────────────────── */}
         </div>
 
         {/* Teal circle button — centred in the notch pocket */}
@@ -160,7 +176,6 @@ export default function CourseCard({ course }: CourseCardProps) {
         >
           <ArrowUpRight size={20} strokeWidth={2.5} />
         </div>
-
       </div>
     </div>
   );
