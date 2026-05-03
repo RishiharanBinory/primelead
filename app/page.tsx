@@ -9,6 +9,11 @@ import { WhyChoosePrimeLeed } from "@/components/home/WhyChooseprimeleed";
 import { FAQSection } from "@/components/home/Faq";
 import CtaComponent from "@/components/home/CTA";
 import { ContactSection } from "@/components/mainComponents/Contact";
+import type { Metadata } from 'next'
+export const metadata: Metadata = {
+  title: 'Study in London & Manchester | Prime Leed',
+  description: 'Prime Leed has helped over 2,000 students study in London, Manchester, and across the UK. Contact Us today.',
+}
 
 const page = () => {
   return (

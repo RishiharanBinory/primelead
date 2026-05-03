@@ -16,9 +16,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Primeleed | Secure UK University Placement",
+  title: "Study in London & Manchester | Prime Leed",
   description:
-    "Start your journey in higher education & pursue your passion with Primeleed.",
+    "Prime Leed has helped over 2,000 students study in London, Manchester, and across the UK. Contact Us today.",
 };
 
 export default function RootLayout({

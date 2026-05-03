@@ -8,6 +8,13 @@ import { FAQSection } from "@/components/education_consultancy/Faq";
 import CtaComponent from "@/components/home/CTA";
 import { ContactSection } from "@/components/mainComponents/Contact";
 import Section from "@/components/mainComponents/Section";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Education Agents & Consultancy in London | Prime Leed",
+  description:
+    "Prime Leed education agents help you study in the UK with course selection, applications, personal statements, interviews, and financial aid support. Contact us.",
+};
 
 const page = () => {
   return (

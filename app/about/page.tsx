@@ -5,6 +5,13 @@ import { SupportSection } from "@/components/about/Support";
 import Section from "@/components/mainComponents/Section";
 import CtaComponent from "@/components/home/CTA";
 import HeroSection from "@/components/about/AboutHero";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Study in London & Manchester | Prime Leed",
+  description:
+    "Prime Leed supports students applying for higher education with expert guidance, application support, and personalised advice to secure university placements in the UK.",
+};
 
 const page = () => {
   return (

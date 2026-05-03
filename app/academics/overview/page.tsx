@@ -9,12 +9,19 @@ import { FAQSection } from "@/components/education_consultancy/Faq";
 import { ContactSection } from "@/components/mainComponents/Contact";
 import CtaComponent from "@/components/home/CTA";
 import StatsSection from "@/components/mainComponents/stat";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Degrees in London | Explore Top Universities with Prime Leed",
+  description:
+    "Explore degrees in London with Prime Leed. Discover available courses, get details on university fees, and choose the right program for your future. Contact Us.",
+};
 
 const page = () => {
   return (
     <main>
       <HeroSection />
-      <StatsSection/>
+      <StatsSection />
       <FindCourse />
       <WhyPrimeLeed />
       <Section>
