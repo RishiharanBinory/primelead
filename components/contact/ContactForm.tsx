@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import PhoneInput from "react-phone-input-2";
 import emailjs from "@emailjs/browser";
 import "react-phone-input-2/lib/style.css";
+import { useRouter } from "next/navigation";
 
 import { ContactFormState, ContactFormErrors } from "./types";
 import { validate, ACADEMIC_LEVELS } from "./Validation";
@@ -45,22 +46,6 @@ function Label({
   );
 }
 
-// ── Success ──────────────────────────────────────────────────────────────────
-
-function SuccessState() {
-  return (
-    <div className="flex flex-col items-center justify-center py-20 text-center gap-4">
-      <div className="w-14 h-14 rounded-full bg-[#f0fafb] border-2 border-[#3AAFB9] flex items-center justify-center text-xl text-[#3AAFB9] font-bold">
-        ✓
-      </div>
-      <h4 className="text-lg font-bold text-[#1a1a1a]">Message Sent!</h4>
-      <p className="text-[#888] text-sm max-w-xs">
-        Our advisors will review your enquiry and get back to you shortly.
-      </p>
-    </div>
-  );
-}
-
 // ── Form ─────────────────────────────────────────────────────────────────────
 
 export default function ContactForm() {
@@ -74,8 +59,8 @@ export default function ContactForm() {
 
   const [errors, setErrors] = useState<ContactFormErrors>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
-  const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const handleChange = (field: keyof ContactFormState, value: string) => {
     const updated = { ...form, [field]: value };
@@ -120,7 +105,7 @@ export default function ContactForm() {
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
       );
 
-      setSubmitted(true);
+      router.push("/thank-you");
     } catch (error) {
       console.error("EmailJS error:", error);
       alert("Something went wrong. Please try again or contact us directly.");
@@ -131,8 +116,6 @@ export default function ContactForm() {
 
   const phoneHasError = touched.phone && !!errors.phone;
   const phoneBorder = phoneHasError ? "1px solid #f87171" : "1px solid #e5e5e5";
-
-  if (submitted) return <SuccessState />;
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit} noValidate>
